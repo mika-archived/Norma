@@ -164,6 +164,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Models\AbemaChannels.cs" />
     <Compile Include="Models\CefSetting.cs" />
     <Compile Include="ViewModels\Controls\AbemaHostViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaTVGuideViewModel.cs" />
