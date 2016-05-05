@@ -70,7 +70,8 @@
             </Grid.ColumnDefinitions>
             <controls:AbemaStatus Grid.Column="0"
                                   Margin="5,0,0,0"
-                                  VerticalAlignment="Center" />
+                                  VerticalAlignment="Center"
+                                  DataContext="{Binding StatusBar}" />
             <metro:ResizeGrip Grid.Column="1" />
         </Grid>
     </Grid>

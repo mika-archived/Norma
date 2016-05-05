@@ -9,9 +9,8 @@
              d:DataContext="{d:DesignInstance vm:AbemaStatusViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             mvvm:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
     <Grid>
-        <TextBlock Text="Ready" />
+        <TextBlock Text="{Binding Text}" />
     </Grid>
 </UserControl>
