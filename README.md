@@ -11,7 +11,7 @@ Norma
 
 ## Installation
 
-1. Download binary files from [Releases](./releases). <br />
+1. Download binary files from [Releases](https://github.com/fuyuno/Norma/releases). <br />
    If your OS is 32-bit architecture, please download `x86` binary. 
 2. Extract zip file.
 3. Run `Norma.exe`.
@@ -24,9 +24,9 @@ Norma
 2. Create a branch (`git checkout -b feature/your_add_feature`)
 3. Commit your changes (`git commit -am "Add new feature"`)
 4. Push to the branch (`git push origin HEAD`)
-5. Open a [Pull Request](./pulls)
+5. Open a [Pull Request](https://github.com/fuyuno/Norma/pulls)
 
 
 ## Warning
-** If this application has a problem, please contact me.**  
-** I will delete all artifacts, source codes and repository.**
+**If this application has a problem, please contact me.**  
+**I will delete all artifacts, source codes and repository.**
