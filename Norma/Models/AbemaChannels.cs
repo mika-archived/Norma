@@ -1,4 +1,6 @@
-﻿namespace Norma.Models
+﻿using System;
+
+namespace Norma.Models
 {
     internal enum AbemaChannels
     {
@@ -105,11 +107,79 @@
         /// <summary>
         ///     21ch - 麻雀
         /// </summary>
-        Mahjong,
+        Mahjong
 
         /// <summary>
         ///     22ch - AbemaTV FRESH!
         /// </summary>
-        AbemaTvFresh
+        // AbemaTvFresh
+    }
+
+    internal static class AbemaChannelExt
+    {
+        public static string ToUrlString(this AbemaChannels channel)
+        {
+            switch (channel)
+            {
+                case AbemaChannels.Documentary:
+                case AbemaChannels.Pet:
+                case AbemaChannels.Vice:
+                case AbemaChannels.Anime24:
+                case AbemaChannels.Fishing:
+                case AbemaChannels.Mahjong:
+                    return channel.ToString().ToLower();
+
+                case AbemaChannels.AbemaNews:
+                    return "abema-news";
+
+                case AbemaChannels.AbemaSpecial:
+                    return "abema-special";
+
+                case AbemaChannels.SpecialPlus:
+                    return "special-plus";
+
+                case AbemaChannels.RealityShow:
+                    return "reality-show";
+
+                case AbemaChannels.MtvHits:
+                    return "mtv-hits";
+
+                case AbemaChannels.SpaceShowerMusic:
+                    return "space-shower";
+
+                case AbemaChannels.DramaChannel:
+                    return "drama";
+
+                case AbemaChannels.VarietyChannel:
+                    return "variety";
+
+                case AbemaChannels.ClubChannel:
+                    return "club-channel";
+
+                case AbemaChannels.WorldSports:
+                    return "world-sports";
+
+                case AbemaChannels.YokonoriSports:
+                    return "yokonori-sports";
+
+                case AbemaChannels.MidnightAnime:
+                    return "midnight-anime";
+
+                case AbemaChannels.OldtimeAnime:
+                    return "oldtime-anime";
+
+                case AbemaChannels.FamilyAnime:
+                    return "family-anime";
+
+                case AbemaChannels.EdgeSportHd:
+                    return "edge-sport";
+
+                // case AbemaChannels.AbemaTvFresh:
+                //    return "abematv-fresh";
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(channel), channel, null);
+            }
+        }
     }
 }
