@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Norma.Gamma.Api
 {
     // Reference: https://github.com/fushihara/abema-tvguide/blob/master/abema-onair-schedule/AbemaApi.cs
-    internal class Preload : AbemaTvApiImpl
+    public class Preload : AbemaTvApiImpl
     {
         private static readonly Regex MainjsRegex = new Regex("c=r\\(l\\),f=\"(.+?)\"");
 

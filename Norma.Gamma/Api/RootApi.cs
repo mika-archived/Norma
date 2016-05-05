@@ -6,7 +6,7 @@ using Norma.Gamma.Models;
 
 namespace Norma.Gamma.Api
 {
-    internal class RootApi : AbemaTvApiImpl
+    public class RootApi : AbemaTvApiImpl
     {
         public RootApi(AbemaTv abemaTv) : base(abemaTv)
         {

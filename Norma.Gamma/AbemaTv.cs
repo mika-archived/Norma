@@ -8,13 +8,21 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
+using Norma.Gamma.Api;
+
 namespace Norma.Gamma
 {
     public class AbemaTv
     {
-        public string SecretKey { get; private set; }
+        public string SecretKey { get; set; }
 
-        public string AccessToken { get; private set; }
+        public string AccessToken { get; set; }
+
+        public Preload Preload => new Preload(this);
+
+        public RootApi Root => new RootApi(this);
+
+        public Users Users => new Users(this);
 
         public AbemaTv(string secretKey)
         {
