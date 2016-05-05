@@ -49,6 +49,7 @@
     <Compile Include="AbemaAuthorizationHandler.cs" />
     <Compile Include="Api\AbemaTvApiImpl.cs" />
     <Compile Include="Api\Preload.cs" />
+    <Compile Include="Api\Users.cs" />
     <Compile Include="EndPoints.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\ChannelSchedule.cs" />

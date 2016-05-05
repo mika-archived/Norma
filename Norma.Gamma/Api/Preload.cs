@@ -17,17 +17,17 @@ namespace Norma.Gamma.Api
 
         }
 
-        public async Task<string> GetSecretKey()
+        public async Task<string> GetSecretKey(string deviceId)
         {
             var wc = new WebClient();
             var str = await wc.DownloadStringTaskAsync("https://abema.tv/main.js");
             var match = MainjsRegex.Match(str);
             if (!match.Success)
                 throw new Exception("Cannot get secret key from abematv. Please wait update.");
-            return ComputeSecretKey(match.Groups[0].Value);
+            return ComputeSecretKey(match.Groups[0].Value, deviceId);
         }
 
-        private string ComputeSecretKey(string secretKey)
+        private string ComputeSecretKey(string secretKey, string deviceId)
         {
             var time = DateTime.Now;
             time = time.AddMinutes(-time.Minute).AddSeconds(-time.Second).AddHours(1).ToUniversalTime();
@@ -36,7 +36,7 @@ namespace Norma.Gamma.Api
             var hash = hmacsha256.ComputeHash(GetByteChars(secretKey));
             for (var i = 0; i < time.Month; i++)
                 hash = hmacsha256.ComputeHash(hash);
-            hash = hmacsha256.ComputeHash(GetByteChars(ComputeB64(hash) + Guid.NewGuid().ToByteArray()));
+            hash = hmacsha256.ComputeHash(GetByteChars(ComputeB64(hash) + deviceId));
             for (var i = 0; i < time.Day % 5; i++)
                 hash = hmacsha256.ComputeHash(hash);
             hash = hmacsha256.ComputeHash(GetByteChars(ComputeB64(hash) + new DateTimeOffset(time).ToUnixTimeSeconds()));

@@ -18,7 +18,8 @@ namespace Norma.Gamma
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
                                                                CancellationToken cancellationToken)
         {
-            request.Headers.Add("Authorization", "Bearer " + _abemaApi.AccessToken);
+            if (!string.IsNullOrWhiteSpace(_abemaApi.AccessToken))
+                request.Headers.Add("Authorization", "Bearer " + _abemaApi.AccessToken);
             return base.SendAsync(request, cancellationToken);
         }
 
