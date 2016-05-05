@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 
+using Norma.Models;
+
 namespace Norma
 {
     /// <summary>
@@ -12,6 +14,8 @@ namespace Norma
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            CefSetting.Init();
 
             var bootstrap = new Bootstrapper();
             bootstrap.Run();

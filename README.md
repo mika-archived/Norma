@@ -7,7 +7,7 @@ Norma
 
 * Microsoft .NET Framework 4.6.1
 * Visual C++ Redistributable Packages for Visual Studio 2013
-
+* Adobe Flash Player FP 21 for Opera and Chromium - PPAPI
 
 ## Installation
 

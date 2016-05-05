@@ -3,6 +3,7 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:actions="clr-namespace:Norma.Actions"
                    xmlns:chrome="http://schemes.grabacr.net/winfx/2014/chrome"
+                   xmlns:controls="clr-namespace:Norma.Views.Controls"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    xmlns:local="clr-namespace:Norma.Views"
@@ -11,13 +12,13 @@
                    xmlns:mvvm="http://prismlibrary.com/"
                    xmlns:viewModels="clr-namespace:Norma.ViewModels"
                    Title="{Binding Title}"
-                   Width="300"
-                   Height="300"
+                   Width="920"
+                   Height="700"
                    d:DataContext="{d:DesignInstance viewModels:ShellViewModel}"
                    mvvm:ViewModelLocator.AutoWireViewModel="True"
                    Background="{DynamicResource ThemeBrushKey}"
                    FontFamily="Segoe UI"
-                   IsRestoringWindowPlacement="True"
+                   IsRestoringWindowPlacement="False"
                    TextOptions.TextFormattingMode="Display"
                    UseLayoutRounding="True"
                    mc:Ignorable="d">
@@ -59,6 +60,7 @@
                 <metro:SystemButtons Grid.Column="2" VerticalAlignment="Top" />
             </Grid>
         </Border>
+        <controls:AbemaHost Grid.Row="1" />
         <Grid Grid.Row="2" Background="{DynamicResource AccentBrushKey}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

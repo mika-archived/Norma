@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 using MetroRadiance.UI.Controls;
 
@@ -17,7 +18,7 @@ namespace Norma.Views
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            Environment.Exit(0); // なぜか終了しない。
+            Application.Current.Shutdown(); // なぜか終了しない。
         }
     }
 }

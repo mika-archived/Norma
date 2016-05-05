@@ -164,8 +164,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Models\CefSetting.cs" />
+    <Compile Include="ViewModels\Controls\AbemaHostViewModel.cs" />
     <Compile Include="ViewModels\Internal\ViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\Controls\AbemaHost.xaml.cs">
+      <DependentUpon>AbemaHost.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
@@ -199,14 +204,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\Controls\AbemaHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Shell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\cef.redist.x64.3.2623.1396\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2623.1396\build\cef.redist.x64.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
