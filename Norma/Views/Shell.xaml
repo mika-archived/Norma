@@ -12,7 +12,7 @@
                    xmlns:mvvm="http://prismlibrary.com/"
                    xmlns:viewModels="clr-namespace:Norma.ViewModels"
                    Title="{Binding Title}"
-                   Width="920"
+                   Width="1020"
                    Height="700"
                    d:DataContext="{d:DesignInstance viewModels:ShellViewModel}"
                    mvvm:ViewModelLocator.AutoWireViewModel="True"
@@ -34,6 +34,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="150" />
             <RowDefinition Height="23" />
         </Grid.RowDefinitions>
 
@@ -61,7 +62,8 @@
             </Grid>
         </Border>
         <controls:AbemaHost Grid.Row="1" />
-        <Grid Grid.Row="2" Background="{DynamicResource AccentBrushKey}">
+        <controls:AbemaTVGuide Grid.Row="2" />
+        <Grid Grid.Row="3" Background="{DynamicResource AccentBrushKey}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />

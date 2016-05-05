@@ -166,10 +166,14 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\CefSetting.cs" />
     <Compile Include="ViewModels\Controls\AbemaHostViewModel.cs" />
+    <Compile Include="ViewModels\Controls\AbemaTVGuideViewModel.cs" />
     <Compile Include="ViewModels\Internal\ViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\Controls\AbemaHost.xaml.cs">
       <DependentUpon>AbemaHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\AbemaTVGuide.xaml.cs">
+      <DependentUpon>AbemaTVGuide.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
@@ -205,6 +209,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\Controls\AbemaHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\AbemaTVGuide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

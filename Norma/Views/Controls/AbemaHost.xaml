@@ -14,9 +14,8 @@
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
     <Grid>
-        <cefSharp:ChromiumWebBrowser x:Name="Browser"
-                                     Grid.Row="0"
-                                     Address="http://www.google.com"
+        <cefSharp:ChromiumWebBrowser Grid.Row="0"
+                                     Address="https://abema.tv"
                                      RenderOptions.BitmapScalingMode="Linear"
                                      WebBrowser="{Binding WebBrowser,
                                                           Mode=OneWayToSource}" />

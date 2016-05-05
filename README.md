@@ -1,6 +1,7 @@
 Norma
 ----
-"Norma" is unoffcial desktop application for [AbamaTV](https://abema.tv).
+"Norma" is unoffcial desktop application for [AbamaTV](https://abema.tv).  
+This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).
 
 
 ## Requirements
@@ -9,6 +10,7 @@ Norma
 * Visual C++ Redistributable Packages for Visual Studio 2013
 * Adobe Flash Player FP 21 for Opera and Chromium - PPAPI
 
+
 ## Installation
 
 1. Download binary files from [Releases](https://github.com/fuyuno/Norma/releases). <br />
@@ -16,6 +18,14 @@ Norma
 2. Extract zip file.
 3. Run `Norma.exe`.
 4. Enjoy AbemaTV!
+
+
+## References
+This application reference below resources.  
+Very thanks!
+
+* [AbemaTVChromeExtension](https://github.com/nakayuki805/AbemaTVChromeExtension)
+* [abema-tvguide](https://github.com/fushihara/abema-tvguide)
 
 
 ## Contributing
