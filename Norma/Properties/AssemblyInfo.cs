@@ -8,11 +8,11 @@ using System.Windows;
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
 [assembly: AssemblyTitle("Norma")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Unofficial AbemaTV Desktop Client")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Norma")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © Mikazuki 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
