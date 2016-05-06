@@ -1,7 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 using CefSharp;
 using CefSharp.Wpf;
+
+using Prism.Mvvm;
 
 namespace Norma.Models
 {
@@ -9,7 +14,7 @@ namespace Norma.Models
     // Not support features are:
     //  * CM related features.
     //  * Comment related features.
-    internal class OnAirPageJavaScriptHost
+    internal class OnAirPageJavaScriptHost : BindableBase
     {
         private readonly IWpfWebBrowser _wpfWebBrowser;
 
@@ -22,8 +27,10 @@ namespace Norma.Models
             _wpfWebBrowser.ConsoleMessage += (sender, e) => Debug.WriteLine("[Chromium]" + e.Message);
             _wpfWebBrowser.FrameLoadEnd += (sender, e) =>
             {
-                if (Address.StartsWith("https://abema.tv/now-on-air/"))
-                    Run();
+                if (!Address.StartsWith("https://abema.tv/now-on-air/"))
+                    return;
+                Run();
+                Observable.Return(1).Delay(TimeSpan.FromSeconds(1)).Subscribe(w => RunLater());
             };
         }
 
@@ -34,6 +41,11 @@ namespace Norma.Models
             HideTvContainerHeader();
             HideTvContainerFooter();
             HideTvContainerSide();
+        }
+
+        private void RunLater()
+        {
+            GetTitleInfo();
         }
 
         private void DisableChangeChannelByMouseScroll()
@@ -79,16 +91,52 @@ setTimeout(cs_HideTvContainerFooter, 500);
         private void HideTvContainerSide()
         {
             const string jsCode = @"
-function cs_HideTvContainerFooter() {
-  var appContainerFooter = window.document.querySelector('[class^=""TVContainer__side___""]');
-  if (appContainerFooter == null) {
+function cs_HideTvContainerSide() {
+  var appContainerSide = window.document.querySelector('[class^=""TVContainer__side___""]');
+  if (appContainerSide == null) {
     return;
   }
-  appContainerFooter.style.display = 'none';
+  appContainerSide.style.display = 'none';
 };
-setTimeout(cs_HideTvContainerFooter, 500);
+setTimeout(cs_HideTvContainerSide, 500);
 ";
             _wpfWebBrowser.ExecuteScriptAsync(jsCode);
         }
+
+        private void GetTitleInfo()
+        {
+            const string jsCode = @"
+(function () {
+  var appContainerHeading = window.document.querySelector('[class^=""style__heading2___""]');
+  if (appContainerHeading == null) {
+    return 'null';
+  }
+  return appContainerHeading.innerHTML;
+})();
+";
+            var task = _wpfWebBrowser.EvaluateScriptAsync(jsCode, null);
+            task.ContinueWith(w =>
+            {
+                if (w.IsFaulted)
+                    return;
+                var response = task.Result;
+                var title = response.Success ? response.Result.ToString() : response.Message;
+                if (string.IsNullOrWhiteSpace(title) || title == "null")
+                    return;
+                Title = $"{title} - Norma";
+            }, TaskScheduler.Default);
+        }
+
+        #region Title
+
+        private string _title;
+
+        public string Title
+        {
+            get { return _title; }
+            set { SetProperty(ref _title, value); }
+        }
+
+        #endregion
     }
 }

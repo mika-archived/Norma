@@ -12,8 +12,8 @@ namespace Norma.ViewModels
 
         public ShellViewModel()
         {
-            Title = "Norma - AbemaTV";
-            HostViewModel = new AbemaHostViewModel();
+            Title = "AbemaTV Start Page - Norma";
+            HostViewModel = new AbemaHostViewModel(this);
             TvGuideViewModel = new AbemaTVGuideViewModel(this);
             StatusBar = new AbemaStatusViewModel();
         }
