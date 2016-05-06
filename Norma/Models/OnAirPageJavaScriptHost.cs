@@ -33,6 +33,7 @@ namespace Norma.Models
             DisableChangeChannelByMouseScroll();
             HideTvContainerHeader();
             HideTvContainerFooter();
+            HideTvContainerSide();
         }
 
         private void DisableChangeChannelByMouseScroll()
@@ -65,6 +66,21 @@ setTimeout(cs_HideTvContainerHeader, 500);
             const string jsCode = @"
 function cs_HideTvContainerFooter() {
   var appContainerFooter = window.document.querySelector('[class^=""TVContainer__footer-container___""]');
+  if (appContainerFooter == null) {
+    return;
+  }
+  appContainerFooter.style.display = 'none';
+};
+setTimeout(cs_HideTvContainerFooter, 500);
+";
+            _wpfWebBrowser.ExecuteScriptAsync(jsCode);
+        }
+
+        private void HideTvContainerSide()
+        {
+            const string jsCode = @"
+function cs_HideTvContainerFooter() {
+  var appContainerFooter = window.document.querySelector('[class^=""TVContainer__side___""]');
   if (appContainerFooter == null) {
     return;
   }
