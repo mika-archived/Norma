@@ -18,7 +18,7 @@ namespace Norma.Models
 
             UpdateThumbnail();
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(60)).Subscribe(w => UpdateThumbnail());
-                // 1分毎にサムネ更新
+            // 1分毎にサムネ更新
         }
 
         #region Implementation of IDisposable
@@ -36,7 +36,7 @@ namespace Norma.Models
             var date = DateTime.Now;
             if (date.Second % 10 != 0)
                 date = date.AddSeconds(-(date.Second % 10)); // サムネイルが10秒に発行されるので、N % 10 == 0秒に修正する
-            var time = date.ToString("yyyyMMddhhmmss");
+            var time = date.ToString("yyyyMMddHHmmss");
             ThumbnailUrl = $"https://hayabusa.io/abema/channels/time/{time}/{channel}.w132.h75.png";
         }
 
