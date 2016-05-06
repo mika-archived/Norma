@@ -14,7 +14,8 @@
              mc:Ignorable="d">
     <Grid>
         <cefSharp:ChromiumWebBrowser Grid.Row="0"
-                                     Address="https://abema.tv"
+                                     Address="{Binding Address,
+                                                       Mode=TwoWay}"
                                      RenderOptions.BitmapScalingMode="Linear"
                                      WebBrowser="{Binding WebBrowser,
                                                           Mode=OneWayToSource}" />

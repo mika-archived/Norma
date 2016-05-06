@@ -20,6 +20,12 @@ namespace Norma.ViewModels.TVGuide
             channel.Subscribe(nameof(Channel.ThumbnailUrl), w => ThumbnailUrl = channel.ThumbnailUrl).AddTo(this);
         }
 
+        // CallMethodAction
+        public void ChannelClick()
+        {
+            _parentViewModel.HostViewModel.Address = $"https://abema.tv/now-on-air/{_model.ChannelType.ToUrlString()}";
+        }
+
         #region ThumbnailUrl
 
         private string _thumbnailUrl;

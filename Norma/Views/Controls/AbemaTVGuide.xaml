@@ -1,8 +1,11 @@
 ﻿<UserControl x:Class="Norma.Views.Controls.AbemaTVGuide"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:actions="clr-namespace:Norma.Actions"
              xmlns:controls="clr-namespace:Norma.ViewModels.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:Norma.Views.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mvvm="http://prismlibrary.com/"
@@ -27,6 +30,11 @@
                               Height="150"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Top">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                    <ei:CallMethodAction MethodName="ChannelClick" TargetObject="{Binding}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <Image Width="265"
                                    Height="150"
                                    Source="{Binding ThumbnailUrl,
