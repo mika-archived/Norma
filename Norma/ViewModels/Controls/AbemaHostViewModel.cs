@@ -7,12 +7,22 @@ namespace Norma.ViewModels.Controls
     // ReSharper disable once ClassNeverInstantiated.Global
     internal class AbemaHostViewModel : ViewModel
     {
-        public IWpfWebBrowser WebBrowser { get; set; }
-
         public AbemaHostViewModel()
         {
             Address = "https://abema.tv/";
         }
+
+        #region WebBrowser
+
+        private IWpfWebBrowser _webBrowser;
+
+        public IWpfWebBrowser WebBrowser
+        {
+            get { return _webBrowser; }
+            set { SetProperty(ref _webBrowser, value); }
+        }
+
+        #endregion
 
         #region Address
 

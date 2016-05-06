@@ -37,7 +37,7 @@
                             </i:Interaction.Triggers>
                             <Image Width="265"
                                    Height="150"
-                                   Source="{Binding ThumbnailUrl,
+                                   Source="{Binding ThumbnailUrl.Value,
                                                     Mode=OneWay}" />
                             <Border Background="Black" Opacity="0.5" />
                             <Image Width="120"

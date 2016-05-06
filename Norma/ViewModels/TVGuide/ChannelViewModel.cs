@@ -1,7 +1,8 @@
-﻿using Norma.Extensions;
-using Norma.Helpers;
-using Norma.Models;
+﻿using Norma.Models;
 using Norma.ViewModels.Internal;
+
+using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 
 namespace Norma.ViewModels.TVGuide
 {
@@ -11,13 +12,13 @@ namespace Norma.ViewModels.TVGuide
         private readonly ShellViewModel _parentViewModel;
 
         public string LogoUrl => _model.LogoUrl;
+        public ReactiveProperty<string> ThumbnailUrl { get; private set; }
 
         public ChannelViewModel(ShellViewModel parentViewModel, Channel channel)
         {
             _parentViewModel = parentViewModel;
             _model = channel;
-
-            channel.Subscribe(nameof(Channel.ThumbnailUrl), w => ThumbnailUrl = channel.ThumbnailUrl).AddTo(this);
+            ThumbnailUrl = _model.ObserveProperty(x => x.ThumbnailUrl).ToReactiveProperty();
         }
 
         // CallMethodAction
@@ -25,17 +26,5 @@ namespace Norma.ViewModels.TVGuide
         {
             _parentViewModel.HostViewModel.Address = $"https://abema.tv/now-on-air/{_model.ChannelType.ToUrlString()}";
         }
-
-        #region ThumbnailUrl
-
-        private string _thumbnailUrl;
-
-        public string ThumbnailUrl
-        {
-            get { return _thumbnailUrl; }
-            set { SetProperty(ref _thumbnailUrl, value); }
-        }
-
-        #endregion
     }
 }
