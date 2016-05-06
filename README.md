@@ -1,6 +1,6 @@
 Norma
 ----
-"Norma" is unoffcial desktop application for [AbamaTV](https://abema.tv).  
+"Norma" is unoffcial desktop application for [AbemaTV](https://abema.tv).  
 This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).
 
 
