@@ -9,7 +9,7 @@ namespace Norma.ViewModels.Internal
 {
     internal class ViewModel : BindableBase, IDisposable
     {
-        protected CompositeDisposable CompositeDisposable { get; }
+        protected internal CompositeDisposable CompositeDisposable { get; }
         protected Dispatcher Dispatcher { get; }
 
         protected ViewModel()

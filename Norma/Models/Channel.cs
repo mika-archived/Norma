@@ -16,9 +16,8 @@ namespace Norma.Models
             ChannelType = channel;
             LogoUrl = $"https://hayabusa.io/abema/channels/logo/{ChannelType.ToUrlString()}.w120.png";
 
-            UpdateThumbnail();
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(60)).Subscribe(w => UpdateThumbnail());
             // 1分毎にサムネ更新
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(30)).Subscribe(w => UpdateThumbnail());
         }
 
         #region Implementation of IDisposable

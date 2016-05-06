@@ -6,9 +6,15 @@ namespace Norma.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     internal class ShellViewModel : ViewModel
     {
+        public AbemaHostViewModel HostViewModel { get; }
+        public AbemaTVGuideViewModel TvGuideViewModel { get; }
+        public AbemaStatusViewModel StatusBar { get; }
+
         public ShellViewModel()
         {
             Title = "Norma - AbemaTV";
+            HostViewModel = new AbemaHostViewModel();
+            TvGuideViewModel = new AbemaTVGuideViewModel(this);
             StatusBar = new AbemaStatusViewModel();
         }
 
@@ -20,18 +26,6 @@ namespace Norma.ViewModels
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
-        }
-
-        #endregion
-
-        #region AbemaStatusViewModel
-
-        private AbemaStatusViewModel _abemaStatusViewModel;
-
-        public AbemaStatusViewModel StatusBar
-        {
-            get { return _abemaStatusViewModel; }
-            set { SetProperty(ref _abemaStatusViewModel, value); }
         }
 
         #endregion

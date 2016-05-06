@@ -8,9 +8,5 @@ namespace Norma.ViewModels.Controls
     internal class AbemaHostViewModel : ViewModel
     {
         public IWpfWebBrowser WebBrowser { get; set; }
-
-        public AbemaHostViewModel()
-        {
-        }
     }
 }

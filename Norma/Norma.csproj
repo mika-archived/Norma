@@ -164,6 +164,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Extensions\IDisposableExt.cs" />
+    <Compile Include="Helpers\ViewModelHelper.cs" />
     <Compile Include="Models\AbemaChannels.cs" />
     <Compile Include="Models\CefSetting.cs" />
     <Compile Include="Models\Channel.cs" />
@@ -172,6 +174,7 @@
     <Compile Include="ViewModels\Controls\AbemaTVGuideViewModel.cs" />
     <Compile Include="ViewModels\Internal\ViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="ViewModels\TVGuide\ChannelViewModel.cs" />
     <Compile Include="Views\Controls\AbemaHost.xaml.cs">
       <DependentUpon>AbemaHost.xaml</DependentUpon>
     </Compile>

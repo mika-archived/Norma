@@ -3,19 +3,20 @@ using System.Collections.ObjectModel;
 
 using Norma.Models;
 using Norma.ViewModels.Internal;
+using Norma.ViewModels.TVGuide;
 
 namespace Norma.ViewModels.Controls
 {
     // ReSharper disable once InconsistentNaming
     internal class AbemaTVGuideViewModel : ViewModel
     {
-        public ObservableCollection<Channel> ChannnelCollection { get; }
+        public ObservableCollection<ChannelViewModel> ChannnelCollection { get; }
 
-        public AbemaTVGuideViewModel()
+        public AbemaTVGuideViewModel(ShellViewModel parentViewModel)
         {
-            ChannnelCollection = new ObservableCollection<Channel>();
+            ChannnelCollection = new ObservableCollection<ChannelViewModel>();
             foreach (var value in Enum.GetValues(typeof(AbemaChannels)))
-                ChannnelCollection.Add(new Channel((AbemaChannels) value));
+                ChannnelCollection.Add(new ChannelViewModel(parentViewModel, new Channel((AbemaChannels) value)));
         }
     }
 }

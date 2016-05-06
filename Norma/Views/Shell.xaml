@@ -61,8 +61,8 @@
                 <metro:SystemButtons Grid.Column="2" VerticalAlignment="Top" />
             </Grid>
         </Border>
-        <controls:AbemaHost Grid.Row="1" />
-        <controls:AbemaTVGuide Grid.Row="2" />
+        <controls:AbemaHost Grid.Row="1" DataContext="{Binding HostViewModel}" />
+        <controls:AbemaTVGuide Grid.Row="2" DataContext="{Binding TvGuideViewModel}" />
         <Grid Grid.Row="3" Background="{DynamicResource AccentBrushKey}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
