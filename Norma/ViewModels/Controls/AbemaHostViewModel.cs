@@ -12,6 +12,12 @@ namespace Norma.ViewModels.Controls
             Address = "https://abema.tv/";
         }
 
+        private void WebBrowserInitialized()
+        {
+            if (WebBrowser == null)
+                return;
+        }
+
         #region WebBrowser
 
         private IWpfWebBrowser _webBrowser;
@@ -19,7 +25,11 @@ namespace Norma.ViewModels.Controls
         public IWpfWebBrowser WebBrowser
         {
             get { return _webBrowser; }
-            set { SetProperty(ref _webBrowser, value); }
+            set
+            {
+                if (SetProperty(ref _webBrowser, value))
+                    WebBrowserInitialized();
+            }
         }
 
         #endregion
