@@ -24,6 +24,7 @@ namespace Norma.Models
         private void Run()
         {
             DisableChangeChannelByMouseScroll();
+            HideTvContainerHeader();
         }
 
         private void DisableChangeChannelByMouseScroll()
@@ -32,6 +33,21 @@ namespace Norma.Models
 window.addEventListener('mousewheel', function(e) {
   e.stopImmediatePropagation();
 }, true);
+";
+            _wpfWebBrowser.ExecuteScriptAsync(jsCode);
+        }
+
+        private void HideTvContainerHeader()
+        {
+            const string jsCode = @"
+function cs_HideTvContainerHeader() {
+  var appContainerHeader = window.document.querySelector('[class^=""AppContainer__header-container___""]');
+  if (appContainerHeader == null) {
+    return;
+  }
+  appContainerHeader.style.display = 'none';
+};
+setTimeout(cs_HideTvContainerHeader, 1000);
 ";
             _wpfWebBrowser.ExecuteScriptAsync(jsCode);
         }
