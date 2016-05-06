@@ -45,7 +45,11 @@ namespace Norma.ViewModels.Controls
         public string Address
         {
             get { return _address; }
-            set { SetProperty(ref _address, value); }
+            set
+            {
+                if (SetProperty(ref _address, value) && _javaScritHost != null)
+                    _javaScritHost.Address = value;
+            }
         }
 
         #endregion

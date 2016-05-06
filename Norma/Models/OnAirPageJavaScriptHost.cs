@@ -13,11 +13,18 @@ namespace Norma.Models
     {
         private readonly IWpfWebBrowser _wpfWebBrowser;
 
+        public string Address { get; set; }
+
         public OnAirPageJavaScriptHost(IWpfWebBrowser wpfWebBrowser)
         {
             _wpfWebBrowser = wpfWebBrowser;
+            Address = "";
             _wpfWebBrowser.ConsoleMessage += (sender, e) => Debug.WriteLine("[Chromium]" + e.Message);
-            _wpfWebBrowser.FrameLoadEnd += (sender, e) => Run();
+            _wpfWebBrowser.FrameLoadEnd += (sender, e) =>
+            {
+                if (Address.StartsWith("https://abema.tv/now-on-air/"))
+                    Run();
+            };
         }
 
         // TODO: Toggle enable/disable features by settings.
@@ -25,6 +32,7 @@ namespace Norma.Models
         {
             DisableChangeChannelByMouseScroll();
             HideTvContainerHeader();
+            HideTvContainerFooter();
         }
 
         private void DisableChangeChannelByMouseScroll()
@@ -47,7 +55,22 @@ function cs_HideTvContainerHeader() {
   }
   appContainerHeader.style.display = 'none';
 };
-setTimeout(cs_HideTvContainerHeader, 1000);
+setTimeout(cs_HideTvContainerHeader, 500);
+";
+            _wpfWebBrowser.ExecuteScriptAsync(jsCode);
+        }
+
+        private void HideTvContainerFooter()
+        {
+            const string jsCode = @"
+function cs_HideTvContainerFooter() {
+  var appContainerFooter = window.document.querySelector('[class^=""TVContainer__footer-container___""]');
+  if (appContainerFooter == null) {
+    return;
+  }
+  appContainerFooter.style.display = 'none';
+};
+setTimeout(cs_HideTvContainerFooter, 500);
 ";
             _wpfWebBrowser.ExecuteScriptAsync(jsCode);
         }
