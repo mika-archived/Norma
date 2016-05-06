@@ -1,5 +1,6 @@
 ﻿using CefSharp.Wpf;
 
+using Norma.Models;
 using Norma.ViewModels.Internal;
 
 namespace Norma.ViewModels.Controls
@@ -7,6 +8,8 @@ namespace Norma.ViewModels.Controls
     // ReSharper disable once ClassNeverInstantiated.Global
     internal class AbemaHostViewModel : ViewModel
     {
+        private OnAirPageJavaScriptHost _javaScritHost;
+
         public AbemaHostViewModel()
         {
             Address = "https://abema.tv/";
@@ -16,6 +19,7 @@ namespace Norma.ViewModels.Controls
         {
             if (WebBrowser == null)
                 return;
+            _javaScritHost = new OnAirPageJavaScriptHost(WebBrowser);
         }
 
         #region WebBrowser
