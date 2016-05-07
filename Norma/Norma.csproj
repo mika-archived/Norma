@@ -173,6 +173,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Actions\DataContextDisposeAction.cs" />
+    <Compile Include="Actions\TransitionInteractionMessageAction.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -180,6 +181,8 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Extensions\IDisposableExt.cs" />
     <Compile Include="Helpers\ViewModelHelper.cs" />
+    <Compile Include="Interactivity\InteractionRequest2.cs" />
+    <Compile Include="Interactivity\InteractionRequestedEventArgs2.cs" />
     <Compile Include="Models\AbemaChannels.cs" />
     <Compile Include="Models\CefSetting.cs" />
     <Compile Include="Models\Channel.cs" />
@@ -201,6 +204,9 @@
     </Compile>
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TimetableWindow.xaml.cs">
+      <DependentUpon>TimetableWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +251,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TimetableWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

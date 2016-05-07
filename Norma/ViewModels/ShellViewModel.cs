@@ -1,5 +1,11 @@
-﻿using Norma.ViewModels.Controls;
+﻿using System.Windows.Input;
+
+using Norma.Interactivity;
+using Norma.ViewModels.Controls;
 using Norma.ViewModels.Internal;
+using Norma.Views;
+
+using Prism.Commands;
 
 namespace Norma.ViewModels
 {
@@ -9,6 +15,7 @@ namespace Norma.ViewModels
         public AbemaHostViewModel HostViewModel { get; }
         public AbemaTVGuideViewModel TvGuideViewModel { get; }
         public AbemaStatusViewModel StatusBar { get; }
+        public InteractionRequest2 TransitionRequest { get; }
 
         public ShellViewModel()
         {
@@ -16,7 +23,22 @@ namespace Norma.ViewModels
             HostViewModel = new AbemaHostViewModel(this);
             TvGuideViewModel = new AbemaTVGuideViewModel(this);
             StatusBar = new AbemaStatusViewModel();
+            TransitionRequest = new InteractionRequest2();
         }
+
+        #region OpenTimetableCommand
+
+        private ICommand _openTimetableCommand;
+
+        public ICommand OpenTImetableCommand
+            => _openTimetableCommand ?? (_openTimetableCommand = new DelegateCommand(OpenTimetable));
+
+        private void OpenTimetable()
+        {
+            TransitionRequest.Raise(typeof(TimetableWindow));
+        }
+
+        #endregion
 
         #region Title
 

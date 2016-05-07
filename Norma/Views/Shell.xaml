@@ -9,13 +9,13 @@
                    xmlns:local="clr-namespace:Norma.Views"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
-                   xmlns:mvvm="http://prismlibrary.com/"
+                   xmlns:prism="http://prismlibrary.com/"
                    xmlns:viewModels="clr-namespace:Norma.ViewModels"
                    Title="{Binding Title}"
                    Width="1344"
                    Height="783"
                    d:DataContext="{d:DesignInstance viewModels:ShellViewModel}"
-                   mvvm:ViewModelLocator.AutoWireViewModel="True"
+                   prism:ViewModelLocator.AutoWireViewModel="True"
                    Background="{DynamicResource ThemeBrushKey}"
                    FontFamily="Segoe UI"
                    IsRestoringWindowPlacement="False"
@@ -29,6 +29,9 @@
         <i:EventTrigger EventName="Closed">
             <actions:DataContextDisposeAction />
         </i:EventTrigger>
+        <prism:InteractionRequestTrigger SourceObject="{Binding TransitionRequest}">
+            <actions:TransitionInteractionMessageAction />
+        </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
@@ -58,7 +61,15 @@
                            Foreground="{DynamicResource ForegroundBrushKey}"
                            Text="{Binding Title}"
                            TextTrimming="CharacterEllipsis" />
-                <metro:SystemButtons Grid.Column="2" VerticalAlignment="Top" />
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <metro:CaptionButton Width="60"
+                                         Margin="10,0"
+                                         VerticalAlignment="Top"
+                                         Command="{Binding OpenTImetableCommand}"
+                                         Content="番組表"
+                                         FontFamily="Segoe UI Light" />
+                    <metro:SystemButtons VerticalAlignment="Top" />
+                </StackPanel>
             </Grid>
         </Border>
         <controls:AbemaHost Grid.Row="1" DataContext="{Binding HostViewModel}" />
