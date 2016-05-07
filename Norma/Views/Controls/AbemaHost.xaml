@@ -15,11 +15,16 @@
              d:DesignWidth="300"
              mc:Ignorable="d">
     <Grid>
-        <cefSharp:ChromiumWebBrowser Grid.Row="0"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="320" />
+        </Grid.ColumnDefinitions>
+        <cefSharp:ChromiumWebBrowser Grid.Column="0"
                                      Address="{Binding Address,
                                                        Mode=TwoWay}"
                                      RenderOptions.BitmapScalingMode="Linear"
                                      WebBrowser="{Binding WebBrowser,
                                                           Mode=OneWayToSource}" />
+        <TextBlock Grid.Column="1" Text="Hello comments" />
     </Grid>
 </UserControl>
