@@ -56,6 +56,10 @@ namespace Norma.Models
 
         private void RunLater()
         {
+            // 1秒遅らせている都合上、 null になることがある
+            if (_wpfWebBrowser == null)
+                return;
+
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(10)).Subscribe(w => GetTitleInfo());
         }
 
