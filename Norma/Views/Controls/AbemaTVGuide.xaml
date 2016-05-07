@@ -8,6 +8,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:Norma.Views.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
              xmlns:mvvm="http://prismlibrary.com/"
              d:DataContext="{d:DesignInstance controls:AbemaTVGuideViewModel}"
              d:DesignHeight="167.5"
@@ -35,6 +36,12 @@
                                     <ei:CallMethodAction MethodName="ChannelClick" TargetObject="{Binding}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
+                            <metro:ProgressRing Width="80"
+                                                Height="80"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                EllipseDiameter="5"
+                                                EllipseOffset="0,21,0,0" />
                             <Image Width="265"
                                    Height="150"
                                    Source="{Binding ThumbnailUrl.Value,
