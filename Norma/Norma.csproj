@@ -186,6 +186,7 @@
     <Compile Include="Models\AbemaChannels.cs" />
     <Compile Include="Models\CefSetting.cs" />
     <Compile Include="Models\Channel.cs" />
+    <Compile Include="Models\CommentHost.cs" />
     <Compile Include="Models\OnAirPageJavaScriptHost.cs" />
     <Compile Include="ViewModels\Controls\AbemaCommentViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaStatusViewModel.cs" />

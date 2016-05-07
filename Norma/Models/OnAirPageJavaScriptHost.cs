@@ -60,7 +60,7 @@ namespace Norma.Models
             if (_wpfWebBrowser == null)
                 return;
 
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(10)).Subscribe(w => GetTitleInfo());
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(w => GetTitleInfo());
         }
 
         private void DisableChangeChannelByMouseScroll()
@@ -135,10 +135,10 @@ setTimeout(cs_HideTvContainerSide, 500);
                 if (w.IsFaulted)
                     return;
                 var response = task.Result;
-                var title = response.Success ? response.Result.ToString() : response.Message;
-                if (string.IsNullOrWhiteSpace(title) || title == "null")
-                    return;
-                Title = $"{title} - Norma";
+                if (!response.Success || response.Result.ToString() == "null")
+                    Title = "(CM) - Norma";
+                else
+                    Title = $"{response.Result.ToString()} - Norma";
             }, TaskScheduler.Default);
         }
 
