@@ -14,9 +14,10 @@ namespace Norma.Models
     // Not support features are:
     //  * CM related features.
     //  * Comment related features.
-    internal class OnAirPageJavaScriptHost : BindableBase
+    internal class OnAirPageJavaScriptHost : BindableBase, IDisposable
     {
         private readonly IWpfWebBrowser _wpfWebBrowser;
+        private IDisposable _disposable;
 
         public string Address { get; set; }
 
@@ -25,6 +26,7 @@ namespace Norma.Models
             _wpfWebBrowser = wpfWebBrowser;
             Address = "";
             _wpfWebBrowser.ConsoleMessage += (sender, e) => Debug.WriteLine("[Chromium]" + e.Message);
+            _wpfWebBrowser.FrameLoadStart += (sender, e) => _disposable?.Dispose();
             _wpfWebBrowser.FrameLoadEnd += (sender, e) =>
             {
                 if (!Address.StartsWith("https://abema.tv/now-on-air/"))
@@ -33,6 +35,15 @@ namespace Norma.Models
                 Observable.Return(1).Delay(TimeSpan.FromSeconds(1)).Subscribe(w => RunLater());
             };
         }
+
+        #region Implementation of IDisposable
+
+        public void Dispose()
+        {
+            _disposable.Dispose();
+        }
+
+        #endregion
 
         // TODO: Toggle enable/disable features by settings.
         private void Run()
@@ -45,7 +56,7 @@ namespace Norma.Models
 
         private void RunLater()
         {
-            GetTitleInfo();
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(10)).Subscribe(w => GetTitleInfo());
         }
 
         private void DisableChangeChannelByMouseScroll()

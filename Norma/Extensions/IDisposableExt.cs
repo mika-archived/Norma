@@ -11,5 +11,11 @@ namespace Norma.Extensions
         {
             viewmodel.CompositeDisposable.Add(disposable);
         }
+
+        public static T AddTo<T>(this T disposable, ViewModel viewmodel) where T : IDisposable
+        {
+            viewmodel.CompositeDisposable.Add(disposable);
+            return disposable;
+        }
     }
 }
