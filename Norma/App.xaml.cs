@@ -16,6 +16,7 @@ namespace Norma
             base.OnStartup(e);
 
             CefSetting.Init();
+            AbemaApiHost.Instance.Initialize();
 
             var bootstrap = new Bootstrapper();
             bootstrap.Run();

@@ -183,6 +183,7 @@
     <Compile Include="Helpers\ViewModelHelper.cs" />
     <Compile Include="Interactivity\InteractionRequest2.cs" />
     <Compile Include="Interactivity\InteractionRequestedEventArgs2.cs" />
+    <Compile Include="Models\AbemaApiHost.cs" />
     <Compile Include="Models\AbemaChannels.cs" />
     <Compile Include="Models\CefSetting.cs" />
     <Compile Include="Models\Channel.cs" />

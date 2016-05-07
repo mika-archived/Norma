@@ -24,7 +24,7 @@ namespace Norma.Gamma.Api
             var match = MainjsRegex.Match(str);
             if (!match.Success)
                 throw new Exception("Cannot get secret key from abematv. Please wait update.");
-            return ComputeSecretKey(match.Groups[0].Value, deviceId);
+            return ComputeSecretKey(match.Groups[1].Value, deviceId);
         }
 
         private string ComputeSecretKey(string secretKey, string deviceId)

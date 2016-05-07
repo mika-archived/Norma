@@ -51,6 +51,7 @@
     <Compile Include="Api\Preload.cs" />
     <Compile Include="Api\RootApi.cs" />
     <Compile Include="Api\Users.cs" />
+    <Compile Include="Converters\KeyValuePairConverter.cs" />
     <Compile Include="EndPoints.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\ChannelSchedule.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Models\ThemeColor.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringContent2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

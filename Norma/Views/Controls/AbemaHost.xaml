@@ -25,6 +25,6 @@
                                      RenderOptions.BitmapScalingMode="Linear"
                                      WebBrowser="{Binding WebBrowser,
                                                           Mode=OneWayToSource}" />
-        <local:AbemaComment Grid.Column="1" />
+        <local:AbemaComment Grid.Column="1" DataContext="{Binding CommentViewModel}" />
     </Grid>
 </UserControl>

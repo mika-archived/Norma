@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
 using Norma.Gamma.Api;
+using Norma.Gamma.Converters;
 
 namespace Norma.Gamma
 {
     public class AbemaTv
     {
-        public string SecretKey { get; set; }
-
         public string AccessToken { get; set; }
 
         public Preload Preload => new Preload(this);
@@ -24,14 +25,15 @@ namespace Norma.Gamma
 
         public Users Users => new Users(this);
 
-        public AbemaTv(string secretKey)
+        public AbemaTv(string accessToken)
         {
-            SecretKey = secretKey;
+            ServicePointManager.Expect100Continue = false;
+            AccessToken = accessToken;
         }
 
         public AbemaTv()
         {
-            // Nothing to do
+            ServicePointManager.Expect100Continue = false;
         }
 
         public async Task<T> GetAsync<T>(string url, params Expression<Func<string, object>>[] parameters)
@@ -70,10 +72,19 @@ namespace Norma.Gamma
             var httpClient = new HttpClient(new AbemaAuthorizationHandler(this));
             var convedParams = parameters.Select(w => new KeyValuePair<string, string>(
                                                      w.Key,
-                                                     w.Value is bool ? w.Value.ToString().ToLower() : w.Value.ToString()));
-            HttpContent content = new StringContent(JsonConvert.SerializeObject(convedParams));
+                                                     w.Value is bool ? w.Value.ToString().ToLower() : w.Value.ToString()))
+                                         .ToList();
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Converters = new List<JsonConverter> {new KeyValuePairConverter()}
+            };
+            var content = new StringContent2(JsonConvert.SerializeObject(convedParams, settings), Encoding.ASCII,
+                                             "application/json");
 
             var response = await httpClient.PostAsync(url, content);
+            if (!response.IsSuccessStatusCode)
+                Debug.WriteLine(await response.Content.ReadAsStringAsync());
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(responseString);
