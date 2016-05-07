@@ -187,6 +187,7 @@
     <Compile Include="Models\CefSetting.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\OnAirPageJavaScriptHost.cs" />
+    <Compile Include="ViewModels\Controls\AbemaCommentViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaStatusViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaHostViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaTVGuideViewModel.cs" />
@@ -194,6 +195,9 @@
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\TimetableWindowViewModel.cs" />
     <Compile Include="ViewModels\TVGuide\ChannelViewModel.cs" />
+    <Compile Include="Views\Controls\AbemaComment.xaml.cs">
+      <DependentUpon>AbemaComment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\AbemaHost.xaml.cs">
       <DependentUpon>AbemaHost.xaml</DependentUpon>
     </Compile>
@@ -239,6 +243,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\Controls\AbemaComment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\AbemaHost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
