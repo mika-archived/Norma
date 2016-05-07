@@ -62,12 +62,14 @@
                            Text="{Binding Title}"
                            TextTrimming="CharacterEllipsis" />
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <!--
                     <metro:CaptionButton Width="60"
                                          Margin="10,0"
                                          VerticalAlignment="Top"
                                          Command="{Binding OpenTImetableCommand}"
                                          Content="番組表"
                                          FontFamily="Segoe UI Light" />
+                    -->
                     <metro:SystemButtons VerticalAlignment="Top" />
                 </StackPanel>
             </Grid>

@@ -192,6 +192,7 @@
     <Compile Include="ViewModels\Controls\AbemaTVGuideViewModel.cs" />
     <Compile Include="ViewModels\Internal\ViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="ViewModels\TimetableWindowViewModel.cs" />
     <Compile Include="ViewModels\TVGuide\ChannelViewModel.cs" />
     <Compile Include="Views\Controls\AbemaHost.xaml.cs">
       <DependentUpon>AbemaHost.xaml</DependentUpon>

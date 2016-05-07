@@ -1,4 +1,6 @@
-﻿using MetroRadiance.UI.Controls;
+﻿using System;
+
+using MetroRadiance.UI.Controls;
 
 namespace Norma.Views
 {
@@ -10,6 +12,12 @@ namespace Norma.Views
         public TimetableWindow()
         {
             InitializeComponent();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            Close();
         }
     }
 }
