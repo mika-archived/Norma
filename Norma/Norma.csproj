@@ -195,6 +195,7 @@
     <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\Config\ConfigRoot.cs" />
     <Compile Include="Models\OnAirPageJavaScriptHost.cs" />
+    <Compile Include="Models\Timetable.cs" />
     <Compile Include="NormaConstants.cs" />
     <Compile Include="ViewModels\Controls\AbemaCommentViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaStatusViewModel.cs" />

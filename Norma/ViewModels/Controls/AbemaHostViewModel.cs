@@ -18,7 +18,7 @@ namespace Norma.ViewModels.Controls
         public AbemaHostViewModel(ShellViewModel parentViewModel)
         {
             _parentViewModel = parentViewModel;
-            CommentViewModel = new AbemaCommentViewModel();
+            CommentViewModel = new AbemaCommentViewModel(this);
             Address = "https://abema.tv/";
         }
 
@@ -27,7 +27,11 @@ namespace Norma.ViewModels.Controls
             if (WebBrowser == null)
                 return;
             _javaScritHost = new OnAirPageJavaScriptHost(WebBrowser).AddTo(this);
-            _javaScritHost.Subscribe(nameof(_javaScritHost.Title), w => _parentViewModel.Title = _javaScritHost.Title);
+            _javaScritHost.Subscribe(nameof(_javaScritHost.Title), w =>
+            {
+                _parentViewModel.Title = _javaScritHost.Title;
+                CommentViewModel.OnProgramChanged(_javaScritHost.RawTitle);
+            });
         }
 
         #region WebBrowser

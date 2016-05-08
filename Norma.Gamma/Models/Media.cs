@@ -1,7 +1,4 @@
-﻿using System;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using Newtonsoft.Json;
 
 namespace Norma.Gamma.Models
 {
@@ -14,7 +11,7 @@ namespace Norma.Gamma.Models
         public ChannelSchedule[] ChannelSchedules { get; set; }
 
         [JsonProperty("availableDates")]
-        [JsonConverter(typeof(IsoDateTimeConverter))]
-        public DateTime[] AvailableDates { get; set; }
+        // [JsonConverter(typeof(IsoDateTimeConverter))]
+        public string[] AvailableDates { get; set; }
     }
 }

@@ -136,9 +136,10 @@ setTimeout(cs_HideTvContainerSide, 500);
                     return;
                 var response = task.Result;
                 if (!response.Success || response.Result.ToString() == "null")
-                    Title = "(CM) - Norma";
+                    RawTitle = "(CM)";
                 else
-                    Title = $"{response.Result.ToString()} - Norma";
+                    RawTitle = response.Result.ToString();
+                Title = $"{RawTitle} - Norma";
             }, TaskScheduler.Default);
         }
 
@@ -150,6 +151,18 @@ setTimeout(cs_HideTvContainerSide, 500);
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
+        }
+
+        #endregion
+
+        #region RawTitle
+
+        private string _rawTitle;
+
+        public string RawTitle
+        {
+            get { return _rawTitle; }
+            set { SetProperty(ref _rawTitle, value); }
         }
 
         #endregion

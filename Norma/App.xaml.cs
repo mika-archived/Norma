@@ -18,6 +18,7 @@ namespace Norma
             CefSetting.Init();
             Configuration.Instance.Load();
             AbemaApiHost.Instance.Initialize();
+            Timetable.Instance.Sync();
 
             var bootstrap = new Bootstrapper();
             bootstrap.Run();

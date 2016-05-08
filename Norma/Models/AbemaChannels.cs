@@ -181,5 +181,78 @@ namespace Norma.Models
                     throw new ArgumentOutOfRangeException(nameof(channel), channel, null);
             }
         }
+
+        public static AbemaChannels FromUrlString(string url)
+        {
+            var str = url.Replace("https://abema.tv/now-on-air/", "");
+            switch (str)
+            {
+                case "abema-news":
+                    return AbemaChannels.AbemaNews;
+
+                case "abema-special":
+                    return AbemaChannels.AbemaSpecial;
+
+                case "spcial-plus":
+                    return AbemaChannels.SpecialPlus;
+
+                case "reality-show":
+                    return AbemaChannels.RealityShow;
+
+                case "mtv-hits":
+                    return AbemaChannels.MtvHits;
+
+                case "space-shower":
+                    return AbemaChannels.SpaceShowerMusic;
+
+                case "drama":
+                    return AbemaChannels.DramaChannel;
+
+                case "documentary":
+                    return AbemaChannels.Documentary;
+
+                case "variety":
+                    return AbemaChannels.VarietyChannel;
+
+                case "pet":
+                    return AbemaChannels.Pet;
+
+                case "club-channel":
+                    return AbemaChannels.ClubChannel;
+
+                case "world-sports":
+                    return AbemaChannels.WorldSports;
+
+                case "yokonori-sports":
+                    return AbemaChannels.YokonoriSports;
+
+                case "vice":
+                    return AbemaChannels.Vice;
+
+                case "anime24":
+                    return AbemaChannels.Anime24;
+
+                case "midnight-anime":
+                    return AbemaChannels.MidnightAnime;
+
+                case "oldtime-anime":
+                    return AbemaChannels.OldtimeAnime;
+
+                case "family-anime":
+                    return AbemaChannels.FamilyAnime;
+
+                case "edge-sport":
+                    return AbemaChannels.EdgeSportHd;
+
+                case "fishing":
+                    return AbemaChannels.Fishing;
+
+                case "mahjong":
+                    return AbemaChannels.Mahjong;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(url), url, null);
+            }
+        }
     }
 }
