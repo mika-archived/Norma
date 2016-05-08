@@ -16,7 +16,7 @@
 
         public static readonly string Media = EndPoint + "media";
 
-        public static readonly string Mime = EndPoint + "mime";
+        public static readonly string Mime = EndPoint + "tracks/mime";
 
         public static readonly string SlotAudicence = EndPoint + "slotAudience";
 
