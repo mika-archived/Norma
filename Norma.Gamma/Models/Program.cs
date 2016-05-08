@@ -12,5 +12,11 @@ namespace Norma.Gamma.Models
 
         [JsonProperty("credit")]
         public Credit Credit { get; set; }
+
+        [JsonProperty("series")]
+        public Series Series { get; set; }
+
+        [JsonProperty("providedInfo")]
+        public ProvidedInfo ProvidedInfo { get; set; }
     }
 }

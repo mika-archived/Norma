@@ -12,11 +12,5 @@ namespace Norma.Gamma.Models
 
         [JsonProperty("copyrights")]
         public string[] Copyrights { get; set; }
-
-        [JsonProperty("series")]
-        public Series Series { get; set; }
-
-        [JsonProperty("providedInfo")]
-        public ProvidedInfo ProvidedInfo { get; set; }
     }
 }

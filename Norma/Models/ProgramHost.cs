@@ -44,7 +44,6 @@ namespace Norma.Models
                 Title = currentProgram.Title;
                 Description = currentProgram.Programs[0].Episode.Overview;
                 ProvideThumbnails(currentProgram.Programs[0]);
-                var scenes = currentProgram.Programs[0].Credit.ProvidedInfo.SceneThumbImgs;
                 return;
             }
             var perTime = (currentProgram.EndAt - currentProgram.StartAt).TotalSeconds /
@@ -61,20 +60,21 @@ namespace Norma.Models
 
         private void ProvideThumbnails(Program program)
         {
-            var scenes = program.Credit.ProvidedInfo.SceneThumbImgs;
+            var scenes = program.ProvidedInfo.SceneThumbImgs;
+
+            // Init
             if (scenes.Length > 0)
             {
-                if (scenes.Length >= 2)
-                {
-                    Thumbnail1 = $"https://hayabusa.io/abema/programs/{program.Id}/{scenes[0]}.w135.png";
-                    Thumbnail2 = $"https://hayabusa.io/abema/programs/{program.Id}/{scenes[1]}.w135.png";
-                }
                 Thumbnail1 = $"https://hayabusa.io/abema/programs/{program.Id}/{scenes[0]}.w135.png";
-                Thumbnail2 = "";
+                Thumbnail2 = scenes.Length >= 2
+                    ? $"https://hayabusa.io/abema/programs/{program.Id}/{scenes[1]}.w135.png"
+                    : "";
                 return;
             }
-            Thumbnail1 = "";
             Thumbnail2 = "";
+            Thumbnail1 = !string.IsNullOrWhiteSpace(program.ProvidedInfo.ThumbImg)
+                ? $"https://hayabusa.io/abema/programs/{program.Id}/{program.ProvidedInfo.ThumbImg}.w135.png"
+                : "";
         }
 
         #region HasInfo
