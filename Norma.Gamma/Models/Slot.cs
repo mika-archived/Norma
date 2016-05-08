@@ -22,7 +22,7 @@ namespace Norma.Gamma.Models
         [JsonConverter(typeof(UnixTimeDateTimeConverter))]
         public DateTime EndAt { get; set; }
 
-        [JsonProperty("program")]
+        [JsonProperty("programs")]
         public Program[] Programs { get; set; }
 
         [JsonProperty("tableStartAt")]
