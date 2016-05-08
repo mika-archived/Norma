@@ -7,7 +7,7 @@ namespace Norma.ViewModels
     {
         private readonly Comment _comment;
 
-        public string Message => _comment.Message;
+        public string Message => _comment.Message.Trim();
 
         public string CreatedAt => _comment.CreatedAtMs.ToString("HH:mm:ss");
 

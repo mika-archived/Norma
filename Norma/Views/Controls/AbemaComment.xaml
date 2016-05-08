@@ -101,7 +101,7 @@
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Message, Mode=OneWay}" />
+                                <TextBlock Text="{Binding Message, Mode=OneWay}" TextWrapping="Wrap" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
