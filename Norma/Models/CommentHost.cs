@@ -6,21 +6,24 @@ using System.Threading.Tasks;
 
 using Norma.Gamma.Models;
 
+using Prism.Mvvm;
+
 #pragma warning disable 0414
 
 namespace Norma.Models
 {
-    internal class CommentHost : IDisposable
+    internal class CommentHost : BindableBase, IDisposable
     {
         private AbemaChannels _channel;
         private IDisposable _disposable;
-        private bool _isCm;
         private string _slotId;
         private string _title;
+
         public ObservableCollection<Comment> Comments { get; set; }
 
         public CommentHost()
         {
+            IsCm = true;
             Comments = new ObservableCollection<Comment>();
         }
 
@@ -42,12 +45,16 @@ namespace Norma.Models
         {
             if (title == "(CM)")
             {
-                _isCm = true;
+                IsCm = true;
+                _disposable?.Dispose();
                 return;
             }
-            _isCm = false;
+            IsCm = false;
             if (_title == title)
+            {
+                SubscribeComment();
                 return;
+            }
 
             // 新しい SlotId に変更された。
             Comments.Clear();
@@ -69,7 +76,6 @@ namespace Norma.Models
         private void SubscribeComment()
         {
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(10))
-                                    .SkipWhile(w => _isCm)
                                     .Subscribe(async w => await FetchComments());
         }
 
@@ -86,5 +92,17 @@ namespace Norma.Models
                 Comments.Insert(0, comment);
             }
         }
+
+        #region IsCm
+
+        private bool _isCm;
+
+        public bool IsCm
+        {
+            get { return _isCm; }
+            private set { SetProperty(ref _isCm, value); }
+        }
+
+        #endregion
     }
 }
