@@ -3,6 +3,9 @@ Norma
 "Norma" is unoffcial desktop application for [AbemaTV](https://abema.tv).  
 This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).
 
+## Screenshots
+![alt](https://cloud.githubusercontent.com/assets/10832834/15098780/1adb92ae-1580-11e6-88f9-0802f77b38bb.PNG)
+
 
 ## Requirements
 
