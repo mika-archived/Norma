@@ -53,7 +53,7 @@ namespace Norma.Models
                      DateTime.Now <= currentProgram.StartAt.AddSeconds(perTime * ++fill))) {}
             fill--;
             var program = currentProgram.Programs[fill];
-            Title = $"{currentProgram.Highlight} - {program.Episode.Name}\"{program.Episode.Title}\"";
+            Title = $"{currentProgram.Highlight} - {program.Episode.Name} \"{program.Episode.Title}\"";
             Description = program.Episode.Overview;
             ProvideThumbnails(program);
         }
