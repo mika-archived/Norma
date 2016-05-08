@@ -1,9 +1,10 @@
-﻿using System.Collections.ObjectModel;
-
+﻿using Norma.Extensions;
 using Norma.Gamma.Models;
 using Norma.Helpers;
 using Norma.Models;
 using Norma.ViewModels.Internal;
+
+using Reactive.Bindings;
 
 namespace Norma.ViewModels.Controls
 {
@@ -11,12 +12,12 @@ namespace Norma.ViewModels.Controls
     {
         private readonly CommentHost _commentHost;
 
-        public ObservableCollection<Comment> Comments { get; private set; }
+        public ReadOnlyReactiveCollection<Comment> Comments { get; }
 
         public AbemaCommentViewModel(AbemaHostViewModel hostViewModel)
         {
-            _commentHost = new CommentHost();
-            Comments = new ObservableCollection<Comment>();
+            _commentHost = new CommentHost().AddTo(this);
+            Comments = _commentHost.Comments.ToReadOnlyReactiveCollection();
 
             hostViewModel.Subscribe(nameof(hostViewModel.Address), w =>
             {

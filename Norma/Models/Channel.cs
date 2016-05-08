@@ -8,6 +8,7 @@ namespace Norma.Models
     internal class Channel : BindableBase, IDisposable
     {
         private readonly IDisposable _disposable;
+        private string hoge;
         public AbemaChannels ChannelType { get; }
         public string LogoUrl { get; private set; }
 

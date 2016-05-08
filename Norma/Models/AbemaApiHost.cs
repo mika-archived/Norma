@@ -52,13 +52,12 @@ namespace Norma.Models
         }
 
         public async Task<Comments> Comments(string slotId)
-            => await _abemaTv.Root.Comments(slotId, limit => 100);
+            => await _abemaTv.Root.Comments(slotId, limit => 20);
 
         public async Task<Media> MediaOfCurrent()
         {
             var today = DateTime.Today.ToString("yyyyMMdd");
-            var tomorrow = DateTime.Today.AddDays(1).ToString("yyyyMMdd");
-            return await _abemaTv.Root.Media(dateFrom => today, dateTo => tomorrow);
+            return await _abemaTv.Root.Media(dateFrom => today, dateTo => today);
         }
     }
 }

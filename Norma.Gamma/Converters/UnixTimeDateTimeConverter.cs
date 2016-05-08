@@ -17,7 +17,9 @@ namespace Norma.Gamma.Converters
                                         JsonSerializer serializer)
         {
             var ms = (long) reader.Value;
-            return new DateTime(1970, 1, 1).AddSeconds(ms).AddHours(9);
+            return ms.ToString().Length <= 10
+                ? new DateTime(1970, 1, 1).AddHours(9).AddSeconds(ms)
+                : new DateTime(1970, 1, 1).AddHours(9).AddMilliseconds(ms);
         }
 
         public override bool CanConvert(Type objectType)

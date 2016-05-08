@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+
+using Newtonsoft.Json;
+
+using Norma.Gamma.Converters;
 
 namespace Norma.Gamma.Models
 {
@@ -11,6 +15,7 @@ namespace Norma.Gamma.Models
         public string Message { get; set; }
 
         [JsonProperty("createdAtMs")]
-        public int CreatedAtMs { get; set; }
+        [JsonConverter(typeof(UnixTimeDateTimeConverter))]
+        public DateTime CreatedAtMs { get; set; }
     }
 }
