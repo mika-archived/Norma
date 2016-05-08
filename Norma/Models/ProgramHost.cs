@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Reactive.Linq;
 
+using Norma.Gamma.Models;
+
 using Prism.Mvvm;
 
 namespace Norma.Models
@@ -34,8 +36,45 @@ namespace Norma.Models
             var ts = Timetable.Instance.Media;
             var currenSchedule = ts.ChannelSchedules.First(w => w.ChannelId == _channel.ToUrlString()); // 今日
             var currentProgram = currenSchedule.Slots.Single(w => w.StartAt <= DateTime.Now && w.EndAt >= DateTime.Now);
-            Title = currentProgram.Title;
-            Description = currentProgram.DetailHighlight;
+            // 番組名 or プログラム名
+            // ReSharper disable HeuristicUnreachableCode
+#pragma warning disable 162
+            if (false)
+            {
+                Title = currentProgram.Title;
+                Description = currentProgram.Programs[0].Episode.Overview;
+                ProvideThumbnails(currentProgram.Programs[0]);
+                var scenes = currentProgram.Programs[0].Credit.ProvidedInfo.SceneThumbImgs;
+                return;
+            }
+            var perTime = (currentProgram.EndAt - currentProgram.StartAt).TotalSeconds /
+                          currentProgram.Programs.Length;
+            var fill = 0;
+            while (!(currentProgram.StartAt.AddSeconds(perTime * fill) <= DateTime.Now &&
+                     DateTime.Now <= currentProgram.StartAt.AddSeconds(perTime * ++fill))) {}
+            fill--;
+            var program = currentProgram.Programs[fill];
+            Title = $"{currentProgram.Highlight} - {program.Episode.Name}\"{program.Episode.Title}\"";
+            Description = program.Episode.Overview;
+            ProvideThumbnails(program);
+        }
+
+        private void ProvideThumbnails(Program program)
+        {
+            var scenes = program.Credit.ProvidedInfo.SceneThumbImgs;
+            if (scenes.Length > 0)
+            {
+                if (scenes.Length >= 2)
+                {
+                    Thumbnail1 = $"https://hayabusa.io/abema/programs/{program.Id}/{scenes[0]}.w135.png";
+                    Thumbnail2 = $"https://hayabusa.io/abema/programs/{program.Id}/{scenes[1]}.w135.png";
+                }
+                Thumbnail1 = $"https://hayabusa.io/abema/programs/{program.Id}/{scenes[0]}.w135.png";
+                Thumbnail2 = "";
+                return;
+            }
+            Thumbnail1 = "";
+            Thumbnail2 = "";
         }
 
         #region HasInfo
@@ -78,14 +117,26 @@ namespace Norma.Models
 
         #endregion
 
-        #region Thumb1
+        #region Thumbnail1
 
-        private string _thumb1;
+        private string _thumbnail1;
 
-        public string Thumb1
+        public string Thumbnail1
         {
-            get { return _thumb1; }
-            set { SetProperty(ref _thumb1, value); }
+            get { return _thumbnail1; }
+            set { SetProperty(ref _thumbnail1, value); }
+        }
+
+        #endregion
+
+        #region Thumbnail2
+
+        private string _thumbnail2;
+
+        public string Thumbnail2
+        {
+            get { return _thumbnail2; }
+            set { SetProperty(ref _thumbnail2, value); }
         }
 
         #endregion

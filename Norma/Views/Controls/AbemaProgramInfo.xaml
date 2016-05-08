@@ -16,6 +16,15 @@
                            Text="{Binding Title.Value}"
                            TextWrapping="Wrap" />
                 <TextBlock Text="{Binding Description.Value}" TextWrapping="Wrap" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="{Binding Thumbnail1.Value}" />
+                    <Image Grid.Column="2" Source="{Binding Thumbnail2.Value}" />
+                </Grid>
             </StackPanel>
             <Grid Visibility="{Binding HasInfo.Value, Converter={StaticResource ReverseBooleanToVisibilityConverter}}">
                 <TextBlock HorizontalAlignment="Center"
