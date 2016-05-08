@@ -14,11 +14,13 @@ namespace Norma.ViewModels.Controls
         private OnAirPageJavaScriptHost _javaScritHost;
 
         public AbemaCommentViewModel CommentViewModel { get; }
+        public AbemaProgramInfoViewModel ProgramInfoViewModel { get; }
 
         public AbemaHostViewModel(ShellViewModel parentViewModel)
         {
             _parentViewModel = parentViewModel;
             CommentViewModel = new AbemaCommentViewModel(this);
+            ProgramInfoViewModel = new AbemaProgramInfoViewModel(this);
             Address = "https://abema.tv/";
         }
 

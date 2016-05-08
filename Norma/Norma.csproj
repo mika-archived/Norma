@@ -183,6 +183,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Extensions\IDisposableExt.cs" />
     <Compile Include="Helpers\ViewModelHelper.cs" />
     <Compile Include="Interactivity\InteractionRequest2.cs" />
@@ -195,10 +196,12 @@
     <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\Config\ConfigRoot.cs" />
     <Compile Include="Models\OnAirPageJavaScriptHost.cs" />
+    <Compile Include="Models\ProgramHost.cs" />
     <Compile Include="Models\Timetable.cs" />
     <Compile Include="NormaConstants.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaCommentViewModel.cs" />
+    <Compile Include="ViewModels\Controls\AbemaProgramInfoViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaStatusViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaHostViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaTVGuideViewModel.cs" />
@@ -211,6 +214,9 @@
     </Compile>
     <Compile Include="Views\Controls\AbemaHost.xaml.cs">
       <DependentUpon>AbemaHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\AbemaProgramInfo.xaml.cs">
+      <DependentUpon>AbemaProgramInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\AbemaStatus.xaml.cs">
       <DependentUpon>AbemaStatus.xaml</DependentUpon>
@@ -259,6 +265,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\AbemaHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\AbemaProgramInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

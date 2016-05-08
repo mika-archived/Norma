@@ -19,12 +19,23 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="320" />
         </Grid.ColumnDefinitions>
-        <cefSharp:ChromiumWebBrowser Grid.Column="0"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="200" />
+        </Grid.RowDefinitions>
+        <cefSharp:ChromiumWebBrowser Grid.Row="0"
+                                     Grid.RowSpan="2"
+                                     Grid.Column="0"
                                      Address="{Binding Address,
                                                        Mode=TwoWay}"
                                      RenderOptions.BitmapScalingMode="Linear"
                                      WebBrowser="{Binding WebBrowser,
                                                           Mode=OneWayToSource}" />
-        <local:AbemaComment Grid.Column="1" DataContext="{Binding CommentViewModel}" />
+        <local:AbemaComment Grid.Row="0"
+                            Grid.Column="1"
+                            DataContext="{Binding CommentViewModel}" />
+        <local:AbemaProgramInfo Grid.Row="1"
+                                Grid.Column="1"
+                                DataContext="{Binding ProgramInfoViewModel}" />
     </Grid>
 </UserControl>
