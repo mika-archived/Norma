@@ -16,10 +16,17 @@ namespace Norma
             base.OnStartup(e);
 
             CefSetting.Init();
+            Configuration.Instance.Load();
             AbemaApiHost.Instance.Initialize();
 
             var bootstrap = new Bootstrapper();
             bootstrap.Run();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            Configuration.Instance.Save();
+            base.OnExit(e);
         }
 
         #endregion

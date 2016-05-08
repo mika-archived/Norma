@@ -12,7 +12,7 @@
 
         public static readonly string UsersShow = EndPoint + "users/{0}";
 
-        public static readonly string Token = EndPoint + "token";
+        public static readonly string Token = EndPoint + "media/token";
 
         public static readonly string Media = EndPoint + "media";
 

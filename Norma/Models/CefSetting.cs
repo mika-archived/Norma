@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 
 using CefSharp;
 
@@ -10,14 +9,11 @@ namespace Norma.Models
     // CefSharp Settings
     internal static class CefSetting
     {
-        private static readonly string AppDir =
-            Path.Combine(Environment.GetFolderPath(EnvSpecialFolder.ApplicationData), "kokoiroworks.com", "Norma");
-
         internal static void Init()
         {
             var settings = new CefSettings
             {
-                CachePath = Path.Combine(AppDir, "cache"),
+                CachePath = NormaConstants.CefCacheDir,
                 MultiThreadedMessageLoop = true,
                 WindowlessRenderingEnabled = true
             };
@@ -27,7 +23,7 @@ namespace Norma.Models
             Cef.OnContextInitialized = () =>
             {
                 var cookieManager = Cef.GetGlobalCookieManager();
-                cookieManager.SetStoragePath(Path.Combine(AppDir, "cookies"), true);
+                cookieManager.SetStoragePath(NormaConstants.CefCookiesDir, true);
             };
 
             if (!Cef.Initialize(settings, true, false))
