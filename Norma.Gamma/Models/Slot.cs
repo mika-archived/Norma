@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+
+using Newtonsoft.Json;
+
+using Norma.Gamma.Converters;
 
 namespace Norma.Gamma.Models
 {
@@ -11,19 +15,23 @@ namespace Norma.Gamma.Models
         public string Title { get; set; }
 
         [JsonProperty("startAt")]
-        public int StartAt { get; set; }
+        [JsonConverter(typeof(UnixTimeDateTimeConverter))]
+        public DateTime StartAt { get; set; }
 
         [JsonProperty("endAt")]
-        public int EndAt { get; set; }
+        [JsonConverter(typeof(UnixTimeDateTimeConverter))]
+        public DateTime EndAt { get; set; }
 
         [JsonProperty("program")]
         public Program[] Programs { get; set; }
 
         [JsonProperty("tableStartAt")]
-        public int TableStartAt { get; set; }
+        [JsonConverter(typeof(UnixTimeDateTimeConverter))]
+        public DateTime TableStartAt { get; set; }
 
         [JsonProperty("tableEndAt")]
-        public int TableEndAt { get; set; }
+        [JsonConverter(typeof(UnixTimeDateTimeConverter))]
+        public DateTime TableEndAt { get; set; }
 
         [JsonProperty("highlight")]
         public string Highlight { get; set; }
@@ -47,6 +55,7 @@ namespace Norma.Gamma.Models
         public string ChannelId { get; set; }
 
         [JsonProperty("timeshiftEndAt")]
-        public int TimeshiftEndAt { get; set; }
+        [JsonConverter(typeof(UnixTimeDateTimeConverter))]
+        public DateTime TimeshiftEndAt { get; set; }
     }
 }

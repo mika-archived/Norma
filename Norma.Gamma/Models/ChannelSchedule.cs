@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+
+using Newtonsoft.Json;
+
+using Norma.Gamma.Converters;
 
 namespace Norma.Gamma.Models
 {
@@ -8,8 +12,8 @@ namespace Norma.Gamma.Models
         public string ChannelId { get; set; }
 
         [JsonProperty("date")]
-        // [JsonConverter(typeof(IsoDateTimeConverter))]
-        public string Date { get; set; }
+        [JsonConverter(typeof(DateDateTimeConverter))]
+        public DateTime Date { get; set; }
 
         [JsonProperty("slots")]
         public Slot[] Slots { get; set; }
