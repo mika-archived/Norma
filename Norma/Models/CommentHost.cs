@@ -86,6 +86,8 @@ namespace Norma.Models
             {
                 if (Comments.Any(w => w.Id == comment.Id))
                     continue;
+                if (comment.Message.Trim() == "") // 空白,改行のみは荒らし
+                    continue;
                 if (Comments.Count >= 200)
                     for (var i = 199; i < Comments.Count; i++)
                         Comments.RemoveAt(i);
