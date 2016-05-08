@@ -85,17 +85,17 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="50">
+                    <GridViewColumn Width="60">
                         <GridViewColumn.Header>
                             <TextBlock Text="TIME" />
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="" />
+                                <TextBlock Text="{Binding CreatedAt, Mode=OneWay}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="252">
+                    <GridViewColumn Width="242">
                         <GridViewColumn.Header>
                             <TextBlock Text="COMMENT" />
                         </GridViewColumn.Header>

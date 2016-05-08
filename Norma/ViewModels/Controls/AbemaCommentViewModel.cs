@@ -1,5 +1,4 @@
 ﻿using Norma.Extensions;
-using Norma.Gamma.Models;
 using Norma.Helpers;
 using Norma.Models;
 using Norma.ViewModels.Internal;
@@ -12,12 +11,12 @@ namespace Norma.ViewModels.Controls
     {
         private readonly CommentHost _commentHost;
 
-        public ReadOnlyReactiveCollection<Comment> Comments { get; }
+        public ReadOnlyReactiveCollection<CommentViewModel> Comments { get; }
 
         public AbemaCommentViewModel(AbemaHostViewModel hostViewModel)
         {
             _commentHost = new CommentHost().AddTo(this);
-            Comments = _commentHost.Comments.ToReadOnlyReactiveCollection();
+            Comments = _commentHost.Comments.ToReadOnlyReactiveCollection(w => new CommentViewModel(w));
 
             hostViewModel.Subscribe(nameof(hostViewModel.Address), w =>
             {
