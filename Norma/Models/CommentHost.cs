@@ -80,6 +80,9 @@ namespace Norma.Models
             {
                 if (Comments.Any(w => w.Id == comment.Id))
                     continue;
+                if (Comments.Count >= 200)
+                    for (var i = 199; i < Comments.Count; i++)
+                        Comments.RemoveAt(i);
                 Comments.Insert(0, comment);
             }
         }
