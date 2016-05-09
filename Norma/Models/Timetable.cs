@@ -1,4 +1,6 @@
-﻿using Norma.Gamma.Models;
+﻿using System.Threading.Tasks;
+
+using Norma.Gamma.Models;
 
 namespace Norma.Models
 {
@@ -14,6 +16,6 @@ namespace Norma.Models
 
         }
 
-        public async void Sync() => Media = await AbemaApiHost.Instance.MediaOfCurrent();
+        public async Task Sync() => Media = await AbemaApiHost.Instance.MediaOfCurrent();
     }
 }

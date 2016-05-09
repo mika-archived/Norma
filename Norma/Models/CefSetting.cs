@@ -2,8 +2,6 @@
 
 using CefSharp;
 
-using EnvSpecialFolder = System.Environment.SpecialFolder;
-
 namespace Norma.Models
 {
     // CefSharp Settings

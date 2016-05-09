@@ -29,7 +29,9 @@ namespace Norma.ViewModels.Controls
             {
                 if (!hostViewModel.Address.StartsWith("https://abema.tv/now-on-air/"))
                     return;
-                _programHost.OnChannelChanged(AbemaChannelExt.FromUrlString(hostViewModel.Address));
+                var channel = AbemaChannelExt.FromUrlString(hostViewModel.Address);
+                Configuration.Instance.Root.LastViewedChannel = channel;
+                _programHost.OnChannelChanged(channel);
             });
         }
     }

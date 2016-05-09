@@ -22,7 +22,7 @@ namespace Norma.Models
                 : new AbemaTv(Configuration.Instance.Root.AccessToken);
         }
 
-        public async void Initialize()
+        public async Task Initialize()
         {
             if (string.IsNullOrWhiteSpace(_abemaTv.AccessToken))
                 await GetToken();

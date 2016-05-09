@@ -21,7 +21,7 @@ namespace Norma.ViewModels.Controls
             _parentViewModel = parentViewModel;
             CommentViewModel = new AbemaCommentViewModel(this);
             ProgramInfoViewModel = new AbemaProgramInfoViewModel(this);
-            Address = "https://abema.tv/";
+            Address = $"https://abema.tv/now-on-air/{Configuration.Instance.Root.LastViewedChannel.ToUrlString()}";
         }
 
         private void WebBrowserInitialized()

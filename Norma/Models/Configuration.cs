@@ -23,6 +23,7 @@ namespace Norma.Models
             if (!File.Exists(NormaConstants.ConfigurationFile))
             {
                 Root = new ConfigRoot();
+                Migrate();
                 return;
             }
             using (var sr = File.OpenText(NormaConstants.ConfigurationFile))
@@ -30,6 +31,7 @@ namespace Norma.Models
                 var serializer = new JsonSerializer();
                 Root = (ConfigRoot) serializer.Deserialize(sr, typeof(ConfigRoot));
             }
+            Migrate();
         }
 
         public void Save()
@@ -39,6 +41,11 @@ namespace Norma.Models
                 var serializer = new JsonSerializer();
                 serializer.Serialize(sw, Root);
             }
+        }
+
+        private void Migrate()
+        {
+
         }
     }
 }

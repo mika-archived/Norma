@@ -65,7 +65,7 @@ namespace Norma.Models
             var scenes = program.ProvidedInfo.SceneThumbImgs;
 
             // Init
-            if (scenes.Length > 0)
+            if (scenes?.Length > 0)
             {
                 Thumbnail1 = $"https://hayabusa.io/abema/programs/{program.Id}/{scenes[0]}.w135.png";
                 Thumbnail2 = scenes.Length >= 2
