@@ -169,7 +169,9 @@ setTimeout(cs_HideTvContainerSide, 500);
             }
             catch (Exception e)
             {
-                return (Task<JavascriptResponse>) Task.FromException(e);
+                var completionSource = new TaskCompletionSource<JavascriptResponse>();
+                completionSource.SetException(e);
+                return completionSource.Task;
             }
         }
 
