@@ -9,10 +9,10 @@ namespace Norma.Models
     {
         private readonly IDisposable _disposable;
         private string hoge;
-        public AbemaChannels ChannelType { get; }
+        public AbemaChannel ChannelType { get; }
         public string LogoUrl { get; private set; }
 
-        public Channel(AbemaChannels channel)
+        public Channel(AbemaChannel channel)
         {
             ChannelType = channel;
             LogoUrl = $"https://hayabusa.io/abema/channels/logo/{ChannelType.ToUrlString()}.w120.png";

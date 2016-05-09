@@ -11,7 +11,7 @@ namespace Norma.ViewModels.Controls
     internal class AbemaHostViewModel : ViewModel
     {
         private readonly ShellViewModel _parentViewModel;
-        private OnAirPageJavaScriptHost _javaScritHost;
+        private JavaScriptHost _javaScritHost;
 
         public AbemaCommentViewModel CommentViewModel { get; }
         public AbemaProgramInfoViewModel ProgramInfoViewModel { get; }
@@ -28,7 +28,7 @@ namespace Norma.ViewModels.Controls
         {
             if (WebBrowser == null)
                 return;
-            _javaScritHost = new OnAirPageJavaScriptHost(WebBrowser).AddTo(this);
+            _javaScritHost = new JavaScriptHost(WebBrowser).AddTo(this);
             _javaScritHost.Subscribe(nameof(_javaScritHost.Title), w =>
             {
                 _parentViewModel.Title = _javaScritHost.Title;

@@ -14,7 +14,7 @@ namespace Norma.Models
 {
     internal class CommentHost : BindableBase, IDisposable
     {
-        private AbemaChannels _channel;
+        private AbemaChannel _channel;
         private IDisposable _disposable;
         private string _slotId;
         private string _title;
@@ -36,7 +36,7 @@ namespace Norma.Models
 
         #endregion
 
-        public void OnChannelChanged(AbemaChannels channel)
+        public void OnChannelChanged(AbemaChannel channel)
         {
             _channel = channel;
         }

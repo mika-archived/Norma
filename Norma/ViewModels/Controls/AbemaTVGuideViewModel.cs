@@ -15,8 +15,8 @@ namespace Norma.ViewModels.Controls
         public AbemaTVGuideViewModel(ShellViewModel parentViewModel)
         {
             ChannnelCollection = new ObservableCollection<ChannelViewModel>();
-            foreach (var value in Enum.GetValues(typeof(AbemaChannels)))
-                ChannnelCollection.Add(new ChannelViewModel(parentViewModel, new Channel((AbemaChannels) value)));
+            foreach (var value in Enum.GetValues(typeof(AbemaChannel)))
+                ChannnelCollection.Add(new ChannelViewModel(parentViewModel, new Channel((AbemaChannel) value)));
         }
     }
 }

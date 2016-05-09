@@ -2,7 +2,7 @@
 
 namespace Norma.Models
 {
-    internal enum AbemaChannels
+    internal enum AbemaChannel
     {
         /// <summary>
         ///     1ch - Abema news/
@@ -117,61 +117,61 @@ namespace Norma.Models
 
     internal static class AbemaChannelExt
     {
-        public static string ToUrlString(this AbemaChannels channel)
+        public static string ToUrlString(this AbemaChannel channel)
         {
             switch (channel)
             {
-                case AbemaChannels.Documentary:
-                case AbemaChannels.Pet:
-                case AbemaChannels.Vice:
-                case AbemaChannels.Anime24:
-                case AbemaChannels.Fishing:
-                case AbemaChannels.Mahjong:
+                case AbemaChannel.Documentary:
+                case AbemaChannel.Pet:
+                case AbemaChannel.Vice:
+                case AbemaChannel.Anime24:
+                case AbemaChannel.Fishing:
+                case AbemaChannel.Mahjong:
                     return channel.ToString().ToLower();
 
-                case AbemaChannels.AbemaNews:
+                case AbemaChannel.AbemaNews:
                     return "abema-news";
 
-                case AbemaChannels.AbemaSpecial:
+                case AbemaChannel.AbemaSpecial:
                     return "abema-special";
 
-                case AbemaChannels.SpecialPlus:
+                case AbemaChannel.SpecialPlus:
                     return "special-plus";
 
-                case AbemaChannels.RealityShow:
+                case AbemaChannel.RealityShow:
                     return "reality-show";
 
-                case AbemaChannels.MtvHits:
+                case AbemaChannel.MtvHits:
                     return "mtv-hits";
 
-                case AbemaChannels.SpaceShowerMusic:
+                case AbemaChannel.SpaceShowerMusic:
                     return "space-shower";
 
-                case AbemaChannels.DramaChannel:
+                case AbemaChannel.DramaChannel:
                     return "drama";
 
-                case AbemaChannels.VarietyChannel:
+                case AbemaChannel.VarietyChannel:
                     return "variety";
 
-                case AbemaChannels.ClubChannel:
+                case AbemaChannel.ClubChannel:
                     return "club-channel";
 
-                case AbemaChannels.WorldSports:
+                case AbemaChannel.WorldSports:
                     return "world-sports";
 
-                case AbemaChannels.YokonoriSports:
+                case AbemaChannel.YokonoriSports:
                     return "yokonori-sports";
 
-                case AbemaChannels.MidnightAnime:
+                case AbemaChannel.MidnightAnime:
                     return "midnight-anime";
 
-                case AbemaChannels.OldtimeAnime:
+                case AbemaChannel.OldtimeAnime:
                     return "oldtime-anime";
 
-                case AbemaChannels.FamilyAnime:
+                case AbemaChannel.FamilyAnime:
                     return "family-anime";
 
-                case AbemaChannels.EdgeSportHd:
+                case AbemaChannel.EdgeSportHd:
                     return "edge-sport";
 
                 // case AbemaChannels.AbemaTvFresh:
@@ -182,73 +182,73 @@ namespace Norma.Models
             }
         }
 
-        public static AbemaChannels FromUrlString(string url)
+        public static AbemaChannel FromUrlString(string url)
         {
             var str = url.Replace("https://abema.tv/now-on-air/", "");
             switch (str)
             {
                 case "abema-news":
-                    return AbemaChannels.AbemaNews;
+                    return AbemaChannel.AbemaNews;
 
                 case "abema-special":
-                    return AbemaChannels.AbemaSpecial;
+                    return AbemaChannel.AbemaSpecial;
 
                 case "spcial-plus":
-                    return AbemaChannels.SpecialPlus;
+                    return AbemaChannel.SpecialPlus;
 
                 case "reality-show":
-                    return AbemaChannels.RealityShow;
+                    return AbemaChannel.RealityShow;
 
                 case "mtv-hits":
-                    return AbemaChannels.MtvHits;
+                    return AbemaChannel.MtvHits;
 
                 case "space-shower":
-                    return AbemaChannels.SpaceShowerMusic;
+                    return AbemaChannel.SpaceShowerMusic;
 
                 case "drama":
-                    return AbemaChannels.DramaChannel;
+                    return AbemaChannel.DramaChannel;
 
                 case "documentary":
-                    return AbemaChannels.Documentary;
+                    return AbemaChannel.Documentary;
 
                 case "variety":
-                    return AbemaChannels.VarietyChannel;
+                    return AbemaChannel.VarietyChannel;
 
                 case "pet":
-                    return AbemaChannels.Pet;
+                    return AbemaChannel.Pet;
 
                 case "club-channel":
-                    return AbemaChannels.ClubChannel;
+                    return AbemaChannel.ClubChannel;
 
                 case "world-sports":
-                    return AbemaChannels.WorldSports;
+                    return AbemaChannel.WorldSports;
 
                 case "yokonori-sports":
-                    return AbemaChannels.YokonoriSports;
+                    return AbemaChannel.YokonoriSports;
 
                 case "vice":
-                    return AbemaChannels.Vice;
+                    return AbemaChannel.Vice;
 
                 case "anime24":
-                    return AbemaChannels.Anime24;
+                    return AbemaChannel.Anime24;
 
                 case "midnight-anime":
-                    return AbemaChannels.MidnightAnime;
+                    return AbemaChannel.MidnightAnime;
 
                 case "oldtime-anime":
-                    return AbemaChannels.OldtimeAnime;
+                    return AbemaChannel.OldtimeAnime;
 
                 case "family-anime":
-                    return AbemaChannels.FamilyAnime;
+                    return AbemaChannel.FamilyAnime;
 
                 case "edge-sport":
-                    return AbemaChannels.EdgeSportHd;
+                    return AbemaChannel.EdgeSportHd;
 
                 case "fishing":
-                    return AbemaChannels.Fishing;
+                    return AbemaChannel.Fishing;
 
                 case "mahjong":
-                    return AbemaChannels.Mahjong;
+                    return AbemaChannel.Mahjong;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(url), url, null);

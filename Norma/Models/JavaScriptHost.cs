@@ -14,14 +14,14 @@ namespace Norma.Models
     // Not support features are:
     //  * CM related features.
     //  * Comment related features.
-    internal class OnAirPageJavaScriptHost : BindableBase, IDisposable
+    internal class JavaScriptHost : BindableBase, IDisposable
     {
         private readonly IWpfWebBrowser _wpfWebBrowser;
         private IDisposable _disposable;
 
         public string Address { get; set; }
 
-        public OnAirPageJavaScriptHost(IWpfWebBrowser wpfWebBrowser)
+        public JavaScriptHost(IWpfWebBrowser wpfWebBrowser)
         {
             _wpfWebBrowser = wpfWebBrowser;
             Address = "";
@@ -70,7 +70,7 @@ window.addEventListener('mousewheel', function(e) {
   e.stopImmediatePropagation();
 }, true);
 ";
-            _wpfWebBrowser.ExecuteScriptAsync(jsCode);
+            WrapExecuteScriptAsync(jsCode);
         }
 
         private void HideTvContainerHeader()
@@ -85,7 +85,7 @@ function cs_HideTvContainerHeader() {
 };
 setTimeout(cs_HideTvContainerHeader, 500);
 ";
-            _wpfWebBrowser.ExecuteScriptAsync(jsCode);
+            WrapExecuteScriptAsync(jsCode);
         }
 
         private void HideTvContainerFooter()
@@ -100,7 +100,7 @@ function cs_HideTvContainerFooter() {
 };
 setTimeout(cs_HideTvContainerFooter, 500);
 ";
-            _wpfWebBrowser.ExecuteScriptAsync(jsCode);
+            WrapExecuteScriptAsync(jsCode);
         }
 
         private void HideTvContainerSide()
@@ -115,7 +115,7 @@ function cs_HideTvContainerSide() {
 };
 setTimeout(cs_HideTvContainerSide, 500);
 ";
-            _wpfWebBrowser.ExecuteScriptAsync(jsCode);
+            WrapExecuteScriptAsync(jsCode);
         }
 
         private void GetTitleInfo()
@@ -129,7 +129,7 @@ setTimeout(cs_HideTvContainerSide, 500);
   return appContainerHeading.innerHTML;
 })();
 ";
-            var task = _wpfWebBrowser.EvaluateScriptAsync(jsCode, null);
+            var task = WrapEvaluateScriptAsync(jsCode);
             task.ContinueWith(w =>
             {
                 if (w.IsFaulted)
@@ -142,6 +142,34 @@ setTimeout(cs_HideTvContainerSide, 500);
                 Title = $"{RawTitle} - Norma";
             }, TaskScheduler.Default);
         }
+
+        #region Wrap IWpfWebBrowser Js Executor
+
+        private void WrapExecuteScriptAsync(string jsCode)
+        {
+            try
+            {
+                _wpfWebBrowser.ExecuteScriptAsync(jsCode);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
+
+        private Task<JavascriptResponse> WrapEvaluateScriptAsync(string jsCode)
+        {
+            try
+            {
+                return _wpfWebBrowser.EvaluateScriptAsync(jsCode, null);
+            }
+            catch (Exception e)
+            {
+                return (Task<JavascriptResponse>) Task.FromException(e);
+            }
+        }
+
+        #endregion
 
         #region Title
 

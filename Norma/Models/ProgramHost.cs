@@ -10,7 +10,7 @@ namespace Norma.Models
 {
     internal class ProgramHost : BindableBase, IDisposable
     {
-        private AbemaChannels _channel;
+        private AbemaChannel _channel;
         private IDisposable _disposable;
 
         #region Implementation of IDisposable
@@ -22,7 +22,7 @@ namespace Norma.Models
 
         #endregion
 
-        public void OnChannelChanged(AbemaChannels channel)
+        public void OnChannelChanged(AbemaChannel channel)
         {
             _channel = channel;
             _disposable?.Dispose();

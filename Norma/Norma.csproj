@@ -189,13 +189,13 @@
     <Compile Include="Interactivity\InteractionRequest2.cs" />
     <Compile Include="Interactivity\InteractionRequestedEventArgs2.cs" />
     <Compile Include="Models\AbemaApiHost.cs" />
-    <Compile Include="Models\AbemaChannels.cs" />
+    <Compile Include="Models\AbemaChannel.cs" />
     <Compile Include="Models\CefSetting.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\CommentHost.cs" />
     <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\Config\ConfigRoot.cs" />
-    <Compile Include="Models\OnAirPageJavaScriptHost.cs" />
+    <Compile Include="Models\JavaScriptHost.cs" />
     <Compile Include="Models\ProgramHost.cs" />
     <Compile Include="Models\Timetable.cs" />
     <Compile Include="NormaConstants.cs" />
