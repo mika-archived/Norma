@@ -15,7 +15,6 @@ namespace Norma.Models
     {
         private AbemaChannel _channel;
         private IDisposable _disposable;
-        private Slot _oldSlot;
 
         public ProgramHost()
         {
@@ -45,12 +44,15 @@ namespace Norma.Models
         {
             StatusInfo.Instance.Text = "Fetching program information.";
             var ts = Timetable.Instance.Media;
-            var currenSchedule = ts.ChannelSchedules.First(w => w.ChannelId == _channel.ToUrlString()); // 今日
-            var currentProgram = currenSchedule.Slots.Single(w => w.StartAt <= DateTime.Now && w.EndAt >= DateTime.Now);
-            if (_oldSlot != null && currentProgram.Id == _oldSlot.Id)
+            var schedule = ts.ChannelSchedules.First(w => w.ChannelId == _channel.ToUrlString()); // 今日
+            var currentProgram = schedule.Slots
+                                         .SingleOrDefault(w => w.StartAt <= DateTime.Now && w.EndAt >= DateTime.Now);
+            if (currentProgram == null)
+            {
+                Title = "";
                 return;
+            }
 
-            _oldSlot = currentProgram;
             // 番組名 or プログラム名
             // ReSharper disable HeuristicUnreachableCode
 #pragma warning disable 162
@@ -69,6 +71,7 @@ namespace Norma.Models
                      DateTime.Now <= currentProgram.StartAt.AddSeconds(perTime * ++fill))) {}
             fill--;
             var program = currentProgram.Programs[fill];
+
             Title = $"{currentProgram.Highlight} - {program.Episode.Name} \"{program.Episode.Title}\"";
             Description = program.Episode.Overview;
             ProvideCredits(program.Credit);
