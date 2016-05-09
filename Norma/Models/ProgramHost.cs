@@ -33,6 +33,7 @@ namespace Norma.Models
 
         private void FetchProgramInfo()
         {
+            StatusInfo.Instance.Text = "Fetching program information.";
             var ts = Timetable.Instance.Media;
             var currenSchedule = ts.ChannelSchedules.First(w => w.ChannelId == _channel.ToUrlString()); // 今日
             var currentProgram = currenSchedule.Slots.Single(w => w.StartAt <= DateTime.Now && w.EndAt >= DateTime.Now);
@@ -56,6 +57,7 @@ namespace Norma.Models
             Title = $"{currentProgram.Highlight} - {program.Episode.Name} \"{program.Episode.Title}\"";
             Description = program.Episode.Overview;
             ProvideThumbnails(program);
+            StatusInfo.Instance.Text = "Fetched program information.";
         }
 
         private void ProvideThumbnails(Program program)

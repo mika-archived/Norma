@@ -8,7 +8,6 @@ namespace Norma.Models
     internal class Channel : BindableBase, IDisposable
     {
         private readonly IDisposable _disposable;
-        private string hoge;
         public AbemaChannel ChannelType { get; }
         public string LogoUrl { get; private set; }
 
@@ -38,6 +37,7 @@ namespace Norma.Models
                 date = date.AddSeconds(-(date.Second % 10)); // サムネイルが10秒に発行されるので、N % 10 == 0秒に修正する
             var time = date.ToString("yyyyMMddHHmmss");
             ThumbnailUrl = $"https://hayabusa.io/abema/channels/time/{time}/{channel}.w132.h75.png";
+            StatusInfo.Instance.Text = "Reload channel thumbnails.";
         }
 
         #region ThumbnailUrl

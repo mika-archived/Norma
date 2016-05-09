@@ -70,6 +70,7 @@ window.addEventListener('mousewheel', function(e) {
   e.stopImmediatePropagation();
 }, true);
 ";
+            StatusInfo.Instance.Text = "Disable change channel by mouse wheel.";
             WrapExecuteScriptAsync(jsCode);
         }
 
@@ -85,6 +86,7 @@ function cs_HideTvContainerHeader() {
 };
 setTimeout(cs_HideTvContainerHeader, 500);
 ";
+            StatusInfo.Instance.Text = "Hide container headers.";
             WrapExecuteScriptAsync(jsCode);
         }
 
@@ -100,6 +102,7 @@ function cs_HideTvContainerFooter() {
 };
 setTimeout(cs_HideTvContainerFooter, 500);
 ";
+            StatusInfo.Instance.Text = "Hide container footers.";
             WrapExecuteScriptAsync(jsCode);
         }
 
@@ -115,6 +118,7 @@ function cs_HideTvContainerSide() {
 };
 setTimeout(cs_HideTvContainerSide, 500);
 ";
+            StatusInfo.Instance.Text = "Hide container sides.";
             WrapExecuteScriptAsync(jsCode);
         }
 

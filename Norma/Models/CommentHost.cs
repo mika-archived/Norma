@@ -81,6 +81,7 @@ namespace Norma.Models
 
         private async Task FetchComments()
         {
+            StatusInfo.Instance.Text = "Fetching program comments (20 comments).";
             var comments = await AbemaApiHost.Instance.Comments(_slotId);
             foreach (var comment in comments.CommentList.OrderBy(w => w.CreatedAtMs))
             {
@@ -93,6 +94,7 @@ namespace Norma.Models
                         Comments.RemoveAt(i);
                 Comments.Insert(0, comment);
             }
+            StatusInfo.Instance.Text = "Fetched program comments.";
         }
 
         #region IsCm
