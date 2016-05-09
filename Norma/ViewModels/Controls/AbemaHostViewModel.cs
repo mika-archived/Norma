@@ -29,6 +29,7 @@ namespace Norma.ViewModels.Controls
             if (WebBrowser == null)
                 return;
             _javaScritHost = new JavaScriptHost(WebBrowser).AddTo(this);
+            _javaScritHost.Address = Address; // Initialize
             _javaScritHost.Subscribe(nameof(_javaScritHost.Title), w =>
             {
                 _parentViewModel.Title = _javaScritHost.Title;
