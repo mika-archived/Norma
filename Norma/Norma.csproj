@@ -182,6 +182,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Behaviors\HorizontalScrollBehavior.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Extensions\IDisposableExt.cs" />
