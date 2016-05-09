@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
+
+using Microsoft.Practices.ObjectBuilder2;
 
 using Norma.Gamma.Models;
 
@@ -12,6 +15,13 @@ namespace Norma.Models
     {
         private AbemaChannel _channel;
         private IDisposable _disposable;
+        private Slot _oldSlot;
+
+        public ProgramHost()
+        {
+            Casts = new ObservableCollection<string>();
+            Crews = new ObservableCollection<string>();
+        }
 
         #region Implementation of IDisposable
 
@@ -37,6 +47,10 @@ namespace Norma.Models
             var ts = Timetable.Instance.Media;
             var currenSchedule = ts.ChannelSchedules.First(w => w.ChannelId == _channel.ToUrlString()); // 今日
             var currentProgram = currenSchedule.Slots.Single(w => w.StartAt <= DateTime.Now && w.EndAt >= DateTime.Now);
+            if (_oldSlot != null && currentProgram.Id == _oldSlot.Id)
+                return;
+
+            _oldSlot = currentProgram;
             // 番組名 or プログラム名
             // ReSharper disable HeuristicUnreachableCode
 #pragma warning disable 162
@@ -44,6 +58,7 @@ namespace Norma.Models
             {
                 Title = currentProgram.Title;
                 Description = currentProgram.Programs[0].Episode.Overview;
+                ProvideCredits(currentProgram.Programs[0].Credit);
                 ProvideThumbnails(currentProgram.Programs[0]);
                 return;
             }
@@ -56,8 +71,30 @@ namespace Norma.Models
             var program = currentProgram.Programs[fill];
             Title = $"{currentProgram.Highlight} - {program.Episode.Name} \"{program.Episode.Title}\"";
             Description = program.Episode.Overview;
+            ProvideCredits(program.Credit);
             ProvideThumbnails(program);
             StatusInfo.Instance.Text = "Fetched program information.";
+        }
+
+        private void ProvideCredits(Credit credit)
+        {
+            Casts.Clear();
+            if (credit.Cast?.Length > 0)
+            {
+                credit.Cast?.ForEach(w => Casts.Add(w));
+                HasCasts = true;
+            }
+            else
+                HasCasts = false;
+
+            Crews.Clear();
+            if (credit.Crews?.Length > 0)
+            {
+                credit.Crews?.ForEach(w => Crews.Add(w));
+                HasCrews = true;
+            }
+            else
+                HasCrews = false;
         }
 
         private void ProvideThumbnails(Program program)
@@ -79,18 +116,6 @@ namespace Norma.Models
                 : "";
         }
 
-        #region HasInfo
-
-        private bool _hasInfo;
-
-        public bool HasInfo
-        {
-            get { return _hasInfo; }
-            set { SetProperty(ref _hasInfo, value); }
-        }
-
-        #endregion
-
         #region Title
 
         private string _title;
@@ -98,11 +123,7 @@ namespace Norma.Models
         public string Title
         {
             get { return _title; }
-            set
-            {
-                if (SetProperty(ref _title, value))
-                    HasInfo = !string.IsNullOrWhiteSpace(value);
-            }
+            set { SetProperty(ref _title, value); }
         }
 
         #endregion
@@ -139,6 +160,34 @@ namespace Norma.Models
         {
             get { return _thumbnail2; }
             set { SetProperty(ref _thumbnail2, value); }
+        }
+
+        #endregion
+
+        public ObservableCollection<string> Casts { get; }
+
+        public ObservableCollection<string> Crews { get; }
+
+        #region HasCasts
+
+        private bool _hasCasts;
+
+        public bool HasCasts
+        {
+            get { return _hasCasts; }
+            set { SetProperty(ref _hasCasts, value); }
+        }
+
+        #endregion
+
+        #region HasCrews
+
+        private bool _hasCrews;
+
+        public bool HasCrews
+        {
+            get { return _hasCrews; }
+            set { SetProperty(ref _hasCrews, value); }
         }
 
         #endregion
