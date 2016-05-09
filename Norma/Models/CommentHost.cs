@@ -83,7 +83,12 @@ namespace Norma.Models
         {
             StatusInfo.Instance.Text = "Fetching program comments (20 comments).";
             var comments = await AbemaApiHost.Instance.Comments(_slotId);
-            foreach (var comment in comments.CommentList.OrderBy(w => w.CreatedAtMs))
+            if (comments.CommentList == null)
+            {
+                StatusInfo.Instance.Text = "Cannot get program comments(null).";
+                return;
+            }
+            foreach (var comment in comments?.CommentList.OrderBy(w => w.CreatedAtMs))
             {
                 if (Comments.Any(w => w.Id == comment.Id))
                     continue;
