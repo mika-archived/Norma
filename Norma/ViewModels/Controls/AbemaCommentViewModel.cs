@@ -15,14 +15,14 @@ namespace Norma.ViewModels.Controls
         private readonly CommentHost _commentHost;
 
         public ReadOnlyReactiveCollection<CommentViewModel> Comments { get; }
-        public ReactiveProperty<bool> IsEnableCommentArea { get; }
+        public ReadOnlyReactiveProperty<bool> IsEnableCommentArea { get; }
 
         public AbemaCommentViewModel(AbemaHostViewModel hostViewModel)
         {
             _commentHost = new CommentHost().AddTo(this);
             Comments = _commentHost.Comments.ToReadOnlyReactiveCollection(w => new CommentViewModel(w));
             IsEnableCommentArea = _commentHost.ObserveProperty(w => w.IsCm)
-                                              .Select(w => !w).ToReactiveProperty();
+                                              .Select(w => !w).ToReadOnlyReactiveProperty();
 
             hostViewModel.Subscribe(nameof(hostViewModel.Address), w =>
             {

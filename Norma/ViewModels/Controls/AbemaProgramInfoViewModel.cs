@@ -11,20 +11,20 @@ namespace Norma.ViewModels.Controls
     {
         private readonly ProgramHost _programHost;
 
-        public ReactiveProperty<string> Title { get; private set; }
-        public ReactiveProperty<string> Description { get; private set; }
-        public ReactiveProperty<bool> HasInfo { get; private set; }
-        public ReactiveProperty<string> Thumbnail1 { get; private set; }
-        public ReactiveProperty<string> Thumbnail2 { get; private set; }
+        public ReadOnlyReactiveProperty<string> Title { get; private set; }
+        public ReadOnlyReactiveProperty<string> Description { get; private set; }
+        public ReadOnlyReactiveProperty<bool> HasInfo { get; private set; }
+        public ReadOnlyReactiveProperty<string> Thumbnail1 { get; private set; }
+        public ReadOnlyReactiveProperty<string> Thumbnail2 { get; private set; }
 
         public AbemaProgramInfoViewModel(AbemaHostViewModel hostViewModel)
         {
             _programHost = new ProgramHost();
-            Title = _programHost.ObserveProperty(w => w.Title).ToReactiveProperty();
-            Description = _programHost.ObserveProperty(w => w.Description).ToReactiveProperty();
-            HasInfo = _programHost.ObserveProperty(w => w.HasInfo).ToReactiveProperty();
-            Thumbnail1 = _programHost.ObserveProperty(w => w.Thumbnail1).ToReactiveProperty();
-            Thumbnail2 = _programHost.ObserveProperty(w => w.Thumbnail2).ToReactiveProperty();
+            Title = _programHost.ObserveProperty(w => w.Title).ToReadOnlyReactiveProperty();
+            Description = _programHost.ObserveProperty(w => w.Description).ToReadOnlyReactiveProperty();
+            HasInfo = _programHost.ObserveProperty(w => w.HasInfo).ToReadOnlyReactiveProperty();
+            Thumbnail1 = _programHost.ObserveProperty(w => w.Thumbnail1).ToReadOnlyReactiveProperty();
+            Thumbnail2 = _programHost.ObserveProperty(w => w.Thumbnail2).ToReadOnlyReactiveProperty();
             hostViewModel.Subscribe(nameof(hostViewModel.Address), w =>
             {
                 if (!hostViewModel.Address.StartsWith("https://abema.tv/now-on-air/"))

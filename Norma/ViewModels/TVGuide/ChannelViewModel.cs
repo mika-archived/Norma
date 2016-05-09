@@ -12,13 +12,13 @@ namespace Norma.ViewModels.TVGuide
         private readonly ShellViewModel _parentViewModel;
 
         public string LogoUrl => _model.LogoUrl;
-        public ReactiveProperty<string> ThumbnailUrl { get; private set; }
+        public ReadOnlyReactiveProperty<string> ThumbnailUrl { get; private set; }
 
         public ChannelViewModel(ShellViewModel parentViewModel, Channel channel)
         {
             _parentViewModel = parentViewModel;
             _model = channel;
-            ThumbnailUrl = _model.ObserveProperty(x => x.ThumbnailUrl).ToReactiveProperty();
+            ThumbnailUrl = _model.ObserveProperty(x => x.ThumbnailUrl).ToReadOnlyReactiveProperty();
         }
 
         // CallMethodAction
