@@ -197,6 +197,7 @@
     <Compile Include="Models\Config\ConfigRoot.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
     <Compile Include="Models\ProgramHost.cs" />
+    <Compile Include="Models\StatusInfo.cs" />
     <Compile Include="Models\Timetable.cs" />
     <Compile Include="NormaConstants.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />

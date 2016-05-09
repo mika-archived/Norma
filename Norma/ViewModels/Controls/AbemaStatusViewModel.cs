@@ -1,24 +1,19 @@
-﻿using Norma.ViewModels.Internal;
+﻿using Norma.Models;
+using Norma.ViewModels.Internal;
+
+using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 
 namespace Norma.ViewModels.Controls
 {
     internal class AbemaStatusViewModel : ViewModel
     {
+        public ReadOnlyReactiveProperty<string> Text { get; }
+
         public AbemaStatusViewModel()
         {
-            Text = "Ready";
+            // ??
+            Text = StatusInfo.Instance.ObserveProperty(w => w.Text).ToReadOnlyReactiveProperty();
         }
-
-        #region Text
-
-        private string _text;
-
-        public string Text
-        {
-            get { return _text; }
-            set { SetProperty(ref _text, value); }
-        }
-
-        #endregion
     }
 }

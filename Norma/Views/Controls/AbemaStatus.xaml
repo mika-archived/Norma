@@ -11,6 +11,6 @@
              d:DesignWidth="300"
              mc:Ignorable="d">
     <Grid>
-        <TextBlock Text="{Binding Text}" />
+        <TextBlock Text="{Binding Text.Value}" />
     </Grid>
 </UserControl>
