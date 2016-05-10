@@ -198,6 +198,14 @@
     <Compile Include="Models\Config\ConfigRoot.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
     <Compile Include="Models\Libraries\CEF.cs" />
+    <Compile Include="Models\Libraries\CEFSharp.cs" />
+    <Compile Include="Models\Libraries\CommonServiceLocator.cs" />
+    <Compile Include="Models\Libraries\MetroRadiance.cs" />
+    <Compile Include="Models\Libraries\NewtonsoftJson.cs" />
+    <Compile Include="Models\Libraries\PrismLibrary.cs" />
+    <Compile Include="Models\Libraries\ReactiveProperty.cs" />
+    <Compile Include="Models\Libraries\RxNET.cs" />
+    <Compile Include="Models\Libraries\Unity.cs" />
     <Compile Include="Models\Library.cs" />
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ProgramHost.cs" />
