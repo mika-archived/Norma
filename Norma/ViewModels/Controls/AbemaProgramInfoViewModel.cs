@@ -1,5 +1,6 @@
 ﻿using System.Reactive.Linq;
 
+using Norma.Extensions;
 using Norma.Helpers;
 using Norma.Models;
 using Norma.ViewModels.Internal;
@@ -26,15 +27,15 @@ namespace Norma.ViewModels.Controls
         public AbemaProgramInfoViewModel(AbemaHostViewModel hostViewModel)
         {
             _programHost = new ProgramHost();
-            Title = _programHost.ObserveProperty(w => w.Title).ToReadOnlyReactiveProperty();
-            Description = _programHost.ObserveProperty(w => w.Description).ToReadOnlyReactiveProperty();
+            Title = _programHost.ObserveProperty(w => w.Title).ToReadOnlyReactiveProperty().AddTo(this);
+            Description = _programHost.ObserveProperty(w => w.Description).ToReadOnlyReactiveProperty().AddTo(this);
             HasInfo = _programHost.ObserveProperty(w => w.Title)
                                   .Select(w => !string.IsNullOrWhiteSpace(w))
-                                  .ToReadOnlyReactiveProperty();
-            Thumbnail1 = _programHost.ObserveProperty(w => w.Thumbnail1).ToReadOnlyReactiveProperty();
-            Thumbnail2 = _programHost.ObserveProperty(w => w.Thumbnail2).ToReadOnlyReactiveProperty();
-            Casts = _programHost.Casts.ToReadOnlyReactiveCollection();
-            Crews = _programHost.Crews.ToReadOnlyReactiveCollection();
+                                  .ToReadOnlyReactiveProperty().AddTo(this);
+            Thumbnail1 = _programHost.ObserveProperty(w => w.Thumbnail1).ToReadOnlyReactiveProperty().AddTo(this);
+            Thumbnail2 = _programHost.ObserveProperty(w => w.Thumbnail2).ToReadOnlyReactiveProperty().AddTo(this);
+            Casts = _programHost.Casts.ToReadOnlyReactiveCollection().AddTo(this);
+            Crews = _programHost.Crews.ToReadOnlyReactiveCollection().AddTo(this);
             hostViewModel.Subscribe(nameof(hostViewModel.Address), w =>
             {
                 if (!hostViewModel.Address.StartsWith("https://abema.tv/now-on-air/"))
@@ -42,7 +43,7 @@ namespace Norma.ViewModels.Controls
                 var channel = AbemaChannelExt.FromUrlString(hostViewModel.Address);
                 Configuration.Instance.Root.LastViewedChannel = channel;
                 _programHost.OnChannelChanged(channel);
-            });
+            }).AddTo(this);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Norma.Models;
+﻿using Norma.Extensions;
+using Norma.Models;
 using Norma.ViewModels.Internal;
 
 using Reactive.Bindings;
@@ -18,7 +19,7 @@ namespace Norma.ViewModels.TVGuide
         {
             _parentViewModel = parentViewModel;
             _model = channel;
-            ThumbnailUrl = _model.ObserveProperty(x => x.ThumbnailUrl).ToReadOnlyReactiveProperty();
+            ThumbnailUrl = _model.ObserveProperty(x => x.ThumbnailUrl).ToReadOnlyReactiveProperty().AddTo(this);
         }
 
         // CallMethodAction

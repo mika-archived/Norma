@@ -34,7 +34,7 @@ namespace Norma.ViewModels.Controls
             {
                 _parentViewModel.Title = _javaScritHost.Title;
                 CommentViewModel.OnProgramChanged(_javaScritHost.RawTitle);
-            });
+            }).AddTo(this);
         }
 
         #region WebBrowser

@@ -1,4 +1,5 @@
-﻿using Norma.Models;
+﻿using Norma.Extensions;
+using Norma.Models;
 using Norma.ViewModels.Internal;
 
 using Reactive.Bindings;
@@ -13,7 +14,7 @@ namespace Norma.ViewModels.Controls
         public AbemaStatusViewModel()
         {
             // ??
-            Text = StatusInfo.Instance.ObserveProperty(w => w.Text).ToReadOnlyReactiveProperty();
+            Text = StatusInfo.Instance.ObserveProperty(w => w.Text).ToReadOnlyReactiveProperty().AddTo(this);
         }
     }
 }
