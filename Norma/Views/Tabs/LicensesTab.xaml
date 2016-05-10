@@ -4,9 +4,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Norma.Views.Tabs"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:model="clr-namespace:Norma.Models"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:vm="clr-namespace:Norma.ViewModels.Tabs"
+             xmlns:vmroot="clr-namespace:Norma.ViewModels"
              d:DataContext="{d:DesignInstance vm:LicensesTabViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
@@ -51,17 +51,17 @@
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
-                <DataTemplate DataType="{x:Type model:Library}">
+                <DataTemplate DataType="{x:Type vmroot:LibraryViewModel}">
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                         <StackPanel Margin="5" Orientation="Vertical">
                             <StackPanel.Resources>
                                 <Style TargetType="{x:Type TextBlock}">
-                                    <Setter Property="Foreground" Value="{DynamicResource AccentForegroundBrushKey}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
                                 </Style>
                             </StackPanel.Resources>
                             <TextBlock FontSize="20" Text="{Binding Name}" />
                             <TextBlock>
-                                <Hyperlink NavigateUri="{Binding Url, Mode=OneWay}">
+                                <Hyperlink Command="{Binding OpenHyperlinkCommand}" NavigateUri="{Binding Url, Mode=OneWay}">
                                     <Run Text="{Binding Url, Mode=OneWay}" />
                                 </Hyperlink>
                             </TextBlock>

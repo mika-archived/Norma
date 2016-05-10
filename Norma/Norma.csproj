@@ -204,6 +204,7 @@
     <Compile Include="Models\StatusInfo.cs" />
     <Compile Include="Models\Timetable.cs" />
     <Compile Include="NormaConstants.cs" />
+    <Compile Include="ViewModels\LibraryViewModel.cs" />
     <Compile Include="ViewModels\Tabs\AboutTabViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaCommentViewModel.cs" />
