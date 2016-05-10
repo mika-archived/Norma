@@ -73,7 +73,7 @@
                                          Content="&#57698;"
                                          FontFamily="Segoe MDL2 Assets, Segoe UI Symbol" />
                     -->
-                    <metro:CaptionButton Width="60"
+                    <metro:CaptionButton Width="40"
                                          Margin="10,0"
                                          VerticalAlignment="Top"
                                          Command="{Binding OpenSettingsCommand}"
