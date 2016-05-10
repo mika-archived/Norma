@@ -9,6 +9,7 @@
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
                    xmlns:prism="http://prismlibrary.com/"
+                   xmlns:tabs="clr-namespace:Norma.Views.Tabs"
                    Title="Settings"
                    Width="900"
                    Height="600"
@@ -69,7 +70,7 @@
                     <Setter Property="FontFamily" Value="Segoe UI" />
                     <Setter Property="FontSize" Value="14" />
                     <Setter Property="FontWeight" Value="Light" />
-                    <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
+                    <Setter Property="Foreground" Value="{DynamicResource AccentForegroundBrushKey}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
                             <Setter Property="FontWeight" Value="Medium" />
@@ -86,6 +87,7 @@
                 <TabItem.Header>
                     <TextBlock Style="{StaticResource HeaerTextBlockStyle}" Text="About" />
                 </TabItem.Header>
+                <tabs:AboutTab />
             </TabItem>
             <TabItem>
                 <TabItem.Header>
