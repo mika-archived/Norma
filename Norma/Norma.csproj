@@ -212,6 +212,7 @@
     <Compile Include="ViewModels\Internal\ViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindowViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="ViewModels\Tabs\LicensesTabViewModel.cs" />
     <Compile Include="ViewModels\Tabs\OptionsTabViewModel.cs" />
     <Compile Include="ViewModels\TimetableWindowViewModel.cs" />
     <Compile Include="ViewModels\TVGuide\ChannelViewModel.cs" />
@@ -238,6 +239,9 @@
     </Compile>
     <Compile Include="Views\Tabs\AboutTab.xaml.cs">
       <DependentUpon>AboutTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\LicensesTab.xaml.cs">
+      <DependentUpon>LicensesTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tabs\OptionsTab.xaml.cs">
       <DependentUpon>OptionsTab.xaml</DependentUpon>
@@ -304,6 +308,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Tabs\AboutTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tabs\LicensesTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
