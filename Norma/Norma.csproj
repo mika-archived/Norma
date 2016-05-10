@@ -197,6 +197,8 @@
     <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\Config\ConfigRoot.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
+    <Compile Include="Models\Libraries\CEF.cs" />
+    <Compile Include="Models\Library.cs" />
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ProgramHost.cs" />
     <Compile Include="Models\StatusInfo.cs" />
@@ -330,6 +332,7 @@
       <Name>Norma.Gamma</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\cef.redist.x64.3.2623.1396\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2623.1396\build\cef.redist.x64.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
