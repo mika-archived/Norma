@@ -86,6 +86,7 @@
                 <TabItem.Header>
                     <TextBlock Style="{StaticResource HeaerTextBlockStyle}" Text="Options" />
                 </TabItem.Header>
+                <tabs:OptionsTab DataContext="{Binding OptionsTabViewModel}" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>

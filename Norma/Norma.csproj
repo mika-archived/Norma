@@ -212,6 +212,7 @@
     <Compile Include="ViewModels\Internal\ViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindowViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="ViewModels\Tabs\OptionsTabViewModel.cs" />
     <Compile Include="ViewModels\TimetableWindowViewModel.cs" />
     <Compile Include="ViewModels\TVGuide\ChannelViewModel.cs" />
     <Compile Include="Views\Controls\AbemaComment.xaml.cs">
@@ -237,6 +238,9 @@
     </Compile>
     <Compile Include="Views\Tabs\AboutTab.xaml.cs">
       <DependentUpon>AboutTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\OptionsTab.xaml.cs">
+      <DependentUpon>OptionsTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TimetableWindow.xaml.cs">
       <DependentUpon>TimetableWindow.xaml</DependentUpon>
@@ -300,6 +304,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Tabs\AboutTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tabs\OptionsTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
