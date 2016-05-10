@@ -16,6 +16,7 @@ namespace Norma.ViewModels
         public AbemaTVGuideViewModel TvGuideViewModel { get; }
         public AbemaStatusViewModel StatusBar { get; }
         public InteractionRequest2 TransitionRequest { get; }
+        public InteractionRequest2 ModalTransitionRequest { get; }
 
         public ShellViewModel()
         {
@@ -24,19 +25,28 @@ namespace Norma.ViewModels
             TvGuideViewModel = new AbemaTVGuideViewModel(this);
             StatusBar = new AbemaStatusViewModel();
             TransitionRequest = new InteractionRequest2();
+            ModalTransitionRequest = new InteractionRequest2();
         }
 
         #region OpenTimetableCommand
 
         private ICommand _openTimetableCommand;
 
-        public ICommand OpenTImetableCommand
+        public ICommand OpenTimetableCommand
             => _openTimetableCommand ?? (_openTimetableCommand = new DelegateCommand(OpenTimetable));
 
-        private void OpenTimetable()
-        {
-            TransitionRequest.Raise(typeof(TimetableWindow));
-        }
+        private void OpenTimetable() => TransitionRequest.Raise(typeof(TimetableWindow));
+
+        #endregion
+
+        #region OpenSettingsCommand
+
+        private ICommand _openSettingsCommand;
+
+        public ICommand OpenSettingsCommand
+            => _openSettingsCommand ?? (_openSettingsCommand = new DelegateCommand(OpenSettings));
+
+        private void OpenSettings() => ModalTransitionRequest.Raise(typeof(SettingsWindow));
 
         #endregion
 

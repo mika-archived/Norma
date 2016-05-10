@@ -32,6 +32,9 @@
         <prism:InteractionRequestTrigger SourceObject="{Binding TransitionRequest}">
             <actions:TransitionInteractionMessageAction />
         </prism:InteractionRequestTrigger>
+        <prism:InteractionRequestTrigger SourceObject="{Binding ModalTransitionRequest}">
+            <actions:TransitionInteractionMessageAction IsModal="True" />
+        </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
@@ -66,10 +69,16 @@
                     <metro:CaptionButton Width="60"
                                          Margin="10,0"
                                          VerticalAlignment="Top"
-                                         Command="{Binding OpenTImetableCommand}"
-                                         Content="番組表"
-                                         FontFamily="Segoe UI Light" />
+                                         Command="{Binding OpenTimetableCommand}"
+                                         Content="&#57698;"
+                                         FontFamily="Segoe MDL2 Assets, Segoe UI Symbol" />
                     -->
+                    <metro:CaptionButton Width="60"
+                                         Margin="10,0"
+                                         VerticalAlignment="Top"
+                                         Command="{Binding OpenSettingsCommand}"
+                                         Content="&#57621;"
+                                         FontFamily="Segoe MDL2 Assets, Segoe UI Symbol" />
                     <metro:SystemButtons VerticalAlignment="Top" />
                 </StackPanel>
             </Grid>
