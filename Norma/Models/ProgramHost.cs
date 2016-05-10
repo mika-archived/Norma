@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.Practices.ObjectBuilder2;
 
@@ -37,12 +38,14 @@ namespace Norma.Models
             _disposable?.Dispose();
 
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(10))
-                                    .Subscribe(w => FetchProgramInfo());
+                                    .Subscribe(async w => await FetchProgramInfo());
         }
 
-        private void FetchProgramInfo()
+        private async Task FetchProgramInfo()
         {
             StatusInfo.Instance.Text = "Fetching program information.";
+            if (Timetable.Instance.LastSyncTime.Day != DateTime.Now.Day)
+                await Timetable.Instance.Sync();
             var ts = Timetable.Instance.Media;
             var schedule = ts.ChannelSchedules.First(w => w.ChannelId == _channel.ToUrlString()); // 今日
             var currentProgram = schedule.Slots

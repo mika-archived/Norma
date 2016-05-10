@@ -41,7 +41,7 @@ namespace Norma.Models
             _channel = channel;
         }
 
-        public void OnProgramChanged(string title)
+        public async Task OnProgramChanged(string title)
         {
             if (title == "(CM)")
             {
@@ -61,11 +61,13 @@ namespace Norma.Models
             _title = title;
             _disposable?.Dispose();
 
-            FetchProgram();
+            await FetchProgram();
         }
 
-        private void FetchProgram()
+        private async Task FetchProgram()
         {
+            if (Timetable.Instance.LastSyncTime.Day != DateTime.Now.Day)
+                await Timetable.Instance.Sync();
             var ts = Timetable.Instance.Media;
             var currenSchedule = ts.ChannelSchedules.First(w => w.ChannelId == _channel.ToUrlString()); // 今日
             var currentProgram = currenSchedule.Slots.Single(w => w.StartAt <= DateTime.Now && w.EndAt >= DateTime.Now);

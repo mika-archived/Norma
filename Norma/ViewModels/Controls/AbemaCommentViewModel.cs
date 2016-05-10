@@ -1,4 +1,5 @@
 ﻿using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 using Norma.Extensions;
 using Norma.Helpers;
@@ -33,6 +34,6 @@ namespace Norma.ViewModels.Controls
         }
 
         // むー
-        public void OnProgramChanged(string title) => _commentHost.OnProgramChanged(title);
+        public async Task OnProgramChanged(string title) => await _commentHost.OnProgramChanged(title);
     }
 }

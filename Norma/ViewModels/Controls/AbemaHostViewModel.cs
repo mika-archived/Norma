@@ -30,10 +30,10 @@ namespace Norma.ViewModels.Controls
                 return;
             _javaScritHost = new JavaScriptHost(WebBrowser).AddTo(this);
             _javaScritHost.Address = Address; // Initialize
-            _javaScritHost.Subscribe(nameof(_javaScritHost.Title), w =>
+            _javaScritHost.Subscribe(nameof(_javaScritHost.Title), async w =>
             {
                 _parentViewModel.Title = _javaScritHost.Title;
-                CommentViewModel.OnProgramChanged(_javaScritHost.RawTitle);
+                await CommentViewModel.OnProgramChanged(_javaScritHost.RawTitle);
             }).AddTo(this);
         }
 
