@@ -18,7 +18,7 @@
                    prism:ViewModelLocator.AutoWireViewModel="True"
                    Background="{DynamicResource ThemeBrushKey}"
                    FontFamily="Segoe UI"
-                   IsRestoringWindowPlacement="False"
+                   IsRestoringWindowPlacement="True"
                    TextOptions.TextFormattingMode="Display"
                    UseLayoutRounding="True"
                    mc:Ignorable="d">
