@@ -14,7 +14,7 @@ namespace Norma.ViewModels
 
         public string Name => _library.Name;
 
-        public string Url => _library.Url;
+        public string Url => _library.Url.Replace("https://", "").Replace("http://", "");
 
         public string License => _library.License;
 
@@ -30,7 +30,7 @@ namespace Norma.ViewModels
         public ICommand OpenHyperlinkCommand =>
             _openHyperlinkCommand ?? (_openHyperlinkCommand = new DelegateCommand(OpenHyperlink));
 
-        private void OpenHyperlink() => Process.Start(Url);
+        private void OpenHyperlink() => Process.Start(_library.Url);
 
         #endregion
     }
