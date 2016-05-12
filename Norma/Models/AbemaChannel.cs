@@ -193,7 +193,7 @@ namespace Norma.Models
                 case "abema-special":
                     return AbemaChannel.AbemaSpecial;
 
-                case "spcial-plus":
+                case "special-plus":
                     return AbemaChannel.SpecialPlus;
 
                 case "reality-show":
