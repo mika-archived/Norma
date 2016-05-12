@@ -19,7 +19,7 @@
         <i:Interaction.Behaviors>
             <behaviors:HorizontalScrollBehavior />
         </i:Interaction.Behaviors>
-        <ItemsControl ItemsSource="{Binding ChannnelCollection}"
+        <ItemsControl ItemsSource="{Binding Channnels}"
                       VirtualizingPanel.IsVirtualizing="True"
                       VirtualizingPanel.ScrollUnit="Pixel"
                       VirtualizingPanel.VirtualizationMode="Recycling">

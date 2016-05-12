@@ -5,114 +5,114 @@ namespace Norma.Models
     internal enum AbemaChannel
     {
         /// <summary>
-        ///     1ch - Abema news/
+        ///     1ch - Onegai Ranking
+        /// </summary>
+        OnegaiRanking,
+
+        /// <summary>
+        ///     2ch - Abema news/
         /// </summary>
         AbemaNews,
 
         /// <summary>
-        ///     2ch - Abema SPECIAL
+        ///     3ch - Abema SPECIAL
         /// </summary>
         AbemaSpecial,
 
         /// <summary>
-        ///     3ch - SPECIAL PLUS
+        ///     4ch - SPECIAL PLUS
         /// </summary>
         SpecialPlus,
 
         /// <summary>
-        ///     4ch - REALITY SHOW
+        ///     5ch - REALITY SHOW
         /// </summary>
         RealityShow,
 
         /// <summary>
-        ///     5ch - MTV HITS
+        ///     6ch - MTV HITS
         /// </summary>
         MtvHits,
 
         /// <summary>
-        ///     6ch - SPACE SHOWER MUSIC
+        ///     7ch - SPACE SHOWER MUSIC
         /// </summary>
         SpaceShowerMusic,
 
         /// <summary>
-        ///     7ch - ドラマ CHANNEL
+        ///     8ch - ドラマ CHANNEL
         /// </summary>
         DramaChannel,
 
         /// <summary>
-        ///     8ch - Documentary
+        ///     9ch - Documentary
         /// </summary>
         Documentary,
 
         /// <summary>
-        ///     9ch - バラエティ CHANNEL
+        ///     10ch - バラエティ CHANNEL
         /// </summary>
         VarietyChannel,
 
         /// <summary>
-        ///     10ch - ペット
+        ///     11ch - ペット
         /// </summary>
         Pet,
 
         /// <summary>
-        ///     11ch - CLUB CHANNEL
+        ///     12ch - CLUB CHANNEL
         /// </summary>
         ClubChannel,
 
         /// <summary>
-        ///     12ch - WORLD SPORTS
+        ///     13ch - WORLD SPORTS
         /// </summary>
         WorldSports,
 
         /// <summary>
-        ///     13ch - ヨコノリ Surf Snow Skate
+        ///     14ch - ヨコノリ Surf Snow Skate
         /// </summary>
         YokonoriSports,
 
         /// <summary>
-        ///     14ch - VICE
+        ///     15ch - VICE
         /// </summary>
         Vice,
 
         /// <summary>
-        ///     15ch - アニメ24
+        ///     16ch - アニメ24
         /// </summary>
         Anime24,
 
         /// <summary>
-        ///     16ch - 深夜アニメ
+        ///     17ch - 深夜アニメ
         /// </summary>
         MidnightAnime,
 
         /// <summary>
-        ///     17ch - なつかしアニメ
+        ///     18ch - なつかしアニメ
         /// </summary>
         OldtimeAnime,
 
         /// <summary>
-        ///     18ch - 家族アニメ
+        ///     19ch - 家族アニメ
         /// </summary>
         FamilyAnime,
 
         /// <summary>
-        ///     19ch - EDGE SPORT HD
+        ///     20ch - EDGE SPORT HD
         /// </summary>
         EdgeSportHd,
 
         /// <summary>
-        ///     20ch - 釣り
+        ///     21ch - 釣り
         /// </summary>
         Fishing,
 
         /// <summary>
-        ///     21ch - 麻雀
+        ///     22ch - 麻雀
         /// </summary>
         Mahjong
-
-        /// <summary>
-        ///     22ch - AbemaTV FRESH!
-        /// </summary>
-        // AbemaTvFresh
     }
 
     internal static class AbemaChannelExt
@@ -128,6 +128,9 @@ namespace Norma.Models
                 case AbemaChannel.Fishing:
                 case AbemaChannel.Mahjong:
                     return channel.ToString().ToLower();
+
+                case AbemaChannel.OnegaiRanking:
+                    return "onegai-ranking";
 
                 case AbemaChannel.AbemaNews:
                     return "abema-news";
@@ -187,6 +190,9 @@ namespace Norma.Models
             var str = url.Replace("https://abema.tv/now-on-air/", "");
             switch (str)
             {
+                case "onegai-ranking":
+                    return AbemaChannel.OnegaiRanking;
+
                 case "abema-news":
                     return AbemaChannel.AbemaNews;
 
