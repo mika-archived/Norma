@@ -41,7 +41,7 @@ namespace Norma.Models
                 Remove();
                 return;
             }
-            if (today.Hour <= 0 && today.Hour >= 3)
+            if (today.Hour >= 3)
             {
                 Remove();
                 return;
