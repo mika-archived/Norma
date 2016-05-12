@@ -1,4 +1,5 @@
-﻿using Norma.Models;
+﻿using Norma.Extensions;
+using Norma.Models;
 using Norma.ViewModels.Internal;
 using Norma.ViewModels.TVGuide;
 
@@ -13,9 +14,10 @@ namespace Norma.ViewModels.Controls
 
         public AbemaTVGuideViewModel(ShellViewModel parentViewModel)
         {
-            var channels = new AbemaChannels();
+            var channels = new AbemaChannels().AddTo(this);
             Channnels = channels.Channels
-                                .ToReadOnlyReactiveCollection(w => new ChannelViewModel(parentViewModel, new Channel(w)));
+                                .ToReadOnlyReactiveCollection(w => new ChannelViewModel(parentViewModel, new Channel(w)))
+                                .AddTo(this);
         }
     }
 }

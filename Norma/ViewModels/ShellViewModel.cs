@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 
+using Norma.Extensions;
 using Norma.Interactivity;
 using Norma.ViewModels.Controls;
 using Norma.ViewModels.Internal;
@@ -21,9 +22,9 @@ namespace Norma.ViewModels
         public ShellViewModel()
         {
             Title = "AbemaTV Start Page - Norma";
-            HostViewModel = new AbemaHostViewModel(this);
-            TvGuideViewModel = new AbemaTVGuideViewModel(this);
-            StatusBar = new AbemaStatusViewModel();
+            HostViewModel = new AbemaHostViewModel(this).AddTo(this);
+            TvGuideViewModel = new AbemaTVGuideViewModel(this).AddTo(this);
+            StatusBar = new AbemaStatusViewModel().AddTo(this);
             TransitionRequest = new InteractionRequest2();
             ModalTransitionRequest = new InteractionRequest2();
         }
