@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Norma
+namespace Norma.Views.Controls
 {
     /// <summary>
-    /// MainWindow.xaml の相互作用ロジック
+    /// AbemaTVGuide.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AbemaTVGuide : UserControl
     {
-        public MainWindow()
+        public AbemaTVGuide()
         {
             InitializeComponent();
         }
