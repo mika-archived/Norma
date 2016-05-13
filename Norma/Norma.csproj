@@ -210,6 +210,7 @@
     <Compile Include="Models\Library.cs" />
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ProgramHost.cs" />
+    <Compile Include="Models\ReleaseType.cs" />
     <Compile Include="Models\StatusInfo.cs" />
     <Compile Include="Models\Timetable.cs" />
     <Compile Include="NormaConstants.cs" />

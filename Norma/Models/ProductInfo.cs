@@ -20,6 +20,8 @@ namespace Norma.Models
 
         public static string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
+        public static ReleaseType ReleaseType => ReleaseType.Preview;
+
         public static string Support => "https://github.com/fuyuno/Norma";
 
         public static List<Library> Libraries => new List<Library>

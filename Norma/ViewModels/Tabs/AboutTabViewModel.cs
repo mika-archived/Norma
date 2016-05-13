@@ -7,7 +7,7 @@ namespace Norma.ViewModels.Tabs
     {
         public string Name => ProductInfo.Name;
 
-        public string Version => $"Version {ProductInfo.Version}";
+        public string Version => $"Version {ProductInfo.Version} {ProductInfo.ReleaseType.ToVersionString()}".Trim();
 
         public string Copyright => ProductInfo.Copyright;
     }
