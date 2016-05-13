@@ -75,7 +75,7 @@ namespace Norma.Models
             fill--;
             var program = currentProgram.Programs[fill];
 
-            Title = $"{currentProgram.Highlight} - {program.Episode.Name} \"{program.Episode.Title}\"";
+            Title = $"{currentProgram.Title} - {program.Episode.Name} \"{program.Episode.Title}\"";
             Description = program.Episode.Overview;
             ProvideCredits(program.Credit);
             ProvideThumbnails(program);
