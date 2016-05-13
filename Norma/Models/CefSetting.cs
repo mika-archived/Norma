@@ -15,8 +15,12 @@ namespace Norma.Models
                 MultiThreadedMessageLoop = true,
                 WindowlessRenderingEnabled = true
             };
-            settings.EnableInternalPdfViewerOffScreen();
+            settings.CefCommandLineArgs.Add("disable-extensions", "1");
+            settings.CefCommandLineArgs.Add("disable-pdf-extension", "1");
+            settings.CefCommandLineArgs.Add("disable-surfaces", "1");
             settings.CefCommandLineArgs.Add("disable-gpu", "1");
+            settings.CefCommandLineArgs.Add("disable-gpu-compositing", "1");
+            settings.CefCommandLineArgs.Add("enable-begin-frame-scheduling", "1");
 
             Cef.OnContextInitialized = () =>
             {
