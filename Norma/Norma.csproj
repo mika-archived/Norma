@@ -214,6 +214,7 @@
     <Compile Include="Models\StatusInfo.cs" />
     <Compile Include="Models\Timetable.cs" />
     <Compile Include="NormaConstants.cs" />
+    <Compile Include="ViewModels\Controls\AbemaCommentInputViewModel.cs" />
     <Compile Include="ViewModels\LibraryViewModel.cs" />
     <Compile Include="ViewModels\Tabs\AboutTabViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
@@ -231,6 +232,9 @@
     <Compile Include="ViewModels\TVGuide\ChannelViewModel.cs" />
     <Compile Include="Views\Controls\AbemaComment.xaml.cs">
       <DependentUpon>AbemaComment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\AbemaCommentInput.xaml.cs">
+      <DependentUpon>AbemaCommentInput.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\AbemaHost.xaml.cs">
       <DependentUpon>AbemaHost.xaml</DependentUpon>
@@ -293,6 +297,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\Controls\AbemaComment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\AbemaCommentInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

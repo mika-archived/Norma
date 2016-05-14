@@ -14,13 +14,15 @@ namespace Norma.ViewModels.Controls
         private JavaScriptHost _javaScritHost;
 
         public AbemaCommentViewModel CommentViewModel { get; }
+        public AbemaCommentInputViewModel CommentInputViewModel { get; }
         public AbemaProgramInfoViewModel ProgramInfoViewModel { get; }
 
         public AbemaHostViewModel(ShellViewModel parentViewModel)
         {
             _parentViewModel = parentViewModel;
-            CommentViewModel = new AbemaCommentViewModel(this);
-            ProgramInfoViewModel = new AbemaProgramInfoViewModel(this);
+            CommentViewModel = new AbemaCommentViewModel(this).AddTo(this);
+            CommentInputViewModel = new AbemaCommentInputViewModel().AddTo(this);
+            ProgramInfoViewModel = new AbemaProgramInfoViewModel(this).AddTo(this);
             Address = $"https://abema.tv/now-on-air/{Configuration.Instance.Root.LastViewedChannel.ToUrlString()}";
         }
 
@@ -34,6 +36,7 @@ namespace Norma.ViewModels.Controls
             {
                 _parentViewModel.Title = _javaScritHost.Title;
                 await CommentViewModel.OnProgramChanged(_javaScritHost.RawTitle);
+                CommentInputViewModel.OnProgramChanged(_javaScritHost.RawTitle);
             }).AddTo(this);
         }
 
