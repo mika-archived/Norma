@@ -7,6 +7,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Norma", "Norma\Norma.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Norma.Gamma", "Norma.Gamma\Norma.Gamma.csproj", "{3548E32A-9374-45A5-9D37-8BDE1520B055}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{2DA43B35-41AA-42A6-A58A-8780AAF4B406}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{26CAC58D-DD2E-4942-B7DC-C60C58813131}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\dist.ps1 = scripts\dist.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +56,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{26CAC58D-DD2E-4942-B7DC-C60C58813131} = {2DA43B35-41AA-42A6-A58A-8780AAF4B406}
 	EndGlobalSection
 EndGlobal
