@@ -29,5 +29,8 @@ namespace Norma.Gamma.Api
         // Move to Comment class?
         public async Task<Comments> Comments(string slotId, params Expression<Func<string, object>>[] parameters)
             => await AbemaTv.GetAsync<Comments>(string.Format(EndPoints.Comments, slotId), parameters);
+
+        public async Task<Comment> Comment(string slotId, params Expression<Func<string, object>>[] parameters)
+            => await AbemaTv.PostAsync<Comment>(string.Format(EndPoints.Comments, slotId), parameters);
     }
 }

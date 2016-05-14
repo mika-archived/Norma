@@ -2,9 +2,9 @@
 {
     public static class EndPoints
     {
-        private static readonly string Base = "https://api.abema.io";
+        private const string Base = "https://api.abema.io";
 
-        private static readonly string Version = "v1";
+        private const string Version = "v1";
 
         private static readonly string EndPoint = $"{Base}/{Version}/";
 
