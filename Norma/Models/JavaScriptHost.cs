@@ -51,6 +51,7 @@ namespace Norma.Models
         private void Run()
         {
             DisableChangeChannelByMouseScroll();
+            DisableContextMenu();
             HideTvContainerHeader();
             HideTvContainerFooter();
             HideTvContainerSide();
@@ -74,6 +75,17 @@ window.addEventListener('mousewheel', function(e) {
 }, true);
 ";
             StatusInfo.Instance.Text = "Disable change channel by mouse wheel.";
+            WrapExecuteScriptAsync(jsCode);
+        }
+
+        private void DisableContextMenu()
+        {
+            const string jsCode = @"
+window.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+}, true);
+";
+            StatusInfo.Instance.Text = "Disable context menu.";
             WrapExecuteScriptAsync(jsCode);
         }
 
