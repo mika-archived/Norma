@@ -16,7 +16,7 @@
             <StackPanel.Resources>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="FontFamily" Value="Segoe UI" />
-                    <Setter Property="Foreground" Value="{DynamicResource AccentForegroundBrushKey}" />
+                    <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
                     <Setter Property="HorizontalAlignment" Value="Center" />
                 </Style>
             </StackPanel.Resources>

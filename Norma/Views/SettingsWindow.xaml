@@ -74,10 +74,10 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
                             <Setter Property="FontWeight" Value="Medium" />
-                            <Setter Property="Foreground" Value="{DynamicResource AccentForegroundBrushKey}" />
+                            <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource AccentForegroundBrushKey}" />
+                            <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
