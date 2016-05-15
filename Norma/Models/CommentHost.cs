@@ -61,6 +61,7 @@ namespace Norma.Models
 
         private void RetryFetchComment()
         {
+            _disposable?.Dispose();
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(10))
                                     .Subscribe(async w => await FetchComment());
         }
