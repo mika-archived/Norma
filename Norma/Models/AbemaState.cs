@@ -27,7 +27,7 @@ namespace Norma.Models
         public void OnChannelChanged(string url)
         {
             _disposable.Dispose();
-            CurrentChannel = AbemaChannelExt.FromUrlString(url);
+            Configuration.Instance.Root.LastViewedChannel = CurrentChannel = AbemaChannelExt.FromUrlString(url);
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(async w => await Sync());
         }
 
