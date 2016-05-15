@@ -24,6 +24,7 @@ namespace Norma.Models
             _disposable.Dispose();
         }
 
+        public void OnChannelChanged(string url)
         {
             _disposable.Dispose();
             CurrentChannel = AbemaChannelExt.FromUrlString(url);

@@ -5,10 +5,12 @@
              xmlns:local="clr-namespace:Norma.Views.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
+             xmlns:prism="http://prismlibrary.com/"
              xmlns:vm="clr-namespace:Norma.ViewModels.Controls"
              d:DataContext="{d:DesignInstance vm:AbemaCommentInputViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
+             prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
     <Border BorderBrush="{DynamicResource BorderBrushKey}" BorderThickness="0,1,0,0">
         <Grid Margin="5">
@@ -20,7 +22,7 @@
             <metro:PromptTextBox Grid.Column="0"
                                  AcceptsReturn="True"
                                  HorizontalScrollBarVisibility="Disabled"
-                                 IsEnabled="{Binding IsEnableCommentInput}"
+                                 IsEnabled="{Binding IsEnableCommentInput.Value}"
                                  MaxLines="2"
                                  Prompt="Input your comment"
                                  Text="{Binding Comment.Value,

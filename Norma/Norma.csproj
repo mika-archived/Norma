@@ -192,6 +192,7 @@
     <Compile Include="Models\AbemaApiHost.cs" />
     <Compile Include="Models\AbemaChannel.cs" />
     <Compile Include="Models\AbemaChannels.cs" />
+    <Compile Include="Models\AbemaState.cs" />
     <Compile Include="Models\CefSetting.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\CommentHost.cs" />
