@@ -4,7 +4,7 @@ Norma
 This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).
 
 ## Screenshots
-![alt](https://cloud.githubusercontent.com/assets/10832834/15098780/1adb92ae-1580-11e6-88f9-0802f77b38bb.PNG)
+![alt](https://cloud.githubusercontent.com/assets/10832834/15273926/060448c8-1ae2-11e6-981a-28db38974665.PNG)
 
 
 ## Requirements
