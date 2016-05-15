@@ -13,7 +13,7 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
     <Border BorderBrush="{DynamicResource BorderBrushKey}" BorderThickness="0,1,0,0">
-        <Grid Margin="5">
+        <Grid Margin="5" IsEnabled="{Binding IsEnableCommentInput.Value}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="5" />
@@ -22,7 +22,6 @@
             <metro:PromptTextBox Grid.Column="0"
                                  AcceptsReturn="True"
                                  HorizontalScrollBarVisibility="Disabled"
-                                 IsEnabled="{Binding IsEnableCommentInput.Value}"
                                  MaxLines="2"
                                  Prompt="Input your comment"
                                  Text="{Binding Comment.Value,

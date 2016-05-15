@@ -16,7 +16,7 @@ namespace Norma.ViewModels.Controls
     {
         private readonly AbemaState _abemaState;
         public ReactiveProperty<string> Comment { get; }
-        public ReadOnlyReactiveProperty<bool> IsEnableCommentInput { get; private set; }
+        public ReadOnlyReactiveProperty<bool> IsEnableCommentInput { get; }
 
         public AbemaCommentInputViewModel(AbemaState abemaState)
         {
@@ -25,7 +25,7 @@ namespace Norma.ViewModels.Controls
             Comment.Subscribe(w => SendCommentCommand.RaiseCanExecuteChanged()).AddTo(this);
             IsEnableCommentInput = _abemaState.ObserveProperty(w => w.IsBroadcastCm)
                                               .Select(w => !w)
-                                              .ToReadOnlyReactiveProperty();
+                                              .ToReadOnlyReactiveProperty().AddTo(this);
         }
 
         #region SendCommentCommand
@@ -36,7 +36,10 @@ namespace Norma.ViewModels.Controls
             => _sendCommentCommand ?? (_sendCommentCommand = new DelegateCommand(Send, CanSend));
 
         private async void Send()
-            => await AbemaApiHost.Instance.Comment(_abemaState.CurrentSlot.Id, Comment.Value);
+        {
+            await AbemaApiHost.Instance.Comment(_abemaState.CurrentSlot.Id, Comment.Value);
+            Comment.Value = "";
+        }
 
         private bool CanSend() => !string.IsNullOrWhiteSpace(Comment.Value);
 
