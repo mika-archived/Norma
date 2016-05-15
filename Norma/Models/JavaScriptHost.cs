@@ -62,6 +62,7 @@ namespace Norma.Models
             if (_wpfWebBrowser == null)
                 return;
 
+            _disposable?.Dispose();
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(w => GetTitleInfo());
         }
 
