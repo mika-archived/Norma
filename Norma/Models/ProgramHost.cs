@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
+using System.Reactive.Disposables;
 
 using Microsoft.Practices.ObjectBuilder2;
 
 using Norma.Gamma.Models;
+using Norma.Helpers;
 
 using Prism.Mvvm;
 
@@ -14,71 +13,56 @@ namespace Norma.Models
 {
     internal class ProgramHost : BindableBase, IDisposable
     {
-        private AbemaChannel _channel;
-        private IDisposable _disposable;
+        private readonly AbemaState _abemaState;
+        private readonly CompositeDisposable _compositeDisposable;
 
-        public ProgramHost()
+        public ProgramHost(AbemaState abemaState)
         {
             Casts = new ObservableCollection<string>();
             Crews = new ObservableCollection<string>();
+            _compositeDisposable = new CompositeDisposable();
+
+            _abemaState = abemaState;
+            _compositeDisposable.Add(_abemaState.Subscribe(nameof(_abemaState.CurrentProgram), w => FetchProgramInfo()));
+            FetchProgramInfo(); // Init
         }
 
         #region Implementation of IDisposable
 
         public void Dispose()
         {
-            _disposable?.Dispose();
+            _compositeDisposable?.Dispose();
         }
 
         #endregion
 
-        public void OnChannelChanged(AbemaChannel channel)
-        {
-            _channel = channel;
-            _disposable?.Dispose();
-
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(10))
-                                    .Subscribe(async w => await FetchProgramInfo());
-        }
-
-        private async Task FetchProgramInfo()
+        private void FetchProgramInfo()
         {
             StatusInfo.Instance.Text = "Fetching program information.";
-            if (Timetable.Instance.LastSyncTime.Day != DateTime.Now.Day)
-                await Timetable.Instance.Sync();
-            var ts = Timetable.Instance.Media;
-            var schedule = ts.ChannelSchedules.First(w => w.ChannelId == _channel.ToUrlString()); // 今日
-            var currentProgram = schedule.Slots
-                                         .SingleOrDefault(w => w.StartAt <= DateTime.Now && w.EndAt >= DateTime.Now);
-            if (currentProgram == null)
+            var slot = _abemaState.CurrentSlot;
+            var program = _abemaState.CurrentProgram;
+            if (slot == null)
             {
                 Title = "";
                 return;
             }
-
-            // 番組名 or プログラム名
             // ReSharper disable HeuristicUnreachableCode
 #pragma warning disable 162
             if (false)
             {
-                Title = currentProgram.Title;
-                Description = currentProgram.Programs[0].Episode.Overview;
-                ProvideCredits(currentProgram.Programs[0].Credit);
-                ProvideThumbnails(currentProgram.Programs[0]);
-                return;
+                Title = slot.Title;
+                Description = slot.Programs[0].Episode.Overview;
+                ProvideCredits(slot.Programs[0].Credit);
+                ProvideThumbnails(slot.Programs[0]);
             }
-            var perTime = (currentProgram.EndAt - currentProgram.StartAt).TotalSeconds /
-                          currentProgram.Programs.Length;
-            var fill = 0;
-            while (!(currentProgram.StartAt.AddSeconds(perTime * fill) <= DateTime.Now &&
-                     DateTime.Now <= currentProgram.StartAt.AddSeconds(perTime * ++fill))) {}
-            fill--;
-            var program = currentProgram.Programs[fill];
-
-            Title = $"{currentProgram.Title} - {program.Episode.Name} \"{program.Episode.Title}\"";
-            Description = program.Episode.Overview;
-            ProvideCredits(program.Credit);
-            ProvideThumbnails(program);
+            // ReSharper disable once RedundantIfElseBlock
+            else
+            {
+                Title = $"{slot.Title} - {program.Episode.Name} \"{program.Episode.Title}\"";
+                Description = program.Episode.Overview;
+                ProvideCredits(program.Credit);
+                ProvideThumbnails(program);
+            }
             StatusInfo.Instance.Text = "Fetched program information.";
         }
 

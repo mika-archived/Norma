@@ -16,14 +16,16 @@ namespace Norma.Models
     //  * Comment related features.
     internal class JavaScriptHost : BindableBase, IDisposable
     {
+        private readonly AbemaState _abemaState;
         private readonly IWpfWebBrowser _wpfWebBrowser;
         private IDisposable _disposable;
 
         public string Address { get; set; }
 
-        public JavaScriptHost(IWpfWebBrowser wpfWebBrowser)
+        public JavaScriptHost(IWpfWebBrowser wpfWebBrowser, AbemaState abemaState)
         {
             _wpfWebBrowser = wpfWebBrowser;
+            _abemaState = abemaState;
             Address = "";
             _wpfWebBrowser.ConsoleMessage += (sender, e) => Debug.WriteLine("[Chromium]" + e.Message);
             _wpfWebBrowser.FrameLoadStart += (sender, e) => _disposable?.Dispose();
@@ -128,9 +130,9 @@ setTimeout(cs_HideTvContainerSide, 500);
 (function () {
   var appContainerHeading = window.document.querySelector('[class^=""style__heading2___""]');
   if (appContainerHeading == null) {
-    return 'null';
+    return true;
   }
-  return appContainerHeading.innerHTML;
+  return false;
 })();
 ";
             var task = WrapEvaluateScriptAsync(jsCode);
@@ -139,11 +141,10 @@ setTimeout(cs_HideTvContainerSide, 500);
                 if (w.IsFaulted)
                     return;
                 var response = task.Result;
-                if (!response.Success || response.Result.ToString() == "null")
-                    RawTitle = "(CM)";
+                if (!response.Success || bool.Parse(response.Result.ToString()))
+                    _abemaState.IsBroadcastCm = true;
                 else
-                    RawTitle = response.Result.ToString();
-                Title = $"{RawTitle} - Norma";
+                    _abemaState.IsBroadcastCm = false;
             }, TaskScheduler.Default);
         }
 
@@ -173,30 +174,6 @@ setTimeout(cs_HideTvContainerSide, 500);
                 completionSource.SetException(e);
                 return completionSource.Task;
             }
-        }
-
-        #endregion
-
-        #region Title
-
-        private string _title;
-
-        public string Title
-        {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
-
-        #endregion
-
-        #region RawTitle
-
-        private string _rawTitle;
-
-        public string RawTitle
-        {
-            get { return _rawTitle; }
-            set { SetProperty(ref _rawTitle, value); }
         }
 
         #endregion

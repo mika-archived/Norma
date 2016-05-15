@@ -11,7 +11,7 @@
                    xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
                    xmlns:prism="http://prismlibrary.com/"
                    xmlns:viewModels="clr-namespace:Norma.ViewModels"
-                   Title="{Binding Title}"
+                   Title="{Binding Title.Value}"
                    Width="1344"
                    Height="783"
                    d:DataContext="{d:DesignInstance viewModels:ShellViewModel}"
@@ -62,7 +62,7 @@
                            FontFamily="Segoe UI Light"
                            FontSize="18"
                            Foreground="{DynamicResource ForegroundBrushKey}"
-                           Text="{Binding Title}"
+                           Text="{Binding Title.Value}"
                            TextTrimming="CharacterEllipsis" />
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
                     <!--

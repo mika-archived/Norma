@@ -2,6 +2,7 @@
 
 using Microsoft.Practices.Unity;
 
+using Norma.Models;
 using Norma.Views;
 
 using Prism.Unity;
@@ -15,6 +16,17 @@ namespace Norma
         protected override DependencyObject CreateShell() => Container.Resolve<Shell>();
 
         protected override void InitializeShell() => Application.Current.MainWindow.Show();
+
+        #region Overrides of UnityBootstrapper
+
+        protected override void ConfigureContainer()
+        {
+            base.ConfigureContainer();
+
+            Container.RegisterInstance(new AbemaState());
+        }
+
+        #endregion
 
         #endregion
     }

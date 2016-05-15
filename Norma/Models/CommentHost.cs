@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 using Norma.Gamma.Models;
+using Norma.Helpers;
 
 using Prism.Mvvm;
 
@@ -14,87 +16,67 @@ namespace Norma.Models
 {
     internal class CommentHost : BindableBase, IDisposable
     {
-        private AbemaChannel _channel;
-        private IDisposable _disposable;
-        private string _slotId;
-        private string _title;
+        private readonly AbemaState _abemaState;
+        private readonly CompositeDisposable _compositeDisposable;
+        private IDisposable _disposable; // for Comment synchronizer.
 
         public ObservableCollection<Comment> Comments { get; set; }
 
-        public CommentHost()
+        public CommentHost(AbemaState abemaState)
         {
-            IsCm = true;
             Comments = new ObservableCollection<Comment>();
+            _compositeDisposable = new CompositeDisposable();
+
+            _abemaState = abemaState;
+            _compositeDisposable.Add(_abemaState.Subscribe(nameof(_abemaState.CurrentSlot), w => ReloadComments()));
+            _compositeDisposable.Add(_abemaState.Subscribe(nameof(_abemaState.IsBroadcastCm), w => StopFetchComment()));
+            ReloadComments();
         }
 
         #region Implementation of IDisposable
 
         public void Dispose()
         {
-            _disposable.Dispose();
+            _compositeDisposable.Dispose();
         }
 
         #endregion
 
-        public void OnChannelChanged(AbemaChannel channel)
+        private void ReloadComments()
         {
-            _channel = channel;
-        }
-
-        public async Task OnProgramChanged(string title)
-        {
-            if (title == "(CM)")
-            {
-                IsCm = true;
-                _disposable?.Dispose();
-                return;
-            }
-            IsCm = false;
-            if (_title == title)
-            {
-                SubscribeComment();
-                return;
-            }
-
-            // 新しい SlotId に変更された。
-            Comments.Clear();
-            _title = title;
             _disposable?.Dispose();
+            Comments.Clear();
 
-            await FetchProgram();
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(10))
+                                    .Subscribe(async w => await FetchComment());
         }
 
-        private async Task FetchProgram()
+        private void StopFetchComment()
         {
-            if (Timetable.Instance.LastSyncTime.Day != DateTime.Now.Day)
-                await Timetable.Instance.Sync();
-            var ts = Timetable.Instance.Media;
-            var currenSchedule = ts.ChannelSchedules.First(w => w.ChannelId == _channel.ToUrlString()); // 今日
-            var currentProgram = currenSchedule.Slots.Single(w => w.StartAt <= DateTime.Now && w.EndAt >= DateTime.Now);
-            _slotId = currentProgram.Id;
-            SubscribeComment();
+            if (_abemaState.IsBroadcastCm)
+                _disposable.Dispose();
+            else
+                RetryFetchComment();
         }
 
-        private void SubscribeComment()
+        private void RetryFetchComment()
         {
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(10))
-                                    .Subscribe(async w => await FetchComments());
+                                    .Subscribe(async w => await FetchComment());
         }
 
-        private async Task FetchComments()
+        private async Task FetchComment()
         {
             StatusInfo.Instance.Text = "Fetching program comments (20 comments).";
-            var comments = await AbemaApiHost.Instance.Comments(_slotId);
+            var comments = await AbemaApiHost.Instance.Comments(_abemaState.CurrentSlot.Id);
             if (comments.CommentList == null)
             {
-                StatusInfo.Instance.Text = "Cannot get program comments(null).";
+                StatusInfo.Instance.Text = "Fetched program comment (0).";
                 return;
             }
             foreach (var comment in comments?.CommentList.OrderBy(w => w.CreatedAtMs))
             {
-                if (Comments.Any(w => w.Id == comment.Id))
-                    continue;
-                if (comment.Message.Trim() == "") // 空白,改行のみは荒らし
+                if (Comments.Any(w => w.Id == comment.Id) || comment.Message.Trim() == "")
                     continue;
                 if (Comments.Count >= 200)
                     for (var i = 199; i < Comments.Count; i++)
@@ -103,17 +85,5 @@ namespace Norma.Models
             }
             StatusInfo.Instance.Text = "Fetched program comments.";
         }
-
-        #region IsCm
-
-        private bool _isCm;
-
-        public bool IsCm
-        {
-            get { return _isCm; }
-            private set { SetProperty(ref _isCm, value); }
-        }
-
-        #endregion
     }
 }

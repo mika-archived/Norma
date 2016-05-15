@@ -54,6 +54,9 @@ namespace Norma.Models
         public async Task<Comments> Comments(string slotId)
             => await _abemaTv.Root.Comments(slotId, limit => 20);
 
+        public async Task<Comment> Comment(string slotId, string comment)
+            => await _abemaTv.Root.Comment(slotId, message => comment, share => null);
+
         public async Task<Media> MediaOfCurrent()
         {
             var today = DateTime.Today.ToString("yyyyMMdd");

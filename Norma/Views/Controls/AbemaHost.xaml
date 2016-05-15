@@ -32,14 +32,8 @@
                                      RenderOptions.BitmapScalingMode="Linear"
                                      WebBrowser="{Binding WebBrowser,
                                                           Mode=OneWayToSource}" />
-        <local:AbemaComment Grid.Row="0"
-                            Grid.Column="1"
-                            DataContext="{Binding CommentViewModel}" />
-        <local:AbemaCommentInput Grid.Row="1"
-                                 Grid.Column="1"
-                                 DataContext="{Binding CommentInputViewModel}" />
-        <local:AbemaProgramInfo Grid.Row="2"
-                                Grid.Column="1"
-                                DataContext="{Binding ProgramInfoViewModel}" />
+        <local:AbemaComment Grid.Row="0" Grid.Column="1" />
+        <local:AbemaCommentInput Grid.Row="1" Grid.Column="1" />
+        <local:AbemaProgramInfo Grid.Row="2" Grid.Column="1" />
     </Grid>
 </UserControl>
