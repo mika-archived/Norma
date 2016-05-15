@@ -85,8 +85,6 @@ namespace Norma.Gamma
                                              "application/json");
 
             var response = await httpClient.PostAsync(url, content);
-            if (!response.IsSuccessStatusCode)
-                Debug.WriteLine(await response.Content.ReadAsStringAsync());
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(responseString);
