@@ -17,15 +17,17 @@ namespace Norma.Models
     internal class JavaScriptHost : BindableBase, IDisposable
     {
         private readonly AbemaState _abemaState;
+        private readonly Configuration _configuration;
         private readonly IWpfWebBrowser _wpfWebBrowser;
         private IDisposable _disposable;
 
         public string Address { get; set; }
 
-        public JavaScriptHost(IWpfWebBrowser wpfWebBrowser, AbemaState abemaState)
+        public JavaScriptHost(IWpfWebBrowser wpfWebBrowser, AbemaState abemaState, Configuration configuration)
         {
             _wpfWebBrowser = wpfWebBrowser;
             _abemaState = abemaState;
+            _configuration = configuration;
             Address = "";
             _wpfWebBrowser.ConsoleMessage += (sender, e) => Debug.WriteLine("[Chromium]" + e.Message);
             _wpfWebBrowser.FrameLoadStart += (sender, e) => _disposable?.Dispose();
@@ -50,11 +52,15 @@ namespace Norma.Models
         // TODO: Toggle enable/disable features by settings.
         private void Run()
         {
-            DisableChangeChannelByMouseScroll();
+            if (_configuration.Root.Browser.DisableChangeChannelByMouseWheel)
+                DisableChangeChannelByMouseScroll();
             DisableContextMenu();
-            HideTvContainerHeader();
-            HideTvContainerFooter();
-            HideTvContainerSide();
+            if (_configuration.Root.Browser.HiddenHeaderControls)
+                HideTvContainerHeader();
+            if (_configuration.Root.Browser.HiddenFooterControls)
+                HideTvContainerFooter();
+            if (_configuration.Root.Browser.HiddenSideControls)
+                HideTvContainerSide();
         }
 
         private void RunLater()

@@ -1,4 +1,5 @@
-﻿using Norma.ViewModels.Internal;
+﻿using Norma.Models;
+using Norma.ViewModels.Internal;
 using Norma.ViewModels.Tabs;
 
 namespace Norma.ViewModels
@@ -7,14 +8,9 @@ namespace Norma.ViewModels
     {
         public OptionsTabViewModel OptionsTabViewModel { get; }
 
-        public SettingsWindowViewModel()
+        public SettingsWindowViewModel(Configuration configuration)
         {
-            OptionsTabViewModel = new OptionsTabViewModel();
-        }
-
-        public void OnClosing()
-        {
-            OptionsTabViewModel.Save();
+            OptionsTabViewModel = new OptionsTabViewModel(configuration);
         }
     }
 }

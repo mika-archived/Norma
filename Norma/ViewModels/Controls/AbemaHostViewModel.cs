@@ -10,11 +10,13 @@ namespace Norma.ViewModels.Controls
     internal class AbemaHostViewModel : ViewModel
     {
         private readonly AbemaState _abemaState;
+        private readonly Configuration _configuration;
         private JavaScriptHost _javaScritHost;
 
         public AbemaHostViewModel(AbemaState abemaState, Configuration configuration)
         {
             _abemaState = abemaState;
+            _configuration = configuration;
             Address = $"https://abema.tv/now-on-air/{configuration.Root.LastViewedChannel.ToUrlString()}";
         }
 
@@ -22,7 +24,7 @@ namespace Norma.ViewModels.Controls
         {
             if (WebBrowser == null)
                 return;
-            _javaScritHost = new JavaScriptHost(WebBrowser, _abemaState).AddTo(this);
+            _javaScritHost = new JavaScriptHost(WebBrowser, _abemaState, _configuration).AddTo(this);
             _javaScritHost.Address = Address; // Initialize
         }
 

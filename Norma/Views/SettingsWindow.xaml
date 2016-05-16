@@ -4,7 +4,6 @@
                    xmlns:actions="clr-namespace:Norma.Actions"
                    xmlns:chrome="http://schemes.grabacr.net/winfx/2014/chrome"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                   xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    xmlns:local="clr-namespace:Norma.Views"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -26,9 +25,6 @@
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
             <actions:DataContextDisposeAction />
-        </i:EventTrigger>
-        <i:EventTrigger EventName="Closing">
-            <ei:CallMethodAction MethodName="OnClosing" TargetObject="{Binding}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
