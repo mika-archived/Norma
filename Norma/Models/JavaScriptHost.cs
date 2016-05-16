@@ -70,7 +70,9 @@ namespace Norma.Models
                 return;
 
             _disposable?.Dispose();
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(w => GetTitleInfo());
+
+            var val = _configuration.Root.Operation.SamplingIntervalOfProgramState;
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => GetTitleInfo());
         }
 
         private void DisableChangeChannelByMouseScroll()

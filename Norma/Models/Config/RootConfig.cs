@@ -15,6 +15,9 @@ namespace Norma.Models.Config
         [JsonProperty]
         public BrowserConfig Browser { get; set; }
 
+        [JsonProperty]
+        public OperationConfig Operation { get; set; }
+
         public RootConfig()
         {
             // Default channel.

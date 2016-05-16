@@ -14,7 +14,7 @@ namespace Norma.ViewModels.Tabs
         public OptionsTabViewModel(Configuration configuration)
         {
             BrowserViewModel = new BrowserViewModel(configuration.Root.Browser).AddTo(this);
-            OperationViewModel = new OperationViewModel().AddTo(this);
+            OperationViewModel = new OperationViewModel(configuration.Root.Operation).AddTo(this);
             OthersViewModel = new OthersViewModel().AddTo(this);
         }
     }

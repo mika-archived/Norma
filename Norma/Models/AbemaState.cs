@@ -19,8 +19,10 @@ namespace Norma.Models
         {
             _configuration = configuration;
             _timetable = timetable;
-            CurrentChannel = _configuration.Root.LastViewedChannel;
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(async w => await Sync());
+            CurrentChannel = configuration.Root.LastViewedChannel;
+
+            var val = _configuration.Root.Operation.UpdateIntervalOfProgram;
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
         }
 
         ~AbemaState()
@@ -32,7 +34,8 @@ namespace Norma.Models
         {
             _disposable.Dispose();
             _configuration.Root.LastViewedChannel = CurrentChannel = AbemaChannelExt.FromUrlString(url);
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(async w => await Sync());
+            var val = _configuration.Root.Operation.UpdateIntervalOfProgram;
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
         }
 
         private async Task Sync()

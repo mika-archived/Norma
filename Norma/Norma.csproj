@@ -198,6 +198,7 @@
     <Compile Include="Models\CommentHost.cs" />
     <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\Config\BrowserConfig.cs" />
+    <Compile Include="Models\Config\OperationConfig.cs" />
     <Compile Include="Models\Config\RootConfig.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
     <Compile Include="Models\Libraries\CEF.cs" />
