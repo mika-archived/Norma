@@ -11,5 +11,10 @@ namespace Norma.ViewModels
         {
             OptionsTabViewModel = new OptionsTabViewModel();
         }
+
+        public void OnClosing()
+        {
+            OptionsTabViewModel.Save();
+        }
     }
 }

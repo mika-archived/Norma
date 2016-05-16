@@ -229,6 +229,9 @@
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\Tabs\LicensesTabViewModel.cs" />
     <Compile Include="ViewModels\Tabs\OptionsTabViewModel.cs" />
+    <Compile Include="ViewModels\Tabs\Options\BrowserViewModel.cs" />
+    <Compile Include="ViewModels\Tabs\Options\OperationViewModel.cs" />
+    <Compile Include="ViewModels\Tabs\Options\OthersViewModel.cs" />
     <Compile Include="ViewModels\TimetableWindowViewModel.cs" />
     <Compile Include="ViewModels\TVGuide\ChannelViewModel.cs" />
     <Compile Include="Views\Controls\AbemaComment.xaml.cs">
@@ -263,6 +266,15 @@
     </Compile>
     <Compile Include="Views\Tabs\OptionsTab.xaml.cs">
       <DependentUpon>OptionsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\Options\Browser.xaml.cs">
+      <DependentUpon>Browser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\Options\Operation.xaml.cs">
+      <DependentUpon>Operation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\Options\Others.xaml.cs">
+      <DependentUpon>Others.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TimetableWindow.xaml.cs">
       <DependentUpon>TimetableWindow.xaml</DependentUpon>
@@ -338,6 +350,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Tabs\OptionsTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tabs\Options\Browser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tabs\Options\Operation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tabs\Options\Others.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

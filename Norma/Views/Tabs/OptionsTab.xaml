@@ -4,19 +4,69 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Norma.Views.Tabs"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:options="clr-namespace:Norma.Views.Tabs.Options"
+             xmlns:vm="clr-namespace:Norma.ViewModels.Tabs"
+             xmlns:vmroot="clr-namespace:Norma.ViewModels"
+             d:DataContext="{d:DesignInstance vm:OptionsTabViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel.Resources>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="FontFamily" Value="Segoe UI" />
-                    <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
-                    <Setter Property="HorizontalAlignment" Value="Center" />
+        <TabControl Background="{DynamicResource BackgroundBrushKey}"
+                    BorderThickness="0"
+                    TabStripPlacement="Left">
+            <TabControl.Resources>
+                <Style TargetType="{x:Type TabItem}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type TabItem}">
+                                <ContentPresenter x:Name="ContentSite"
+                                                  Margin="10,5"
+                                                  ContentSource="Header" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
-            </StackPanel.Resources>
-            <TextBlock FontSize="30" Text="Coming soon..." />
-        </StackPanel>
+                <Style x:Key="HeaderTextBlockStyle" TargetType="{x:Type TextBlock}">
+                    <Setter Property="FontFamily" Value="Segoe UI" />
+                    <Setter Property="FontSize" Value="18" />
+                    <Setter Property="FontWeight" Value="Normal" />
+                    <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
+                            <Setter Property="FontWeight" Value="Medium" />
+                            <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TabControl.Resources>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="Browser" />
+                </TabItem.Header>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <options:Browser DataContext="{Binding BrowserViewModel}" />
+                </ScrollViewer>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="Operation" />
+                </TabItem.Header>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <options:Operation DataContext="{Binding OperationViewModel}" />
+                </ScrollViewer>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="Others" />
+                </TabItem.Header>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <options:Others DataContext="{Binding OthersViewModel}" />
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>
