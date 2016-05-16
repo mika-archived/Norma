@@ -11,7 +11,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("kokoiroworks")]
 [assembly: AssemblyProduct("Norma")]
-[assembly: AssemblyCopyright("Copyright © Mikazuki 2016")]
+[assembly: AssemblyCopyright("Copyright © 2016 Mikazuki")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
