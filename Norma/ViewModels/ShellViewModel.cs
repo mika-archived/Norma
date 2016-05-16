@@ -18,6 +18,7 @@ namespace Norma.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     internal class ShellViewModel : ViewModel
     {
+        private readonly Configuration _configuration;
         public AbemaHostViewModel HostViewModel { get; }
         public AbemaTVGuideViewModel TvGuideViewModel { get; }
         public AbemaStatusViewModel StatusBar { get; }
@@ -25,19 +26,32 @@ namespace Norma.ViewModels
         public InteractionRequest2 ModalTransitionRequest { get; }
         public ReadOnlyReactiveProperty<string> Title { get; private set; }
 
-        public ShellViewModel(AbemaState abemaState)
+        public ShellViewModel(AbemaState abemaState, Configuration configuration)
         {
-            HostViewModel = new AbemaHostViewModel(abemaState).AddTo(this);
+            _configuration = configuration;
+
+            HostViewModel = new AbemaHostViewModel(abemaState, configuration).AddTo(this);
             TvGuideViewModel = new AbemaTVGuideViewModel(this).AddTo(this);
             StatusBar = new AbemaStatusViewModel().AddTo(this);
             TransitionRequest = new InteractionRequest2();
             ModalTransitionRequest = new InteractionRequest2();
 
             Title = abemaState.ObserveProperty(w => w.CurrentSlot)
-                              .Select(w => $"{w.Title} - Norma")
-                              .ToReadOnlyReactiveProperty($"{abemaState.CurrentSlot.Title} - Norma")
+                              .Select(w => $"{w?.Title ?? "AbemaTV"} - Norma")
+                              .ToReadOnlyReactiveProperty($"{abemaState.CurrentSlot?.Title ?? "AbemaTV"} - Norma")
                               .AddTo(this);
         }
+
+        #region Overrides of ViewModel
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            // ?
+            _configuration.Save();
+        }
+
+        #endregion
 
         #region OpenTimetableCommand
 

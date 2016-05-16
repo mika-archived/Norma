@@ -14,9 +14,9 @@ namespace Norma.ViewModels.Controls
         public ReadOnlyReactiveCollection<CommentViewModel> Comments { get; }
         public ReadOnlyReactiveProperty<bool> IsEnableCommentArea { get; }
 
-        public AbemaCommentViewModel(AbemaState abemaState)
+        public AbemaCommentViewModel(AbemaApiHost abemaApiHost, AbemaState abemaState)
         {
-            var commentHost = new CommentHost(abemaState).AddTo(this);
+            var commentHost = new CommentHost(abemaApiHost, abemaState).AddTo(this);
             Comments = commentHost.Comments.ToReadOnlyReactiveCollection(w => new CommentViewModel(w)).AddTo(this);
             IsEnableCommentArea = abemaState.ObserveProperty(w => w.IsBroadcastCm)
                                             .Select(w => !w)

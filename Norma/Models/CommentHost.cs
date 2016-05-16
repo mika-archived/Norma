@@ -16,17 +16,19 @@ namespace Norma.Models
 {
     internal class CommentHost : BindableBase, IDisposable
     {
+        private readonly AbemaApiHost _abemaApiHost;
         private readonly AbemaState _abemaState;
         private readonly CompositeDisposable _compositeDisposable;
         private IDisposable _disposable; // for Comment synchronizer.
 
         public ObservableCollection<Comment> Comments { get; set; }
 
-        public CommentHost(AbemaState abemaState)
+        public CommentHost(AbemaApiHost abemaApiHost, AbemaState abemaState)
         {
             Comments = new ObservableCollection<Comment>();
             _compositeDisposable = new CompositeDisposable();
 
+            _abemaApiHost = abemaApiHost;
             _abemaState = abemaState;
             _compositeDisposable.Add(_abemaState.Subscribe(nameof(_abemaState.CurrentSlot), w => ReloadComments()));
             _compositeDisposable.Add(_abemaState.Subscribe(nameof(_abemaState.IsBroadcastCm), w => StopFetchComment()));
@@ -47,6 +49,8 @@ namespace Norma.Models
             _disposable?.Dispose();
             Comments.Clear();
 
+            if (_abemaState.CurrentSlot == null)
+                return;
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(10))
                                     .Subscribe(async w => await FetchComment());
         }
@@ -69,7 +73,7 @@ namespace Norma.Models
         private async Task FetchComment()
         {
             StatusInfo.Instance.Text = "Fetching program comments (20 comments).";
-            var comments = await AbemaApiHost.Instance.Comments(_abemaState.CurrentSlot.Id);
+            var comments = await _abemaApiHost.Comments(_abemaState.CurrentSlot.Id);
             if (comments.CommentList == null)
             {
                 StatusInfo.Instance.Text = "Fetched program comment (0).";

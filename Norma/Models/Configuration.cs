@@ -8,17 +8,15 @@ namespace Norma.Models
 {
     internal class Configuration
     {
-        private static Configuration _instance;
-        public static Configuration Instance => _instance ?? (_instance = new Configuration());
-
         public ConfigRoot Root { get; private set; }
 
-        private Configuration()
+        public Configuration()
         {
-
+            Load();
+            Save();
         }
 
-        public void Load()
+        private void Load()
         {
             if (!File.Exists(NormaConstants.ConfigurationFile))
             {

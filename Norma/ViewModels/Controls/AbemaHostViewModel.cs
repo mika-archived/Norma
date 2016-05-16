@@ -12,10 +12,10 @@ namespace Norma.ViewModels.Controls
         private readonly AbemaState _abemaState;
         private JavaScriptHost _javaScritHost;
 
-        public AbemaHostViewModel(AbemaState abemaState)
+        public AbemaHostViewModel(AbemaState abemaState, Configuration configuration)
         {
             _abemaState = abemaState;
-            Address = $"https://abema.tv/now-on-air/{Configuration.Instance.Root.LastViewedChannel.ToUrlString()}";
+            Address = $"https://abema.tv/now-on-air/{configuration.Root.LastViewedChannel.ToUrlString()}";
         }
 
         private void WebBrowserInitialized()

@@ -11,11 +11,15 @@ namespace Norma.Models
 {
     internal class AbemaState : BindableBase
     {
+        private readonly Configuration _configuration;
+        private readonly Timetable _timetable;
         private IDisposable _disposable;
 
-        public AbemaState()
+        public AbemaState(Configuration configuration, Timetable timetable)
         {
-            CurrentChannel = Configuration.Instance.Root.LastViewedChannel;
+            _configuration = configuration;
+            _timetable = timetable;
+            CurrentChannel = _configuration.Root.LastViewedChannel;
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(async w => await Sync());
         }
 
@@ -27,15 +31,15 @@ namespace Norma.Models
         public void OnChannelChanged(string url)
         {
             _disposable.Dispose();
-            Configuration.Instance.Root.LastViewedChannel = CurrentChannel = AbemaChannelExt.FromUrlString(url);
+            _configuration.Root.LastViewedChannel = CurrentChannel = AbemaChannelExt.FromUrlString(url);
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(async w => await Sync());
         }
 
         private async Task Sync()
         {
-            if (Timetable.Instance.LastSyncTime.Day != DateTime.Now.Day)
-                await Timetable.Instance.Sync();
-            var media = Timetable.Instance.Media;
+            if (_timetable.LastSyncTime.Day != DateTime.Now.Day)
+                await _timetable.Sync();
+            var media = _timetable.Media;
             var schedule = media.ChannelSchedules.First(w => w.ChannelId == CurrentChannel.ToUrlString());
             CurrentSlot = schedule.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);
             if (CurrentSlot == null)
