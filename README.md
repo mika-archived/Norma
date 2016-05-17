@@ -1,7 +1,7 @@
 Norma
 ----
-[![GitHub release](https://img.shields.io/github/release/fuyuno/norma.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/releases/latest)
-[![Github All Releases](https://img.shields.io/github/downloads/fuyuno/norma/total.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/releases)
+[![GitHub release](https://img.shields.io/github/release/fuyuno/norma.svg?maxAge=43200&style=flat-square)](https://github.com/fuyuno/Norma/releases/latest)
+[![Github All Releases](https://img.shields.io/github/downloads/fuyuno/norma/total.svg?maxAge=43200&style=flat-square)](https://github.com/fuyuno/Norma/releases)
 [![license](https://img.shields.io/github/license/fuyuno/norma.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/blob/develop/LICENSE)
 
 "Norma" is unoffcial desktop application for [AbemaTV](https://abema.tv).  
