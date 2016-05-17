@@ -81,7 +81,7 @@ namespace Norma.Gamma
                 NullValueHandling = NullValueHandling.Ignore,
                 Converters = new List<JsonConverter> {new KeyValuePairConverter()}
             };
-            var content = new StringContent2(JsonConvert.SerializeObject(convedParams, settings), Encoding.ASCII,
+            var content = new StringContent2(JsonConvert.SerializeObject(convedParams, settings), Encoding.UTF8,
                                              "application/json");
 
             var response = await httpClient.PostAsync(url, content);
