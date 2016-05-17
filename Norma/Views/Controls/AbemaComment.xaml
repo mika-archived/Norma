@@ -4,10 +4,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Norma.Views.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="http://prismlibrary.com/"
              xmlns:vm="clr-namespace:Norma.ViewModels.Controls"
              d:DataContext="{d:DesignInstance vm:AbemaCommentViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
+             prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
     <Grid>
         <ListView BorderThickness="0"

@@ -1,10 +1,14 @@
 Norma
 ----
+[![GitHub release](https://img.shields.io/github/release/fuyuno/norma.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/releases/latest)
+[![Github All Releases](https://img.shields.io/github/downloads/fuyuno/norma/total.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/releases)
+[![license](https://img.shields.io/github/license/fuyuno/norma.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/blob/develop/LICENSE)
+
 "Norma" is unoffcial desktop application for [AbemaTV](https://abema.tv).  
 This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).
 
 ## Screenshots
-![alt](https://cloud.githubusercontent.com/assets/10832834/15098780/1adb92ae-1580-11e6-88f9-0802f77b38bb.PNG)
+![alt](https://cloud.githubusercontent.com/assets/10832834/15273926/060448c8-1ae2-11e6-981a-28db38974665.PNG)
 
 
 ## Requirements
@@ -21,6 +25,12 @@ This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).
 2. Extract zip file.
 3. Run `Norma.exe`.
 4. Enjoy AbemaTV!
+
+If you want to use latest build, please download [here](https://ci.appveyor.com/project/fuyuno/norma).  
+
+1. If you use 64-bit architecture, please select `Platform: x64`.
+2. Select `ARTIFACTS` tab.
+3. Click `Norma\bin\x64\Norma.zip`.
 
 
 ## References

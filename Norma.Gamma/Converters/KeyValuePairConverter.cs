@@ -11,12 +11,12 @@ namespace Norma.Gamma.Converters
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var items = (IEnumerable<KeyValuePair<string, string>>) value;
+            var items = (IEnumerable<KeyValuePair<string, object>>) value;
             writer.WriteStartObject();
             foreach (var item in items)
             {
                 writer.WritePropertyName(item.Key);
-                writer.WriteValue(item.Value);
+                writer.WriteValue(item.Value?.ToString());
             }
             writer.WriteEndObject();
         }
@@ -29,7 +29,7 @@ namespace Norma.Gamma.Converters
 
         public override bool CanConvert(Type objectType)
         {
-            var hoge = typeof(IEnumerable<KeyValuePair<string, string>>).IsAssignableFrom(objectType);
+            var hoge = typeof(IEnumerable<KeyValuePair<string, object>>).IsAssignableFrom(objectType);
             return hoge;
         }
 

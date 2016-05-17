@@ -3,7 +3,7 @@ using Newtonsoft.Json.Converters;
 
 namespace Norma.Models.Config
 {
-    internal class ConfigRoot
+    internal class RootConfig
     {
         [JsonProperty]
         public string AccessToken { get; set; }
@@ -12,7 +12,16 @@ namespace Norma.Models.Config
         [JsonConverter(typeof(StringEnumConverter))]
         public AbemaChannel LastViewedChannel { get; set; }
 
-        public ConfigRoot()
+        [JsonProperty]
+        public BrowserConfig Browser { get; set; }
+
+        [JsonProperty]
+        public OperationConfig Operation { get; set; }
+
+        [JsonProperty]
+        public OthersConfig Others { get; set; }
+
+        public RootConfig()
         {
             // Default channel.
             // If saved lastViewdChannel, set new value by Json.NET.

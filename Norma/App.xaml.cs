@@ -11,14 +11,11 @@ namespace Norma
     {
         #region Overrides of Application
 
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
             CefSetting.Init();
-            Configuration.Instance.Load();
-            await AbemaApiHost.Instance.Initialize();
-            await Timetable.Instance.Sync();
 
             var bootstrap = new Bootstrapper();
             bootstrap.Run();
@@ -26,7 +23,6 @@ namespace Norma
 
         protected override void OnExit(ExitEventArgs e)
         {
-            Configuration.Instance.Save();
             base.OnExit(e);
         }
 

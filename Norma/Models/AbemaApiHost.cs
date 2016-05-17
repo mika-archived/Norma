@@ -8,18 +8,21 @@ using Norma.Gamma.Models;
 namespace Norma.Models
 {
     // 出来る限り叩かない
-    public class AbemaApiHost
+    internal class AbemaApiHost
     {
-        private static AbemaApiHost _instance;
         private readonly AbemaTv _abemaTv;
+        private readonly Configuration _configuration;
 
-        public static AbemaApiHost Instance => _instance ?? (_instance = new AbemaApiHost());
-
-        private AbemaApiHost()
+        public AbemaApiHost(Configuration configuration)
         {
-            _abemaTv = string.IsNullOrWhiteSpace(Configuration.Instance.Root.AccessToken)
+            _configuration = configuration;
+            _abemaTv = string.IsNullOrWhiteSpace(_configuration.Root.AccessToken)
                 ? new AbemaTv()
-                : new AbemaTv(Configuration.Instance.Root.AccessToken);
+                : new AbemaTv(_configuration.Root.AccessToken);
+
+            var task = new Task(async () => await Initialize());
+            task.Start();
+            task.Wait(); // :D
         }
 
         public async Task Initialize()
@@ -48,11 +51,14 @@ namespace Norma.Models
             var secret = await _abemaTv.Preload.GetSecretKey(devId);
             var user = await _abemaTv.Users.Verify(applicationKeySecret => secret, deviceId => devId);
             _abemaTv.AccessToken = user.Token;
-            Configuration.Instance.Root.AccessToken = user.Token;
+            _configuration.Root.AccessToken = user.Token;
         }
 
         public async Task<Comments> Comments(string slotId)
             => await _abemaTv.Root.Comments(slotId, limit => 20);
+
+        public async Task<Comment> Comment(string slotId, string comment)
+            => await _abemaTv.Root.Comment(slotId, message => comment, share => null);
 
         public async Task<Media> MediaOfCurrent()
         {

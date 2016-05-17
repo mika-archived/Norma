@@ -16,14 +16,18 @@ namespace Norma.Models
     //  * Comment related features.
     internal class JavaScriptHost : BindableBase, IDisposable
     {
+        private readonly AbemaState _abemaState;
+        private readonly Configuration _configuration;
         private readonly IWpfWebBrowser _wpfWebBrowser;
         private IDisposable _disposable;
 
         public string Address { get; set; }
 
-        public JavaScriptHost(IWpfWebBrowser wpfWebBrowser)
+        public JavaScriptHost(IWpfWebBrowser wpfWebBrowser, AbemaState abemaState, Configuration configuration)
         {
             _wpfWebBrowser = wpfWebBrowser;
+            _abemaState = abemaState;
+            _configuration = configuration;
             Address = "";
             _wpfWebBrowser.ConsoleMessage += (sender, e) => Debug.WriteLine("[Chromium]" + e.Message);
             _wpfWebBrowser.FrameLoadStart += (sender, e) => _disposable?.Dispose();
@@ -45,13 +49,17 @@ namespace Norma.Models
 
         #endregion
 
-        // TODO: Toggle enable/disable features by settings.
         private void Run()
         {
-            DisableChangeChannelByMouseScroll();
-            HideTvContainerHeader();
-            HideTvContainerFooter();
-            HideTvContainerSide();
+            if (_configuration.Root.Browser.DisableChangeChannelByMouseWheel)
+                DisableChangeChannelByMouseScroll();
+            DisableContextMenu();
+            if (_configuration.Root.Browser.HiddenHeaderControls)
+                HideTvContainerHeader();
+            if (_configuration.Root.Browser.HiddenFooterControls)
+                HideTvContainerFooter();
+            if (_configuration.Root.Browser.HiddenSideControls)
+                HideTvContainerSide();
         }
 
         private void RunLater()
@@ -60,7 +68,10 @@ namespace Norma.Models
             if (_wpfWebBrowser == null)
                 return;
 
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(w => GetTitleInfo());
+            _disposable?.Dispose();
+
+            var val = _configuration.Root.Operation.SamplingIntervalOfProgramState;
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => GetIsBroadcastCm());
         }
 
         private void DisableChangeChannelByMouseScroll()
@@ -71,6 +82,17 @@ window.addEventListener('mousewheel', function(e) {
 }, true);
 ";
             StatusInfo.Instance.Text = "Disable change channel by mouse wheel.";
+            WrapExecuteScriptAsync(jsCode);
+        }
+
+        private void DisableContextMenu()
+        {
+            const string jsCode = @"
+window.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+}, true);
+";
+            StatusInfo.Instance.Text = "Disable context menu.";
             WrapExecuteScriptAsync(jsCode);
         }
 
@@ -122,15 +144,15 @@ setTimeout(cs_HideTvContainerSide, 500);
             WrapExecuteScriptAsync(jsCode);
         }
 
-        private void GetTitleInfo()
+        private void GetIsBroadcastCm()
         {
             const string jsCode = @"
 (function () {
   var appContainerHeading = window.document.querySelector('[class^=""style__heading2___""]');
   if (appContainerHeading == null) {
-    return 'null';
+    return true;
   }
-  return appContainerHeading.innerHTML;
+  return false;
 })();
 ";
             var task = WrapEvaluateScriptAsync(jsCode);
@@ -139,11 +161,16 @@ setTimeout(cs_HideTvContainerSide, 500);
                 if (w.IsFaulted)
                     return;
                 var response = task.Result;
-                if (!response.Success || response.Result.ToString() == "null")
-                    RawTitle = "(CM)";
+                var oldState = _abemaState.IsBroadcastCm;
+                if (!response.Success || bool.Parse(response.Result.ToString()))
+                    _abemaState.IsBroadcastCm = true;
                 else
-                    RawTitle = response.Result.ToString();
-                Title = $"{RawTitle} - Norma";
+                    _abemaState.IsBroadcastCm = false;
+                // ここですべきじゃない気がする
+                if (!_configuration.Root.Browser.ReloadPageOnBroadcastCommercials)
+                    return;
+                if (_abemaState.IsBroadcastCm && oldState != _abemaState.IsBroadcastCm)
+                    _wpfWebBrowser.Reload();
             }, TaskScheduler.Default);
         }
 
@@ -173,30 +200,6 @@ setTimeout(cs_HideTvContainerSide, 500);
                 completionSource.SetException(e);
                 return completionSource.Task;
             }
-        }
-
-        #endregion
-
-        #region Title
-
-        private string _title;
-
-        public string Title
-        {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
-
-        #endregion
-
-        #region RawTitle
-
-        private string _rawTitle;
-
-        public string RawTitle
-        {
-            get { return _rawTitle; }
-            set { SetProperty(ref _rawTitle, value); }
         }
 
         #endregion

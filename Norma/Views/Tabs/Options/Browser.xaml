@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Norma.Views.Tabs.Options.Browser"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Norma.Views.Tabs.Options"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Norma.ViewModels.Tabs.Options"
+             d:DataContext="{d:DesignInstance vm:BrowserViewModel}"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+    <StackPanel Margin="10" Orientation="Vertical">
+        <CheckBox Margin="4"
+                  Content="Hidden header controls."
+                  IsChecked="{Binding HiddenHeaderControls.Value}" />
+        <CheckBox Margin="4"
+                  Content="Hidden footer controls."
+                  IsChecked="{Binding HiddenFooterControls.Value}" />
+        <CheckBox Margin="4"
+                  Content="Hidden side controls."
+                  IsChecked="{Binding HiddenSideControls.Value}" />
+        <CheckBox Margin="4"
+                  Content="Disable change channel by mouse wheel."
+                  IsChecked="{Binding DisableChangeChannelByMouseWheel.Value}" />
+        <CheckBox Margin="4"
+                  Content="Reload browser on broadcast commercials."
+                  IsChecked="{Binding ReloadPageOnBroadcastCommercials.Value}" />
+
+        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+            <Button Width="180"
+                    Height="30"
+                    Margin="4"
+                    Command="{Binding DeleteBrowserCacheCommand}"
+                    Content="Delete browser caches." />
+            <Button Width="180"
+                    Height="30"
+                    Margin="4"
+                    Command="{Binding DeleteBrowserCookieCommand}"
+                    Content="Delete browser cookies." />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

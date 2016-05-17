@@ -70,9 +70,11 @@ namespace Norma.Gamma
             Debug.WriteLine("POST:" + url);
 
             var httpClient = new HttpClient(new AbemaAuthorizationHandler(this));
-            var convedParams = parameters.Select(w => new KeyValuePair<string, string>(
+            var convedParams = parameters.Select(w => new KeyValuePair<string, object>(
                                                      w.Key,
-                                                     w.Value is bool ? w.Value.ToString().ToLower() : w.Value.ToString()))
+                                                     w.Value is bool
+                                                         ? w.Value.ToString().ToLower()
+                                                         : w.Value?.ToString()))
                                          .ToList();
             var settings = new JsonSerializerSettings
             {
@@ -83,8 +85,6 @@ namespace Norma.Gamma
                                              "application/json");
 
             var response = await httpClient.PostAsync(url, content);
-            if (!response.IsSuccessStatusCode)
-                Debug.WriteLine(await response.Content.ReadAsStringAsync());
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(responseString);

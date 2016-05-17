@@ -8,28 +8,26 @@ namespace Norma.Models
 {
     internal class Configuration
     {
-        private static Configuration _instance;
-        public static Configuration Instance => _instance ?? (_instance = new Configuration());
+        public RootConfig Root { get; private set; }
 
-        public ConfigRoot Root { get; private set; }
-
-        private Configuration()
+        public Configuration()
         {
-
+            Load();
+            Save();
         }
 
-        public void Load()
+        private void Load()
         {
             if (!File.Exists(NormaConstants.ConfigurationFile))
             {
-                Root = new ConfigRoot();
+                Root = new RootConfig();
                 Migrate();
                 return;
             }
             using (var sr = File.OpenText(NormaConstants.ConfigurationFile))
             {
                 var serializer = new JsonSerializer();
-                Root = (ConfigRoot) serializer.Deserialize(sr, typeof(ConfigRoot));
+                Root = (RootConfig) serializer.Deserialize(sr, typeof(RootConfig));
             }
             Migrate();
         }
@@ -45,7 +43,12 @@ namespace Norma.Models
 
         private void Migrate()
         {
-
+            if (Root.Browser == null)
+                Root.Browser = new BrowserConfig();
+            if (Root.Operation == null)
+                Root.Operation = new OperationConfig();
+            if (Root.Others == null)
+                Root.Others = new OthersConfig();
         }
     }
 }

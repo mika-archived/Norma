@@ -1,7 +1,6 @@
 ﻿using CefSharp.Wpf;
 
 using Norma.Extensions;
-using Norma.Helpers;
 using Norma.Models;
 using Norma.ViewModels.Internal;
 
@@ -10,31 +9,23 @@ namespace Norma.ViewModels.Controls
     // ReSharper disable once ClassNeverInstantiated.Global
     internal class AbemaHostViewModel : ViewModel
     {
-        private readonly ShellViewModel _parentViewModel;
+        private readonly AbemaState _abemaState;
+        private readonly Configuration _configuration;
         private JavaScriptHost _javaScritHost;
 
-        public AbemaCommentViewModel CommentViewModel { get; }
-        public AbemaProgramInfoViewModel ProgramInfoViewModel { get; }
-
-        public AbemaHostViewModel(ShellViewModel parentViewModel)
+        public AbemaHostViewModel(AbemaState abemaState, Configuration configuration)
         {
-            _parentViewModel = parentViewModel;
-            CommentViewModel = new AbemaCommentViewModel(this);
-            ProgramInfoViewModel = new AbemaProgramInfoViewModel(this);
-            Address = $"https://abema.tv/now-on-air/{Configuration.Instance.Root.LastViewedChannel.ToUrlString()}";
+            _abemaState = abemaState;
+            _configuration = configuration;
+            Address = $"https://abema.tv/now-on-air/{configuration.Root.LastViewedChannel.ToUrlString()}";
         }
 
         private void WebBrowserInitialized()
         {
             if (WebBrowser == null)
                 return;
-            _javaScritHost = new JavaScriptHost(WebBrowser).AddTo(this);
+            _javaScritHost = new JavaScriptHost(WebBrowser, _abemaState, _configuration).AddTo(this);
             _javaScritHost.Address = Address; // Initialize
-            _javaScritHost.Subscribe(nameof(_javaScritHost.Title), async w =>
-            {
-                _parentViewModel.Title = _javaScritHost.Title;
-                await CommentViewModel.OnProgramChanged(_javaScritHost.RawTitle);
-            }).AddTo(this);
         }
 
         #region WebBrowser
@@ -62,8 +53,10 @@ namespace Norma.ViewModels.Controls
             get { return _address; }
             set
             {
-                if (SetProperty(ref _address, value) && _javaScritHost != null)
-                    _javaScritHost.Address = value;
+                if (!SetProperty(ref _address, value) || _javaScritHost == null)
+                    return;
+                _javaScritHost.Address = value;
+                _abemaState.OnChannelChanged(value);
             }
         }
 
