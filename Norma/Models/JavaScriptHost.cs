@@ -167,7 +167,9 @@ setTimeout(cs_HideTvContainerSide, 500);
                 else
                     _abemaState.IsBroadcastCm = false;
                 // ここですべきじゃない気がする
-                if (oldState != _abemaState.IsBroadcastCm && _abemaState.IsBroadcastCm)
+                if (!_configuration.Root.Browser.ReloadPageOnBroadcastCommercials)
+                    return;
+                if (_abemaState.IsBroadcastCm && oldState != _abemaState.IsBroadcastCm)
                     _wpfWebBrowser.Reload();
             }, TaskScheduler.Default);
         }
