@@ -49,7 +49,6 @@ namespace Norma.Models
 
         #endregion
 
-        // TODO: Toggle enable/disable features by settings.
         private void Run()
         {
             if (_configuration.Root.Browser.DisableChangeChannelByMouseWheel)
@@ -72,7 +71,7 @@ namespace Norma.Models
             _disposable?.Dispose();
 
             var val = _configuration.Root.Operation.SamplingIntervalOfProgramState;
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => GetTitleInfo());
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => GetIsBroadcastCm());
         }
 
         private void DisableChangeChannelByMouseScroll()
@@ -145,7 +144,7 @@ setTimeout(cs_HideTvContainerSide, 500);
             WrapExecuteScriptAsync(jsCode);
         }
 
-        private void GetTitleInfo()
+        private void GetIsBroadcastCm()
         {
             const string jsCode = @"
 (function () {
@@ -162,10 +161,14 @@ setTimeout(cs_HideTvContainerSide, 500);
                 if (w.IsFaulted)
                     return;
                 var response = task.Result;
+                var oldState = _abemaState.IsBroadcastCm;
                 if (!response.Success || bool.Parse(response.Result.ToString()))
                     _abemaState.IsBroadcastCm = true;
                 else
                     _abemaState.IsBroadcastCm = false;
+                // ここですべきじゃない気がする
+                if (oldState != _abemaState.IsBroadcastCm && _abemaState.IsBroadcastCm)
+                    _wpfWebBrowser.Reload();
             }, TaskScheduler.Default);
         }
 
