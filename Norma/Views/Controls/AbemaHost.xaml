@@ -29,7 +29,8 @@
               Grid.RowSpan="3"
               Grid.Column="0"
               HorizontalAlignment="Stretch"
-              VerticalAlignment="Stretch">
+              VerticalAlignment="Stretch"
+              Background="Black">
             <i:Interaction.Behaviors>
                 <behaviors:KeepAspectRatioBehavior Target="WebBrowser2" />
             </i:Interaction.Behaviors>
