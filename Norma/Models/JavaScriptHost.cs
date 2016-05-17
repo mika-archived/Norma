@@ -44,7 +44,7 @@ namespace Norma.Models
 
         public void Dispose()
         {
-            _disposable.Dispose();
+            _disposable?.Dispose();
         }
 
         #endregion
