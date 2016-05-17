@@ -26,6 +26,12 @@ This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).
 3. Run `Norma.exe`.
 4. Enjoy AbemaTV!
 
+If you want to use latest build, please download [here](https://ci.appveyor.com/project/fuyuno/norma).  
+
+1. If you use 64-bit architecture, please select `Platform: x64`.
+2. Select `ARTIFACTS` tab.
+3. Click `Norma\bin\x64\Norma.zip`.
+
 
 ## References
 This application reference below resources.  
