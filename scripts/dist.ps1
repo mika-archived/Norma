@@ -36,8 +36,8 @@ function Process($path) {
     Set-Location $origin
 }
 
-$x64_dir = "..\Norma\bin\x64\Release"
-$x86_dir = "..\Norma\bin\x86\Release"
+$x64_dir = "Norma\bin\x64\Release"
+$x86_dir = "Norma\bin\x86\Release"
 
 Process $x64_dir
 Process $x86_dir
