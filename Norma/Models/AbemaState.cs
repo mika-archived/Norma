@@ -20,6 +20,7 @@ namespace Norma.Models
             _configuration = configuration;
             _timetable = timetable;
             CurrentChannel = configuration.Root.LastViewedChannel;
+            IsBroadcastCm = true;
 
             var val = _configuration.Root.Operation.UpdateIntervalOfProgram;
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
