@@ -47,6 +47,8 @@ namespace Norma.Models
                 Root.Browser = new BrowserConfig();
             if (Root.Operation == null)
                 Root.Operation = new OperationConfig();
+            if (Root.Others == null)
+                Root.Others = new OthersConfig();
         }
     }
 }

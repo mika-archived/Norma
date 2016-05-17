@@ -15,7 +15,7 @@ namespace Norma.ViewModels.Tabs
         {
             BrowserViewModel = new BrowserViewModel(configuration.Root.Browser).AddTo(this);
             OperationViewModel = new OperationViewModel(configuration.Root.Operation).AddTo(this);
-            OthersViewModel = new OthersViewModel().AddTo(this);
+            OthersViewModel = new OthersViewModel(configuration.Root.Others).AddTo(this);
         }
     }
 }
