@@ -6,7 +6,6 @@
                    xmlns:controls="clr-namespace:Norma.Views.Controls"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                   xmlns:local="clr-namespace:Norma.Views"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
                    xmlns:prism="http://prismlibrary.com/"
@@ -20,6 +19,7 @@
                    FontFamily="Segoe UI"
                    IsRestoringWindowPlacement="True"
                    TextOptions.TextFormattingMode="Display"
+                   Topmost="{Binding IsTopMost.Value}"
                    UseLayoutRounding="True"
                    mc:Ignorable="d">
     <chrome:WindowChrome.Instance>
@@ -74,12 +74,21 @@
                                          FontFamily="Segoe MDL2 Assets, Segoe UI Symbol" />
                     -->
                     <metro:CaptionButton Width="40"
-                                         Margin="10,0"
+                                         Margin="5,0"
                                          VerticalAlignment="Top"
                                          Command="{Binding OpenSettingsCommand}"
                                          Content="&#57621;"
                                          FontFamily="Segoe MDL2 Assets, Segoe UI Symbol" />
-                    <metro:SystemButtons VerticalAlignment="Top" />
+                    <metro:CaptionButton Width="40"
+                                         Height="24"
+                                         Margin="5,0"
+                                         VerticalAlignment="Top"
+                                         Content="&#xE840;"
+                                         FontFamily="Segoe MDL2 Assets, Segoe UI Symbol"
+                                         FontSize="16"
+                                         IsChecked="{Binding IsTopMost.Value}"
+                                         Mode="Toggle" />
+                    <metro:SystemButtons Margin="5,0,0,0" VerticalAlignment="Top" />
                 </StackPanel>
             </Grid>
         </Border>

@@ -25,6 +25,7 @@ namespace Norma.ViewModels
         public InteractionRequest2 TransitionRequest { get; }
         public InteractionRequest2 ModalTransitionRequest { get; }
         public ReadOnlyReactiveProperty<string> Title { get; private set; }
+        public ReactiveProperty<bool> IsTopMost { get; private set; }
 
         public ShellViewModel(AbemaState abemaState, Configuration configuration)
         {
@@ -40,6 +41,7 @@ namespace Norma.ViewModels
                               .Select(w => $"{w?.Title ?? "AbemaTV"} - Norma")
                               .ToReadOnlyReactiveProperty($"{abemaState.CurrentSlot?.Title ?? "AbemaTV"} - Norma")
                               .AddTo(this);
+            IsTopMost = ReactiveProperty.FromObject(configuration, w => w.Root.Internal.IsTopMost).AddTo(this);
         }
 
         #region Overrides of ViewModel

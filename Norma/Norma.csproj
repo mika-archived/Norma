@@ -199,6 +199,7 @@
     <Compile Include="Models\CommentHost.cs" />
     <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\Config\BrowserConfig.cs" />
+    <Compile Include="Models\Config\InternalConfig.cs" />
     <Compile Include="Models\Config\OperationConfig.cs" />
     <Compile Include="Models\Config\OthersConfig.cs" />
     <Compile Include="Models\Config\RootConfig.cs" />

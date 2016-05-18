@@ -49,6 +49,8 @@ namespace Norma.Models
                 Root.Operation = new OperationConfig();
             if (Root.Others == null)
                 Root.Others = new OthersConfig();
+            if (Root.Internal == null)
+                Root.Internal = new InternalConfig();
         }
     }
 }
