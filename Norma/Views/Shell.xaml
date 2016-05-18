@@ -83,11 +83,22 @@
                                          Height="24"
                                          Margin="5,0"
                                          VerticalAlignment="Top"
-                                         Content="&#xE840;"
                                          FontFamily="Segoe MDL2 Assets, Segoe UI Symbol"
                                          FontSize="16"
-                                         IsChecked="{Binding IsTopMost.Value}"
-                                         Mode="Toggle" />
+                                         IsChecked="{Binding IsTopMost.Value,
+                                                             Mode=TwoWay}"
+                                         Mode="Toggle">
+                        <metro:CaptionButton.Style>
+                            <Style TargetType="{x:Type metro:CaptionButton}">
+                                <Setter Property="Content" Value="&#xE840;" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsTopMost.Value}" Value="True">
+                                        <Setter Property="Content" Value="&#xE77A;" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </metro:CaptionButton.Style>
+                    </metro:CaptionButton>
                     <metro:SystemButtons Margin="5,0,0,0" VerticalAlignment="Top" />
                 </StackPanel>
             </Grid>

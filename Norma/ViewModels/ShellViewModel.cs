@@ -41,7 +41,7 @@ namespace Norma.ViewModels
                               .Select(w => $"{w?.Title ?? "AbemaTV"} - Norma")
                               .ToReadOnlyReactiveProperty($"{abemaState.CurrentSlot?.Title ?? "AbemaTV"} - Norma")
                               .AddTo(this);
-            IsTopMost = ReactiveProperty.FromObject(configuration, w => w.Root.Internal.IsTopMost).AddTo(this);
+            IsTopMost = ReactiveProperty.FromObject(configuration.Root.Internal, w => w.IsTopMost).AddTo(this);
         }
 
         #region Overrides of ViewModel
