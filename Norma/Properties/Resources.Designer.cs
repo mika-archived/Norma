@@ -250,6 +250,15 @@ namespace Norma.Properties {
         }
         
         /// <summary>
+        ///   Loading... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Number of holding comments : に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string NumberOfHoldingComments {

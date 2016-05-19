@@ -14,7 +14,6 @@ namespace Norma.Models
         private readonly Timetable _timetable;
         public AbemaChannel ChannelType { get; }
         public string LogoUrl { get; private set; }
-        public Slot CurrentSlot { get; private set; }
 
         public Channel(AbemaChannel channel, Configuration configuration, Timetable timetable)
         {
@@ -38,7 +37,7 @@ namespace Norma.Models
 
         private void UpdateChannelInfo()
         {
-            //CurrentSlot = _timetable.CurrentSlot(ChannelType);
+            CurrentSlot = _timetable.CurrentSlot(ChannelType);
             var channel = ChannelType.ToUrlString();
             var date = DateTime.Now;
             if (date.Second % 10 != 0)
@@ -56,6 +55,18 @@ namespace Norma.Models
         {
             get { return _thumbnailUrl; }
             set { SetProperty(ref _thumbnailUrl, value); }
+        }
+
+        #endregion
+
+        #region CurrentSlot
+
+        private Slot _currentSlot;
+
+        public Slot CurrentSlot
+        {
+            get { return _currentSlot; }
+            set { SetProperty(ref _currentSlot, value); }
         }
 
         #endregion

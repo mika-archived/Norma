@@ -180,6 +180,9 @@
   <data name="Light" xml:space="preserve">
     <value>白</value>
   </data>
+  <data name="Loading" xml:space="preserve">
+    <value>読み込み中...</value>
+  </data>
   <data name="NumberOfHoldingComments" xml:space="preserve">
     <value>コメント保持数 :</value>
   </data>

@@ -1,6 +1,6 @@
 Norma
 ----
-[![AppVeyor branch](https://img.shields.io/appveyor/ci/fuyuno/norma/develop.svg?maxAge=180&style=flat-square)](https://ci.appveyor.com/project/fuyuno/norma)
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/fuyuno/norma/develop.svg?style=flat-square)](https://ci.appveyor.com/project/fuyuno/norma)
 [![GitHub release](https://img.shields.io/github/release/fuyuno/norma.svg?maxAge=1800&style=flat-square)](https://github.com/fuyuno/Norma/releases/latest)
 [![Github All Releases](https://img.shields.io/github/downloads/fuyuno/norma/total.svg?maxAge=1800&style=flat-square)](https://github.com/fuyuno/Norma/releases)
 [![license](https://img.shields.io/github/license/fuyuno/norma.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/blob/develop/LICENSE)
