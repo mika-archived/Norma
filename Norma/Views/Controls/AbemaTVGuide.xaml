@@ -12,6 +12,18 @@
              d:DesignHeight="167.5"
              d:DesignWidth="265"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <Storyboard x:Key="BorderGradation1">
+            <DoubleAnimation Duration="0:0:0.25"
+                             Storyboard.TargetProperty="Opacity"
+                             To="0.8" />
+        </Storyboard>
+        <Storyboard x:Key="BorderGradation2">
+            <DoubleAnimation Duration="0:0:0.25"
+                             Storyboard.TargetProperty="Opacity"
+                             To="0" />
+        </Storyboard>
+    </UserControl.Resources>
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
         <i:Interaction.Behaviors>
             <behaviors:HorizontalScrollBehavior />
@@ -27,9 +39,9 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid Width="265" Height="167.5">
+                    <Grid Width="265" Height="150">
                         <Grid Width="265"
-                              Height="150"
+                              Height="132.5"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Top">
                             <i:Interaction.Triggers>
@@ -44,7 +56,7 @@
                                                 EllipseDiameter="5"
                                                 EllipseOffset="0,21,0,0" />
                             <Image Width="265"
-                                   Height="150"
+                                   Height="132.5"
                                    Source="{Binding ThumbnailUrl.Value,
                                                     Mode=OneWay}" />
                             <Border Background="Black" Opacity="0.5" />
@@ -53,6 +65,37 @@
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Source="{Binding LogoUrl}" />
+                            <Border Name="FrameBorder">
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Opacity" Value="0" />
+                                        <Setter Property="Background" Value="Black" />
+                                        <Style.Triggers>
+                                            <EventTrigger RoutedEvent="MouseEnter">
+                                                <BeginStoryboard Storyboard="{StaticResource BorderGradation1}" />
+                                            </EventTrigger>
+                                            <EventTrigger RoutedEvent="MouseLeave">
+                                                <BeginStoryboard Storyboard="{StaticResource BorderGradation2}" />
+                                            </EventTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <StackPanel Margin="10"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Orientation="Vertical">
+                                    <TextBlock Margin="10"
+                                               HorizontalAlignment="Center"
+                                               TextAlignment="Center"
+                                               Text="{Binding Title.Value}"
+                                               TextWrapping="Wrap" />
+                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <TextBlock Text="{Binding StartTime.Value}" />
+                                        <TextBlock Text=" ～ " />
+                                        <TextBlock Text="{Binding EndTime.Value}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
                         </Grid>
                         <!--  Space for Horizontal Scroll Bar  -->
                     </Grid>
