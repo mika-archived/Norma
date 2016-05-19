@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Norma.Gamma.Models;
@@ -15,16 +16,25 @@ namespace Norma.Models
         public Timetable(AbemaApiHost abemaApiHost)
         {
             _abemaApiHost = abemaApiHost;
-
-            var task = new Task(async () => await Sync());
-            task.Start();
-            task.Wait();
         }
 
-        public async Task Sync()
+        public void Sync()
         {
-            Media = await _abemaApiHost.MediaOfCurrent();
+            Media = _abemaApiHost.MediaOfCurrent();
             LastSyncTime = DateTime.Now;
+        }
+
+        // ↓名前やばい
+        public async Task SyncAsync()
+        {
+            Media = await _abemaApiHost.MediaOfCurrentAsync();
+            LastSyncTime = DateTime.Now;
+        }
+
+        public Slot CurrentSlot(AbemaChannel channel)
+        {
+            var schedule = Media.ChannelSchedules.First(w => w.ChannelId == channel.ToUrlString());
+            return schedule.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);
         }
     }
 }

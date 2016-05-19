@@ -21,7 +21,10 @@ namespace Norma.Models
             _timetable = timetable;
             CurrentChannel = configuration.Root.LastViewedChannel;
             IsBroadcastCm = true;
+        }
 
+        public void Start()
+        {
             var val = _configuration.Root.Operation.UpdateIntervalOfProgram;
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
         }
@@ -42,7 +45,7 @@ namespace Norma.Models
         private async Task Sync()
         {
             if (_timetable.LastSyncTime.Day != DateTime.Now.Day)
-                await _timetable.Sync();
+                await _timetable.SyncAsync();
             var media = _timetable.Media;
             var schedule = media.ChannelSchedules.First(w => w.ChannelId == CurrentChannel.ToUrlString());
             CurrentSlot = schedule.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);

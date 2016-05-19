@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 
+using Norma.Gamma.Models;
 using Norma.Properties;
 
 using Prism.Mvvm;
@@ -10,17 +11,20 @@ namespace Norma.Models
     internal class Channel : BindableBase, IDisposable
     {
         private readonly IDisposable _disposable;
+        private readonly Timetable _timetable;
         public AbemaChannel ChannelType { get; }
         public string LogoUrl { get; private set; }
+        public Slot CurrentSlot { get; private set; }
 
-        public Channel(AbemaChannel channel, Configuration configuration)
+        public Channel(AbemaChannel channel, Configuration configuration, Timetable timetable)
         {
             ChannelType = channel;
+            _timetable = timetable;
             LogoUrl = $"https://hayabusa.io/abema/channels/logo/{ChannelType.ToUrlString()}.w120.png";
 
-            // 1分毎にサムネ更新
+            // 1分毎にサムネとか更新
             var val = configuration.Root.Operation.UpdateIntervalOfThumbnails;
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => UpdateThumbnail());
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => UpdateChannelInfo());
         }
 
         #region Implementation of IDisposable
@@ -32,8 +36,9 @@ namespace Norma.Models
 
         #endregion
 
-        private void UpdateThumbnail()
+        private void UpdateChannelInfo()
         {
+            //CurrentSlot = _timetable.CurrentSlot(ChannelType);
             var channel = ChannelType.ToUrlString();
             var date = DateTime.Now;
             if (date.Second % 10 != 0)
