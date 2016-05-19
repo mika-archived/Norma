@@ -185,6 +185,7 @@
     <Compile Include="Behaviors\HorizontalScrollBehavior.cs" />
     <Compile Include="Behaviors\KeepAspectRatioBehavior.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Converters\EnumToBooleanConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Extensions\IDisposableExt.cs" />
     <Compile Include="Helpers\ViewModelHelper.cs" />

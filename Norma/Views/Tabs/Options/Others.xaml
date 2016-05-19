@@ -38,11 +38,17 @@
             <RadioButton Margin="5,0,5,5"
                          Content="{x:Static properties:Resources.Dark}"
                          GroupName="ThemeColor"
-                         IsChecked="{Binding IsDarkChecked}" />
+                         IsChecked="{Binding SelectedTheme.Value,
+                                             Mode=TwoWay,
+                                             Converter={StaticResource EnumToBooleanConverter},
+                                             ConverterParameter=Dark}" />
             <RadioButton Margin="5"
                          Content="{x:Static properties:Resources.Light}"
                          GroupName="ThemeColor"
-                         IsChecked="{Binding IsLightChecked}" />
+                         IsChecked="{Binding SelectedTheme.Value,
+                                             Mode=TwoWay,
+                                             Converter={StaticResource EnumToBooleanConverter},
+                                             ConverterParameter=Light}" />
         </StackPanel>
         <!--#endregion-->
     </Grid>

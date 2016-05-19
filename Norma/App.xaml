@@ -6,6 +6,7 @@
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converter:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter" />
+            <converter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MetroRadiance;component/Styles/Controls.xaml" />
