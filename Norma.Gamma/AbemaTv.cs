@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 
 using Norma.Gamma.Api;
 using Norma.Gamma.Converters;
+using Norma.Gamma.Extensions;
 
 namespace Norma.Gamma
 {
@@ -36,33 +37,51 @@ namespace Norma.Gamma
             ServicePointManager.Expect100Continue = false;
         }
 
-        public async Task<T> GetAsync<T>(string url, params Expression<Func<string, object>>[] parameters)
+        #region Synchronous POST
+
+        public T Post<T>(string url, params Expression<Func<string, object>>[] parameters)
         {
             var param = parameters
                 .Select(w => new KeyValuePair<string, object>(w.Parameters[0].Name, w.Compile().Invoke(null)))
                 .ToList();
-            return await GetAsync<T>(url, param);
+            return Post<T>(url, param);
         }
 
-        private async Task<T> GetAsync<T>(string url, IEnumerable<KeyValuePair<string, object>> parameters)
+        private T Post<T>(string url, IEnumerable<KeyValuePair<string, object>> parameters)
         {
-            if (parameters != null)
-                url += "?" + string.Join("&", parameters.Select(w => $"{w.Key}={w.Value}"));
-            Debug.WriteLine("GET :" + url);
+            Debug.WriteLine("POST:" + url);
 
             var httpClient = new HttpClient(new AbemaAuthorizationHandler(this));
-            var response = await httpClient.GetAsync(url);
+            var convedParams = parameters.Select(w => new KeyValuePair<string, object>(
+                                                     w.Key,
+                                                     w.Value is bool
+                                                         ? w.Value.ToString().ToLower()
+                                                         : w.Value?.ToString()))
+                                         .ToList();
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                Converters = new List<JsonConverter> {new KeyValuePairConverter()}
+            };
+            var content = new StringContent2(JsonConvert.SerializeObject(convedParams, settings), Encoding.UTF8,
+                                             "application/json");
+
+            var response = httpClient.PostAsync(url, content).Result;
             response.EnsureSuccessStatusCode();
-            var responseString = await response.Content.ReadAsStringAsync();
+            var responseString = response.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<T>(responseString);
         }
+
+        #endregion
+
+        #region Asynchronous POST
 
         public async Task<T> PostAsync<T>(string url, params Expression<Func<string, object>>[] parameters)
         {
             var param = parameters
                 .Select(w => new KeyValuePair<string, object>(w.Parameters[0].Name, w.Compile().Invoke(null)))
                 .ToList();
-            return await PostAsync<T>(url, param);
+            return await PostAsync<T>(url, param).Stay();
         }
 
         private async Task<T> PostAsync<T>(string url, IEnumerable<KeyValuePair<string, object>> parameters)
@@ -84,10 +103,62 @@ namespace Norma.Gamma
             var content = new StringContent2(JsonConvert.SerializeObject(convedParams, settings), Encoding.UTF8,
                                              "application/json");
 
-            var response = await httpClient.PostAsync(url, content);
+            var response = await httpClient.PostAsync(url, content).Stay();
             response.EnsureSuccessStatusCode();
-            var responseString = await response.Content.ReadAsStringAsync();
+            var responseString = await response.Content.ReadAsStringAsync().Stay();
             return JsonConvert.DeserializeObject<T>(responseString);
         }
+
+        #endregion
+
+        #region Synchronous GET
+
+        public T Get<T>(string url, params Expression<Func<string, object>>[] parameters)
+        {
+            var param = parameters
+                .Select(w => new KeyValuePair<string, object>(w.Parameters[0].Name, w.Compile().Invoke(null)))
+                .ToList();
+            return Get<T>(url, param);
+        }
+
+        private T Get<T>(string url, IEnumerable<KeyValuePair<string, object>> parameters)
+        {
+            if (parameters != null)
+                url += "?" + string.Join("&", parameters.Select(w => $"{w.Key}={w.Value}"));
+            Debug.WriteLine("GET :" + url);
+
+            var httpClient = new HttpClient(new AbemaAuthorizationHandler(this));
+            var response = httpClient.GetAsync(url).Result;
+            response.EnsureSuccessStatusCode();
+            var responseString = response.Content.ReadAsStringAsync().Result;
+            return JsonConvert.DeserializeObject<T>(responseString);
+        }
+
+        #endregion
+
+        #region Asynchronous GET
+
+        public async Task<T> GetAsync<T>(string url, params Expression<Func<string, object>>[] parameters)
+        {
+            var param = parameters
+                .Select(w => new KeyValuePair<string, object>(w.Parameters[0].Name, w.Compile().Invoke(null)))
+                .ToList();
+            return await GetAsync<T>(url, param).Stay();
+        }
+
+        private async Task<T> GetAsync<T>(string url, IEnumerable<KeyValuePair<string, object>> parameters)
+        {
+            if (parameters != null)
+                url += "?" + string.Join("&", parameters.Select(w => $"{w.Key}={w.Value}"));
+            Debug.WriteLine("GET :" + url);
+
+            var httpClient = new HttpClient(new AbemaAuthorizationHandler(this));
+            var response = await httpClient.GetAsync(url).Stay();
+            response.EnsureSuccessStatusCode();
+            var responseString = await response.Content.ReadAsStringAsync().Stay();
+            return JsonConvert.DeserializeObject<T>(responseString);
+        }
+
+        #endregion
     }
 }
