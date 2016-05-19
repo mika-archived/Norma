@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
 
-using Norma.Gamma.Models;
 using Norma.Properties;
 
 using Prism.Mvvm;
@@ -38,7 +37,12 @@ namespace Norma.Models
         private void UpdateChannelInfo()
         {
             var currentSlot = _timetable.CurrentSlot(ChannelType);
-            CurrentSlot = currentSlot?.Title == null ? null : currentSlot;
+            if (currentSlot != null)
+            {
+                Title = currentSlot.Title;
+                StartAt = currentSlot.StartAt;
+                EndAt = currentSlot.EndAt;
+            }
             var channel = ChannelType.ToUrlString();
             var date = DateTime.Now;
             if (date.Second % 10 != 0)
@@ -60,14 +64,38 @@ namespace Norma.Models
 
         #endregion
 
-        #region CurrentSlot
+        #region Title
 
-        private Slot _currentSlot;
+        private string _title;
 
-        public Slot CurrentSlot
+        public string Title
         {
-            get { return _currentSlot; }
-            set { SetProperty(ref _currentSlot, value); }
+            get { return _title; }
+            set { SetProperty(ref _title, value); }
+        }
+
+        #endregion
+
+        #region StartAt
+
+        private DateTime _startAt;
+
+        public DateTime StartAt
+        {
+            get { return _startAt; }
+            set { SetProperty(ref _startAt, value); }
+        }
+
+        #endregion
+
+        #region EndAt
+
+        private DateTime _endAt;
+
+        public DateTime EndAt
+        {
+            get { return _endAt; }
+            set { SetProperty(ref _endAt, value); }
         }
 
         #endregion

@@ -2,7 +2,6 @@
 
 using Norma.Extensions;
 using Norma.Models;
-using Norma.Properties;
 using Norma.ViewModels.Internal;
 
 using Reactive.Bindings;
@@ -25,16 +24,15 @@ namespace Norma.ViewModels.TVGuide
         {
             _parentViewModel = parentViewModel;
             _model = channel;
-            Title = _model.ObserveProperty(w => w.CurrentSlot)
-                          .Select(w => w?.Title ?? Resources.Loading)
+            Title = _model.ObserveProperty(w => w.Title)
                           .ToReadOnlyReactiveProperty()
                           .AddTo(this);
-            StartTime = _model.ObserveProperty(w => w.CurrentSlot)
-                              .Select(w => w?.StartAt.ToString("HH:mm"))
+            StartTime = _model.ObserveProperty(w => w.StartAt)
+                              .Select(w => w.ToString("HH:mm"))
                               .ToReadOnlyReactiveProperty()
                               .AddTo(this);
-            EndTime = _model.ObserveProperty(w => w.CurrentSlot)
-                            .Select(w => w?.EndAt.ToString("HH:mm"))
+            EndTime = _model.ObserveProperty(w => w.EndAt)
+                            .Select(w => w.ToString("HH:mm"))
                             .ToReadOnlyReactiveProperty()
                             .AddTo(this);
             ThumbnailUrl = _model.ObserveProperty(x => x.ThumbnailUrl).ToReadOnlyReactiveProperty().AddTo(this);
