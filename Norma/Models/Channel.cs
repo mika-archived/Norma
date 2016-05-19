@@ -37,7 +37,8 @@ namespace Norma.Models
 
         private void UpdateChannelInfo()
         {
-            CurrentSlot = _timetable.CurrentSlot(ChannelType);
+            var currentSlot = _timetable.CurrentSlot(ChannelType);
+            CurrentSlot = currentSlot?.Title == null ? null : currentSlot;
             var channel = ChannelType.ToUrlString();
             var date = DateTime.Now;
             if (date.Second % 10 != 0)

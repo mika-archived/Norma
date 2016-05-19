@@ -39,8 +39,8 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid Width="265" Height="150">
-                        <Grid Width="265"
+                    <Grid Width="235.5" Height="150">
+                        <Grid Width="235.5"
                               Height="132.5"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Top">
@@ -55,7 +55,7 @@
                                                 VerticalAlignment="Center"
                                                 EllipseDiameter="5"
                                                 EllipseOffset="0,21,0,0" />
-                            <Image Width="265"
+                            <Image Width="235.5"
                                    Height="132.5"
                                    Source="{Binding ThumbnailUrl.Value,
                                                     Mode=OneWay}" />
@@ -69,7 +69,7 @@
                                 <Border.Style>
                                     <Style TargetType="{x:Type Border}">
                                         <Setter Property="Opacity" Value="0" />
-                                        <Setter Property="Background" Value="Black" />
+                                        <Setter Property="Background" Value="{DynamicResource BackgroundBrushKey}" />
                                         <Style.Triggers>
                                             <EventTrigger RoutedEvent="MouseEnter">
                                                 <BeginStoryboard Storyboard="{StaticResource BorderGradation1}" />
@@ -86,8 +86,8 @@
                                             Orientation="Vertical">
                                     <TextBlock Margin="10"
                                                HorizontalAlignment="Center"
-                                               TextAlignment="Center"
                                                Text="{Binding Title.Value}"
+                                               TextAlignment="Center"
                                                TextWrapping="Wrap" />
                                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                         <TextBlock Text="{Binding StartTime.Value}" />
