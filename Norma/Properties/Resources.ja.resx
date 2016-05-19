@@ -142,10 +142,10 @@
     <value>ブラウザ Cookie を削除</value>
   </data>
   <data name="DisableChangeChannelByMouseWheel" xml:space="preserve">
-    <value>マウスホイールでのチャンネル変更を無効化。</value>
+    <value>マウスホイールでのチャンネル変更を無効化</value>
   </data>
   <data name="DisableContextMenu" xml:space="preserve">
-    <value>コンテキストメニューを無効化。</value>
+    <value>コンテキストメニューを無効化</value>
   </data>
   <data name="FetchedComment0" xml:space="preserve">
     <value>0 件のコメントを同期しました。</value>
@@ -163,13 +163,13 @@
     <value>番組情報を同期しています。</value>
   </data>
   <data name="HiddenFooterControls" xml:space="preserve">
-    <value>フッターコントロールの非表示化。</value>
+    <value>フッターコントロールの非表示化</value>
   </data>
   <data name="HiddenHeaderControls" xml:space="preserve">
-    <value>ヘッダーコントロールの非表示化。</value>
+    <value>ヘッダーコントロールの非表示化</value>
   </data>
   <data name="HiddenSideControls" xml:space="preserve">
-    <value>サイドコントロールの非表示化。</value>
+    <value>サイドコントロールの非表示化</value>
   </data>
   <data name="InputComment" xml:space="preserve">
     <value>コメントを入力</value>
