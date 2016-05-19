@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:properties="clr-namespace:Norma.Properties"
              xmlns:vm="clr-namespace:Norma.ViewModels.Controls"
              d:DataContext="{d:DesignInstance vm:AbemaProgramInfoViewModel}"
              d:DesignHeight="200"
@@ -31,10 +32,7 @@
                                Height="80"
                                Source="{Binding Thumbnail2.Value}" />
                     </Grid>
-                    <StackPanel Margin="0,5,0,0"
-                                Orientation="Vertical"
-                                Visibility="{Binding HasCasts.Value,
-                                                     Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel Margin="0,5,0,0" Orientation="Vertical">
                         <TextBlock FontSize="16">Cast</TextBlock>
                         <ItemsControl ItemsSource="{Binding Casts}">
                             <ItemsControl.ItemsPanel>
@@ -49,10 +47,7 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </StackPanel>
-                    <StackPanel Margin="0,5,0,0"
-                                Orientation="Vertical"
-                                Visibility="{Binding HasCrews.Value,
-                                                     Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel Margin="0,5,0,0" Orientation="Vertical">
                         <TextBlock FontSize="16">Staff</TextBlock>
                         <ItemsControl ItemsSource="{Binding Crews}">
                             <ItemsControl.ItemsPanel>
@@ -73,7 +68,7 @@
                     <TextBlock HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                FontSize="20"
-                               Text="Cannot get program information." />
+                               Text="{x:Static properties:Resources.BlankInformation}" />
                 </Grid>
             </Grid>
         </ScrollViewer>

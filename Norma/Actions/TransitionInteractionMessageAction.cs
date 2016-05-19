@@ -10,7 +10,7 @@ namespace Norma.Actions
     internal class TransitionInteractionMessageAction : TriggerAction<DependencyObject>
     {
         public static readonly DependencyProperty IsModalProperty =
-            DependencyProperty.Register("IsModal", typeof(bool), typeof(TransitionInteractionMessageAction), null);
+            DependencyProperty.Register(nameof(IsModal), typeof(bool), typeof(TransitionInteractionMessageAction), null);
 
         public bool IsModal
         {

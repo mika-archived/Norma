@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using CefSharp;
 using CefSharp.Wpf;
 
+using Norma.Properties;
+
 using Prism.Mvvm;
 
 namespace Norma.Models
@@ -81,7 +83,7 @@ window.addEventListener('mousewheel', function(e) {
   e.stopImmediatePropagation();
 }, true);
 ";
-            StatusInfo.Instance.Text = "Disable change channel by mouse wheel.";
+            StatusInfo.Instance.Text = Resources.DisableChangeChannelByMouseWheel;
             WrapExecuteScriptAsync(jsCode);
         }
 
@@ -92,7 +94,7 @@ window.addEventListener('contextmenu', function(e) {
   e.preventDefault();
 }, true);
 ";
-            StatusInfo.Instance.Text = "Disable context menu.";
+            StatusInfo.Instance.Text = Resources.DisableContextMenu;
             WrapExecuteScriptAsync(jsCode);
         }
 
@@ -108,7 +110,7 @@ function cs_HideTvContainerHeader() {
 };
 setTimeout(cs_HideTvContainerHeader, 500);
 ";
-            StatusInfo.Instance.Text = "Hide container headers.";
+            StatusInfo.Instance.Text = Resources.HiddenHeaderControls;
             WrapExecuteScriptAsync(jsCode);
         }
 
@@ -124,7 +126,7 @@ function cs_HideTvContainerFooter() {
 };
 setTimeout(cs_HideTvContainerFooter, 500);
 ";
-            StatusInfo.Instance.Text = "Hide container footers.";
+            StatusInfo.Instance.Text = Resources.HiddenFooterControls;
             WrapExecuteScriptAsync(jsCode);
         }
 
@@ -140,7 +142,7 @@ function cs_HideTvContainerSide() {
 };
 setTimeout(cs_HideTvContainerSide, 500);
 ";
-            StatusInfo.Instance.Text = "Hide container sides.";
+            StatusInfo.Instance.Text = Resources.HiddenSideControls;
             WrapExecuteScriptAsync(jsCode);
         }
 

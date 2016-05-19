@@ -9,6 +9,7 @@ namespace Norma
     /// <summary>
     ///     App.xaml の相互作用ロジック
     /// </summary>
+    // ReSharper disable once RedundantExtendsListEntry
     public partial class App : Application
     {
         #region Overrides of Application
@@ -22,11 +23,6 @@ namespace Norma
 
             var bootstrap = new Bootstrapper();
             bootstrap.Run();
-        }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            base.OnExit(e);
         }
 
         #endregion

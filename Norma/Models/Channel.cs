@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Reactive.Linq;
 
+using Norma.Properties;
+
 using Prism.Mvvm;
 
 namespace Norma.Models
@@ -38,7 +40,7 @@ namespace Norma.Models
                 date = date.AddSeconds(-(date.Second % 10)); // サムネイルが10秒に発行されるので、N % 10 == 0秒に修正する
             var time = date.ToString("yyyyMMddHHmmss");
             ThumbnailUrl = $"https://hayabusa.io/abema/channels/time/{time}/{channel}.w132.h75.png";
-            StatusInfo.Instance.Text = "Reload channel thumbnails.";
+            StatusInfo.Instance.Text = Resources.ReloadingThumbnail;
         }
 
         #region ThumbnailUrl

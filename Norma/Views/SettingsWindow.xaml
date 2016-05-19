@@ -5,10 +5,10 @@
                    xmlns:chrome="http://schemes.grabacr.net/winfx/2014/chrome"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                   xmlns:local="clr-namespace:Norma.Views"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
                    xmlns:prism="http://prismlibrary.com/"
+                   xmlns:properties="clr-namespace:Norma.Properties"
                    xmlns:tabs="clr-namespace:Norma.Views.Tabs"
                    Title="Settings"
                    Width="900"
@@ -84,19 +84,19 @@
             </TabControl.Resources>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="Options" />
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{x:Static properties:Resources.Option}" />
                 </TabItem.Header>
                 <tabs:OptionsTab DataContext="{Binding OptionsTabViewModel}" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="About" />
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{x:Static properties:Resources.About}" />
                 </TabItem.Header>
                 <tabs:AboutTab />
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="Licenses" />
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{x:Static properties:Resources.License}" />
                 </TabItem.Header>
                 <tabs:LicensesTab />
             </TabItem>

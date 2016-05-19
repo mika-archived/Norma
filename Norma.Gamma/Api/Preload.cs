@@ -19,6 +19,7 @@ namespace Norma.Gamma.Api
 
         public async Task<string> GetSecretKey(string deviceId)
         {
+            // もし main.js から取れなくなったら、 Chrome LocalStorage から取得するようにする。
             var wc = new WebClient();
             var str = await wc.DownloadStringTaskAsync("https://abema.tv/main.js");
             var match = MainjsRegex.Match(str);

@@ -2,8 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Norma.Views.Tabs.Options"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:properties="clr-namespace:Norma.Properties"
              xmlns:vm="clr-namespace:Norma.ViewModels.Tabs.Options"
              d:DataContext="{d:DesignInstance vm:BrowserViewModel}"
              d:DesignHeight="300"
@@ -11,19 +11,19 @@
              mc:Ignorable="d">
     <StackPanel Margin="10" Orientation="Vertical">
         <CheckBox Margin="4"
-                  Content="Hidden header controls."
+                  Content="{x:Static properties:Resources.HiddenHeaderControls}"
                   IsChecked="{Binding HiddenHeaderControls.Value}" />
         <CheckBox Margin="4"
-                  Content="Hidden footer controls."
+                  Content="{x:Static properties:Resources.HiddenFooterControls}"
                   IsChecked="{Binding HiddenFooterControls.Value}" />
         <CheckBox Margin="4"
-                  Content="Hidden side controls."
+                  Content="{x:Static properties:Resources.HiddenSideControls}"
                   IsChecked="{Binding HiddenSideControls.Value}" />
         <CheckBox Margin="4"
-                  Content="Disable change channel by mouse wheel."
+                  Content="{x:Static properties:Resources.DisableChangeChannelByMouseWheel}"
                   IsChecked="{Binding DisableChangeChannelByMouseWheel.Value}" />
         <CheckBox Margin="4"
-                  Content="Reload browser on broadcast commercials."
+                  Content="{x:Static properties:Resources.ReloadBrowserOnBroadcastCommercials}"
                   IsChecked="{Binding ReloadPageOnBroadcastCommercials.Value}" />
 
         <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
@@ -31,12 +31,12 @@
                     Height="30"
                     Margin="4"
                     Command="{Binding DeleteBrowserCacheCommand}"
-                    Content="Delete browser caches." />
+                    Content="{x:Static properties:Resources.DeleteBrowserCaches}" />
             <Button Width="180"
                     Height="30"
                     Margin="4"
                     Command="{Binding DeleteBrowserCookieCommand}"
-                    Content="Delete browser cookies." />
+                    Content="{x:Static properties:Resources.DeleteBrowserCookies}" />
         </StackPanel>
     </StackPanel>
 </UserControl>

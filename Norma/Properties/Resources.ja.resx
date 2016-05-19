@@ -118,102 +118,102 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>About</value>
+    <value>Norma について</value>
   </data>
   <data name="BlankInformation" xml:space="preserve">
-    <value>Cannot get program information.</value>
+    <value>番組情報を取得できませんでした。</value>
   </data>
   <data name="Browser" xml:space="preserve">
-    <value>Browser</value>
+    <value>ブラウザ</value>
   </data>
   <data name="ColorTheme" xml:space="preserve">
-    <value>Color theme :</value>
+    <value>カラーテーマ :</value>
   </data>
   <data name="Comment" xml:space="preserve">
-    <value>COMMENT</value>
+    <value>コメント</value>
   </data>
   <data name="Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>黒</value>
   </data>
   <data name="DeleteBrowserCaches" xml:space="preserve">
-    <value>Delete browser caches.</value>
+    <value>ブラウザキャッシュを削除</value>
   </data>
   <data name="DeleteBrowserCookies" xml:space="preserve">
-    <value>Delete browser cookies.</value>
+    <value>ブラウザ Cookie を削除</value>
   </data>
   <data name="DisableChangeChannelByMouseWheel" xml:space="preserve">
-    <value>Disable change channel by mouse wheel.</value>
+    <value>マウスホイールでのチャンネル変更を無効化。</value>
   </data>
   <data name="DisableContextMenu" xml:space="preserve">
-    <value>Disable context menu.</value>
+    <value>コンテキストメニューを無効化。</value>
   </data>
   <data name="FetchedComment0" xml:space="preserve">
-    <value>Fetched program comment (0).</value>
+    <value>0 件のコメントを同期しました。</value>
   </data>
   <data name="FetchedComments" xml:space="preserve">
-    <value>Fetched program comments.</value>
+    <value>コメントを同期しました。</value>
   </data>
   <data name="FetchedProgramInformation" xml:space="preserve">
-    <value>Fetched program information.</value>
+    <value>番組情報を同期しました。</value>
   </data>
   <data name="FetchingComments" xml:space="preserve">
-    <value>Fetching program comments.</value>
+    <value>コメントを同期しています。</value>
   </data>
   <data name="FetchingProgramInformation" xml:space="preserve">
-    <value>Fetching program information.</value>
+    <value>番組情報を同期しています。</value>
   </data>
   <data name="HiddenFooterControls" xml:space="preserve">
-    <value>Hide footer controls.</value>
+    <value>フッターコントロールの非表示化。</value>
   </data>
   <data name="HiddenHeaderControls" xml:space="preserve">
-    <value>Hide header controls.</value>
+    <value>ヘッダーコントロールの非表示化。</value>
   </data>
   <data name="HiddenSideControls" xml:space="preserve">
-    <value>Hide side controls.</value>
+    <value>サイドコントロールの非表示化。</value>
   </data>
   <data name="InputComment" xml:space="preserve">
-    <value>Input comment</value>
+    <value>コメントを入力</value>
   </data>
   <data name="License" xml:space="preserve">
-    <value>Licenses</value>
+    <value>ライセンス</value>
   </data>
   <data name="Light" xml:space="preserve">
-    <value>Light</value>
+    <value>白</value>
   </data>
   <data name="NumberOfHoldingComments" xml:space="preserve">
-    <value>Number of holding comments :</value>
+    <value>コメント保持数 :</value>
   </data>
   <data name="Operation" xml:space="preserve">
-    <value>Operation</value>
+    <value>動作</value>
   </data>
   <data name="Option" xml:space="preserve">
-    <value>Options</value>
+    <value>オプション</value>
   </data>
   <data name="Others" xml:space="preserve">
-    <value>Others</value>
+    <value>その他</value>
   </data>
   <data name="Ready" xml:space="preserve">
-    <value>Ready</value>
+    <value>準備完了</value>
   </data>
   <data name="ReceptionIntervalOfComments" xml:space="preserve">
-    <value>Reception interval of comments :</value>
+    <value>コメントの受信間隔 :</value>
   </data>
   <data name="ReloadBrowserOnBroadcastCommercials" xml:space="preserve">
-    <value>Reload browser on broadcast commercials.</value>
+    <value>CM 中にブラウザをリロード</value>
   </data>
   <data name="ReloadingThumbnail" xml:space="preserve">
-    <value>Reloading channel thumbnails.</value>
+    <value>サムネイルをリロードしています。</value>
   </data>
   <data name="SamplingIntervalOfProgramState" xml:space="preserve">
-    <value>Sampling interval of program state :</value>
+    <value>番組状態の確認間隔 :</value>
   </data>
   <data name="Time" xml:space="preserve">
-    <value>TIME</value>
+    <value>時間</value>
   </data>
   <data name="UpdateInervalOfProgramInformation" xml:space="preserve">
-    <value>Update interval of program information :</value>
+    <value>番組情報の更新間隔 :</value>
   </data>
   <data name="UpdateInteralOfThumbnail" xml:space="preserve">
-    <value>Update interval of thumbnail : </value>
+    <value>サムネイルの更新間隔 :</value>
   </data>
 </root>

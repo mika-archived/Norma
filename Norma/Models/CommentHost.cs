@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using Norma.Gamma.Models;
 using Norma.Helpers;
+using Norma.Properties;
 
 using Prism.Mvvm;
 
@@ -78,12 +79,12 @@ namespace Norma.Models
 
         private async Task FetchComment()
         {
-            StatusInfo.Instance.Text = "Fetching program comments (20 comments).";
+            StatusInfo.Instance.Text = Resources.FetchingComments;
             var holdingComments = _configuration.Root.Operation.NumberOfHoldingComments;
             var comments = await _abemaApiHost.Comments(_abemaState.CurrentSlot.Id);
             if (comments.CommentList == null)
             {
-                StatusInfo.Instance.Text = "Fetched program comment (0).";
+                StatusInfo.Instance.Text = Resources.FetchedComment0;
                 return;
             }
             foreach (var comment in comments.CommentList.OrderBy(w => w.CreatedAtMs))
@@ -95,7 +96,7 @@ namespace Norma.Models
                         Comments.RemoveAt((int) i);
                 Comments.Insert(0, comment);
             }
-            StatusInfo.Instance.Text = "Fetched program comments.";
+            StatusInfo.Instance.Text = Resources.FetchedComments;
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.Practices.ObjectBuilder2;
 
 using Norma.Gamma.Models;
 using Norma.Helpers;
+using Norma.Properties;
 
 using Prism.Mvvm;
 
@@ -38,7 +39,7 @@ namespace Norma.Models
 
         private void FetchProgramInfo()
         {
-            StatusInfo.Instance.Text = "Fetching program information.";
+            StatusInfo.Instance.Text = Resources.FetchingProgramInformation;
             var slot = _abemaState.CurrentSlot;
             var program = _abemaState.CurrentProgram;
             if (slot == null)
@@ -63,7 +64,7 @@ namespace Norma.Models
                 ProvideCredits(program.Credit);
                 ProvideThumbnails(program);
             }
-            StatusInfo.Instance.Text = "Fetched program information.";
+            StatusInfo.Instance.Text = Resources.FetchedProgramInformation;
         }
 
         private void ProvideCredits(Credit credit)

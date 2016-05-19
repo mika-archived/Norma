@@ -2,11 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Norma.Views.Tabs"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:options="clr-namespace:Norma.Views.Tabs.Options"
+             xmlns:properties="clr-namespace:Norma.Properties"
              xmlns:vm="clr-namespace:Norma.ViewModels.Tabs"
-             xmlns:vmroot="clr-namespace:Norma.ViewModels"
              d:DataContext="{d:DesignInstance vm:OptionsTabViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
@@ -45,7 +44,7 @@
             </TabControl.Resources>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="Browser" />
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{x:Static properties:Resources.Browser}" />
                 </TabItem.Header>
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                     <options:Browser DataContext="{Binding BrowserViewModel}" />
@@ -53,7 +52,7 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="Operation" />
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{x:Static properties:Resources.Operation}" />
                 </TabItem.Header>
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                     <options:Operation DataContext="{Binding OperationViewModel}" />
@@ -61,7 +60,7 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="Others" />
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{x:Static properties:Resources.Others}" />
                 </TabItem.Header>
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                     <options:Others DataContext="{Binding OthersViewModel}" />
