@@ -29,7 +29,7 @@ namespace Norma.ViewModels.Tabs.Options
             ReceptionIntervalOfComments = ReactiveProperty.FromObject(oc, w => w.ReceptionIntervalOfComments);
             SamplingIntervalOfProgramState = ReactiveProperty.FromObject(oc, w => w.SamplingIntervalOfProgramState);
             NumberOfHoldingComments = ReactiveProperty.FromObject(oc, w => w.NumberOfHoldingComments);
-            PostKey = ReactiveProperty.FromObject(oc, w => w.PoskKeyType, x => new ShortcutKey(x), w => w.PostKey);
+            PostKey = ReactiveProperty.FromObject(oc, w => w.PostKeyType, x => new ShortcutKey(x), w => w.PostKey);
         }
     }
 }

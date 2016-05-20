@@ -59,7 +59,7 @@ namespace Norma.ViewModels.Controls
 
         private void OnKeyInput(KeyEventArgs e)
         {
-            if (!_configuration.Root.Operation.PoskKeyType.IsMatchShortcut(e))
+            if (!_configuration.Root.Operation.PostKeyType.IsMatchShortcut(e))
                 return;
             if (CanSend())
                 Send();
