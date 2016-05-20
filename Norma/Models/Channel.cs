@@ -22,7 +22,8 @@ namespace Norma.Models
 
             // 1分毎にサムネとか更新
             var val = configuration.Root.Operation.UpdateIntervalOfThumbnails;
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => UpdateChannelInfo());
+            _disposable = Observable.Timer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(val))
+                                    .Subscribe(w => UpdateChannelInfo());
         }
 
         #region Implementation of IDisposable

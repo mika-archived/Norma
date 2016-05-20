@@ -51,10 +51,30 @@ namespace Norma.Models
         }
 
         public async Task<Comments> Comments(string slotId)
-            => await _abemaTv.Root.CommentsAsync(slotId, limit => 20);
+        {
+            try
+            {
+                return await _abemaTv.Root.CommentsAsync(slotId, limit => 20);
+            }
+            catch (Exception e)
+            {
+                StatusInfo.Instance.Text = e.Message;
+                return null;
+            }
+        }
 
         public async Task<Comment> Comment(string slotId, string comment)
-            => await _abemaTv.Root.CommentAsync(slotId, message => comment, share => null);
+        {
+            try
+            {
+                return await _abemaTv.Root.CommentAsync(slotId, message => comment, share => null);
+            }
+            catch (Exception e)
+            {
+                StatusInfo.Instance.Text = e.Message;
+                return null;
+            }
+        }
 
         public async Task<Media> MediaOfCurrentAsync()
         {

@@ -82,9 +82,10 @@ namespace Norma.Models
             StatusInfo.Instance.Text = Resources.FetchingComments;
             var holdingComments = _configuration.Root.Operation.NumberOfHoldingComments;
             var comments = await _abemaApiHost.Comments(_abemaState.CurrentSlot.Id);
-            if (comments.CommentList == null)
+            if (comments?.CommentList == null)
             {
-                StatusInfo.Instance.Text = Resources.FetchedComment0;
+                if (comments != null)
+                    StatusInfo.Instance.Text = Resources.FetchedComment0;
                 return;
             }
             foreach (var comment in comments.CommentList.OrderBy(w => w.CreatedAtMs))
