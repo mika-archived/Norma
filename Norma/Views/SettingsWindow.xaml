@@ -15,6 +15,7 @@
                    Height="600"
                    prism:ViewModelLocator.AutoWireViewModel="True"
                    FontFamily="Segoe UI"
+                   ResizeMode="NoResize"
                    TextOptions.TextFormattingMode="Display"
                    UseLayoutRounding="True"
                    WindowStartupLocation="CenterOwner"

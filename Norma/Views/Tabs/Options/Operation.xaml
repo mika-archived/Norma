@@ -30,6 +30,7 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="150" />
         </Grid.RowDefinitions>
 
         <!--#region UpdateIntervalOfProgram-->
@@ -152,8 +153,102 @@
                               IsEditable="False"
                               ItemsSource="{Binding KeyTypes}"
                               SelectedValue="{Binding PostKey.Value,
-                                                      Mode=TwoWay}"
- />
+                                                      Mode=TwoWay}" />
+        <!--#endregion-->
+
+        <!--#region MuteKeywords-->
+        <TextBlock Grid.Row="6"
+                   Grid.Column="0"
+                   Margin="0,5,0,0"
+                   VerticalAlignment="Top"
+                   Text="{x:Static properties:Resources.MuteKeywords}" />
+        <Grid Grid.Row="6"
+              Grid.Column="1"
+              Margin="5"
+              HorizontalAlignment="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <ListView Grid.Row="0"
+                      Width="495"
+                      HorizontalAlignment="Left"
+                      BorderBrush="{DynamicResource BorderBrushKey}"
+                      BorderThickness="1"
+                      ItemContainerStyle="{DynamicResource SelectHighlightListViewItem}"
+                      ItemsSource="{Binding MuteKeywords}"
+                      SelectedIndex="{Binding SelectedIndex.Value,
+                                              Mode=OneWayToSource}"
+                      SelectedItem="{Binding SelectedKeyword.Value,
+                                             Mode=OneWayToSource}">
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="400">
+                            <GridViewColumn.Header>
+                                <TextBlock Text="{x:Static properties:Resources.Keyword}" />
+                            </GridViewColumn.Header>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Keyword}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="75">
+                            <GridViewColumn.Header>
+                                <TextBlock Text="{x:Static properties:Resources.IsRegex}" />
+                            </GridViewColumn.Header>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding IsRegex}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Grid Grid.Row="1">
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                    <metro:PromptTextBox Width="150"
+                                         Height="25"
+                                         VerticalAlignment="Bottom"
+                                         Text="{Binding Keyword.Value,
+                                                        Mode=TwoWay,
+                                                        UpdateSourceTrigger=PropertyChanged}" />
+
+                    <StackPanel Margin="10,0" Orientation="Horizontal">
+                        <TextBlock Text="{x:Static properties:Resources.IsRegex}" />
+                        <metro:PromptComboBox Height="25"
+                                              Margin="5,0,0,0"
+                                              VerticalAlignment="Bottom"
+                                              SelectedValue="{Binding IsRegex.Value,
+                                                                      Mode=TwoWay,
+                                                                      Converter={StaticResource YesNoToBooleanConverter}}"
+                                              SelectedValuePath="Content">
+                            <ComboBoxItem Content="{x:Static properties:Resources.Yes}" />
+                            <ComboBoxItem Content="{x:Static properties:Resources.No}" />
+                        </metro:PromptComboBox>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button Width="60"
+                            Height="25"
+                            Margin="5,5,5,0"
+                            Command="{Binding AddMuteKeywordCommand}"
+                            Content="{x:Static properties:Resources.Add}" />
+                    <Button Width="60"
+                            Height="25"
+                            Margin="5,5,5,0"
+                            Command="{Binding EditMuteKeywordCommand}"
+                            Content="{x:Static properties:Resources.Edit}" />
+                    <Button Width="60"
+                            Height="25"
+                            Margin="5,5,0,0"
+                            Command="{Binding DeleteMuteKeywordCommand}"
+                            Content="{x:Static properties:Resources.Delete}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
         <!--#endregion-->
     </Grid>
 </UserControl>

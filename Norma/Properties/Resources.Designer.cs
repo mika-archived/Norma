@@ -70,6 +70,15 @@ namespace Norma.Properties {
         }
         
         /// <summary>
+        ///   Add に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cannot get program information. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string BlankInformation {
@@ -124,6 +133,15 @@ namespace Norma.Properties {
         }
         
         /// <summary>
+        ///   Delete に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Delete browser caches. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string DeleteBrowserCaches {
@@ -156,6 +174,15 @@ namespace Norma.Properties {
         public static string DisableContextMenu {
             get {
                 return ResourceManager.GetString("DisableContextMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Edit に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
@@ -250,6 +277,24 @@ namespace Norma.Properties {
         }
         
         /// <summary>
+        ///   Regex? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string IsRegex {
+            get {
+                return ResourceManager.GetString("IsRegex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Keyword に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Keyword {
+            get {
+                return ResourceManager.GetString("Keyword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Licenses に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string License {
@@ -273,6 +318,24 @@ namespace Norma.Properties {
         public static string Loading {
             get {
                 return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Mute keywords : に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MuteKeywords {
+            get {
+                return ResourceManager.GetString("MuteKeywords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   No に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
             }
         }
         
@@ -399,6 +462,15 @@ namespace Norma.Properties {
         public static string UpdateInteralOfThumbnail {
             get {
                 return ResourceManager.GetString("UpdateInteralOfThumbnail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Yes に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

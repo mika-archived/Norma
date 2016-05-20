@@ -187,6 +187,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\YesNoToBooleanConverter.cs" />
     <Compile Include="Extensions\IDisposableExt.cs" />
     <Compile Include="Helpers\ViewModelHelper.cs" />
     <Compile Include="Interactivity\InteractionRequest2.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Models\Config\OthersConfig.cs" />
     <Compile Include="Models\Config\RootConfig.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
+    <Compile Include="Models\MuteKeyword.cs" />
     <Compile Include="Models\ShortcutKey.cs" />
     <Compile Include="Models\Libraries\CEF.cs" />
     <Compile Include="Models\Libraries\CEFSharp.cs" />
@@ -323,9 +325,20 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Styles\Controls.ListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Controls.xaml</DependentUpon>
+    </Page>
+    <Page Include="Styles\Controls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\AbemaComment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
