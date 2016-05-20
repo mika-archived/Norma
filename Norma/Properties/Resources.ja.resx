@@ -132,6 +132,9 @@
   <data name="Comment" xml:space="preserve">
     <value>コメント</value>
   </data>
+  <data name="CtrlEnter" xml:space="preserve">
+    <value>Ctrl + Enter</value>
+  </data>
   <data name="Dark" xml:space="preserve">
     <value>黒</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="DisableContextMenu" xml:space="preserve">
     <value>コンテキストメニューを無効化</value>
+  </data>
+  <data name="EnterOnly" xml:space="preserve">
+    <value>Enter</value>
   </data>
   <data name="FetchedComment0" xml:space="preserve">
     <value>0 件のコメントを同期しました。</value>
@@ -195,6 +201,9 @@
   <data name="Others" xml:space="preserve">
     <value>その他</value>
   </data>
+  <data name="PostKey" xml:space="preserve">
+    <value>投稿ショートカットキー :</value>
+  </data>
   <data name="Ready" xml:space="preserve">
     <value>準備完了</value>
   </data>
@@ -209,6 +218,9 @@
   </data>
   <data name="SamplingIntervalOfProgramState" xml:space="preserve">
     <value>番組状態の確認間隔 :</value>
+  </data>
+  <data name="ShiftEnter" xml:space="preserve">
+    <value>Shift + Enter</value>
   </data>
   <data name="Time" xml:space="preserve">
     <value>時間</value>

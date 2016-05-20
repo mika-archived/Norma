@@ -19,6 +19,9 @@ namespace Norma.Models.Config
         [JsonProperty]
         public uint NumberOfHoldingComments { get; set; }
 
+        [JsonProperty]
+        public PostKey PoskKeyType { get; set; }
+
         public OperationConfig()
         {
             UpdateIntervalOfProgram = 1;
@@ -26,6 +29,7 @@ namespace Norma.Models.Config
             ReceptionIntervalOfComments = 10;
             SamplingIntervalOfProgramState = 1;
             NumberOfHoldingComments = 200;
+            PoskKeyType = PostKey.EnterOnly;
         }
     }
 }

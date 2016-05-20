@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
+using System.Windows.Input;
 
 using Norma.Extensions;
 using Norma.Models;
@@ -16,13 +17,15 @@ namespace Norma.ViewModels.Controls
     {
         private readonly AbemaApiHost _abemaApiHost;
         private readonly AbemaState _abemaState;
+        private readonly Configuration _configuration;
         public ReactiveProperty<string> Comment { get; }
         public ReadOnlyReactiveProperty<bool> IsEnableCommentInput { get; }
 
-        public AbemaCommentInputViewModel(AbemaApiHost abemaApiHost, AbemaState abemaState)
+        public AbemaCommentInputViewModel(AbemaApiHost abemaApiHost, AbemaState abemaState, Configuration configuration)
         {
             _abemaApiHost = abemaApiHost;
             _abemaState = abemaState;
+            _configuration = configuration;
             Comment = new ReactiveProperty<string>("").AddTo(this);
             Comment.Subscribe(w => SendCommentCommand.RaiseCanExecuteChanged()).AddTo(this);
             IsEnableCommentInput = _abemaState.ObserveProperty(w => w.IsBroadcastCm)
@@ -44,6 +47,23 @@ namespace Norma.ViewModels.Controls
         }
 
         private bool CanSend() => !string.IsNullOrWhiteSpace(Comment.Value);
+
+        #endregion
+
+        #region OnKeyInputCommand
+
+        private ICommand _onKeyInputCommand;
+
+        public ICommand OnKeyInputCommand =>
+            _onKeyInputCommand ?? (_onKeyInputCommand = new DelegateCommand<KeyEventArgs>(OnKeyInput));
+
+        private void OnKeyInput(KeyEventArgs e)
+        {
+            if (!_configuration.Root.Operation.PoskKeyType.IsMatchShortcut(e))
+                return;
+            if (CanSend())
+                Send();
+        }
 
         #endregion
     }

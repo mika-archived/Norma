@@ -205,6 +205,7 @@
     <Compile Include="Models\Config\OthersConfig.cs" />
     <Compile Include="Models\Config\RootConfig.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
+    <Compile Include="Models\ShortcutKey.cs" />
     <Compile Include="Models\Libraries\CEF.cs" />
     <Compile Include="Models\Libraries\CEFSharp.cs" />
     <Compile Include="Models\Libraries\CommonServiceLocator.cs" />
@@ -215,6 +216,7 @@
     <Compile Include="Models\Libraries\RxNET.cs" />
     <Compile Include="Models\Libraries\Unity.cs" />
     <Compile Include="Models\Library.cs" />
+    <Compile Include="Models\PostKey.cs" />
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ProgramHost.cs" />
     <Compile Include="Models\ReleaseType.cs" />

@@ -132,6 +132,9 @@
   <data name="Comment" xml:space="preserve">
     <value>COMMENT</value>
   </data>
+  <data name="CtrlEnter" xml:space="preserve">
+    <value>Ctrl + Enter</value>
+  </data>
   <data name="Dark" xml:space="preserve">
     <value>Dark</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="DisableContextMenu" xml:space="preserve">
     <value>Disable context menu.</value>
+  </data>
+  <data name="EnterOnly" xml:space="preserve">
+    <value>Enter</value>
   </data>
   <data name="FetchedComment0" xml:space="preserve">
     <value>Fetched program comment (0).</value>
@@ -195,6 +201,9 @@
   <data name="Others" xml:space="preserve">
     <value>Others</value>
   </data>
+  <data name="PostKey" xml:space="preserve">
+    <value>Post shortcut key :</value>
+  </data>
   <data name="Ready" xml:space="preserve">
     <value>Ready</value>
   </data>
@@ -209,6 +218,9 @@
   </data>
   <data name="SamplingIntervalOfProgramState" xml:space="preserve">
     <value>Sampling interval of program state :</value>
+  </data>
+  <data name="ShiftEnter" xml:space="preserve">
+    <value>Shift + Enter</value>
   </data>
   <data name="Time" xml:space="preserve">
     <value>TIME</value>

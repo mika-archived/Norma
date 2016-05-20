@@ -33,8 +33,8 @@ namespace Norma.Models
 
         public Slot CurrentSlot(AbemaChannel channel)
         {
-            var schedule = Media.ChannelSchedules.First(w => w.ChannelId == channel.ToUrlString());
-            return schedule.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);
+            var schedule = Media.ChannelSchedules.FirstOrDefault(w => w.ChannelId == channel.ToUrlString());
+            return schedule?.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);
         }
     }
 }

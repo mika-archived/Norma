@@ -33,6 +33,7 @@
                    Text="{x:Static properties:Resources.ColorTheme}" />
         <StackPanel Grid.Row="0"
                     Grid.Column="1"
+                    Margin="5"
                     VerticalAlignment="Top"
                     Orientation="Vertical">
             <RadioButton Margin="5,0,5,5"

@@ -106,6 +106,15 @@ namespace Norma.Properties {
         }
         
         /// <summary>
+        ///   Ctrl + Enter に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string CtrlEnter {
+            get {
+                return ResourceManager.GetString("CtrlEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Dark に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Dark {
@@ -147,6 +156,15 @@ namespace Norma.Properties {
         public static string DisableContextMenu {
             get {
                 return ResourceManager.GetString("DisableContextMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Enter に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string EnterOnly {
+            get {
+                return ResourceManager.GetString("EnterOnly", resourceCulture);
             }
         }
         
@@ -295,6 +313,15 @@ namespace Norma.Properties {
         }
         
         /// <summary>
+        ///   Post shortcut key : に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string PostKey {
+            get {
+                return ResourceManager.GetString("PostKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ready に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Ready {
@@ -336,6 +363,15 @@ namespace Norma.Properties {
         public static string SamplingIntervalOfProgramState {
             get {
                 return ResourceManager.GetString("SamplingIntervalOfProgramState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Shift + Enter に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ShiftEnter {
+            get {
+                return ResourceManager.GetString("ShiftEnter", resourceCulture);
             }
         }
         
