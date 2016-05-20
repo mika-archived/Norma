@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Norma.Gamma.Models;
@@ -90,7 +91,7 @@ namespace Norma.Models
             }
             foreach (var comment in comments.CommentList.OrderBy(w => w.CreatedAtMs))
             {
-                if (Comments.Any(w => w.Id == comment.Id) || comment.Message.Trim() == "")
+                if (Comments.Any(w => w.Id == comment.Id) || comment.Message.Trim() == "" || IsMuteTarget(comment))
                     continue;
                 if (Comments.Count >= holdingComments)
                     for (var i = holdingComments - 1; i < Comments.Count; i++)
@@ -98,6 +99,17 @@ namespace Norma.Models
                 Comments.Insert(0, comment);
             }
             StatusInfo.Instance.Text = Resources.FetchedComments;
+        }
+
+        private bool IsMuteTarget(Comment comment)
+        {
+            return _configuration.Root.Operation.MuteKeywords.Any(w =>
+            {
+                if (!w.IsRegex)
+                    return comment.Message.Contains(w.Keyword);
+                var regex = new Regex(w.Keyword);
+                return regex.IsMatch(comment.Message);
+            });
         }
     }
 }

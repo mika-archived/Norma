@@ -200,7 +200,7 @@
                             </GridViewColumn.Header>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding IsRegex}" />
+                                    <TextBlock Text="{Binding IsRegex, Converter={StaticResource YesNoToBooleanConverter}}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
