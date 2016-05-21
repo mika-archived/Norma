@@ -29,6 +29,7 @@
         <!--#region Theme-->
         <TextBlock Grid.Row="0"
                    Grid.Column="0"
+                   Margin="2.5"
                    VerticalAlignment="Top"
                    Text="{x:Static properties:Resources.ColorTheme}" />
         <StackPanel Grid.Row="0"
