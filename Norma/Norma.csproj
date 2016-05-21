@@ -184,6 +184,7 @@
     </Compile>
     <Compile Include="Behaviors\HorizontalScrollBehavior.cs" />
     <Compile Include="Behaviors\KeepAspectRatioBehavior.cs" />
+    <Compile Include="Behaviors\ScrollSyncronizingBehavior.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Models\Config\RootConfig.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
     <Compile Include="Models\MuteKeyword.cs" />
+    <Compile Include="Models\Orientation.cs" />
     <Compile Include="Models\ShortcutKey.cs" />
     <Compile Include="Models\Libraries\CEF.cs" />
     <Compile Include="Models\Libraries\CEFSharp.cs" />
@@ -224,6 +226,7 @@
     <Compile Include="Models\ReleaseType.cs" />
     <Compile Include="Models\StatusInfo.cs" />
     <Compile Include="Models\Timetable.cs" />
+    <Compile Include="Models\Timetables\Slot.cs" />
     <Compile Include="NormaConstants.cs" />
     <Compile Include="Properties\Resources.ja.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -248,6 +251,8 @@
     <Compile Include="ViewModels\Tabs\Options\OperationViewModel.cs" />
     <Compile Include="ViewModels\Tabs\Options\OthersViewModel.cs" />
     <Compile Include="ViewModels\TimetableWindowViewModel.cs" />
+    <Compile Include="ViewModels\Timetable\ChannelViewModel.cs" />
+    <Compile Include="ViewModels\Timetable\SlotViewModel.cs" />
     <Compile Include="ViewModels\TVGuide\ChannelViewModel.cs" />
     <Compile Include="Views\Controls\AbemaComment.xaml.cs">
       <DependentUpon>AbemaComment.xaml</DependentUpon>
@@ -266,6 +271,9 @@
     </Compile>
     <Compile Include="Views\Controls\AbemaTVGuide.xaml.cs">
       <DependentUpon>AbemaTVGuide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\BorderedTextBlock.xaml.cs">
+      <DependentUpon>BorderedTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -360,6 +368,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\AbemaTVGuide.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\BorderedTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

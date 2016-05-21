@@ -27,7 +27,7 @@ namespace Norma.ViewModels
         public ReadOnlyReactiveProperty<string> Title { get; private set; }
         public ReactiveProperty<bool> IsTopMost { get; private set; }
 
-        public ShellViewModel(AbemaState abemaState, Configuration configuration, Timetable timetable)
+        public ShellViewModel(AbemaState abemaState, Configuration configuration, Models.Timetable timetable)
         {
             _configuration = configuration;
 

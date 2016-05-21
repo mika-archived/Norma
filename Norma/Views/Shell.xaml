@@ -65,14 +65,12 @@
                            Text="{Binding Title.Value}"
                            TextTrimming="CharacterEllipsis" />
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <!--
-                    <metro:CaptionButton Width="60"
-                                         Margin="10,0"
+                    <metro:CaptionButton Width="40"
+                                         Margin="5,0"
                                          VerticalAlignment="Top"
                                          Command="{Binding OpenTimetableCommand}"
                                          Content="&#57698;"
                                          FontFamily="Segoe MDL2 Assets, Segoe UI Symbol" />
-                    -->
                     <metro:CaptionButton Width="40"
                                          Margin="5,0"
                                          VerticalAlignment="Top"
