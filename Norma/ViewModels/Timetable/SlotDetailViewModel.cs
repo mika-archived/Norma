@@ -10,7 +10,10 @@ namespace Norma.ViewModels.Timetable
         private readonly Slot _model;
         public string Title => _model.Model.Title;
         public string Date => _model.StartAt.ToString("MM/DD");
-        public string Time => $"{_model.StartAt.ToString("HH:mm")} ～ {_model.EndAt.ToString("HH:mm")}";
+
+        public string Time
+            => $"{_model.Model.StartAt.ToString("MM/dd HH:mm")} ～ {_model.Model.EndAt.ToString("MM/dd HH:mm")}";
+
         public string Description => _model.DetailHighlight;
         public List<string> Cast => _model.Cast;
         public List<string> Staff => _model.Staff;

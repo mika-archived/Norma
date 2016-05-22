@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using Norma.ViewModels.Internal;
@@ -15,7 +16,7 @@ namespace Norma.ViewModels
 
         public TimetableWindowViewModel(ModelTimetable timetable)
         {
-            _index = 0;
+            _index = (DateTime.Now - timetable.LastSyncTime).Days;
             Channels = new ObservableCollection<ChannelViewModel>();
             foreach (var channel in timetable.Channels)
             {

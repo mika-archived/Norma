@@ -29,6 +29,8 @@ namespace Norma.Models
             set { _cache.ChannelSchedules = value; }
         }
 
+        public DateTime LastSyncTime => _cache.SyncDateTime;
+
         public Timetable(AbemaApiHost abemaApiHost)
         {
             _abemaApiHost = abemaApiHost;
