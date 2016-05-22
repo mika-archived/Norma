@@ -87,5 +87,12 @@ namespace Norma.Models
             var today = DateTime.Today.ToString("yyyyMMdd");
             return _abemaTv.Root.Media(dateFrom => today, dateTo => today);
         }
+
+        public Media MediaOfOneWeek()
+        {
+            var today = DateTime.Today.ToString("yyyyMMdd");
+            var firstDayOfNextWeek = DateTime.Today.AddDays(7).ToString("yyyyMMdd");
+            return _abemaTv.Root.Media(dateFrom => today, dateTo => firstDayOfNextWeek);
+        }
     }
 }

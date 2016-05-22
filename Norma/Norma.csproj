@@ -237,6 +237,7 @@
     </Compile>
     <Compile Include="ViewModels\Controls\AbemaCommentInputViewModel.cs" />
     <Compile Include="ViewModels\LibraryViewModel.cs" />
+    <Compile Include="ViewModels\StartupScreenViewModel.cs" />
     <Compile Include="ViewModels\Tabs\AboutTabViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaCommentViewModel.cs" />
@@ -286,6 +287,9 @@
     </Compile>
     <Compile Include="Views\SlotDetailsWindow.xaml.cs">
       <DependentUpon>SlotDetailsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StartupScreen.xaml.cs">
+      <DependentUpon>StartupScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tabs\AboutTab.xaml.cs">
       <DependentUpon>AboutTab.xaml</DependentUpon>
@@ -390,6 +394,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SlotDetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StartupScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

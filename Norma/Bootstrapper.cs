@@ -14,6 +14,7 @@ namespace Norma
         private readonly AbemaApiHost _abemaApiHost;
         private readonly AbemaState _abemaState;
         private readonly Configuration _configuration;
+        private readonly StartupScreen _startupScreen;
         private readonly Timetable _timetable;
 
         public Bootstrapper()
@@ -23,6 +24,8 @@ namespace Norma
             _abemaApiHost = new AbemaApiHost(_configuration);
             _timetable = new Timetable(_abemaApiHost);
             _abemaState = new AbemaState(_configuration, _timetable);
+            _startupScreen = new StartupScreen();
+            _startupScreen.Show();
         }
 
         #region Overrides of UnityBootstrapper
@@ -46,7 +49,13 @@ namespace Norma
 
         protected override DependencyObject CreateShell() => Container.Resolve<Shell>();
 
-        protected override void InitializeShell() => Application.Current.MainWindow.Show();
+        protected override void InitializeShell()
+        {
+            _startupScreen.Hide(); // そのほうが綺麗である。
+            _startupScreen.Close();
+            Application.Current.MainWindow = (Window) Shell;
+            Application.Current.MainWindow.Show();
+        }
 
         #endregion
     }

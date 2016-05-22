@@ -20,7 +20,7 @@ namespace Norma.Models
 
         public void Sync()
         {
-            Media = _abemaApiHost.MediaOfCurrent();
+            Media = _abemaApiHost.MediaOfOneWeek();
             LastSyncTime = DateTime.Now;
         }
 
