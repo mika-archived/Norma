@@ -17,9 +17,9 @@ namespace Norma.ViewModels
         {
             _index = 0;
             Channels = new ObservableCollection<ChannelViewModel>();
-            foreach (var channel in timetable.Media.Channels)
+            foreach (var channel in timetable.Channels)
             {
-                var slots = timetable.Media.ChannelSchedules.Where(w => w.ChannelId == channel.Id).ElementAt(_index);
+                var slots = timetable.ChannelSchedules.Where(w => w.ChannelId == channel.Id).ElementAt(_index);
                 Channels.Add(new ChannelViewModel(channel, slots.Slots, slots.Date));
             }
         }

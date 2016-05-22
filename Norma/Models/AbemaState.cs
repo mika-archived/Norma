@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Threading.Tasks;
 
 using Norma.Gamma.Models;
 
@@ -26,7 +25,7 @@ namespace Norma.Models
         public void Start()
         {
             var val = _configuration.Root.Operation.UpdateIntervalOfProgram;
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => Sync());
         }
 
         ~AbemaState()
@@ -39,15 +38,12 @@ namespace Norma.Models
             _disposable.Dispose();
             _configuration.Root.LastViewedChannel = CurrentChannel = AbemaChannelExt.FromUrlString(url);
             var val = _configuration.Root.Operation.UpdateIntervalOfProgram;
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => Sync());
         }
 
-        private async Task Sync()
+        private void Sync()
         {
-            if (_timetable.LastSyncTime.Day != DateTime.Now.Day)
-                await _timetable.SyncAsync();
-            var media = _timetable.Media;
-            var schedule = media.ChannelSchedules.First(w => w.ChannelId == CurrentChannel.ToUrlString());
+            var schedule = _timetable.ChannelSchedules.First(w => w.ChannelId == CurrentChannel.ToUrlString());
             CurrentSlot = schedule.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);
             if (CurrentSlot == null)
             {

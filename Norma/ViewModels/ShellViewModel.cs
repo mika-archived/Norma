@@ -19,6 +19,7 @@ namespace Norma.ViewModels
     internal class ShellViewModel : ViewModel
     {
         private readonly Configuration _configuration;
+        private readonly Models.Timetable _timetable;
         public AbemaHostViewModel HostViewModel { get; }
         public AbemaTVGuideViewModel TvGuideViewModel { get; }
         public AbemaStatusViewModel StatusBar { get; }
@@ -30,6 +31,7 @@ namespace Norma.ViewModels
         public ShellViewModel(AbemaState abemaState, Configuration configuration, Models.Timetable timetable)
         {
             _configuration = configuration;
+            _timetable = timetable;
 
             HostViewModel = new AbemaHostViewModel(abemaState, configuration).AddTo(this);
             TvGuideViewModel = new AbemaTVGuideViewModel(this, configuration, timetable).AddTo(this);
@@ -50,6 +52,7 @@ namespace Norma.ViewModels
         {
             base.Dispose();
             // ?
+            _timetable.Save();
             _configuration.Save();
         }
 

@@ -229,6 +229,7 @@
     <Compile Include="Models\StatusInfo.cs" />
     <Compile Include="Models\Timetable.cs" />
     <Compile Include="Models\Timetables\Slot.cs" />
+    <Compile Include="Models\Timetables\TimetableCache.cs" />
     <Compile Include="NormaConstants.cs" />
     <Compile Include="Properties\Resources.ja.Designer.cs">
       <AutoGen>True</AutoGen>

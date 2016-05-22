@@ -10,7 +10,12 @@ namespace Norma.Gamma.Converters
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            var time = value as DateTime?;
+            if (!time.HasValue)
+                return;
+            var datetime = time.Value;
+            datetime = datetime.Year > 1970 ? datetime : new DateTime(1970, 1, 1);
+            writer.WriteValue(new DateTimeOffset(datetime).ToUnixTimeSeconds());
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
