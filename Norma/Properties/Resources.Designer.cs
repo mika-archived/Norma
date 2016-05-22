@@ -142,6 +142,15 @@ namespace Norma.Properties {
         }
         
         /// <summary>
+        ///   Date に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Delete に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Delete {

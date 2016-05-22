@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
+using System.Windows;
 
 using Norma.ViewModels.Internal;
 using Norma.ViewModels.Timetable;
@@ -11,18 +14,70 @@ namespace Norma.ViewModels
 {
     internal class TimetableWindowViewModel : ViewModel
     {
-        private readonly int _index; // 日付管理用(0 = 今日, 6 = 一週間後みたいな)
+        private readonly ModelTimetable _timetable;
+        private int _index; // 日付管理用(0 = 今日, 6 = 一週間後みたいな)
         public ObservableCollection<ChannelViewModel> Channels { get; }
+        public List<string> AvailableDates { get; }
 
         public TimetableWindowViewModel(ModelTimetable timetable)
         {
+            _timetable = timetable;
             _index = (DateTime.Now - timetable.LastSyncTime).Days;
+            AvailableDates = new List<string>();
             Channels = new ObservableCollection<ChannelViewModel>();
-            foreach (var channel in timetable.Channels)
+            for (var i = 0; i < 7; i++)
+                AvailableDates.Add(timetable.LastSyncTime.AddDays(i).ToString("MM/dd"));
+
+            SelectedDate = AvailableDates[0];
+        }
+
+        private void UpdateChannels()
+        {
+            var dispatcher = Application.Current.Dispatcher;
+            dispatcher.Invoke(() => Channels.Clear());
+            var list = new List<ChannelViewModel>();
+            foreach (var channel in _timetable.Channels)
             {
-                var slots = timetable.ChannelSchedules.Where(w => w.ChannelId == channel.Id).ElementAt(_index);
-                Channels.Add(new ChannelViewModel(channel, slots.Slots, slots.Date));
+                var slots = _timetable.ChannelSchedules.Where(w => w.ChannelId == channel.Id).ElementAt(_index);
+                list.Add(new ChannelViewModel(channel, slots.Slots, slots.Date));
+            }
+            dispatcher.Invoke(() =>
+            {
+                foreach (var vm in list)
+                    Channels.Add(vm);
+            });
+            IsLoading = false;
+        }
+
+        #region SelectedDate
+
+        private string _selectedDate;
+
+        public string SelectedDate
+        {
+            get { return _selectedDate; }
+            set
+            {
+                if (!SetProperty(ref _selectedDate, value))
+                    return;
+                _index = AvailableDates.IndexOf(_selectedDate);
+                IsLoading = true;
+                Observable.Return(0).Delay(TimeSpan.FromSeconds(1)).Subscribe(w => UpdateChannels());
             }
         }
+
+        #endregion
+
+        #region IsLoading
+
+        private bool _isLoading;
+
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { SetProperty(ref _isLoading, value); }
+        }
+
+        #endregion
     }
 }

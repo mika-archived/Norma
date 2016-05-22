@@ -11,6 +11,7 @@
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
                    xmlns:prism="http://prismlibrary.com/"
+                   xmlns:properties="clr-namespace:Norma.Properties"
                    xmlns:vm="clr-namespace:Norma.ViewModels"
                    Title="Timetable"
                    Width="900"
@@ -64,6 +65,7 @@
         <!--  180px * 24  -->
         <Grid Grid.Row="1" Margin="5,0,0,0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="45" />
                 <RowDefinition Height="60" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="20" />
@@ -73,9 +75,24 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="20" />
             </Grid.ColumnDefinitions>
+            <!--  Date Selector  -->
+            <StackPanel Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Orientation="Horizontal">
+                <TextBlock Margin="0,0,10,0" VerticalAlignment="Center" Text="{x:Static properties:Resources.Date}" />
+                <metro:PromptComboBox Width="100"
+                                      Height="30"
+                                      Margin="5"
+                                      VerticalAlignment="Center"
+                                      IsEditable="False"
+                                      ItemsSource="{Binding AvailableDates}"
+                                      SelectedItem="{Binding SelectedDate,
+                                                             Mode=TwoWay}" />
+            </StackPanel>
             <!--  Header  -->
             <ScrollViewer x:Name="ChannelScrollViewer"
-                          Grid.Row="0"
+                          Grid.Row="1"
                           Grid.Column="1"
                           HorizontalScrollBarVisibility="Hidden"
                           VerticalScrollBarVisibility="Disabled">
@@ -99,7 +116,7 @@
             </ScrollViewer>
             <!--  Side  -->
             <ScrollViewer x:Name="DateTimeScrollViewer"
-                          Grid.Row="1"
+                          Grid.Row="2"
                           Grid.Column="0"
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Hidden">
@@ -131,7 +148,7 @@
                 </StackPanel>
             </ScrollViewer>
 
-            <ScrollViewer Grid.Row="1"
+            <ScrollViewer Grid.Row="2"
                           Grid.RowSpan="2"
                           Grid.Column="1"
                           Grid.ColumnSpan="2"
@@ -153,6 +170,7 @@
                                 <ItemsControl ItemsSource="{Binding Slots, Mode=OneWay}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
+                                            <!--  TODO: Virtualized Canvas  -->
                                             <Canvas Height="4320" />
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
@@ -203,5 +221,23 @@
                 </ItemsControl>
             </ScrollViewer>
         </Grid>
+
+        <Border Grid.Row="1"
+                Background="Black"
+                Opacity="0.8"
+                Visibility="{Binding IsLoading,
+                                     Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Vertical">
+                <!--
+                <metro:ProgressRing Width="80"
+                                    Height="80"
+                                    EllipseDiameter="5"
+                                    EllipseOffset="0,21,0,0" />
+                -->
+                <TextBlock FontSize="20" Text="loading..." />
+            </StackPanel>
+        </Border>
     </Grid>
 </metro:MetroWindow>

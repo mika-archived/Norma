@@ -144,6 +144,9 @@
   <data name="Dark" xml:space="preserve">
     <value>黒</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>日付</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>削除</value>
   </data>
