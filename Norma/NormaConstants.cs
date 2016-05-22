@@ -15,5 +15,7 @@ namespace Norma
         public static string CefCookiesDir => Path.Combine(AppDirectory, "cookies");
 
         public static string ConfigurationFile => Path.Combine(AppDirectory, "config.json");
+
+        public static string TimetableCacheFile => Path.Combine(AppDirectory, "timetable_cache.json");
     }
 }

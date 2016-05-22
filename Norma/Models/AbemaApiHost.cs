@@ -79,15 +79,13 @@ namespace Norma.Models
         public async Task<Media> MediaOfCurrentAsync()
         {
             var today = DateTime.Today.ToString("yyyyMMdd");
-            var firstDayOfNextWeek = DateTime.Today.AddDays(1).ToString("yyyyMMdd");
-            return await _abemaTv.Root.MediaAsync(dateFrom => today, dateTo => firstDayOfNextWeek);
+            return await _abemaTv.Root.MediaAsync(dateFrom => today, dateTo => today);
         }
 
         public Media MediaOfCurrent()
         {
             var today = DateTime.Today.ToString("yyyyMMdd");
-            var firstDayOfNextWeek = DateTime.Today.AddDays(1).ToString("yyyyMMdd");
-            return _abemaTv.Root.Media(dateFrom => today, dateTo => firstDayOfNextWeek);
+            return _abemaTv.Root.Media(dateFrom => today, dateTo => today);
         }
     }
 }
