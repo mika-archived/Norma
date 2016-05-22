@@ -34,7 +34,8 @@ namespace Norma.Models
             new PrismLibrary(),
             new ReactiveProperty(),
             new RxNET(),
-            new Unity()
+            new Unity(),
+            new HardcodetWpfNotifyIcon()
         };
 
         private static T GetAssemblyInfo<T>() where T : Attribute

@@ -208,6 +208,7 @@
     <Compile Include="Models\Config\OthersConfig.cs" />
     <Compile Include="Models\Config\RootConfig.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
+    <Compile Include="Models\Libraries\HardcodetWpfNotifyIcon.cs" />
     <Compile Include="Models\MuteKeyword.cs" />
     <Compile Include="Models\Orientation.cs" />
     <Compile Include="Models\ShortcutKey.cs" />

@@ -63,6 +63,9 @@ function Copy-To($path1, $path2) {
 function Process($path) {
     $origin = Get-Location
     try {    
+		if (-not (Test-Path -Path $path)) {
+            return
+        }
 		Set-Location $path
         Set-Location ".."
         if (Test-Path -Path "Norma.zip") {
