@@ -62,7 +62,7 @@ namespace Norma.ViewModels
         public ICommand OpenTimetableCommand
             => _openTimetableCommand ?? (_openTimetableCommand = new DelegateCommand(OpenTimetable));
 
-        private void OpenTimetable() => TransitionRequest.Raise(typeof(TimetableWindow));
+        private void OpenTimetable() => TransitionRequest.Raise(new WindowNotification(typeof(TimetableWindow)));
 
         #endregion
 
@@ -73,7 +73,7 @@ namespace Norma.ViewModels
         public ICommand OpenSettingsCommand
             => _openSettingsCommand ?? (_openSettingsCommand = new DelegateCommand(OpenSettings));
 
-        private void OpenSettings() => ModalTransitionRequest.Raise(typeof(SettingsWindow));
+        private void OpenSettings() => ModalTransitionRequest.Raise(new WindowNotification(typeof(SettingsWindow)));
 
         #endregion
     }

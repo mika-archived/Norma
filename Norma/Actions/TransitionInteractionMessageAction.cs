@@ -23,10 +23,12 @@ namespace Norma.Actions
         protected override void Invoke(object parameter)
         {
             var args = parameter as InteractionRequestedEventArgs2;
-            var windowType = args?.Context as Type;
-            if (windowType == null)
+            var notification = args?.Context;
+            if (notification == null)
                 return;
-            var window = (Window) Activator.CreateInstance(windowType);
+            var window = (Window) Activator.CreateInstance(notification.WindowType);
+            if (notification.Context != null)
+                window.DataContext = notification.Context;
             if (IsModal)
             {
                 window.Owner = Window.GetWindow(AssociatedObject);

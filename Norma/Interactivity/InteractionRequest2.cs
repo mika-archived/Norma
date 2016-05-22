@@ -12,10 +12,10 @@ namespace Norma.Interactivity
 
         #endregion
 
-        public void Raise(object context)
+        public void Raise(WindowNotification context)
             => Raise(context, callback => { });
 
-        public void Raise(object context, Action<object> callback)
+        public void Raise(WindowNotification context, Action<object> callback)
         {
             var handler = Raised;
             handler?.Invoke(this, new InteractionRequestedEventArgs2(context, () => callback(context)));

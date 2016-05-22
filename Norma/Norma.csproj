@@ -193,6 +193,7 @@
     <Compile Include="Helpers\ViewModelHelper.cs" />
     <Compile Include="Interactivity\InteractionRequest2.cs" />
     <Compile Include="Interactivity\InteractionRequestedEventArgs2.cs" />
+    <Compile Include="Interactivity\WindowNotification.cs" />
     <Compile Include="Models\AbemaApiHost.cs" />
     <Compile Include="Models\AbemaChannel.cs" />
     <Compile Include="Models\AbemaChannels.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="ViewModels\Tabs\Options\OthersViewModel.cs" />
     <Compile Include="ViewModels\TimetableWindowViewModel.cs" />
     <Compile Include="ViewModels\Timetable\ChannelViewModel.cs" />
+    <Compile Include="ViewModels\Timetable\SlotDetailViewModel.cs" />
     <Compile Include="ViewModels\Timetable\SlotViewModel.cs" />
     <Compile Include="ViewModels\TVGuide\ChannelViewModel.cs" />
     <Compile Include="Views\Controls\AbemaComment.xaml.cs">
@@ -280,6 +282,9 @@
     </Compile>
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SlotDetailsWindow.xaml.cs">
+      <DependentUpon>SlotDetailsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tabs\AboutTab.xaml.cs">
       <DependentUpon>AboutTab.xaml</DependentUpon>
@@ -380,6 +385,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SlotDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -6,9 +6,9 @@ namespace Norma.Interactivity
 {
     internal class InteractionRequestedEventArgs2 : InteractionRequestedEventArgs
     {
-        public new object Context { get; private set; }
+        public new WindowNotification Context { get; private set; }
 
-        public InteractionRequestedEventArgs2(object context, Action callback) : base(null, callback)
+        public InteractionRequestedEventArgs2(WindowNotification context, Action callback) : base(null, callback)
         {
             Context = context;
         }

@@ -129,6 +129,9 @@
   <data name="Browser" xml:space="preserve">
     <value>Browser</value>
   </data>
+  <data name="Cast" xml:space="preserve">
+    <value>Cast</value>
+  </data>
   <data name="ColorTheme" xml:space="preserve">
     <value>Color theme :</value>
   </data>
@@ -225,6 +228,9 @@
   <data name="PostKey" xml:space="preserve">
     <value>Post shortcut key :</value>
   </data>
+  <data name="ProgramSummary" xml:space="preserve">
+    <value>Program summary</value>
+  </data>
   <data name="Ready" xml:space="preserve">
     <value>Ready</value>
   </data>
@@ -242,6 +248,9 @@
   </data>
   <data name="ShiftEnter" xml:space="preserve">
     <value>Shift + Enter</value>
+  </data>
+  <data name="Staff" xml:space="preserve">
+    <value>Staff</value>
   </data>
   <data name="Time" xml:space="preserve">
     <value>TIME</value>

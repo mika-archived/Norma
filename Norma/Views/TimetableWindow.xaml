@@ -6,6 +6,7 @@
                    xmlns:chrome="http://schemes.grabacr.net/winfx/2014/chrome"
                    xmlns:controls="clr-namespace:Norma.Views.Controls"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
@@ -167,7 +168,17 @@
                                             <Border Background="{DynamicResource BackgroundBrushKey}"
                                                     BorderBrush="{DynamicResource BorderBrushKey}"
                                                     BorderThickness="1">
-                                                <Grid Margin="5">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                        <prism:InvokeCommandAction Command="{Binding OnMouseDownCommand}" />
+                                                    </i:EventTrigger>
+                                                    <prism:InteractionRequestTrigger SourceObject="{Binding ModalTransitionRequest}">
+                                                        <actions:TransitionInteractionMessageAction IsModal="True" />
+                                                    </prism:InteractionRequestTrigger>
+                                                </i:Interaction.Triggers>
+                                                <Grid Margin="5"
+                                                      HorizontalAlignment="Stretch"
+                                                      VerticalAlignment="Stretch">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="60" />
                                                         <ColumnDefinition Width="*" />

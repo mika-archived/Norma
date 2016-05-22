@@ -97,6 +97,15 @@ namespace Norma.Properties {
         }
         
         /// <summary>
+        ///   Cast に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Cast {
+            get {
+                return ResourceManager.GetString("Cast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Color theme : に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ColorTheme {
@@ -385,6 +394,15 @@ namespace Norma.Properties {
         }
         
         /// <summary>
+        ///   Program summary に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ProgramSummary {
+            get {
+                return ResourceManager.GetString("ProgramSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ready に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Ready {
@@ -435,6 +453,15 @@ namespace Norma.Properties {
         public static string ShiftEnter {
             get {
                 return ResourceManager.GetString("ShiftEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Staff に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Staff {
+            get {
+                return ResourceManager.GetString("Staff", resourceCulture);
             }
         }
         

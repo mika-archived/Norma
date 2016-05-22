@@ -129,6 +129,9 @@
   <data name="Browser" xml:space="preserve">
     <value>ブラウザ</value>
   </data>
+  <data name="Cast" xml:space="preserve">
+    <value>キャスト</value>
+  </data>
   <data name="ColorTheme" xml:space="preserve">
     <value>カラーテーマ :</value>
   </data>
@@ -225,6 +228,9 @@
   <data name="PostKey" xml:space="preserve">
     <value>投稿ショートカットキー :</value>
   </data>
+  <data name="ProgramSummary" xml:space="preserve">
+    <value>番組概要</value>
+  </data>
   <data name="Ready" xml:space="preserve">
     <value>準備完了</value>
   </data>
@@ -242,6 +248,9 @@
   </data>
   <data name="ShiftEnter" xml:space="preserve">
     <value>Shift + Enter</value>
+  </data>
+  <data name="Staff" xml:space="preserve">
+    <value>スタッフ</value>
   </data>
   <data name="Time" xml:space="preserve">
     <value>時間</value>
