@@ -24,83 +24,89 @@
                              To="0" />
         </Storyboard>
     </UserControl.Resources>
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-        <i:Interaction.Behaviors>
-            <behaviors:HorizontalScrollBehavior />
-        </i:Interaction.Behaviors>
-        <ItemsControl ItemsSource="{Binding Channnels}"
-                      VirtualizingPanel.IsVirtualizing="True"
-                      VirtualizingPanel.ScrollUnit="Pixel"
-                      VirtualizingPanel.VirtualizationMode="Recycling">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid Width="235.5" Height="150">
-                        <Grid Width="235.5"
-                              Height="132.5"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Top">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseLeftButtonUp">
-                                    <ei:CallMethodAction MethodName="ChannelClick" TargetObject="{Binding}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                            <metro:ProgressRing Width="80"
-                                                Height="80"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                EllipseDiameter="5"
-                                                EllipseOffset="0,21,0,0" />
-                            <Image Width="235.5"
-                                   Height="132.5"
-                                   Source="{Binding ThumbnailUrl.Value,
-                                                    Mode=OneWay}" />
-                            <Border Background="Black" Opacity="0.5" />
-                            <Image Width="120"
-                                   Height="45"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Source="{Binding LogoUrl}" />
-                            <Border Name="FrameBorder">
-                                <Border.Style>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="Opacity" Value="0" />
-                                        <Setter Property="Background" Value="{DynamicResource BackgroundBrushKey}" />
-                                        <Style.Triggers>
-                                            <EventTrigger RoutedEvent="MouseEnter">
-                                                <BeginStoryboard Storyboard="{StaticResource BorderGradation1}" />
-                                            </EventTrigger>
-                                            <EventTrigger RoutedEvent="MouseLeave">
-                                                <BeginStoryboard Storyboard="{StaticResource BorderGradation2}" />
-                                            </EventTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-                                <StackPanel Margin="10"
+    <ItemsControl ItemsSource="{Binding Channnels}"
+                  ScrollViewer.CanContentScroll="True"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  VirtualizingPanel.ScrollUnit="Pixel"
+                  VirtualizingPanel.VirtualizationMode="Recycling">
+        <ItemsControl.Template>
+            <ControlTemplate>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                    <i:Interaction.Behaviors>
+                        <behaviors:HorizontalScrollBehavior />
+                    </i:Interaction.Behaviors>
+                    <ItemsPresenter />
+                </ScrollViewer>
+            </ControlTemplate>
+        </ItemsControl.Template>
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <VirtualizingStackPanel Orientation="Horizontal" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Grid Width="235.5" Height="150">
+                    <Grid Width="235.5"
+                          Height="132.5"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Top">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonUp">
+                                <ei:CallMethodAction MethodName="ChannelClick" TargetObject="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <metro:ProgressRing Width="80"
+                                            Height="80"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            Orientation="Vertical">
-                                    <TextBlock Margin="10"
-                                               HorizontalAlignment="Center"
-                                               Text="{Binding Title.Value}"
-                                               TextAlignment="Center"
-                                               TextWrapping="Wrap" />
-                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                        <TextBlock Text="{Binding StartTime.Value}" />
-                                        <TextBlock Text=" ～ " />
-                                        <TextBlock Text="{Binding EndTime.Value}" />
-                                    </StackPanel>
+                                            EllipseDiameter="5"
+                                            EllipseOffset="0,21,0,0" />
+                        <Image Width="235.5"
+                               Height="132.5"
+                               Source="{Binding ThumbnailUrl.Value,
+                                                Mode=OneWay}" />
+                        <Border Background="Black" Opacity="0.5" />
+                        <Image Width="120"
+                               Height="45"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Source="{Binding LogoUrl}" />
+                        <Border Name="FrameBorder">
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="Opacity" Value="0" />
+                                    <Setter Property="Background" Value="{DynamicResource BackgroundBrushKey}" />
+                                    <Style.Triggers>
+                                        <EventTrigger RoutedEvent="MouseEnter">
+                                            <BeginStoryboard Storyboard="{StaticResource BorderGradation1}" />
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="MouseLeave">
+                                            <BeginStoryboard Storyboard="{StaticResource BorderGradation2}" />
+                                        </EventTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <StackPanel Margin="10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Orientation="Vertical">
+                                <TextBlock Margin="10"
+                                           HorizontalAlignment="Center"
+                                           Text="{Binding Title.Value}"
+                                           TextAlignment="Center"
+                                           TextWrapping="Wrap" />
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <TextBlock Text="{Binding StartTime.Value}" />
+                                    <TextBlock Text=" ～ " />
+                                    <TextBlock Text="{Binding EndTime.Value}" />
                                 </StackPanel>
-                            </Border>
-                        </Grid>
-                        <!--  Space for Horizontal Scroll Bar  -->
+                            </StackPanel>
+                        </Border>
                     </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </ScrollViewer>
+                    <!--  Space for Horizontal Scroll Bar  -->
+                </Grid>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
 </UserControl>

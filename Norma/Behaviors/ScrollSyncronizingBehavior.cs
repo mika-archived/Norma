@@ -12,6 +12,9 @@ namespace Norma.Behaviors
         public static readonly DependencyProperty TargetNameProperty =
             DependencyProperty.Register(nameof(TargetName), typeof(string), typeof(ScrollSyncronizingBehavior));
 
+        public static readonly DependencyProperty TargetProperty =
+            DependencyProperty.Register(nameof(Target), typeof(FrameworkElement), typeof(ScrollSyncronizingBehavior));
+
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(ScrollSyncronizingBehavior),
                                         new PropertyMetadata(Orientation.Both));
@@ -29,6 +32,12 @@ namespace Norma.Behaviors
         {
             get { return (string) GetValue(TargetNameProperty); }
             set { SetValue(TargetNameProperty, value); }
+        }
+
+        public FrameworkElement Target
+        {
+            get { return (FrameworkElement) GetValue(TargetProperty); }
+            set { SetValue(TargetProperty, value); }
         }
 
         public int UpstreamLevel
@@ -49,6 +58,8 @@ namespace Norma.Behaviors
         // 同等レベル以下の TargetName Element を取得
         private FrameworkElement GetTargetElement()
         {
+            if (Target != null)
+                return Target;
             var current = (FrameworkElement) AssociatedObject;
             for (var i = 0; i < UpstreamLevel; i++)
                 current = (FrameworkElement) current.Parent;
