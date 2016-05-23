@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 using Norma.Extensions;
 using Norma.Models;
 using Norma.Models.Config;
+using Norma.Properties;
 using Norma.ViewModels.Internal;
 
 using Prism.Commands;
@@ -45,9 +47,15 @@ namespace Norma.ViewModels.Tabs.Options
             NumberOfHoldingComments = ReactiveProperty.FromObject(oc, w => w.NumberOfHoldingComments);
             PostKey = ReactiveProperty.FromObject(oc, w => w.PostKeyType, x => new ShortcutKey(x), w => w.PostKey);
             MuteKeywords = oc.MuteKeywords;
-            Keyword = new ReactiveProperty<string>("");
-            Keyword.Subscribe(w => AddMuteKeywordCommand.RaiseCanExecuteChanged()).AddTo(this);
             IsRegex = new ReactiveProperty<bool>(false);
+            Keyword = new ReactiveProperty<string>("")
+                .SetValidateNotifyError(x => IsRegex.Value ? (IsValidRegex() ? null : Resources.InvalidRegex) : null);
+            Keyword.Subscribe(w => AddMuteKeywordCommand.RaiseCanExecuteChanged()).AddTo(this);
+            IsRegex.Subscribe(w =>
+            {
+                Keyword.ForceValidate();
+                AddMuteKeywordCommand.RaiseCanExecuteChanged();
+            }).AddTo(this);
             SelectedKeyword = new ReactiveProperty<MuteKeyword>();
             SelectedKeyword.Subscribe(w =>
             {
@@ -55,6 +63,20 @@ namespace Norma.ViewModels.Tabs.Options
                 DeleteMuteKeywordCommand.RaiseCanExecuteChanged();
             }).AddTo(this);
             SelectedIndex = new ReactiveProperty<int>();
+        }
+
+        private bool IsValidRegex()
+        {
+            try
+            {
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                Regex.IsMatch("", Keyword.Value);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         #region AddMuteKeywordCommand
@@ -79,7 +101,7 @@ namespace Norma.ViewModels.Tabs.Options
             IsRegex.Value = false;
         }
 
-        private bool CanAddMuteKeyword() => !string.IsNullOrWhiteSpace(Keyword.Value);
+        private bool CanAddMuteKeyword() => !string.IsNullOrWhiteSpace(Keyword.Value) && !Keyword.HasErrors;
 
         #endregion
 

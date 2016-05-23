@@ -295,6 +295,15 @@ namespace Norma.Properties {
         }
         
         /// <summary>
+        ///   Invalid regular expression. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string InvalidRegex {
+            get {
+                return ResourceManager.GetString("InvalidRegex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Regex? に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string IsRegex {

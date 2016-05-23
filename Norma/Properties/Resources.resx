@@ -195,6 +195,9 @@
   <data name="InputComment" xml:space="preserve">
     <value>Input comment</value>
   </data>
+  <data name="InvalidRegex" xml:space="preserve">
+    <value>Invalid regular expression.</value>
+  </data>
   <data name="IsRegex" xml:space="preserve">
     <value>Regex?</value>
   </data>

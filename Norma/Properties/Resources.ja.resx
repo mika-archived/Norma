@@ -195,6 +195,9 @@
   <data name="InputComment" xml:space="preserve">
     <value>コメントを入力</value>
   </data>
+  <data name="InvalidRegex" xml:space="preserve">
+    <value>不正な正規表現です。</value>
+  </data>
   <data name="IsRegex" xml:space="preserve">
     <value>正規表現</value>
   </data>
