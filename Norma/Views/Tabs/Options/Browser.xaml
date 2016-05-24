@@ -24,7 +24,8 @@
                   IsChecked="{Binding DisableChangeChannelByMouseWheel.Value}" />
         <CheckBox Margin="4"
                   Content="{x:Static properties:Resources.ReloadBrowserOnBroadcastCommercials}"
-                  IsChecked="{Binding ReloadPageOnBroadcastCommercials.Value}" />
+                  IsChecked="{Binding ReloadPageOnBroadcastCommercials.Value}"
+                  IsEnabled="False" />
 
         <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
             <Button Width="180"

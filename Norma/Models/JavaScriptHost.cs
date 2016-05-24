@@ -21,7 +21,7 @@ namespace Norma.Models
         private readonly AbemaState _abemaState;
         private readonly Configuration _configuration;
         private readonly IWpfWebBrowser _wpfWebBrowser;
-        private IDisposable _disposable;
+        // private IDisposable _disposable;
 
         public string Address { get; set; }
 
@@ -32,13 +32,13 @@ namespace Norma.Models
             _configuration = configuration;
             Address = "";
             _wpfWebBrowser.ConsoleMessage += (sender, e) => Debug.WriteLine("[Chromium]" + e.Message);
-            _wpfWebBrowser.FrameLoadStart += (sender, e) => _disposable?.Dispose();
+            // _wpfWebBrowser.FrameLoadStart += (sender, e) => _disposable?.Dispose();
             _wpfWebBrowser.FrameLoadEnd += (sender, e) =>
             {
                 if (!Address.StartsWith("https://abema.tv/now-on-air/"))
                     return;
                 Run();
-                Observable.Return(1).Delay(TimeSpan.FromSeconds(1)).Subscribe(w => RunLater());
+                Observable.Return(1).Delay(TimeSpan.FromSeconds(1)).Subscribe(w => RunLater()).Dispose();
             };
         }
 
@@ -46,7 +46,7 @@ namespace Norma.Models
 
         public void Dispose()
         {
-            _disposable?.Dispose();
+            // _disposable?.Dispose();
         }
 
         #endregion
@@ -70,10 +70,10 @@ namespace Norma.Models
             if (_wpfWebBrowser == null)
                 return;
 
-            _disposable?.Dispose();
+            // _disposable?.Dispose();
 
-            var val = _configuration.Root.Operation.SamplingIntervalOfProgramState;
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => GetIsBroadcastCm());
+            // var val = _configuration.Root.Operation.SamplingIntervalOfProgramState;
+            // _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => GetIsBroadcastCm());
         }
 
         private void DisableChangeChannelByMouseScroll()
@@ -146,6 +146,7 @@ setTimeout(cs_HideTvContainerSide, 500);
             WrapExecuteScriptAsync(jsCode);
         }
 
+        /*
         private void GetIsBroadcastCm()
         {
             const string jsCode = @"
@@ -175,6 +176,7 @@ setTimeout(cs_HideTvContainerSide, 500);
                     _wpfWebBrowser.Reload();
             }, TaskScheduler.Default);
         }
+        */
 
         #region Wrap IWpfWebBrowser Js Executor
 
