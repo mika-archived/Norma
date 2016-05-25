@@ -5,9 +5,11 @@ using System.Reactive.Disposables;
 using Microsoft.Practices.ObjectBuilder2;
 
 using Norma.Gamma.Models;
-using Norma.Helpers;
+using Norma.Properties;
 
 using Prism.Mvvm;
+
+using Reactive.Bindings.Extensions;
 
 namespace Norma.Models
 {
@@ -23,7 +25,8 @@ namespace Norma.Models
             _compositeDisposable = new CompositeDisposable();
 
             _abemaState = abemaState;
-            _compositeDisposable.Add(_abemaState.Subscribe(nameof(_abemaState.CurrentProgram), w => FetchProgramInfo()));
+            _compositeDisposable.Add(abemaState.ObserveProperty(w => w.CurrentProgram)
+                                               .Subscribe(w => FetchProgramInfo()));
             FetchProgramInfo(); // Init
         }
 
@@ -38,7 +41,7 @@ namespace Norma.Models
 
         private void FetchProgramInfo()
         {
-            StatusInfo.Instance.Text = "Fetching program information.";
+            StatusInfo.Instance.Text = Resources.FetchingProgramInformation;
             var slot = _abemaState.CurrentSlot;
             var program = _abemaState.CurrentProgram;
             if (slot == null)
@@ -63,7 +66,7 @@ namespace Norma.Models
                 ProvideCredits(program.Credit);
                 ProvideThumbnails(program);
             }
-            StatusInfo.Instance.Text = "Fetched program information.";
+            StatusInfo.Instance.Text = Resources.FetchedProgramInformation;
         }
 
         private void ProvideCredits(Credit credit)

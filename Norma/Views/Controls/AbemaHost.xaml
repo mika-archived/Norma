@@ -1,14 +1,12 @@
 ﻿<UserControl x:Class="Norma.Views.Controls.AbemaHost"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:behaviors="clr-namespace:Norma.Behaviors"
              xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-             xmlns:cefSharpCore="clr-namespace:CefSharp;assembly=CefSharp.Core"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:Norma.Views.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:mvvm="http://prismlibrary.com/"
              xmlns:vm="clr-namespace:Norma.ViewModels.Controls"
              d:DataContext="{d:DesignInstance vm:AbemaHostViewModel}"
              d:DesignHeight="300"
@@ -24,14 +22,24 @@
             <RowDefinition Height="50" />
             <RowDefinition Height="200" />
         </Grid.RowDefinitions>
-        <cefSharp:ChromiumWebBrowser Grid.Row="0"
-                                     Grid.RowSpan="3"
-                                     Grid.Column="0"
-                                     Address="{Binding Address,
-                                                       Mode=TwoWay}"
-                                     RenderOptions.BitmapScalingMode="Linear"
-                                     WebBrowser="{Binding WebBrowser,
-                                                          Mode=OneWayToSource}" />
+        <Grid Grid.Row="0"
+              Grid.RowSpan="3"
+              Grid.Column="0"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Background="Black">
+            <i:Interaction.Behaviors>
+                <behaviors:KeepAspectRatioBehavior Target="WebBrowser2" />
+            </i:Interaction.Behaviors>
+            <cefSharp:ChromiumWebBrowser x:Name="WebBrowser2"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Address="{Binding Address,
+                                                           Mode=TwoWay}"
+                                         RenderOptions.BitmapScalingMode="Linear"
+                                         WebBrowser="{Binding WebBrowser,
+                                                              Mode=OneWayToSource}" />
+        </Grid>
         <local:AbemaComment Grid.Row="0" Grid.Column="1" />
         <local:AbemaCommentInput Grid.Row="1" Grid.Column="1" />
         <local:AbemaProgramInfo Grid.Row="2" Grid.Column="1" />

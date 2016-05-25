@@ -46,7 +46,7 @@
     
     mimetype: application/x-microsoft.net.object.binary.base64
     value   : The object must be serialized with 
-            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
     
     mimetype: application/x-microsoft.net.object.soap.base64
@@ -60,6 +60,7 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
@@ -68,9 +69,10 @@
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
               <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
@@ -85,9 +87,10 @@
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -109,9 +112,162 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="BlankInformation" xml:space="preserve">
+    <value>Cannot get program information.</value>
+  </data>
+  <data name="Browser" xml:space="preserve">
+    <value>Browser</value>
+  </data>
+  <data name="Cast" xml:space="preserve">
+    <value>Cast</value>
+  </data>
+  <data name="ColorTheme" xml:space="preserve">
+    <value>Color theme :</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>COMMENT</value>
+  </data>
+  <data name="CtrlEnter" xml:space="preserve">
+    <value>Ctrl + Enter</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteBrowserCaches" xml:space="preserve">
+    <value>Delete browser caches.</value>
+  </data>
+  <data name="DeleteBrowserCookies" xml:space="preserve">
+    <value>Delete browser cookies.</value>
+  </data>
+  <data name="DisableChangeChannelByMouseWheel" xml:space="preserve">
+    <value>Disable change channel by mouse wheel.</value>
+  </data>
+  <data name="DisableContextMenu" xml:space="preserve">
+    <value>Disable context menu.</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EnterOnly" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="FetchedComment0" xml:space="preserve">
+    <value>Fetched program comment (0).</value>
+  </data>
+  <data name="FetchedComments" xml:space="preserve">
+    <value>Fetched program comments.</value>
+  </data>
+  <data name="FetchedProgramInformation" xml:space="preserve">
+    <value>Fetched program information.</value>
+  </data>
+  <data name="FetchingComments" xml:space="preserve">
+    <value>Fetching program comments.</value>
+  </data>
+  <data name="FetchingProgramInformation" xml:space="preserve">
+    <value>Fetching program information.</value>
+  </data>
+  <data name="HiddenFooterControls" xml:space="preserve">
+    <value>Hide footer controls.</value>
+  </data>
+  <data name="HiddenHeaderControls" xml:space="preserve">
+    <value>Hide header controls.</value>
+  </data>
+  <data name="HiddenSideControls" xml:space="preserve">
+    <value>Hide side controls.</value>
+  </data>
+  <data name="InputComment" xml:space="preserve">
+    <value>Input comment</value>
+  </data>
+  <data name="InvalidRegex" xml:space="preserve">
+    <value>Invalid regular expression.</value>
+  </data>
+  <data name="IsRegex" xml:space="preserve">
+    <value>Regex?</value>
+  </data>
+  <data name="Keyword" xml:space="preserve">
+    <value>Keyword</value>
+  </data>
+  <data name="License" xml:space="preserve">
+    <value>Licenses</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="MuteKeywords" xml:space="preserve">
+    <value>Mute keywords :</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NumberOfHoldingComments" xml:space="preserve">
+    <value>Number of holding comments :</value>
+  </data>
+  <data name="Operation" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="Option" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>Others</value>
+  </data>
+  <data name="PostKey" xml:space="preserve">
+    <value>Post shortcut key :</value>
+  </data>
+  <data name="ProgramSummary" xml:space="preserve">
+    <value>Program summary</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="ReceptionIntervalOfComments" xml:space="preserve">
+    <value>Reception interval of comments :</value>
+  </data>
+  <data name="ReloadBrowserOnBroadcastCommercials" xml:space="preserve">
+    <value>Reload browser on broadcast commercials.</value>
+  </data>
+  <data name="ReloadingThumbnail" xml:space="preserve">
+    <value>Reloading channel thumbnails.</value>
+  </data>
+  <data name="SamplingIntervalOfProgramState" xml:space="preserve">
+    <value>Sampling interval of program state :</value>
+  </data>
+  <data name="ShiftEnter" xml:space="preserve">
+    <value>Shift + Enter</value>
+  </data>
+  <data name="Staff" xml:space="preserve">
+    <value>Staff</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>TIME</value>
+  </data>
+  <data name="UpdateInervalOfProgramInformation" xml:space="preserve">
+    <value>Update interval of program information :</value>
+  </data>
+  <data name="UpdateInteralOfThumbnail" xml:space="preserve">
+    <value>Update interval of thumbnail : </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
 </root>

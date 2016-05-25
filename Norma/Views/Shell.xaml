@@ -6,11 +6,11 @@
                    xmlns:controls="clr-namespace:Norma.Views.Controls"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                   xmlns:local="clr-namespace:Norma.Views"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
                    xmlns:prism="http://prismlibrary.com/"
                    xmlns:viewModels="clr-namespace:Norma.ViewModels"
+                   xmlns:wc="clr-namespace:Norma.Views.WindowContents"
                    Title="{Binding Title.Value}"
                    Width="1344"
                    Height="783"
@@ -20,6 +20,7 @@
                    FontFamily="Segoe UI"
                    IsRestoringWindowPlacement="True"
                    TextOptions.TextFormattingMode="Display"
+                   Topmost="{Binding IsTopMost.Value}"
                    UseLayoutRounding="True"
                    mc:Ignorable="d">
     <chrome:WindowChrome.Instance>
@@ -29,11 +30,32 @@
         <i:EventTrigger EventName="Closed">
             <actions:DataContextDisposeAction />
         </i:EventTrigger>
-        <prism:InteractionRequestTrigger SourceObject="{Binding TransitionRequest}">
-            <actions:TransitionInteractionMessageAction />
+        <prism:InteractionRequestTrigger SourceObject="{Binding TimetableRequest}">
+            <actions:MetroPopupWindowAction>
+                <actions:MetroPopupWindowAction.WindowContent>
+                    <wc:TimetableContent />
+                </actions:MetroPopupWindowAction.WindowContent>
+                <actions:MetroPopupWindowAction.WindowStyle>
+                    <Style TargetType="{x:Type metro:MetroWindow}">
+                        <Setter Property="Height" Value="600" />
+                        <Setter Property="Width" Value="900" />
+                    </Style>
+                </actions:MetroPopupWindowAction.WindowStyle>
+            </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
-        <prism:InteractionRequestTrigger SourceObject="{Binding ModalTransitionRequest}">
-            <actions:TransitionInteractionMessageAction IsModal="True" />
+        <prism:InteractionRequestTrigger SourceObject="{Binding SettingsRequest}">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
+                <actions:MetroPopupWindowAction.WindowContent>
+                    <wc:SettingsContent />
+                </actions:MetroPopupWindowAction.WindowContent>
+                <actions:MetroPopupWindowAction.WindowStyle>
+                    <Style TargetType="{x:Type metro:MetroWindow}">
+                        <Setter Property="ResizeMode" Value="NoResize" />
+                        <Setter Property="Height" Value="600" />
+                        <Setter Property="Width" Value="900" />
+                    </Style>
+                </actions:MetroPopupWindowAction.WindowStyle>
+            </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
     <Grid>
@@ -66,20 +88,40 @@
                            TextTrimming="CharacterEllipsis" />
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
                     <!--
-                    <metro:CaptionButton Width="60"
-                                         Margin="10,0"
+                    <metro:CaptionButton Width="40"
+                                         Margin="5,0"
                                          VerticalAlignment="Top"
                                          Command="{Binding OpenTimetableCommand}"
                                          Content="&#57698;"
                                          FontFamily="Segoe MDL2 Assets, Segoe UI Symbol" />
                     -->
                     <metro:CaptionButton Width="40"
-                                         Margin="10,0"
+                                         Margin="5,0"
                                          VerticalAlignment="Top"
                                          Command="{Binding OpenSettingsCommand}"
                                          Content="&#57621;"
                                          FontFamily="Segoe MDL2 Assets, Segoe UI Symbol" />
-                    <metro:SystemButtons VerticalAlignment="Top" />
+                    <metro:CaptionButton Width="40"
+                                         Height="24"
+                                         Margin="5,0"
+                                         VerticalAlignment="Top"
+                                         FontFamily="Segoe MDL2 Assets, Segoe UI Symbol"
+                                         FontSize="16"
+                                         IsChecked="{Binding IsTopMost.Value,
+                                                             Mode=TwoWay}"
+                                         Mode="Toggle">
+                        <metro:CaptionButton.Style>
+                            <Style TargetType="{x:Type metro:CaptionButton}">
+                                <Setter Property="Content" Value="&#xE840;" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsTopMost.Value}" Value="True">
+                                        <Setter Property="Content" Value="&#xE77A;" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </metro:CaptionButton.Style>
+                    </metro:CaptionButton>
+                    <metro:SystemButtons Margin="5,0,0,0" VerticalAlignment="Top" />
                 </StackPanel>
             </Grid>
         </Border>

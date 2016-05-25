@@ -21,6 +21,9 @@ namespace Norma.Models.Config
         [JsonProperty]
         public OthersConfig Others { get; set; }
 
+        [JsonProperty]
+        public InternalConfig Internal { get; set; }
+
         public RootConfig()
         {
             // Default channel.

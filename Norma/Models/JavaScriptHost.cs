@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using CefSharp;
 using CefSharp.Wpf;
 
+using Norma.Properties;
+
 using Prism.Mvvm;
 
 namespace Norma.Models
@@ -19,7 +21,7 @@ namespace Norma.Models
         private readonly AbemaState _abemaState;
         private readonly Configuration _configuration;
         private readonly IWpfWebBrowser _wpfWebBrowser;
-        private IDisposable _disposable;
+        // private IDisposable _disposable;
 
         public string Address { get; set; }
 
@@ -30,13 +32,13 @@ namespace Norma.Models
             _configuration = configuration;
             Address = "";
             _wpfWebBrowser.ConsoleMessage += (sender, e) => Debug.WriteLine("[Chromium]" + e.Message);
-            _wpfWebBrowser.FrameLoadStart += (sender, e) => _disposable?.Dispose();
+            // _wpfWebBrowser.FrameLoadStart += (sender, e) => _disposable?.Dispose();
             _wpfWebBrowser.FrameLoadEnd += (sender, e) =>
             {
                 if (!Address.StartsWith("https://abema.tv/now-on-air/"))
                     return;
                 Run();
-                Observable.Return(1).Delay(TimeSpan.FromSeconds(1)).Subscribe(w => RunLater());
+                Observable.Return(1).Delay(TimeSpan.FromSeconds(1)).Subscribe(w => RunLater()).Dispose();
             };
         }
 
@@ -44,7 +46,7 @@ namespace Norma.Models
 
         public void Dispose()
         {
-            _disposable.Dispose();
+            // _disposable?.Dispose();
         }
 
         #endregion
@@ -68,10 +70,10 @@ namespace Norma.Models
             if (_wpfWebBrowser == null)
                 return;
 
-            _disposable?.Dispose();
+            // _disposable?.Dispose();
 
-            var val = _configuration.Root.Operation.SamplingIntervalOfProgramState;
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => GetIsBroadcastCm());
+            // var val = _configuration.Root.Operation.SamplingIntervalOfProgramState;
+            // _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => GetIsBroadcastCm());
         }
 
         private void DisableChangeChannelByMouseScroll()
@@ -81,7 +83,7 @@ window.addEventListener('mousewheel', function(e) {
   e.stopImmediatePropagation();
 }, true);
 ";
-            StatusInfo.Instance.Text = "Disable change channel by mouse wheel.";
+            StatusInfo.Instance.Text = Resources.DisableChangeChannelByMouseWheel;
             WrapExecuteScriptAsync(jsCode);
         }
 
@@ -92,7 +94,7 @@ window.addEventListener('contextmenu', function(e) {
   e.preventDefault();
 }, true);
 ";
-            StatusInfo.Instance.Text = "Disable context menu.";
+            StatusInfo.Instance.Text = Resources.DisableContextMenu;
             WrapExecuteScriptAsync(jsCode);
         }
 
@@ -108,7 +110,7 @@ function cs_HideTvContainerHeader() {
 };
 setTimeout(cs_HideTvContainerHeader, 500);
 ";
-            StatusInfo.Instance.Text = "Hide container headers.";
+            StatusInfo.Instance.Text = Resources.HiddenHeaderControls;
             WrapExecuteScriptAsync(jsCode);
         }
 
@@ -124,7 +126,7 @@ function cs_HideTvContainerFooter() {
 };
 setTimeout(cs_HideTvContainerFooter, 500);
 ";
-            StatusInfo.Instance.Text = "Hide container footers.";
+            StatusInfo.Instance.Text = Resources.HiddenFooterControls;
             WrapExecuteScriptAsync(jsCode);
         }
 
@@ -140,10 +142,11 @@ function cs_HideTvContainerSide() {
 };
 setTimeout(cs_HideTvContainerSide, 500);
 ";
-            StatusInfo.Instance.Text = "Hide container sides.";
+            StatusInfo.Instance.Text = Resources.HiddenSideControls;
             WrapExecuteScriptAsync(jsCode);
         }
 
+        /*
         private void GetIsBroadcastCm()
         {
             const string jsCode = @"
@@ -173,6 +176,7 @@ setTimeout(cs_HideTvContainerSide, 500);
                     _wpfWebBrowser.Reload();
             }, TaskScheduler.Default);
         }
+        */
 
         #region Wrap IWpfWebBrowser Js Executor
 

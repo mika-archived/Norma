@@ -2,13 +2,13 @@
 using Norma.ViewModels.Internal;
 using Norma.ViewModels.Tabs;
 
-namespace Norma.ViewModels
+namespace Norma.ViewModels.WindowContents
 {
-    internal class SettingsWindowViewModel : ViewModel
+    internal class SettingsContentViewModel : ViewModel
     {
         public OptionsTabViewModel OptionsTabViewModel { get; }
 
-        public SettingsWindowViewModel(Configuration configuration)
+        public SettingsContentViewModel(Configuration configuration)
         {
             OptionsTabViewModel = new OptionsTabViewModel(configuration);
         }

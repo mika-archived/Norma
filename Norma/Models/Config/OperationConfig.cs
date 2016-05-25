@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.ObjectModel;
+
+using Newtonsoft.Json;
 
 namespace Norma.Models.Config
 {
@@ -19,6 +21,12 @@ namespace Norma.Models.Config
         [JsonProperty]
         public uint NumberOfHoldingComments { get; set; }
 
+        [JsonProperty]
+        public PostKey PostKeyType { get; set; }
+
+        [JsonProperty]
+        public ObservableCollection<MuteKeyword> MuteKeywords { get; set; }
+
         public OperationConfig()
         {
             UpdateIntervalOfProgram = 1;
@@ -26,6 +34,8 @@ namespace Norma.Models.Config
             ReceptionIntervalOfComments = 10;
             SamplingIntervalOfProgramState = 1;
             NumberOfHoldingComments = 200;
+            PostKeyType = PostKey.EnterOnly;
+            MuteKeywords = new ObservableCollection<MuteKeyword>();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Prism.Mvvm;
+﻿using Norma.Properties;
+
+using Prism.Mvvm;
 
 namespace Norma.Models
 {
@@ -6,7 +8,7 @@ namespace Norma.Models
     {
         private StatusInfo()
         {
-            Text = "Ready";
+            Text = Resources.Ready;
         }
 
         #region Instance

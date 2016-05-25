@@ -1,7 +1,8 @@
 Norma
 ----
-[![GitHub release](https://img.shields.io/github/release/fuyuno/norma.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/releases/latest)
-[![Github All Releases](https://img.shields.io/github/downloads/fuyuno/norma/total.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/releases)
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/fuyuno/norma/develop.svg?style=flat-square)](https://ci.appveyor.com/project/fuyuno/norma)
+[![GitHub release](https://img.shields.io/github/release/fuyuno/norma.svg?maxAge=1800&style=flat-square)](https://github.com/fuyuno/Norma/releases/latest)
+[![Github All Releases](https://img.shields.io/github/downloads/fuyuno/norma/total.svg?maxAge=1800&style=flat-square)](https://github.com/fuyuno/Norma/releases)
 [![license](https://img.shields.io/github/license/fuyuno/norma.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/blob/develop/LICENSE)
 
 "Norma" is unoffcial desktop application for [AbemaTV](https://abema.tv).  
@@ -19,6 +20,8 @@ This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).
 
 
 ## Installation
+
+How to install Norma: [Wiki](https://github.com/fuyuno/Norma/wiki/How-to-install-Norma).
 
 1. Download binary files from [Releases](https://github.com/fuyuno/Norma/releases). <br />
    If your OS is 32-bit architecture, please download `x86` binary. 

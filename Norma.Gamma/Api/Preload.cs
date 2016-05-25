@@ -5,6 +5,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+using Norma.Gamma.Extensions;
+
 namespace Norma.Gamma.Api
 {
     // Reference: https://github.com/fushihara/abema-tvguide/blob/master/abema-onair-schedule/AbemaApi.cs
@@ -17,10 +19,21 @@ namespace Norma.Gamma.Api
 
         }
 
-        public async Task<string> GetSecretKey(string deviceId)
+        public string GetSecretKey(string deviceId)
         {
             var wc = new WebClient();
-            var str = await wc.DownloadStringTaskAsync("https://abema.tv/main.js");
+            var str = wc.DownloadString("https://abema.tv/main.js");
+            var match = MainjsRegex.Match(str);
+            if (!match.Success)
+                throw new Exception("Cannot get secret key from abematv. Please wait update.");
+            return ComputeSecretKey(match.Groups[1].Value, deviceId);
+        }
+
+        public async Task<string> GetSecretKeyAsync(string deviceId)
+        {
+            // もし main.js から取れなくなったら、 Chrome LocalStorage から取得するようにする。
+            var wc = new WebClient();
+            var str = await wc.DownloadStringTaskAsync("https://abema.tv/main.js").Stay();
             var match = MainjsRegex.Match(str);
             if (!match.Success)
                 throw new Exception("Cannot get secret key from abematv. Please wait update.");

@@ -55,6 +55,7 @@
     <Compile Include="Converters\KeyValuePairConverter.cs" />
     <Compile Include="Converters\UnixTimeDateTimeConverter.cs" />
     <Compile Include="EndPoints.cs" />
+    <Compile Include="Extensions\TaskExt.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\ChannelSchedule.cs" />
     <Compile Include="Models\Comment.cs" />

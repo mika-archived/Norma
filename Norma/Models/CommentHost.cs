@@ -3,12 +3,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Norma.Gamma.Models;
-using Norma.Helpers;
+using Norma.Properties;
 
 using Prism.Mvvm;
+
+using Reactive.Bindings.Extensions;
 
 #pragma warning disable 0414
 
@@ -32,8 +35,8 @@ namespace Norma.Models
             _abemaApiHost = abemaApiHost;
             _abemaState = abemaState;
             _configuration = configuration;
-            _compositeDisposable.Add(_abemaState.Subscribe(nameof(_abemaState.CurrentSlot), w => ReloadComments()));
-            _compositeDisposable.Add(_abemaState.Subscribe(nameof(_abemaState.IsBroadcastCm), w => StopFetchComment()));
+            _compositeDisposable.Add(_abemaState.ObserveProperty(w => w.CurrentSlot).Subscribe(w => ReloadComments()));
+            // _compositeDisposable.Add(_abemaState.Subscribe(nameof(_abemaState.IsBroadcastCm), w => StopFetchComment()));
             ReloadComments();
         }
 
@@ -55,10 +58,11 @@ namespace Norma.Models
                 return;
 
             var val = _configuration.Root.Operation.ReceptionIntervalOfComments;
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val))
+            _disposable = Observable.Timer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(val))
                                     .Subscribe(async w => await FetchComment());
         }
 
+        /*
         private void StopFetchComment()
         {
             if (_abemaState.IsBroadcastCm)
@@ -66,7 +70,9 @@ namespace Norma.Models
             else
                 RetryFetchComment();
         }
+        */
 
+        /*
         private void RetryFetchComment()
         {
             _disposable?.Dispose();
@@ -75,27 +81,40 @@ namespace Norma.Models
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val))
                                     .Subscribe(async w => await FetchComment());
         }
+        */
 
         private async Task FetchComment()
         {
-            StatusInfo.Instance.Text = "Fetching program comments (20 comments).";
+            StatusInfo.Instance.Text = Resources.FetchingComments;
             var holdingComments = _configuration.Root.Operation.NumberOfHoldingComments;
             var comments = await _abemaApiHost.Comments(_abemaState.CurrentSlot.Id);
-            if (comments.CommentList == null)
+            if (comments?.CommentList == null)
             {
-                StatusInfo.Instance.Text = "Fetched program comment (0).";
+                if (comments != null)
+                    StatusInfo.Instance.Text = Resources.FetchedComment0;
                 return;
             }
             foreach (var comment in comments.CommentList.OrderBy(w => w.CreatedAtMs))
             {
-                if (Comments.Any(w => w.Id == comment.Id) || comment.Message.Trim() == "")
+                if (Comments.Any(w => w.Id == comment.Id) || comment.Message.Trim() == "" || IsMuteTarget(comment))
                     continue;
                 if (Comments.Count >= holdingComments)
                     for (var i = holdingComments - 1; i < Comments.Count; i++)
                         Comments.RemoveAt((int) i);
                 Comments.Insert(0, comment);
             }
-            StatusInfo.Instance.Text = "Fetched program comments.";
+            StatusInfo.Instance.Text = Resources.FetchedComments;
+        }
+
+        private bool IsMuteTarget(Comment comment)
+        {
+            return _configuration.Root.Operation.MuteKeywords.Any(w =>
+            {
+                if (!w.IsRegex)
+                    return comment.Message.Contains(w.Keyword);
+                var regex = new Regex(w.Keyword);
+                return regex.IsMatch(comment.Message);
+            });
         }
     }
 }
