@@ -228,6 +228,7 @@
     <Compile Include="Models\Timetables\Slot.cs" />
     <Compile Include="Models\Timetables\TimetableCache.cs" />
     <Compile Include="NormaConstants.cs" />
+    <Compile Include="Notifications\DataPassingNotification.cs" />
     <Compile Include="Properties\Resources.ja.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -309,9 +310,6 @@
     </Compile>
     <Compile Include="Views\Tabs\Options\Others.xaml.cs">
       <DependentUpon>Others.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TimetableWindow.xaml.cs">
-      <DependentUpon>TimetableWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowContents\SettingsContent.xaml.cs">
       <DependentUpon>SettingsContent.xaml</DependentUpon>
@@ -436,10 +434,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Tabs\Options\Others.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TimetableWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

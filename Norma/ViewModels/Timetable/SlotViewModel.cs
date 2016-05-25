@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 
 using Norma.Models.Timetables;
+using Norma.Notifications;
 using Norma.ViewModels.Internal;
 
 using Prism.Commands;
@@ -40,7 +41,7 @@ namespace Norma.ViewModels.Timetable
         {
             if (e.ClickCount < 2)
                 return;
-            ProgramDetailsRequest.Raise(new Notification {Content = "Blank", Title = "Blank"});
+            ProgramDetailsRequest.Raise(new DataPassingNotification {Content = "Blank", Title = "Blank", Model = _model});
         }
 
         #endregion

@@ -7,10 +7,11 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Norma.Gamma.Models;
-using Norma.Helpers;
 using Norma.Properties;
 
 using Prism.Mvvm;
+
+using Reactive.Bindings.Extensions;
 
 #pragma warning disable 0414
 
@@ -34,7 +35,7 @@ namespace Norma.Models
             _abemaApiHost = abemaApiHost;
             _abemaState = abemaState;
             _configuration = configuration;
-            _compositeDisposable.Add(_abemaState.Subscribe(nameof(_abemaState.CurrentSlot), w => ReloadComments()));
+            _compositeDisposable.Add(_abemaState.ObserveProperty(w => w.CurrentSlot).Subscribe(w => ReloadComments()));
             // _compositeDisposable.Add(_abemaState.Subscribe(nameof(_abemaState.IsBroadcastCm), w => StopFetchComment()));
             ReloadComments();
         }
