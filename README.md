@@ -21,7 +21,9 @@ This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).
 
 ## Installation
 
-How to install Norma: [Wiki](https://github.com/fuyuno/Norma/wiki/How-to-install-Norma).
+How to install Norma: [Wiki](https://github.com/fuyuno/Norma/wiki/How-to-install-Norma).  
+Crash or could not launch: [Wiki](https://github.com/fuyuno/Norma/wiki/Norma-has-been-crashed).
+
 
 1. Download binary files from [Releases](https://github.com/fuyuno/Norma/releases). <br />
    If your OS is 32-bit architecture, please download `x86` binary. 
