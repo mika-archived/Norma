@@ -3,9 +3,9 @@
 using Norma.Models.Timetables;
 using Norma.ViewModels.Internal;
 
-namespace Norma.ViewModels.Timetable
+namespace Norma.ViewModels.WindowContents
 {
-    internal class SlotDetailViewModel : ViewModel
+    internal class SlotDetailsContentViewModel : ViewModel
     {
         private readonly Slot _model;
         public string Title => _model.Model.Title;
@@ -21,7 +21,7 @@ namespace Norma.ViewModels.Timetable
         public string Thumbnail
             => $"https://hayabusa.io/abema/programs/{_model.Model.DisplayProgramId}/thumb001.w200.h112.jpg";
 
-        public SlotDetailViewModel(Slot slot)
+        public SlotDetailsContentViewModel(Slot slot)
         {
             _model = slot;
         }

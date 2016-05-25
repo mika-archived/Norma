@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:behaviors="clr-namespace:Norma.Behaviors"
              xmlns:controls="clr-namespace:Norma.ViewModels.Controls"
+             xmlns:controls1="clr-namespace:Norma.Views.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -12,18 +13,6 @@
              d:DesignHeight="167.5"
              d:DesignWidth="265"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <Storyboard x:Key="BorderGradation1">
-            <DoubleAnimation Duration="0:0:0.25"
-                             Storyboard.TargetProperty="Opacity"
-                             To="0.8" />
-        </Storyboard>
-        <Storyboard x:Key="BorderGradation2">
-            <DoubleAnimation Duration="0:0:0.25"
-                             Storyboard.TargetProperty="Opacity"
-                             To="0" />
-        </Storyboard>
-    </UserControl.Resources>
     <ItemsControl ItemsSource="{Binding Channnels}"
                   ScrollViewer.CanContentScroll="True"
                   VirtualizingPanel.IsVirtualizing="True"
@@ -46,66 +35,7 @@
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Grid Width="235.5" Height="150">
-                    <Grid Width="235.5"
-                          Height="132.5"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Top">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonUp">
-                                <ei:CallMethodAction MethodName="ChannelClick" TargetObject="{Binding}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <metro:ProgressRing Width="80"
-                                            Height="80"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            EllipseDiameter="5"
-                                            EllipseOffset="0,21,0,0" />
-                        <Image Width="235.5"
-                               Height="132.5"
-                               Source="{Binding ThumbnailUrl.Value,
-                                                Mode=OneWay}" />
-                        <Border Background="Black" Opacity="0.5" />
-                        <Image Width="120"
-                               Height="45"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Source="{Binding LogoUrl}" />
-                        <Border Name="FrameBorder">
-                            <Border.Style>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="Opacity" Value="0" />
-                                    <Setter Property="Background" Value="{DynamicResource BackgroundBrushKey}" />
-                                    <Style.Triggers>
-                                        <EventTrigger RoutedEvent="MouseEnter">
-                                            <BeginStoryboard Storyboard="{StaticResource BorderGradation1}" />
-                                        </EventTrigger>
-                                        <EventTrigger RoutedEvent="MouseLeave">
-                                            <BeginStoryboard Storyboard="{StaticResource BorderGradation2}" />
-                                        </EventTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Border.Style>
-                            <StackPanel Margin="10"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Orientation="Vertical">
-                                <TextBlock Margin="10"
-                                           HorizontalAlignment="Center"
-                                           Text="{Binding Title.Value}"
-                                           TextAlignment="Center"
-                                           TextWrapping="Wrap" />
-                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                    <TextBlock Text="{Binding StartTime.Value}" />
-                                    <TextBlock Text=" ～ " />
-                                    <TextBlock Text="{Binding EndTime.Value}" />
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-                    </Grid>
-                    <!--  Space for Horizontal Scroll Bar  -->
-                </Grid>
+                <controls1:TVChannel DataContext="{Binding}" />
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>

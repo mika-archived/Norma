@@ -177,7 +177,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Actions\DataContextDisposeAction.cs" />
-    <Compile Include="Actions\TransitionInteractionMessageAction.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -191,9 +190,7 @@
     <Compile Include="Converters\YesNoToBooleanConverter.cs" />
     <Compile Include="Extensions\IDisposableExt.cs" />
     <Compile Include="Helpers\ViewModelHelper.cs" />
-    <Compile Include="Interactivity\InteractionRequest2.cs" />
-    <Compile Include="Interactivity\InteractionRequestedEventArgs2.cs" />
-    <Compile Include="Interactivity\WindowNotification.cs" />
+    <Compile Include="Actions\MetroPopupWindowAction.cs" />
     <Compile Include="Models\AbemaApiHost.cs" />
     <Compile Include="Models\AbemaChannel.cs" />
     <Compile Include="Models\AbemaChannels.cs" />
@@ -247,16 +244,16 @@
     <Compile Include="ViewModels\Controls\AbemaHostViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaTVGuideViewModel.cs" />
     <Compile Include="ViewModels\Internal\ViewModel.cs" />
-    <Compile Include="ViewModels\SettingsWindowViewModel.cs" />
+    <Compile Include="ViewModels\WindowContents\SettingsContentViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\Tabs\LicensesTabViewModel.cs" />
     <Compile Include="ViewModels\Tabs\OptionsTabViewModel.cs" />
     <Compile Include="ViewModels\Tabs\Options\BrowserViewModel.cs" />
     <Compile Include="ViewModels\Tabs\Options\OperationViewModel.cs" />
     <Compile Include="ViewModels\Tabs\Options\OthersViewModel.cs" />
-    <Compile Include="ViewModels\TimetableWindowViewModel.cs" />
+    <Compile Include="ViewModels\WindowContents\TimetableContentViewModel.cs" />
     <Compile Include="ViewModels\Timetable\ChannelViewModel.cs" />
-    <Compile Include="ViewModels\Timetable\SlotDetailViewModel.cs" />
+    <Compile Include="ViewModels\WindowContents\SlotDetailsContentViewModel.cs" />
     <Compile Include="ViewModels\Timetable\SlotViewModel.cs" />
     <Compile Include="ViewModels\TVGuide\ChannelViewModel.cs" />
     <Compile Include="Views\Controls\AbemaComment.xaml.cs">
@@ -280,14 +277,17 @@
     <Compile Include="Views\Controls\BorderedTextBlock.xaml.cs">
       <DependentUpon>BorderedTextBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsWindow.xaml.cs">
-      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    <Compile Include="Views\Controls\ChannelCell.xaml.cs">
+      <DependentUpon>ChannelCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\ProgramCell.xaml.cs">
+      <DependentUpon>ProgramCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\TVChannel.xaml.cs">
+      <DependentUpon>TVChannel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SlotDetailsWindow.xaml.cs">
-      <DependentUpon>SlotDetailsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StartupScreen.xaml.cs">
       <DependentUpon>StartupScreen.xaml</DependentUpon>
@@ -312,6 +312,15 @@
     </Compile>
     <Compile Include="Views\TimetableWindow.xaml.cs">
       <DependentUpon>TimetableWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowContents\SettingsContent.xaml.cs">
+      <DependentUpon>SettingsContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowContents\SlotDetailsContent.xaml.cs">
+      <DependentUpon>SlotDetailsContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowContents\TimetableContent.xaml.cs">
+      <DependentUpon>TimetableContent.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -386,15 +395,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SettingsWindow.xaml">
+    <Page Include="Views\Controls\ChannelCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\ProgramCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\TVChannel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Shell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SlotDetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -427,6 +440,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TimetableWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowContents\SettingsContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowContents\SlotDetailsContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowContents\TimetableContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

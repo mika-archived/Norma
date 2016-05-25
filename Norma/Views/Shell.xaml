@@ -10,6 +10,7 @@
                    xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
                    xmlns:prism="http://prismlibrary.com/"
                    xmlns:viewModels="clr-namespace:Norma.ViewModels"
+                   xmlns:wc="clr-namespace:Norma.Views.WindowContents"
                    Title="{Binding Title.Value}"
                    Width="1344"
                    Height="783"
@@ -29,11 +30,32 @@
         <i:EventTrigger EventName="Closed">
             <actions:DataContextDisposeAction />
         </i:EventTrigger>
-        <prism:InteractionRequestTrigger SourceObject="{Binding TransitionRequest}">
-            <actions:TransitionInteractionMessageAction />
+        <prism:InteractionRequestTrigger SourceObject="{Binding TimetableRequest}">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True">
+                <actions:MetroPopupWindowAction.WindowContent>
+                    <wc:TimetableContent />
+                </actions:MetroPopupWindowAction.WindowContent>
+                <actions:MetroPopupWindowAction.WindowStyle>
+                    <Style TargetType="{x:Type metro:MetroWindow}">
+                        <Setter Property="Height" Value="600" />
+                        <Setter Property="Width" Value="900" />
+                    </Style>
+                </actions:MetroPopupWindowAction.WindowStyle>
+            </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
-        <prism:InteractionRequestTrigger SourceObject="{Binding ModalTransitionRequest}">
-            <actions:TransitionInteractionMessageAction IsModal="True" />
+        <prism:InteractionRequestTrigger SourceObject="{Binding SettingsRequest}">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
+                <actions:MetroPopupWindowAction.WindowContent>
+                    <wc:SettingsContent />
+                </actions:MetroPopupWindowAction.WindowContent>
+                <actions:MetroPopupWindowAction.WindowStyle>
+                    <Style TargetType="{x:Type metro:MetroWindow}">
+                        <Setter Property="ResizeMode" Value="NoResize" />
+                        <Setter Property="Height" Value="600" />
+                        <Setter Property="Width" Value="900" />
+                    </Style>
+                </actions:MetroPopupWindowAction.WindowStyle>
+            </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
     <Grid>

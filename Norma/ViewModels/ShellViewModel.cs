@@ -2,13 +2,12 @@
 using System.Windows.Input;
 
 using Norma.Extensions;
-using Norma.Interactivity;
 using Norma.Models;
 using Norma.ViewModels.Controls;
 using Norma.ViewModels.Internal;
-using Norma.Views;
 
 using Prism.Commands;
+using Prism.Interactivity.InteractionRequest;
 
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -23,8 +22,8 @@ namespace Norma.ViewModels
         public AbemaHostViewModel HostViewModel { get; }
         public AbemaTVGuideViewModel TvGuideViewModel { get; }
         public AbemaStatusViewModel StatusBar { get; }
-        public InteractionRequest2 TransitionRequest { get; }
-        public InteractionRequest2 ModalTransitionRequest { get; }
+        public InteractionRequest<INotification> TimetableRequest { get; }
+        public InteractionRequest<INotification> SettingsRequest { get; }
         public ReadOnlyReactiveProperty<string> Title { get; private set; }
         public ReactiveProperty<bool> IsTopMost { get; private set; }
 
@@ -36,8 +35,8 @@ namespace Norma.ViewModels
             HostViewModel = new AbemaHostViewModel(abemaState, configuration).AddTo(this);
             TvGuideViewModel = new AbemaTVGuideViewModel(this, configuration, timetable).AddTo(this);
             StatusBar = new AbemaStatusViewModel().AddTo(this);
-            TransitionRequest = new InteractionRequest2();
-            ModalTransitionRequest = new InteractionRequest2();
+            TimetableRequest = new InteractionRequest<INotification>();
+            SettingsRequest = new InteractionRequest<INotification>();
 
             Title = abemaState.ObserveProperty(w => w.CurrentSlot)
                               .Select(w => $"{w?.Title ?? "AbemaTV"} - Norma")
@@ -65,7 +64,7 @@ namespace Norma.ViewModels
         public ICommand OpenTimetableCommand
             => _openTimetableCommand ?? (_openTimetableCommand = new DelegateCommand(OpenTimetable));
 
-        private void OpenTimetable() => TransitionRequest.Raise(new WindowNotification(typeof(TimetableWindow)));
+        private void OpenTimetable() => TimetableRequest.Raise(new Notification {Content = "Blank", Title = "Blank"});
 
         #endregion
 
@@ -76,7 +75,7 @@ namespace Norma.ViewModels
         public ICommand OpenSettingsCommand
             => _openSettingsCommand ?? (_openSettingsCommand = new DelegateCommand(OpenSettings));
 
-        private void OpenSettings() => ModalTransitionRequest.Raise(new WindowNotification(typeof(SettingsWindow)));
+        private void OpenSettings() => SettingsRequest.Raise(new Notification {Content = "Blank", Title = "Blank"});
 
         #endregion
     }

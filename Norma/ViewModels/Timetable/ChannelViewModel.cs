@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
+using Norma.Extensions;
 using Norma.Gamma.Models;
 using Norma.ViewModels.Internal;
 
@@ -19,9 +20,21 @@ namespace Norma.ViewModels.Timetable
             _model = channel;
             Slots = new ObservableCollection<SlotViewModel>();
             foreach (var slot in slots)
-                Slots.Add(new SlotViewModel(new WrapSlot(slot, date)));
+            {
+                var vm = new SlotViewModel(new WrapSlot(slot, date)).AddTo(this);
+                Slots.Add(vm);
+            }
 
             LogoUrl = $"https://hayabusa.io/abema/channels/logo/{channel.Id}.w120.png";
         }
+
+        #region Overrides of ViewModel
+
+        public override void Dispose()
+        {
+            base.Dispose();
+        }
+
+        #endregion
     }
 }

@@ -5,21 +5,22 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
 
+using Norma.Extensions;
 using Norma.ViewModels.Internal;
 using Norma.ViewModels.Timetable;
 
 using ModelTimetable = Norma.Models.Timetable;
 
-namespace Norma.ViewModels
+namespace Norma.ViewModels.WindowContents
 {
-    internal class TimetableWindowViewModel : ViewModel
+    internal class TimetableContentViewModel : ViewModel
     {
         private readonly ModelTimetable _timetable;
         private int _index; // 日付管理用(0 = 今日, 6 = 一週間後みたいな)
         public ObservableCollection<ChannelViewModel> Channels { get; }
         public List<string> AvailableDates { get; }
 
-        public TimetableWindowViewModel(ModelTimetable timetable)
+        public TimetableContentViewModel(ModelTimetable timetable)
         {
             _timetable = timetable;
             _index = (DateTime.Now - timetable.LastSyncTime).Days;
@@ -39,7 +40,8 @@ namespace Norma.ViewModels
             foreach (var channel in _timetable.Channels)
             {
                 var slots = _timetable.ChannelSchedules.Where(w => w.ChannelId == channel.Id).ElementAt(_index);
-                list.Add(new ChannelViewModel(channel, slots.Slots, slots.Date));
+                var vm = new ChannelViewModel(channel, slots.Slots, slots.Date).AddTo(this);
+                list.Add(vm);
             }
             dispatcher.Invoke(() =>
             {
