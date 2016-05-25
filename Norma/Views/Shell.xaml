@@ -31,7 +31,7 @@
             <actions:DataContextDisposeAction />
         </i:EventTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding TimetableRequest}">
-            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" NewUIThread="True">
+            <actions:MetroPopupWindowAction>
                 <actions:MetroPopupWindowAction.WindowContent>
                     <wc:TimetableContent />
                 </actions:MetroPopupWindowAction.WindowContent>

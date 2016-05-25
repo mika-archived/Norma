@@ -58,7 +58,7 @@ namespace Norma.Models
                 return;
 
             var val = _configuration.Root.Operation.ReceptionIntervalOfComments;
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val))
+            _disposable = Observable.Timer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(val))
                                     .Subscribe(async w => await FetchComment());
         }
 
