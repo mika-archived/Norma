@@ -273,6 +273,12 @@
   <data name="UpdateInteralOfThumbnail" xml:space="preserve">
     <value>サムネイルの更新間隔 :</value>
   </data>
+  <data name="ViewingDRsv" xml:space="preserve">
+    <value>詳細予約</value>
+  </data>
+  <data name="ViewingRsv" xml:space="preserve">
+    <value>視聴予約</value>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>はい</value>
   </data>

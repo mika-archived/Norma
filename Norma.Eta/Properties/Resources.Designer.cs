@@ -529,6 +529,24 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Viewing details reservation に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ViewingDRsv {
+            get {
+                return ResourceManager.GetString("ViewingDRsv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Viewing reservation に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ViewingRsv {
+            get {
+                return ResourceManager.GetString("ViewingRsv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Yes に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Yes {

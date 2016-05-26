@@ -101,8 +101,14 @@
     <Compile Include="Models\Configurations\OperationConfig.cs" />
     <Compile Include="Models\Configurations\OthersConfig.cs" />
     <Compile Include="Models\Configurations\RootConfig.cs" />
+    <Compile Include="Models\DateRange.cs" />
     <Compile Include="Models\MuteKeyword.cs" />
     <Compile Include="Models\PostKey.cs" />
+    <Compile Include="Models\Reservation.cs" />
+    <Compile Include="Models\Reservations\Reserve.cs" />
+    <Compile Include="Models\Reservations\RsvKeyword.cs" />
+    <Compile Include="Models\Reservations\RsvProgram.cs" />
+    <Compile Include="Models\Reservations\RsvTime.cs" />
     <Compile Include="Models\Timetable.cs" />
     <Compile Include="Models\TimetableCache.cs" />
     <Compile Include="Mvvm\IDisposableExtension.cs" />

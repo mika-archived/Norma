@@ -33,6 +33,7 @@ namespace Norma.Iota
             Container.RegisterInstance(_configuration, new ContainerControlledLifetimeManager());
             Container.RegisterInstance(_abemaApiHost, new ContainerControlledLifetimeManager());
             Container.RegisterInstance(_timetable, new ContainerControlledLifetimeManager());
+            Container.RegisterType(typeof(Reservation), new ContainerControlledLifetimeManager());
         }
 
         protected override DependencyObject CreateShell() => Container.Resolve<Shell>();

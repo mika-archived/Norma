@@ -13,14 +13,16 @@ namespace Norma.Iota.ViewModels
 {
     internal class ShellViewModel : ViewModel
     {
+        private readonly Reservation _reservation;
         private readonly Timetable _timetable;
         private int _index; // 日付管理用(0 = 今日, 6 = 一週間後みたいな)
         public ObservableCollection<ChannelCellViewModel> Channels { get; }
         public List<string> AvailableDates { get; }
 
-        public ShellViewModel(Timetable timetable)
+        public ShellViewModel(Timetable timetable, Reservation reservation)
         {
             _timetable = timetable;
+            _reservation = reservation;
             _index = (DateTime.Now - timetable.LastSyncTime).Days;
             AvailableDates = new List<string>();
             Channels = new ObservableCollection<ChannelCellViewModel>();
@@ -32,7 +34,11 @@ namespace Norma.Iota.ViewModels
 
         private void UpdateChannels()
         {
-            Application.Current.Dispatcher.Invoke(() => Channels.Clear());
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Channels.Clear();
+                CompositeDisposable.Dispose();
+            });
             var list = new List<ChannelCellViewModel>();
             foreach (var channel in _timetable.Channels)
             {
@@ -44,6 +50,16 @@ namespace Norma.Iota.ViewModels
                 Application.Current.Dispatcher.Invoke(() => Channels.Add(vm));
             IsLoading = false;
         }
+
+        #region Overrides of ViewModel
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _reservation.Save();
+        }
+
+        #endregion
 
         #region SelectedDate
 

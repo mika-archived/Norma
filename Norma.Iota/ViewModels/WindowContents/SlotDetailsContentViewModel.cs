@@ -1,22 +1,29 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
 
+using Norma.Eta.Models;
+using Norma.Eta.Models.Reservations;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
 using Norma.Eta.Properties;
 using Norma.Iota.Models;
 
+using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
 
 namespace Norma.Iota.ViewModels.WindowContents
 {
     internal class SlotDetailsContentViewModel : ViewModel, IInteractionRequestAware
     {
+        private readonly Reservation _reservation;
         public ObservableCollection<string> Cast { get; }
         public ObservableCollection<string> Staff { get; }
 
-        public SlotDetailsContentViewModel()
+        public SlotDetailsContentViewModel(Reservation reservation)
         {
+            _reservation = reservation;
             Cast = new ObservableCollection<string>();
             Staff = new ObservableCollection<string>();
             ViewModelHelper.Subscribe(this, nameof(Notification), w =>
@@ -32,6 +39,7 @@ namespace Norma.Iota.ViewModels.WindowContents
                 model.Cast?.ForEach(x => Cast.Add(x));
                 model.Staff?.ForEach(x => Staff.Add(x));
                 Thumbnail = $"https://hayabusa.io/abema/programs/{model.Model.DisplayProgramId}/thumb001.w200.h112.jpg";
+                ((DelegateCommand) AddReservationCommand).RaiseCanExecuteChanged();
             }).AddTo(this);
         }
 
@@ -129,6 +137,25 @@ namespace Norma.Iota.ViewModels.WindowContents
         #endregion
 
         public Action FinishInteraction { get; set; }
+
+        #endregion
+
+        #region AddNormalReservationCommand
+
+        private ICommand _addReservationCommand;
+
+        public ICommand AddReservationCommand
+            => _addReservationCommand ?? (_addReservationCommand = new DelegateCommand(AddReservation, CanAddRsv));
+
+        private void AddReservation() => _reservation.AddReservation(((WrapSlot) _notification.Model).Model);
+
+        private bool CanAddRsv()
+        {
+            if (_notification == null)
+                return false;
+            var id = ((WrapSlot) _notification.Model).Model.Id;
+            return !_reservation.Reservations.Any(w => w.IsEnable && (w as RsvProgram)?.ProgramId == id);
+        }
 
         #endregion
     }

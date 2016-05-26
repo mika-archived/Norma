@@ -20,7 +20,8 @@
             <i:EventTrigger EventName="MouseLeftButtonDown">
                 <prism:InvokeCommandAction Command="{Binding OnMouseDownCommand}" />
             </i:EventTrigger>
-            <prism:InteractionRequestTrigger SourceObject="{Binding ProgramDetailsRequest}">
+            <!--  Shell に定義したほうが良いかもしれない  -->
+            <prism:InteractionRequestTrigger SourceObject="{Binding ProgramDetailsRequest, Mode=OneWay}">
                 <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
                     <actions:MetroPopupWindowAction.WindowContent>
                         <wc:SlotDetailsContent />

@@ -273,6 +273,12 @@
   <data name="UpdateInteralOfThumbnail" xml:space="preserve">
     <value>Update interval of thumbnail : </value>
   </data>
+  <data name="ViewingDRsv" xml:space="preserve">
+    <value>Viewing details reservation</value>
+  </data>
+  <data name="ViewingRsv" xml:space="preserve">
+    <value>Viewing reservation</value>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>

@@ -121,8 +121,10 @@
         </Grid>
         <Grid Grid.Row="2">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Margin="5" Content="視聴予約" />
-                <Button Margin="5" Content="詳細予約" />
+                <Button Margin="5"
+                        Command="{Binding AddReservationCommand}"
+                        Content="{x:Static properties:Resources.ViewingRsv}" />
+                <Button Margin="5" Content="{x:Static properties:Resources.ViewingDRsv}" />
             </StackPanel>
         </Grid>
     </Grid>
