@@ -1,17 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+
+using MetroRadiance.UI;
 
 namespace Norma.Iota
 {
     /// <summary>
-    /// App.xaml の相互作用ロジック
+    ///     App.xaml の相互作用ロジック
     /// </summary>
     public partial class App : Application
     {
+        #region Overrides of Application
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            ThemeService.Current.Register(this, Theme.Dark, Accent.Blue);
+
+            var bootstrap = new Bootstrapper();
+            bootstrap.Run();
+        }
+
+        #endregion
     }
 }

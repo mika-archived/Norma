@@ -2,9 +2,9 @@
 using System.Windows;
 using System.Windows.Interactivity;
 
-namespace Norma.Actions
+namespace Norma.Eta.Actions
 {
-    internal class DataContextDisposeAction : TriggerAction<FrameworkElement>
+    public class DataContextDisposeAction : TriggerAction<FrameworkElement>
     {
         #region Overrides of TriggerAction
 

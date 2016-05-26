@@ -3,11 +3,11 @@ using System.Collections.ObjectModel;
 
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
-using Norma.Models.Timetables;
+using Norma.Iota.Models;
 
 using Prism.Interactivity.InteractionRequest;
 
-namespace Norma.ViewModels.WindowContents
+namespace Norma.Iota.ViewModels.WindowContents
 {
     internal class SlotDetailsContentViewModel : ViewModel, IInteractionRequestAware
     {
@@ -20,7 +20,7 @@ namespace Norma.ViewModels.WindowContents
             Staff = new ObservableCollection<string>();
             ViewModelHelper.Subscribe(this, nameof(Notification), w =>
             {
-                var model = _notification.Model as Slot;
+                var model = _notification.Model as WrapSlot;
                 if (model == null)
                     return;
                 Title = model.Model.Title;

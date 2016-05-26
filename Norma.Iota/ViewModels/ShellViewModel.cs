@@ -3,27 +3,27 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Windows;
 
+using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
-using Norma.ViewModels.Timetable;
+using Norma.Iota.ViewModels.Controls;
 
-using ModelTimetable = Norma.Models.Timetable;
-
-namespace Norma.ViewModels.Dialogs
+namespace Norma.Iota.ViewModels
 {
-    internal class TimetableDialogViewModel : ViewModel
+    internal class ShellViewModel : ViewModel
     {
-        private readonly ModelTimetable _timetable;
+        private readonly Timetable _timetable;
         private int _index; // 日付管理用(0 = 今日, 6 = 一週間後みたいな)
-        public ObservableCollection<ChannelViewModel> Channels { get; }
+        public ObservableCollection<ChannelCellViewModel> Channels { get; }
         public List<string> AvailableDates { get; }
 
-        public TimetableDialogViewModel(ModelTimetable timetable)
+        public ShellViewModel(Timetable timetable)
         {
             _timetable = timetable;
             _index = (DateTime.Now - timetable.LastSyncTime).Days;
             AvailableDates = new List<string>();
-            Channels = new ObservableCollection<ChannelViewModel>();
+            Channels = new ObservableCollection<ChannelCellViewModel>();
             for (var i = 0; i < 7; i++)
                 AvailableDates.Add(timetable.LastSyncTime.AddDays(i).ToString("MM/dd"));
 
@@ -32,16 +32,16 @@ namespace Norma.ViewModels.Dialogs
 
         private void UpdateChannels()
         {
-            Channels.Clear();
-            var list = new List<ChannelViewModel>();
+            Application.Current.Dispatcher.Invoke(() => Channels.Clear());
+            var list = new List<ChannelCellViewModel>();
             foreach (var channel in _timetable.Channels)
             {
                 var slots = _timetable.ChannelSchedules.Where(w => w.ChannelId == channel.Id).ElementAt(_index);
-                var vm = new ChannelViewModel(channel, slots.Slots, slots.Date).AddTo(this);
+                var vm = new ChannelCellViewModel(channel, slots.Slots, slots.Date).AddTo(this);
                 list.Add(vm);
             }
             foreach (var vm in list)
-                Channels.Add(vm);
+                Application.Current.Dispatcher.Invoke(() => Channels.Add(vm));
             IsLoading = false;
         }
 

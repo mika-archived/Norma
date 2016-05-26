@@ -5,21 +5,16 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-using Norma.Eta;
-using Norma.Eta.Models;
 using Norma.Gamma.Models;
-using Norma.Models.Timetables;
 
-using Slot = Norma.Gamma.Models.Slot;
-
-namespace Norma.Models
+namespace Norma.Eta.Models
 {
-    internal class Timetable
+    public class Timetable
     {
         private readonly AbemaApiHost _abemaApiHost;
         private TimetableCache _cache;
 
-        public Gamma.Models.Channel[] Channels
+        public Channel[] Channels
         {
             get { return _cache.Channels; }
             set { _cache.Channels = value; }

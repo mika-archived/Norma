@@ -6,9 +6,9 @@ using MetroRadiance.UI.Controls;
 
 using Prism.Interactivity;
 
-namespace Norma.Actions
+namespace Norma.Eta.Actions
 {
-    internal class MetroPopupWindowAction : PopupWindowAction
+    public class MetroPopupWindowAction : PopupWindowAction
     {
         protected override Window CreateWindow()
         {

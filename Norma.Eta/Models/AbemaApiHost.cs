@@ -2,14 +2,12 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-using Norma.Eta.Models;
 using Norma.Gamma;
 using Norma.Gamma.Models;
 
-namespace Norma.Models
+namespace Norma.Eta.Models
 {
-    // 出来る限り叩かない
-    internal class AbemaApiHost
+    public class AbemaApiHost
     {
         private readonly AbemaTv _abemaTv;
         private readonly Configuration _configuration;
@@ -57,9 +55,8 @@ namespace Norma.Models
             {
                 return await _abemaTv.Root.CommentsAsync(slotId, limit => 20);
             }
-            catch (Exception e)
+            catch
             {
-                StatusInfo.Instance.Text = e.Message;
                 return null;
             }
         }
@@ -70,9 +67,8 @@ namespace Norma.Models
             {
                 return await _abemaTv.Root.CommentAsync(slotId, message => comment, share => null);
             }
-            catch (Exception e)
+            catch
             {
-                StatusInfo.Instance.Text = e.Message;
                 return null;
             }
         }

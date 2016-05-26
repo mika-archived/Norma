@@ -2,9 +2,9 @@
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 
-using Orientation = Norma.Models.Orientation;
+using Orientation = Norma.Iota.Models.Orientation;
 
-namespace Norma.Behaviors
+namespace Norma.Iota.Behaviors
 {
     // スクロール位置を同期します。
     internal class ScrollSyncronizingBehavior : Behavior<ScrollViewer>

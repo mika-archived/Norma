@@ -1,4 +1,4 @@
-﻿namespace Norma.Models
+﻿namespace Norma.Iota.Models
 {
     internal enum Orientation
     {

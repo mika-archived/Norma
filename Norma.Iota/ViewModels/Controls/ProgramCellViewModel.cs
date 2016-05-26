@@ -2,16 +2,16 @@
 
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
-using Norma.Models.Timetables;
+using Norma.Iota.Models;
 
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
 
-namespace Norma.ViewModels.Timetable
+namespace Norma.Iota.ViewModels.Controls
 {
-    internal class SlotViewModel : ViewModel
+    internal class ProgramCellViewModel : ViewModel
     {
-        private readonly Slot _model;
+        private readonly WrapSlot _model;
 
         public string Title => _model.Model.Title;
         public string StartAt => _model.StartAt.ToString("HH:mm");
@@ -21,7 +21,7 @@ namespace Norma.ViewModels.Timetable
         public int Top { get; private set; }
         public InteractionRequest<INotification> ProgramDetailsRequest { get; }
 
-        public SlotViewModel(Slot program)
+        public ProgramCellViewModel(WrapSlot program)
         {
             _model = program;
             ProgramDetailsRequest = new InteractionRequest<INotification>();

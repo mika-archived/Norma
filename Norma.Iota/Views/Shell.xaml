@@ -1,18 +1,34 @@
-﻿<UserControl x:Class="Norma.Views.WindowContents.TimetableContent"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:behaviors="clr-namespace:Norma.Behaviors"
-             xmlns:controls1="clr-namespace:Norma.Views.Controls"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:dialogs="clr-namespace:Norma.ViewModels.Dialogs"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
-             xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
-             d:DataContext="{d:DesignInstance dialogs:TimetableDialogViewModel}"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
-             mc:Ignorable="d">
+﻿<metro:MetroWindow x:Class="Norma.Iota.Views.Shell"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:actions="clr-namespace:Norma.Eta.Actions;assembly=Norma.Eta"
+                   xmlns:behaviors="clr-namespace:Norma.Iota.Behaviors"
+                   xmlns:chrome="http://schemes.grabacr.net/winfx/2014/chrome"
+                   xmlns:controls="clr-namespace:Norma.Iota.Views.Controls"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
+                   xmlns:prism="http://prismlibrary.com/"
+                   xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
+                   Title="Shell"
+                   Width="900"
+                   Height="600"
+                   prism:ViewModelLocator.AutoWireViewModel="True"
+                   Background="{DynamicResource ThemeBrushKey}"
+                   FontFamily="Segoe UI"
+                   IsRestoringWindowPlacement="True"
+                   TextOptions.TextFormattingMode="Display"
+                   UseLayoutRounding="True"
+                   mc:Ignorable="d">
+    <chrome:WindowChrome.Instance>
+        <chrome:WindowChrome />
+    </chrome:WindowChrome.Instance>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <actions:DataContextDisposeAction />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -105,67 +121,56 @@
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Hidden">
                 <StackPanel Width="20" Orientation="Vertical">
-                    <controls1:BorderedTextBlock Text="0" />
-                    <controls1:BorderedTextBlock Text="1" />
-                    <controls1:BorderedTextBlock Text="2" />
-                    <controls1:BorderedTextBlock Text="3" />
-                    <controls1:BorderedTextBlock Text="4" />
-                    <controls1:BorderedTextBlock Text="5" />
-                    <controls1:BorderedTextBlock Text="6" />
-                    <controls1:BorderedTextBlock Text="7" />
-                    <controls1:BorderedTextBlock Text="8" />
-                    <controls1:BorderedTextBlock Text="9" />
-                    <controls1:BorderedTextBlock Text="10" />
-                    <controls1:BorderedTextBlock Text="11" />
-                    <controls1:BorderedTextBlock Text="12" />
-                    <controls1:BorderedTextBlock Text="13" />
-                    <controls1:BorderedTextBlock Text="14" />
-                    <controls1:BorderedTextBlock Text="15" />
-                    <controls1:BorderedTextBlock Text="16" />
-                    <controls1:BorderedTextBlock Text="17" />
-                    <controls1:BorderedTextBlock Text="18" />
-                    <controls1:BorderedTextBlock Text="19" />
-                    <controls1:BorderedTextBlock Text="20" />
-                    <controls1:BorderedTextBlock Text="21" />
-                    <controls1:BorderedTextBlock Text="22" />
-                    <controls1:BorderedTextBlock Text="23" />
+                    <controls:BorderedTextBlock Text="0" />
+                    <controls:BorderedTextBlock Text="1" />
+                    <controls:BorderedTextBlock Text="2" />
+                    <controls:BorderedTextBlock Text="3" />
+                    <controls:BorderedTextBlock Text="4" />
+                    <controls:BorderedTextBlock Text="5" />
+                    <controls:BorderedTextBlock Text="6" />
+                    <controls:BorderedTextBlock Text="7" />
+                    <controls:BorderedTextBlock Text="8" />
+                    <controls:BorderedTextBlock Text="9" />
+                    <controls:BorderedTextBlock Text="10" />
+                    <controls:BorderedTextBlock Text="11" />
+                    <controls:BorderedTextBlock Text="12" />
+                    <controls:BorderedTextBlock Text="13" />
+                    <controls:BorderedTextBlock Text="14" />
+                    <controls:BorderedTextBlock Text="15" />
+                    <controls:BorderedTextBlock Text="16" />
+                    <controls:BorderedTextBlock Text="17" />
+                    <controls:BorderedTextBlock Text="18" />
+                    <controls:BorderedTextBlock Text="19" />
+                    <controls:BorderedTextBlock Text="20" />
+                    <controls:BorderedTextBlock Text="21" />
+                    <controls:BorderedTextBlock Text="22" />
+                    <controls:BorderedTextBlock Text="23" />
                 </StackPanel>
             </ScrollViewer>
 
-            <ItemsControl Grid.Row="2"
+            <ScrollViewer Grid.Row="2"
                           Grid.RowSpan="2"
                           Grid.Column="1"
                           Grid.ColumnSpan="2"
-                          ItemsSource="{Binding Channels,
-                                                Mode=OneWay}"
-                          ScrollViewer.CanContentScroll="True"
-                          VirtualizingPanel.IsVirtualizing="True"
-                          VirtualizingPanel.ScrollUnit="Pixel"
-                          VirtualizingPanel.VirtualizationMode="Recycling">
-                <ItemsControl.Template>
-                    <ControlTemplate>
-                        <ScrollViewer Focusable="False"
-                                      HorizontalScrollBarVisibility="Visible"
-                                      VerticalScrollBarVisibility="Visible">
-                            <i:Interaction.Behaviors>
-                                <behaviors:ScrollSyncronizingBehavior Orientation="Horizontal" Target="{Binding ElementName=ChannelScrollViewer}" />
-                                <behaviors:ScrollSyncronizingBehavior Orientation="Vertical" Target="{Binding ElementName=DateTimeScrollViewer}" />
-                            </i:Interaction.Behaviors>
-                            <ItemsPresenter />
-                        </ScrollViewer>
-                    </ControlTemplate>
-                </ItemsControl.Template>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <controls1:ChannelCell DataContext="{Binding}" />
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                          HorizontalScrollBarVisibility="Visible"
+                          VerticalScrollBarVisibility="Visible">
+                <i:Interaction.Behaviors>
+                    <behaviors:ScrollSyncronizingBehavior Orientation="Horizontal" Target="{Binding ElementName=ChannelScrollViewer}" />
+                    <behaviors:ScrollSyncronizingBehavior Orientation="Vertical" Target="{Binding ElementName=DateTimeScrollViewer}" />
+                </i:Interaction.Behaviors>
+                <ItemsControl ItemsSource="{Binding Channels, Mode=OneWay}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <controls:ChannelCell DataContext="{Binding}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
         </Grid>
 
         <Border Grid.Row="1"
@@ -186,5 +191,4 @@
             </StackPanel>
         </Border>
     </Grid>
-</UserControl>
-
+</metro:MetroWindow>

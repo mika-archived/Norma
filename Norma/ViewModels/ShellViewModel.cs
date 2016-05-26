@@ -19,7 +19,7 @@ namespace Norma.ViewModels
     internal class ShellViewModel : ViewModel
     {
         private readonly Configuration _configuration;
-        private readonly Models.Timetable _timetable;
+        private readonly Timetable _timetable;
         public AbemaHostViewModel HostViewModel { get; }
         public AbemaTVGuideViewModel TvGuideViewModel { get; }
         public AbemaStatusViewModel StatusBar { get; }
@@ -27,7 +27,7 @@ namespace Norma.ViewModels
         public ReadOnlyReactiveProperty<string> Title { get; private set; }
         public ReactiveProperty<bool> IsTopMost { get; private set; }
 
-        public ShellViewModel(AbemaState abemaState, Configuration configuration, Models.Timetable timetable)
+        public ShellViewModel(AbemaState abemaState, Configuration configuration, Timetable timetable)
         {
             _configuration = configuration;
             _timetable = timetable;

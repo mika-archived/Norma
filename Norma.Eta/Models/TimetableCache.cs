@@ -2,15 +2,13 @@
 
 using Norma.Gamma.Models;
 
-using InternalChannel = Norma.Gamma.Models.Channel;
-
-namespace Norma.Models.Timetables
+namespace Norma.Eta.Models
 {
-    internal class TimetableCache
+    public class TimetableCache
     {
         public DateTime SyncDateTime { get; set; }
 
-        public InternalChannel[] Channels { get; set; }
+        public Channel[] Channels { get; set; }
 
         public ChannelSchedule[] ChannelSchedules { get; set; }
 

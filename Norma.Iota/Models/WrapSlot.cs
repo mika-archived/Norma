@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using BaseSlot = Norma.Gamma.Models.Slot;
+using Norma.Gamma.Models;
 
-namespace Norma.Models.Timetables
+namespace Norma.Iota.Models
 {
-    internal class Slot
+    internal class WrapSlot
     {
-        public BaseSlot Model { get; }
+        public Slot Model { get; }
 
         // 調節
         public DateTime StartAt { get; }
@@ -20,7 +20,7 @@ namespace Norma.Models.Timetables
         public List<string> Cast { get; }
         public List<string> Staff { get; }
 
-        public Slot(BaseSlot slot, DateTime date)
+        public WrapSlot(Slot slot, DateTime date)
         {
             Model = slot;
             StartAt = Model.StartAt < date ? new DateTime(date.Year, date.Month, date.Day, 0, 0, 0) : Model.StartAt;

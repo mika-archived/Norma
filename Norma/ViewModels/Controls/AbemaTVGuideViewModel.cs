@@ -12,7 +12,7 @@ namespace Norma.ViewModels.Controls
     {
         public ReadOnlyReactiveCollection<ChannelViewModel> Channnels { get; private set; }
 
-        public AbemaTVGuideViewModel(ShellViewModel parent, Configuration c, Models.Timetable t)
+        public AbemaTVGuideViewModel(ShellViewModel parent, Configuration c, Timetable t)
         {
             var channels = new AbemaChannels().AddTo(this);
             Channnels = channels.Channels

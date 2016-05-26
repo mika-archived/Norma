@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Norma.Views.WindowContents
+namespace Norma.Iota.Views.Controls
 {
     /// <summary>
-    /// TimetableContent.xaml の相互作用ロジック
+    /// ChannelCell.xaml の相互作用ロジック
     /// </summary>
-    public partial class TimetableContent : UserControl
+    public partial class ChannelCell : UserControl
     {
-        public TimetableContent()
+        public ChannelCell()
         {
             InitializeComponent();
         }

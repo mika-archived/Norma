@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Norma.Views.Controls
+namespace Norma.Iota.Views.Controls
 {
     /// <summary>
     ///     BorderedTextBlock.xaml の相互作用ロジック

@@ -1,4 +1,8 @@
-﻿using Prism.Mvvm;
+﻿using System.Globalization;
+
+using Norma.Eta.Properties;
+
+using Prism.Mvvm;
 
 namespace Norma.Eta.Models.Configurations
 {
@@ -19,9 +23,13 @@ namespace Norma.Eta.Models.Configurations
         public string Lang
         {
             get { return _lang; }
-            set { SetProperty(ref _lang, value); }
-        }
+            set
+            {
+                if (SetProperty(ref _lang, value))
+                    Resources.Culture = CultureInfo.GetCultureInfo(value);
+            }
 
-        #endregion
+            #endregion
+        }
     }
 }

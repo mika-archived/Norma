@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Norma.Views.Controls
+namespace Norma.Iota.Views.Controls
 {
     /// <summary>
     /// ProgramCell.xaml の相互作用ロジック

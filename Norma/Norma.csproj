@@ -176,20 +176,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Actions\DataContextDisposeAction.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Behaviors\HorizontalScrollBehavior.cs" />
     <Compile Include="Behaviors\KeepAspectRatioBehavior.cs" />
-    <Compile Include="Behaviors\ScrollSyncronizingBehavior.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\YesNoToBooleanConverter.cs" />
-    <Compile Include="Actions\MetroPopupWindowAction.cs" />
-    <Compile Include="Models\AbemaApiHost.cs" />
     <Compile Include="Models\AbemaChannels.cs" />
     <Compile Include="Models\AbemaState.cs" />
     <Compile Include="Models\CefSetting.cs" />
@@ -197,7 +193,6 @@
     <Compile Include="Models\CommentHost.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
     <Compile Include="Models\Libraries\HardcodetWpfNotifyIcon.cs" />
-    <Compile Include="Models\Orientation.cs" />
     <Compile Include="Models\ShortcutKey.cs" />
     <Compile Include="Models\Libraries\CEF.cs" />
     <Compile Include="Models\Libraries\CEFSharp.cs" />
@@ -213,9 +208,6 @@
     <Compile Include="Models\ProgramHost.cs" />
     <Compile Include="Models\ReleaseType.cs" />
     <Compile Include="Models\StatusInfo.cs" />
-    <Compile Include="Models\Timetable.cs" />
-    <Compile Include="Models\Timetables\Slot.cs" />
-    <Compile Include="Models\Timetables\TimetableCache.cs" />
     <Compile Include="ViewModels\Controls\AbemaCommentInputViewModel.cs" />
     <Compile Include="ViewModels\LibraryViewModel.cs" />
     <Compile Include="ViewModels\StartupScreenViewModel.cs" />
@@ -233,10 +225,6 @@
     <Compile Include="ViewModels\Tabs\Options\BrowserViewModel.cs" />
     <Compile Include="ViewModels\Tabs\Options\OperationViewModel.cs" />
     <Compile Include="ViewModels\Tabs\Options\OthersViewModel.cs" />
-    <Compile Include="ViewModels\Dialogs\TimetableDialogViewModel.cs" />
-    <Compile Include="ViewModels\Timetable\ChannelViewModel.cs" />
-    <Compile Include="ViewModels\WindowContents\SlotDetailsContentViewModel.cs" />
-    <Compile Include="ViewModels\Timetable\SlotViewModel.cs" />
     <Compile Include="ViewModels\TVGuide\ChannelViewModel.cs" />
     <Compile Include="Views\Controls\AbemaComment.xaml.cs">
       <DependentUpon>AbemaComment.xaml</DependentUpon>
@@ -256,20 +244,8 @@
     <Compile Include="Views\Controls\AbemaTVGuide.xaml.cs">
       <DependentUpon>AbemaTVGuide.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\BorderedTextBlock.xaml.cs">
-      <DependentUpon>BorderedTextBlock.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\ChannelCell.xaml.cs">
-      <DependentUpon>ChannelCell.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\ProgramCell.xaml.cs">
-      <DependentUpon>ProgramCell.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Controls\TVChannel.xaml.cs">
       <DependentUpon>TVChannel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dialogs\TimetableDialog.xaml.cs">
-      <DependentUpon>TimetableDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
@@ -297,12 +273,6 @@
     </Compile>
     <Compile Include="Views\WindowContents\SettingsContent.xaml.cs">
       <DependentUpon>SettingsContent.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WindowContents\SlotDetailsContent.xaml.cs">
-      <DependentUpon>SlotDetailsContent.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WindowContents\TimetableContent.xaml.cs">
-      <DependentUpon>TimetableContent.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -360,23 +330,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\BorderedTextBlock.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\ChannelCell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\ProgramCell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Controls\TVChannel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Dialogs\TimetableDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -413,14 +367,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\WindowContents\SettingsContent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\WindowContents\SlotDetailsContent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\WindowContents\TimetableContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

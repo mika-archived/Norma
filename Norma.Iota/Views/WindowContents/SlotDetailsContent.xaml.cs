@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Norma.Views.WindowContents
+namespace Norma.Iota.Views.WindowContents
 {
     /// <summary>
     /// SlotDetailsContent.xaml の相互作用ロジック
     /// </summary>
-    public partial class SlotDetailsContent : UserControl
+    public partial class SlotDetailsContent : Page
     {
         public SlotDetailsContent()
         {
