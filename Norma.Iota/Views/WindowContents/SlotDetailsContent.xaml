@@ -18,6 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <Border Grid.Row="0" metro:MetroWindow.IsCaptionBar="True">
             <Grid>
@@ -117,6 +118,12 @@
                     </StackPanel>
                 </ScrollViewer>
             </Border>
+        </Grid>
+        <Grid Grid.Row="2">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Margin="5" Content="視聴予約" />
+                <Button Margin="5" Content="詳細予約" />
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

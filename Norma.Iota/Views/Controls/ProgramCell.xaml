@@ -29,7 +29,7 @@
                         <Style TargetType="{x:Type metro:MetroWindow}">
                             <Setter Property="ResizeMode" Value="NoResize" />
                             <Setter Property="ShowInTaskbar" Value="False" />
-                            <Setter Property="Height" Value="600" />
+                            <Setter Property="Height" Value="450" />
                             <Setter Property="Width" Value="600" />
                         </Style>
                     </actions:MetroPopupWindowAction.WindowStyle>

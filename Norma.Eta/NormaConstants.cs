@@ -20,6 +20,8 @@ namespace Norma.Eta
 
         public static string TimetableCacheFile => Path.Combine(AppDirectory, "timetable_cache.json");
 
+        public static string ReserveProgramListFile => Path.Combine(AppDirectory, "reserve_programs.json");
+
         public static string IotaExecutableFile => Path.Combine(CurrentDirectory, "Norma.Iota.exe");
 
         public static string IpsilonFileName => "Norma.Ipsilon.exe";
