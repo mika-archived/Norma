@@ -1,7 +1,5 @@
 ﻿using System.Windows;
 
-using MetroRadiance.UI;
-
 using Norma.Models;
 
 namespace Norma
@@ -18,8 +16,7 @@ namespace Norma
         {
             base.OnStartup(e);
 
-            CefSetting.Init();
-            ThemeService.Current.Register(this, Theme.Dark, Accent.Blue);
+            AppInitializer.PreInitialize(this);
 
             var bootstrap = new Bootstrapper();
             bootstrap.Run();

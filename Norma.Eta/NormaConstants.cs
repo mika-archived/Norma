@@ -22,6 +22,8 @@ namespace Norma.Eta
 
         public static string IotaExecutableFile => Path.Combine(CurrentDirectory, "Norma.Iota.exe");
 
-        public static string IpsilonExecutableFile => Path.Combine(CurrentDirectory, "Norma.Ipsilon.exe");
+        public static string IpsilonFileName => "Norma.Ipsilon.exe";
+
+        public static string IpsilonExecutableFile => Path.Combine(CurrentDirectory, IpsilonFileName);
     }
 }

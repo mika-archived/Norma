@@ -191,6 +191,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Norma.Eta\Norma.Eta.csproj">
+      <Project>{ebe2df20-507c-4071-846b-88e7c3a459e8}</Project>
+      <Name>Norma.Eta</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Norma.Gamma\Norma.Gamma.csproj">
       <Project>{3548e32a-9374-45a5-9d37-8bde1520b055}</Project>
       <Name>Norma.Gamma</Name>

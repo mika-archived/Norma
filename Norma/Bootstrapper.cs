@@ -2,7 +2,6 @@
 
 using Microsoft.Practices.Unity;
 
-using Norma.Eta.Models;
 using Norma.Models;
 using Norma.Views;
 
@@ -12,36 +11,18 @@ namespace Norma
 {
     internal class Bootstrapper : UnityBootstrapper
     {
-        private readonly AbemaApiHost _abemaApiHost;
-        private readonly AbemaState _abemaState;
-        private readonly Configuration _configuration;
-        private readonly StartupScreen _startupScreen;
-        private readonly Timetable _timetable;
-
-        public Bootstrapper()
-        {
-            // どこで初期化すべき？
-            _configuration = new Configuration();
-            _abemaApiHost = new AbemaApiHost(_configuration);
-            _timetable = new Timetable(_abemaApiHost);
-            _abemaState = new AbemaState(_configuration, _timetable);
-            _startupScreen = new StartupScreen();
-            _startupScreen.Show();
-        }
-
         #region Overrides of UnityBootstrapper
 
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-            _abemaApiHost.Initialize();
-            _timetable.Sync();
-            _abemaState.Start();
 
-            Container.RegisterInstance(_configuration, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance(_abemaApiHost, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance(_timetable, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance(_abemaState, new ContainerControlledLifetimeManager());
+            AppInitializer.Initialize();
+
+            Container.RegisterInstance(AppInitializer.Configuration, new ContainerControlledLifetimeManager());
+            Container.RegisterInstance(AppInitializer.AbemaApiHost, new ContainerControlledLifetimeManager());
+            Container.RegisterInstance(AppInitializer.Timetable, new ContainerControlledLifetimeManager());
+            Container.RegisterInstance(AppInitializer.AbemaState, new ContainerControlledLifetimeManager());
         }
 
         #endregion
@@ -52,8 +33,8 @@ namespace Norma
 
         protected override void InitializeShell()
         {
-            _startupScreen.Hide(); // そのほうが綺麗である。
-            _startupScreen.Close();
+            AppInitializer.PostInitialize();
+
             Application.Current.MainWindow = (Window) Shell;
             Application.Current.MainWindow.Show();
         }

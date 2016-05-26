@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Reactive.Linq;
 using System.Windows.Input;
 
+using Norma.Eta;
 using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Models;
@@ -63,7 +65,11 @@ namespace Norma.ViewModels
         public ICommand OpenTimetableCommand
             => _openTimetableCommand ?? (_openTimetableCommand = new DelegateCommand(OpenTimetable));
 
-        private void OpenTimetable() => Process.Start("");
+        private void OpenTimetable()
+        {
+            if (File.Exists(NormaConstants.IotaExecutableFile))
+                Process.Start(NormaConstants.IotaExecutableFile);
+        }
 
         #endregion
 
