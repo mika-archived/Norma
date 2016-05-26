@@ -3,8 +3,10 @@ using System.Windows.Input;
 
 using Norma.Extensions;
 using Norma.Models;
+using Norma.Notifications;
 using Norma.ViewModels.Controls;
 using Norma.ViewModels.Internal;
+using Norma.Views.Dialogs;
 
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
@@ -64,7 +66,8 @@ namespace Norma.ViewModels
         public ICommand OpenTimetableCommand
             => _openTimetableCommand ?? (_openTimetableCommand = new DelegateCommand(OpenTimetable));
 
-        private void OpenTimetable() => TimetableRequest.Raise(new Notification {Content = "Blank", Title = "Blank"});
+        private void OpenTimetable()
+            => TimetableRequest.Raise(new WindowNotification {WindowType = typeof(TimetableDialog)});
 
         #endregion
 

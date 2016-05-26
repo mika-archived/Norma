@@ -31,17 +31,7 @@
             <actions:DataContextDisposeAction />
         </i:EventTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding TimetableRequest}">
-            <actions:MetroPopupWindowAction>
-                <actions:MetroPopupWindowAction.WindowContent>
-                    <wc:TimetableContent />
-                </actions:MetroPopupWindowAction.WindowContent>
-                <actions:MetroPopupWindowAction.WindowStyle>
-                    <Style TargetType="{x:Type metro:MetroWindow}">
-                        <Setter Property="Height" Value="600" />
-                        <Setter Property="Width" Value="900" />
-                    </Style>
-                </actions:MetroPopupWindowAction.WindowStyle>
-            </actions:MetroPopupWindowAction>
+            <actions:MultiThreadPopupWindowAction IsModal="True" />
         </prism:InteractionRequestTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding SettingsRequest}">
             <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
@@ -87,14 +77,12 @@
                            Text="{Binding Title.Value}"
                            TextTrimming="CharacterEllipsis" />
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <!--
                     <metro:CaptionButton Width="40"
                                          Margin="5,0"
                                          VerticalAlignment="Top"
                                          Command="{Binding OpenTimetableCommand}"
                                          Content="&#57698;"
                                          FontFamily="Segoe MDL2 Assets, Segoe UI Symbol" />
-                    -->
                     <metro:CaptionButton Width="40"
                                          Margin="5,0"
                                          VerticalAlignment="Top"

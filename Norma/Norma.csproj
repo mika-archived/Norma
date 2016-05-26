@@ -177,6 +177,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Actions\DataContextDisposeAction.cs" />
+    <Compile Include="Actions\MultiThreadPopupWindowAction.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -229,6 +230,7 @@
     <Compile Include="Models\Timetables\TimetableCache.cs" />
     <Compile Include="NormaConstants.cs" />
     <Compile Include="Notifications\DataPassingNotification.cs" />
+    <Compile Include="Notifications\WindowNotification.cs" />
     <Compile Include="Properties\Resources.ja.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -252,7 +254,7 @@
     <Compile Include="ViewModels\Tabs\Options\BrowserViewModel.cs" />
     <Compile Include="ViewModels\Tabs\Options\OperationViewModel.cs" />
     <Compile Include="ViewModels\Tabs\Options\OthersViewModel.cs" />
-    <Compile Include="ViewModels\WindowContents\TimetableContentViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\TimetableDialogViewModel.cs" />
     <Compile Include="ViewModels\Timetable\ChannelViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\SlotDetailsContentViewModel.cs" />
     <Compile Include="ViewModels\Timetable\SlotViewModel.cs" />
@@ -286,6 +288,9 @@
     </Compile>
     <Compile Include="Views\Controls\TVChannel.xaml.cs">
       <DependentUpon>TVChannel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\TimetableDialog.xaml.cs">
+      <DependentUpon>TimetableDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
@@ -402,6 +407,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\TVChannel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\TimetableDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

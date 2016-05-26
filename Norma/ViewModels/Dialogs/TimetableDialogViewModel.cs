@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Windows;
+using System.Threading;
 
 using Norma.Extensions;
 using Norma.ViewModels.Internal;
@@ -11,17 +12,18 @@ using Norma.ViewModels.Timetable;
 
 using ModelTimetable = Norma.Models.Timetable;
 
-namespace Norma.ViewModels.WindowContents
+namespace Norma.ViewModels.Dialogs
 {
-    internal class TimetableContentViewModel : ViewModel
+    internal class TimetableDialogViewModel : ViewModel
     {
         private readonly ModelTimetable _timetable;
         private int _index; // 日付管理用(0 = 今日, 6 = 一週間後みたいな)
         public ObservableCollection<ChannelViewModel> Channels { get; }
         public List<string> AvailableDates { get; }
 
-        public TimetableContentViewModel(ModelTimetable timetable)
+        public TimetableDialogViewModel(ModelTimetable timetable)
         {
+            Debug.WriteLine(Thread.CurrentThread.ManagedThreadId);
             _timetable = timetable;
             _index = (DateTime.Now - timetable.LastSyncTime).Days;
             AvailableDates = new List<string>();
@@ -34,8 +36,9 @@ namespace Norma.ViewModels.WindowContents
 
         private void UpdateChannels()
         {
-            var dispatcher = Application.Current.Dispatcher;
-            dispatcher.Invoke(() => Channels.Clear());
+            Debug.WriteLine(Thread.CurrentThread.ManagedThreadId);
+
+            Channels.Clear();
             var list = new List<ChannelViewModel>();
             foreach (var channel in _timetable.Channels)
             {
@@ -43,11 +46,8 @@ namespace Norma.ViewModels.WindowContents
                 var vm = new ChannelViewModel(channel, slots.Slots, slots.Date).AddTo(this);
                 list.Add(vm);
             }
-            dispatcher.Invoke(() =>
-            {
-                foreach (var vm in list)
-                    Channels.Add(vm);
-            });
+            foreach (var vm in list)
+                Channels.Add(vm);
             IsLoading = false;
         }
 
