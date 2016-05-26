@@ -340,7 +340,7 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
-        ///   Loading... に類似しているローカライズされた文字列を検索します。
+        ///   loading... に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Loading {
             get {
@@ -403,11 +403,29 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   please wait until the end of process... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string PleaseWait {
+            get {
+                return ResourceManager.GetString("PleaseWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Post shortcut key : に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string PostKey {
             get {
                 return ResourceManager.GetString("PostKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Program details に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ProgramDetails {
+            get {
+                return ResourceManager.GetString("ProgramDetails", resourceCulture);
             }
         }
         

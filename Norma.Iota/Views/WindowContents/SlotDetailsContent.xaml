@@ -6,7 +6,9 @@
       xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
       xmlns:prism="http://prismlibrary.com/"
       xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
-      Title="SlotDetailsContent"
+      xmlns:vm="clr-namespace:Norma.Iota.ViewModels.WindowContents"
+      Title="{Binding WindowTitle}"
+      d:DataContext="{d:DesignInstance vm:SlotDetailsContentViewModel}"
       d:DesignHeight="300"
       d:DesignWidth="300"
       prism:ViewModelLocator.AutoWireViewModel="True"
@@ -29,12 +31,12 @@
                            FontFamily="Segoe UI Light"
                            FontSize="18"
                            Foreground="{DynamicResource ForegroundBrushKey}"
-                           Text="Program details - Norma"
+                           Text="{Binding WindowTitle}"
                            TextTrimming="CharacterEllipsis" />
                 <metro:SystemButtons Grid.Column="1" VerticalAlignment="Top" />
             </Grid>
         </Border>
-        <Grid Grid.Row="1" Margin="5">
+        <Grid Grid.Row="1" Margin="5,5,0,5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="115" />
                 <RowDefinition Height="*" />
@@ -63,7 +65,7 @@
                     BorderBrush="{DynamicResource BorderBrushKey}"
                     BorderThickness="0,2,0,0">
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Margin="5" Orientation="Vertical">
                         <StackPanel Orientation="Vertical">
                             <TextBlock FontSize="14"
                                        FontWeight="Bold"

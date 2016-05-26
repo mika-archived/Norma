@@ -211,7 +211,7 @@
     <value>Light</value>
   </data>
   <data name="Loading" xml:space="preserve">
-    <value>Loading...</value>
+    <value>loading...</value>
   </data>
   <data name="MuteKeywords" xml:space="preserve">
     <value>Mute keywords :</value>
@@ -231,8 +231,14 @@
   <data name="Others" xml:space="preserve">
     <value>Others</value>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>please wait until the end of process...</value>
+  </data>
   <data name="PostKey" xml:space="preserve">
     <value>Post shortcut key :</value>
+  </data>
+  <data name="ProgramDetails" xml:space="preserve">
+    <value>Program details</value>
   </data>
   <data name="ProgramSummary" xml:space="preserve">
     <value>Program summary</value>

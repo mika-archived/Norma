@@ -33,7 +33,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="23" />
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" metro:MetroWindow.IsCaptionBar="True">
@@ -187,7 +186,12 @@
                                     EllipseDiameter="5"
                                     EllipseOffset="0,21,0,0" />
                 -->
-                <TextBlock FontSize="20" Text="loading..." />
+                <TextBlock HorizontalAlignment="Center"
+                           FontSize="22"
+                           Text="{x:Static properties:Resources.Loading}" />
+                <TextBlock HorizontalAlignment="Center"
+                           FontSize="14"
+                           Text="{x:Static properties:Resources.PleaseWait}" />
             </StackPanel>
         </Border>
     </Grid>

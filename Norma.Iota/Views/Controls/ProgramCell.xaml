@@ -16,29 +16,29 @@
     <Border Background="{DynamicResource BackgroundBrushKey}"
             BorderBrush="{DynamicResource BorderBrushKey}"
             BorderThickness="1">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseLeftButtonDown">
+                <prism:InvokeCommandAction Command="{Binding OnMouseDownCommand}" />
+            </i:EventTrigger>
+            <prism:InteractionRequestTrigger SourceObject="{Binding ProgramDetailsRequest}">
+                <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
+                    <actions:MetroPopupWindowAction.WindowContent>
+                        <wc:SlotDetailsContent />
+                    </actions:MetroPopupWindowAction.WindowContent>
+                    <actions:MetroPopupWindowAction.WindowStyle>
+                        <Style TargetType="{x:Type metro:MetroWindow}">
+                            <Setter Property="ResizeMode" Value="NoResize" />
+                            <Setter Property="ShowInTaskbar" Value="False" />
+                            <Setter Property="Height" Value="600" />
+                            <Setter Property="Width" Value="600" />
+                        </Style>
+                    </actions:MetroPopupWindowAction.WindowStyle>
+                </actions:MetroPopupWindowAction>
+            </prism:InteractionRequestTrigger>
+        </i:Interaction.Triggers>
         <Grid Margin="5"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <prism:InvokeCommandAction Command="{Binding OnMouseDownCommand}" />
-                </i:EventTrigger>
-                <prism:InteractionRequestTrigger SourceObject="{Binding ProgramDetailsRequest}">
-                    <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
-                        <actions:MetroPopupWindowAction.WindowContent>
-                            <wc:SlotDetailsContent />
-                        </actions:MetroPopupWindowAction.WindowContent>
-                        <actions:MetroPopupWindowAction.WindowStyle>
-                            <Style TargetType="{x:Type metro:MetroWindow}">
-                                <Setter Property="ResizeMode" Value="NoResize" />
-                                <Setter Property="ShowInTaskbar" Value="False" />
-                                <Setter Property="Height" Value="600" />
-                                <Setter Property="Width" Value="600" />
-                            </Style>
-                        </actions:MetroPopupWindowAction.WindowStyle>
-                    </actions:MetroPopupWindowAction>
-                </prism:InteractionRequestTrigger>
-            </i:Interaction.Triggers>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60" />
                 <ColumnDefinition Width="*" />
@@ -48,7 +48,9 @@
                 <TextBlock FontWeight="Bold"
                            Text="{Binding Title}"
                            TextWrapping="Wrap" />
-                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding Description}"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="Wrap" />
             </StackPanel>
         </Grid>
     </Border>

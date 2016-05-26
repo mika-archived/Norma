@@ -231,8 +231,14 @@
   <data name="Others" xml:space="preserve">
     <value>その他</value>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>処理が完了するまでお待ちください...</value>
+  </data>
   <data name="PostKey" xml:space="preserve">
     <value>投稿ショートカットキー :</value>
+  </data>
+  <data name="ProgramDetails" xml:space="preserve">
+    <value>番組詳細</value>
   </data>
   <data name="ProgramSummary" xml:space="preserve">
     <value>番組概要</value>

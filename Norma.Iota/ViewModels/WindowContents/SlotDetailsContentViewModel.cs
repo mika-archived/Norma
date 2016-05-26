@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
+using Norma.Eta.Properties;
 using Norma.Iota.Models;
 
 using Prism.Interactivity.InteractionRequest;
@@ -23,15 +24,28 @@ namespace Norma.Iota.ViewModels.WindowContents
                 var model = _notification.Model as WrapSlot;
                 if (model == null)
                     return;
+                WindowTitle = $"{model.Model.Title} - {Resources.ProgramDetails} - Norma";
                 Title = model.Model.Title;
                 Date = model.StartAt.ToString("MM/DD");
                 Time = $"{model.Model.StartAt.ToString("MM/dd HH:mm")} ～ {model.Model.EndAt.ToString("MM/dd HH:mm")}";
                 Description = model.DetailHighlight;
-                model.Cast.ForEach(x => Cast.Add(x));
-                model.Staff.ForEach(x => Staff.Add(x));
+                model.Cast?.ForEach(x => Cast.Add(x));
+                model.Staff?.ForEach(x => Staff.Add(x));
                 Thumbnail = $"https://hayabusa.io/abema/programs/{model.Model.DisplayProgramId}/thumb001.w200.h112.jpg";
             }).AddTo(this);
         }
+
+        #region WindowTitle
+
+        private string _windowTitle;
+
+        public string WindowTitle
+        {
+            get { return _windowTitle; }
+            set { SetProperty(ref _windowTitle, value); }
+        }
+
+        #endregion
 
         #region Title
 
