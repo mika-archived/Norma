@@ -18,12 +18,14 @@ namespace Norma.Iota.ViewModels.WindowContents
     internal class SlotDetailsContentViewModel : ViewModel, IInteractionRequestAware
     {
         private readonly Reservation _reservation;
+        public InteractionRequest<Notification> ResponseRequest { get; }
         public ObservableCollection<string> Cast { get; }
         public ObservableCollection<string> Staff { get; }
 
         public SlotDetailsContentViewModel(Reservation reservation)
         {
             _reservation = reservation;
+            ResponseRequest = new InteractionRequest<Notification>();
             Cast = new ObservableCollection<string>();
             Staff = new ObservableCollection<string>();
             ViewModelHelper.Subscribe(this, nameof(Notification), w =>
@@ -147,7 +149,11 @@ namespace Norma.Iota.ViewModels.WindowContents
         public ICommand AddReservationCommand
             => _addReservationCommand ?? (_addReservationCommand = new DelegateCommand(AddReservation, CanAddRsv));
 
-        private void AddReservation() => _reservation.AddReservation(((WrapSlot) _notification.Model).Model);
+        private void AddReservation()
+        {
+            _reservation.AddReservation(((WrapSlot) _notification.Model).Model);
+            ResponseRequest.Raise(new Notification {Title = "Norma", Content = "Reservation success!"});
+        }
 
         private bool CanAddRsv()
         {

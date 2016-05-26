@@ -4,7 +4,10 @@ using System.Windows.Media;
 using MetroRadiance.Chrome;
 using MetroRadiance.UI.Controls;
 
+using Norma.Eta.PopupWindows;
+
 using Prism.Interactivity;
+using Prism.Interactivity.DefaultPopupWindows;
 using Prism.Interactivity.InteractionRequest;
 
 namespace Norma.Eta.Actions
@@ -22,7 +25,15 @@ namespace Norma.Eta.Actions
         protected override Window GetWindow(INotification notification)
         {
             var window = base.GetWindow(notification);
-            if (CenterOverAssociatedObject)
+            if (window is DefaultNotificationWindow)
+            {
+                window = CreateDefaultMetroWindow(notification);
+                if (AssociatedObject != null)
+                    window.Owner = Window.GetWindow(AssociatedObject);
+                if (WindowStyle != null)
+                    window.Style = WindowStyle;
+            }
+            if (CenterOverAssociatedObject && AssociatedObject != null)
             {
                 window.Owner = Window.GetWindow(AssociatedObject);
                 window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
@@ -42,6 +53,13 @@ namespace Norma.Eta.Actions
             TextOptions.SetTextFormattingMode(window, TextFormattingMode.Display);
             WindowChrome.SetInstance(window, new WindowChrome());
             return window;
+        }
+
+        protected Window CreateDefaultMetroWindow(INotification notification)
+        {
+            if (notification is IConfirmation)
+                return CreateDefaultWindow(notification);
+            return new DefaultNotificationMetroWindow {Notification = notification};
         }
 
         #endregion

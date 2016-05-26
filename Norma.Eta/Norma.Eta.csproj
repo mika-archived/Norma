@@ -116,6 +116,9 @@
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="NormaConstants.cs" />
     <Compile Include="Notifications\DataPassingNotification.cs" />
+    <Compile Include="PopupWindows\DefaultNotificationMetroWindow.xaml.cs">
+      <DependentUpon>DefaultNotificationMetroWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
@@ -146,6 +149,12 @@
       <Project>{3548e32a-9374-45a5-9d37-8bde1520b055}</Project>
       <Name>Norma.Gamma</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="PopupWindows\DefaultNotificationMetroWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
