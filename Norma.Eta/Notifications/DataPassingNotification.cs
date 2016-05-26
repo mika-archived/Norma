@@ -1,8 +1,8 @@
 ﻿using Prism.Interactivity.InteractionRequest;
 
-namespace Norma.Notifications
+namespace Norma.Eta.Notifications
 {
-    internal class DataPassingNotification : Notification
+    public class DataPassingNotification : Notification
     {
         public object Model { get; set; } = null;
     }

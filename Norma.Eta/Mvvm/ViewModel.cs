@@ -3,17 +3,15 @@ using System.Reactive.Disposables;
 
 using Prism.Mvvm;
 
-namespace Norma.ViewModels.Internal
+namespace Norma.Eta.Mvvm
 {
-    internal class ViewModel : BindableBase, IDisposable
+    public class ViewModel : BindableBase, IDisposable
     {
-        protected internal CompositeDisposable CompositeDisposable { get; }
-        // protected Dispatcher Dispatcher { get; }
+        public CompositeDisposable CompositeDisposable { get; }
 
         protected ViewModel()
         {
             CompositeDisposable = new CompositeDisposable();
-            // Dispatcher = Application.Current.MainWindow.Dispatcher;
         }
 
         #region Implementation of IDisposable

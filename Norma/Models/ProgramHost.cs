@@ -4,8 +4,8 @@ using System.Reactive.Disposables;
 
 using Microsoft.Practices.ObjectBuilder2;
 
+using Norma.Eta.Properties;
 using Norma.Gamma.Models;
-using Norma.Properties;
 
 using Prism.Mvvm;
 

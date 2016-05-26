@@ -83,15 +83,21 @@ function Process($path) {
 
 $ips_x64_dir = "Norma.Ipsilon\bin\x64\Release"
 $ips_x86_dir = "Norma.Ipsilon\bin\x86\Release"
+$iota_x64_dir = "Norma.Iota\bin\x64\Release"
+$iota_x86_dir = "Norma.Iota\bin\x86\Release"
 $x64_dir = "Norma\bin\x64\Release"
 $x86_dir = "Norma\bin\x86\Release"
 
 
 Cleanup $ips_x64_dir
 Cleanup $ips_x86_dir
+Cleanup $iota_x64_dir
+Cleanup $iota_x86_dir
 
 Copy-To $ips_x64_dir $x64_dir
 Copy-To $ips_x86_dir $x86_dir
+Copy-To $iota_x64_dir $x64_dir
+Copy-To $iota_x86_dir $x86_dir
 
 Cleanup $x64_dir
 Cleanup $x86_dir

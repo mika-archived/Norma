@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Reactive.Linq;
 
-using Norma.Properties;
+using Norma.Eta.Models;
+using Norma.Eta.Properties;
 
 using Prism.Mvvm;
 

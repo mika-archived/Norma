@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 
+using Norma.Eta.Models;
+
 using Prism.Mvvm;
 
 namespace Norma.Models

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using CefSharp;
 using CefSharp.Wpf;
 
-using Norma.Properties;
+using Norma.Eta.Models;
+using Norma.Eta.Properties;
 
 using Prism.Mvvm;
 

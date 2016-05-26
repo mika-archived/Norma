@@ -1,6 +1,6 @@
-﻿namespace Norma.Models
+﻿namespace Norma.Eta.Models
 {
-    internal class MuteKeyword
+    public class MuteKeyword
     {
         public bool IsRegex { get; set; }
 

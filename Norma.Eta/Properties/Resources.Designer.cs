@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Norma.Properties {
+namespace Norma.Eta.Properties {
     using System;
     
     

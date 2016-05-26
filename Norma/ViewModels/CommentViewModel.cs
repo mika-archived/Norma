@@ -1,5 +1,5 @@
-﻿using Norma.Gamma.Models;
-using Norma.ViewModels.Internal;
+﻿using Norma.Eta.Mvvm;
+using Norma.Gamma.Models;
 
 namespace Norma.ViewModels
 {

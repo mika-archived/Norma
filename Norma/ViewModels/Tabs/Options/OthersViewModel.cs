@@ -1,8 +1,7 @@
 ﻿using MetroRadiance.UI;
 
-using Norma.Extensions;
-using Norma.Models.Config;
-using Norma.ViewModels.Internal;
+using Norma.Eta.Models.Configurations;
+using Norma.Eta.Mvvm;
 
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;

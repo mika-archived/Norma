@@ -1,6 +1,5 @@
-﻿using Norma.Extensions;
+﻿using Norma.Eta.Mvvm;
 using Norma.Models;
-using Norma.ViewModels.Internal;
 
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;

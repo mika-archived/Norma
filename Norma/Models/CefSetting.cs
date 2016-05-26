@@ -2,6 +2,8 @@
 
 using CefSharp;
 
+using Norma.Eta;
+
 namespace Norma.Models
 {
     // CefSharp Settings

@@ -177,7 +177,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Actions\DataContextDisposeAction.cs" />
-    <Compile Include="Actions\MultiThreadPopupWindowAction.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -189,25 +188,15 @@
     <Compile Include="Converters\EnumToBooleanConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\YesNoToBooleanConverter.cs" />
-    <Compile Include="Extensions\IDisposableExt.cs" />
-    <Compile Include="Helpers\ViewModelHelper.cs" />
     <Compile Include="Actions\MetroPopupWindowAction.cs" />
     <Compile Include="Models\AbemaApiHost.cs" />
-    <Compile Include="Models\AbemaChannel.cs" />
     <Compile Include="Models\AbemaChannels.cs" />
     <Compile Include="Models\AbemaState.cs" />
     <Compile Include="Models\CefSetting.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\CommentHost.cs" />
-    <Compile Include="Models\Configuration.cs" />
-    <Compile Include="Models\Config\BrowserConfig.cs" />
-    <Compile Include="Models\Config\InternalConfig.cs" />
-    <Compile Include="Models\Config\OperationConfig.cs" />
-    <Compile Include="Models\Config\OthersConfig.cs" />
-    <Compile Include="Models\Config\RootConfig.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
     <Compile Include="Models\Libraries\HardcodetWpfNotifyIcon.cs" />
-    <Compile Include="Models\MuteKeyword.cs" />
     <Compile Include="Models\Orientation.cs" />
     <Compile Include="Models\ShortcutKey.cs" />
     <Compile Include="Models\Libraries\CEF.cs" />
@@ -220,7 +209,6 @@
     <Compile Include="Models\Libraries\RxNET.cs" />
     <Compile Include="Models\Libraries\Unity.cs" />
     <Compile Include="Models\Library.cs" />
-    <Compile Include="Models\PostKey.cs" />
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ProgramHost.cs" />
     <Compile Include="Models\ReleaseType.cs" />
@@ -228,14 +216,6 @@
     <Compile Include="Models\Timetable.cs" />
     <Compile Include="Models\Timetables\Slot.cs" />
     <Compile Include="Models\Timetables\TimetableCache.cs" />
-    <Compile Include="NormaConstants.cs" />
-    <Compile Include="Notifications\DataPassingNotification.cs" />
-    <Compile Include="Notifications\WindowNotification.cs" />
-    <Compile Include="Properties\Resources.ja.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.ja.resx</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\Controls\AbemaCommentInputViewModel.cs" />
     <Compile Include="ViewModels\LibraryViewModel.cs" />
     <Compile Include="ViewModels\StartupScreenViewModel.cs" />
@@ -246,7 +226,6 @@
     <Compile Include="ViewModels\Controls\AbemaStatusViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaHostViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaTVGuideViewModel.cs" />
-    <Compile Include="ViewModels\Internal\ViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\SettingsContentViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\Tabs\LicensesTabViewModel.cs" />
@@ -330,24 +309,11 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.ja.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.ja.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -460,6 +426,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Norma.Eta\Norma.Eta.csproj">
+      <Project>{ebe2df20-507c-4071-846b-88e7c3a459e8}</Project>
+      <Name>Norma.Eta</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Norma.Gamma\Norma.Gamma.csproj">
       <Project>{3548e32a-9374-45a5-9d37-8bde1520b055}</Project>
       <Name>Norma.Gamma</Name>

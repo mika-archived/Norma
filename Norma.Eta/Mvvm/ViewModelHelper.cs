@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Reactive.Linq;
 
 using Prism.Mvvm;
 
-namespace Norma.Helpers
+namespace Norma.Eta.Mvvm
 {
-    internal static class ViewModelHelper
+    public static class ViewModelHelper
     {
         public static IDisposable Subscribe(BindableBase vm, string propertyName, Action<PropertyChangedEventArgs> action)
         {

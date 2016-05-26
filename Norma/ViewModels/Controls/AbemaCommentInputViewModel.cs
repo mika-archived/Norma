@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 
-using Norma.Extensions;
+using Norma.Eta.Models;
+using Norma.Eta.Mvvm;
 using Norma.Models;
-using Norma.ViewModels.Internal;
 
 using Prism.Commands;
 

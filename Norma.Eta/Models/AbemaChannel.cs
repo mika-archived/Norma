@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Norma.Models
+namespace Norma.Eta.Models
 {
-    internal enum AbemaChannel
+    public enum AbemaChannel
     {
         /// <summary>
         ///     1ch - Onegai Ranking
@@ -115,7 +115,7 @@ namespace Norma.Models
         Mahjong
     }
 
-    internal static class AbemaChannelExt
+    public static class AbemaChannelExt
     {
         public static string ToUrlString(this AbemaChannel channel)
         {

@@ -1,12 +1,11 @@
-﻿using System.Reactive.Linq;
+﻿using System.Diagnostics;
+using System.Reactive.Linq;
 using System.Windows.Input;
 
-using Norma.Extensions;
+using Norma.Eta.Models;
+using Norma.Eta.Mvvm;
 using Norma.Models;
-using Norma.Notifications;
 using Norma.ViewModels.Controls;
-using Norma.ViewModels.Internal;
-using Norma.Views.Dialogs;
 
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
@@ -24,7 +23,6 @@ namespace Norma.ViewModels
         public AbemaHostViewModel HostViewModel { get; }
         public AbemaTVGuideViewModel TvGuideViewModel { get; }
         public AbemaStatusViewModel StatusBar { get; }
-        public InteractionRequest<INotification> TimetableRequest { get; }
         public InteractionRequest<INotification> SettingsRequest { get; }
         public ReadOnlyReactiveProperty<string> Title { get; private set; }
         public ReactiveProperty<bool> IsTopMost { get; private set; }
@@ -37,7 +35,6 @@ namespace Norma.ViewModels
             HostViewModel = new AbemaHostViewModel(abemaState, configuration).AddTo(this);
             TvGuideViewModel = new AbemaTVGuideViewModel(this, configuration, timetable).AddTo(this);
             StatusBar = new AbemaStatusViewModel().AddTo(this);
-            TimetableRequest = new InteractionRequest<INotification>();
             SettingsRequest = new InteractionRequest<INotification>();
 
             Title = abemaState.ObserveProperty(w => w.CurrentSlot)
@@ -66,8 +63,7 @@ namespace Norma.ViewModels
         public ICommand OpenTimetableCommand
             => _openTimetableCommand ?? (_openTimetableCommand = new DelegateCommand(OpenTimetable));
 
-        private void OpenTimetable()
-            => TimetableRequest.Raise(new WindowNotification {WindowType = typeof(TimetableDialog)});
+        private void OpenTimetable() => Process.Start("");
 
         #endregion
 

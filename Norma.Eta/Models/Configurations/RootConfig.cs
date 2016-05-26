@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Norma.Models.Config
+namespace Norma.Eta.Models.Configurations
 {
-    internal class RootConfig
+    public class RootConfig
     {
         [JsonProperty]
         public string AccessToken { get; set; }

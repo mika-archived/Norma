@@ -1,0 +1,9 @@
+Norma ........... EXE - メイン
+
+Norma.Eta ....... DLL - 基底ライブラリ
+
+Norma.Gamma ..... DLL - AbemaTV API ラッパーライブラリ
+
+Norma.Iota ...... EXE - 番組表
+
+Norma.Ipsilon ... EXE - 常駐型通知用

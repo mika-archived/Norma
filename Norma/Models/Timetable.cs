@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
+using Norma.Eta;
+using Norma.Eta.Models;
 using Norma.Gamma.Models;
 using Norma.Models.Timetables;
 

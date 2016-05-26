@@ -2,6 +2,7 @@
 
 using Microsoft.Practices.Unity;
 
+using Norma.Eta.Models;
 using Norma.Models;
 using Norma.Views;
 

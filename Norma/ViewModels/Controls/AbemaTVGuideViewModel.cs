@@ -1,6 +1,6 @@
-﻿using Norma.Extensions;
+﻿using Norma.Eta.Models;
+using Norma.Eta.Mvvm;
 using Norma.Models;
-using Norma.ViewModels.Internal;
 using Norma.ViewModels.TVGuide;
 
 using Reactive.Bindings;

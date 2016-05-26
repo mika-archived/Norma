@@ -1,5 +1,5 @@
-﻿using Norma.Models;
-using Norma.ViewModels.Internal;
+﻿using Norma.Eta.Mvvm;
+using Norma.Models;
 
 namespace Norma.ViewModels.Tabs
 {

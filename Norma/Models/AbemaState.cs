@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reactive.Linq;
 
+using Norma.Eta.Models;
 using Norma.Gamma.Models;
 
 using Prism.Mvvm;

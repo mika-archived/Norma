@@ -2,11 +2,11 @@
 
 using Newtonsoft.Json;
 
-using Norma.Models.Config;
+using Norma.Eta.Models.Configurations;
 
-namespace Norma.Models
+namespace Norma.Eta.Models
 {
-    internal class Configuration
+    public class Configuration
     {
         public RootConfig Root { get; private set; }
 

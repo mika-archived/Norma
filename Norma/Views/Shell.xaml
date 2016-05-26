@@ -30,9 +30,6 @@
         <i:EventTrigger EventName="Closed">
             <actions:DataContextDisposeAction />
         </i:EventTrigger>
-        <prism:InteractionRequestTrigger SourceObject="{Binding TimetableRequest}">
-            <actions:MultiThreadPopupWindowAction IsModal="True" />
-        </prism:InteractionRequestTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding SettingsRequest}">
             <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
                 <actions:MetroPopupWindowAction.WindowContent>

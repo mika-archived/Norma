@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 
+using Norma.Eta.Models;
 using Norma.Gamma;
 using Norma.Gamma.Models;
 

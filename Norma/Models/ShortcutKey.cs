@@ -1,4 +1,6 @@
-﻿namespace Norma.Models
+﻿using Norma.Eta.Models;
+
+namespace Norma.Models
 {
 #pragma warning disable CS0659 // 型は Object.Equals(object o) をオーバーライドしますが、Object.GetHashCode() をオーバーライドしません
 

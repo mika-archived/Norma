@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Windows.Input;
 
+using Norma.Eta.Mvvm;
 using Norma.Models;
-using Norma.ViewModels.Internal;
 
 using Prism.Commands;
 

@@ -1,13 +1,8 @@
-﻿using System.Globalization;
+﻿using Prism.Mvvm;
 
-using Norma.Properties;
-
-using Prism.Mvvm;
-
-namespace Norma.Models.Config
+namespace Norma.Eta.Models.Configurations
 {
-    // 内部でのみ使用
-    internal class InternalConfig : BindableBase
+    public class InternalConfig : BindableBase
     {
         public bool IsTopMost { get; set; }
 
@@ -24,11 +19,7 @@ namespace Norma.Models.Config
         public string Lang
         {
             get { return _lang; }
-            set
-            {
-                if (SetProperty(ref _lang, value))
-                    Resources.Culture = CultureInfo.GetCultureInfo(value);
-            }
+            set { SetProperty(ref _lang, value); }
         }
 
         #endregion

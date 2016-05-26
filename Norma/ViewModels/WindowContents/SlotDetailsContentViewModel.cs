@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-using Norma.Extensions;
-using Norma.Helpers;
+using Norma.Eta.Mvvm;
+using Norma.Eta.Notifications;
 using Norma.Models.Timetables;
-using Norma.Notifications;
-using Norma.ViewModels.Internal;
 
 using Prism.Interactivity.InteractionRequest;
 

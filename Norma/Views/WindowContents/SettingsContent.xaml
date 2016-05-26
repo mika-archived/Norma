@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
              xmlns:mvvm="http://prismlibrary.com/"
-             xmlns:properties="clr-namespace:Norma.Properties"
+             xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
              xmlns:tabs="clr-namespace:Norma.Views.Tabs"
              xmlns:vm="clr-namespace:Norma.ViewModels.WindowContents"
              d:DataContext="{d:DesignInstance vm:SettingsContentViewModel}"

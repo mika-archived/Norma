@@ -1,5 +1,5 @@
-﻿using Norma.Models;
-using Norma.ViewModels.Internal;
+﻿using Norma.Eta.Models;
+using Norma.Eta.Mvvm;
 using Norma.ViewModels.Tabs;
 
 namespace Norma.ViewModels.WindowContents

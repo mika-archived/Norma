@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Threading;
 
-using Norma.Extensions;
-using Norma.ViewModels.Internal;
+using Norma.Eta.Mvvm;
 using Norma.ViewModels.Timetable;
 
 using ModelTimetable = Norma.Models.Timetable;
@@ -23,7 +20,6 @@ namespace Norma.ViewModels.Dialogs
 
         public TimetableDialogViewModel(ModelTimetable timetable)
         {
-            Debug.WriteLine(Thread.CurrentThread.ManagedThreadId);
             _timetable = timetable;
             _index = (DateTime.Now - timetable.LastSyncTime).Days;
             AvailableDates = new List<string>();
@@ -36,8 +32,6 @@ namespace Norma.ViewModels.Dialogs
 
         private void UpdateChannels()
         {
-            Debug.WriteLine(Thread.CurrentThread.ManagedThreadId);
-
             Channels.Clear();
             var list = new List<ChannelViewModel>();
             foreach (var channel in _timetable.Channels)

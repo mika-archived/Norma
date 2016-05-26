@@ -6,8 +6,9 @@ using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+using Norma.Eta.Models;
+using Norma.Eta.Properties;
 using Norma.Gamma.Models;
-using Norma.Properties;
 
 using Prism.Mvvm;
 

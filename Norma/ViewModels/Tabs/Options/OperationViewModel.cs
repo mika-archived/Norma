@@ -4,11 +4,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-using Norma.Extensions;
+using Norma.Eta.Models;
+using Norma.Eta.Models.Configurations;
+using Norma.Eta.Mvvm;
+using Norma.Eta.Properties;
 using Norma.Models;
-using Norma.Models.Config;
-using Norma.Properties;
-using Norma.ViewModels.Internal;
 
 using Prism.Commands;
 

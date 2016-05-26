@@ -1,4 +1,4 @@
-﻿using Norma.Properties;
+﻿using Norma.Eta.Properties;
 
 using Prism.Mvvm;
 

@@ -1,8 +1,8 @@
 ﻿using System.Windows.Input;
 
+using Norma.Eta.Mvvm;
+using Norma.Eta.Notifications;
 using Norma.Models.Timetables;
-using Norma.Notifications;
-using Norma.ViewModels.Internal;
 
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;

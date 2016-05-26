@@ -1,8 +1,8 @@
 ﻿using CefSharp.Wpf;
 
-using Norma.Extensions;
+using Norma.Eta.Models;
+using Norma.Eta.Mvvm;
 using Norma.Models;
-using Norma.ViewModels.Internal;
 
 namespace Norma.ViewModels.Controls
 {

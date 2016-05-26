@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows.Input;
 
-using Norma.Properties;
+using Norma.Eta.Properties;
 
-namespace Norma.Models
+namespace Norma.Eta.Models
 {
-    internal enum PostKey
+    public enum PostKey
     {
         /// <summary>
         ///     Post: Enter / New Line: Shift + Enter
@@ -23,9 +23,9 @@ namespace Norma.Models
         ShiftEnter
     }
 
-    internal static class PostKeyExt
+    public static class PostKeyExt
     {
-        internal static bool IsMatchShortcut(this PostKey keyType, KeyEventArgs e)
+        public static bool IsMatchShortcut(this PostKey keyType, KeyEventArgs e)
         {
             if (e.Key != Key.Enter)
                 return false;
@@ -45,7 +45,7 @@ namespace Norma.Models
             }
         }
 
-        internal static string ToLocaleString(this PostKey obj)
+        public static string ToLocaleString(this PostKey obj)
         {
             return (string) typeof(Resources).GetProperty(obj.ToString()).GetValue(null);
         }

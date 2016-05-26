@@ -5,9 +5,9 @@ using Prism.Mvvm;
 using ColorTheme = MetroRadiance.UI.Theme;
 using ThemeColor = MetroRadiance.UI.Theme.SpecifiedColor;
 
-namespace Norma.Models.Config
+namespace Norma.Eta.Models.Configurations
 {
-    internal class OthersConfig : BindableBase
+    public class OthersConfig : BindableBase
     {
         public OthersConfig()
         {

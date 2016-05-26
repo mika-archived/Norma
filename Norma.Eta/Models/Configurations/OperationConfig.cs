@@ -2,9 +2,9 @@
 
 using Newtonsoft.Json;
 
-namespace Norma.Models.Config
+namespace Norma.Eta.Models.Configurations
 {
-    internal class OperationConfig
+    public class OperationConfig
     {
         [JsonProperty]
         public uint UpdateIntervalOfProgram { get; set; }

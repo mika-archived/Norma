@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Norma.Models.Config
+namespace Norma.Eta.Models.Configurations
 {
-    internal class BrowserConfig
+    public class BrowserConfig
     {
         [JsonProperty]
         public bool HiddenHeaderControls { get; set; }
