@@ -267,6 +267,9 @@
   <data name="RsvByTime" xml:space="preserve">
     <value>時間による予約</value>
   </data>
+  <data name="RsvSuccess" xml:space="preserve">
+    <value>予約完了</value>
+  </data>
   <data name="SamplingIntervalOfProgramState" xml:space="preserve">
     <value>番組状態の確認間隔 :</value>
   </data>

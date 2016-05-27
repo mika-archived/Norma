@@ -55,7 +55,7 @@ namespace Norma.Eta.Actions
             return window;
         }
 
-        protected Window CreateDefaultMetroWindow(INotification notification)
+        private Window CreateDefaultMetroWindow(INotification notification)
         {
             if (notification is IConfirmation)
                 return CreateDefaultWindow(notification);

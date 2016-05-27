@@ -511,6 +511,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Reservation success. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RsvSuccess {
+            get {
+                return ResourceManager.GetString("RsvSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sampling interval of program state : に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SamplingIntervalOfProgramState {

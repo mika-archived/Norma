@@ -267,6 +267,9 @@
   <data name="RsvByTime" xml:space="preserve">
     <value>Reservation by Time</value>
   </data>
+  <data name="RsvSuccess" xml:space="preserve">
+    <value>Reservation success.</value>
+  </data>
   <data name="SamplingIntervalOfProgramState" xml:space="preserve">
     <value>Sampling interval of program state :</value>
   </data>
