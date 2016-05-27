@@ -15,6 +15,8 @@ namespace Norma.Iota.Models
 
         public DateTime EndAt { get; }
 
+        public bool CanRsv { get; }
+
         public string DetailHighlight { get; }
 
         public List<string> Cast { get; }
@@ -45,6 +47,7 @@ namespace Norma.Iota.Models
                 else
                     DetailHighlight = Model.TableHighlight;
             }
+            CanRsv = StartAt > DateTime.Now.AddMinutes(10);
         }
     }
 }
