@@ -493,6 +493,24 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Reservation by Keywords に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RsvByKeyword {
+            get {
+                return ResourceManager.GetString("RsvByKeyword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Reservation by Time に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RsvByTime {
+            get {
+                return ResourceManager.GetString("RsvByTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sampling interval of program state : に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SamplingIntervalOfProgramState {

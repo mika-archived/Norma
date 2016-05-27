@@ -11,9 +11,12 @@
                    xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
                    xmlns:prism="http://prismlibrary.com/"
                    xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
+                   xmlns:vm="clr-namespace:Norma.Iota.ViewModels"
+                   xmlns:wc="clr-namespace:Norma.Iota.Views.WindowContents"
                    Title="Shell"
                    Width="900"
                    Height="600"
+                   d:DataContext="{d:DesignInstance vm:ShellViewModel}"
                    prism:ViewModelLocator.AutoWireViewModel="True"
                    Background="{DynamicResource ThemeBrushKey}"
                    FontFamily="Segoe UI"
@@ -28,6 +31,22 @@
         <i:EventTrigger EventName="Closed">
             <actions:DataContextDisposeAction />
         </i:EventTrigger>
+        <prism:InteractionRequestTrigger SourceObject="{Binding ProgramDetailsRequest, Mode=OneWay}">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
+                <actions:MetroPopupWindowAction.WindowContent>
+                    <wc:SlotDetailsContent />
+                </actions:MetroPopupWindowAction.WindowContent>
+                <actions:MetroPopupWindowAction.WindowStyle>
+                    <Style TargetType="{x:Type metro:MetroWindow}">
+                        <Setter Property="ResizeMode" Value="NoResize" />
+                        <Setter Property="ShowInTaskbar" Value="False" />
+                        <Setter Property="Height" Value="450" />
+                        <Setter Property="Width" Value="600" />
+                    </Style>
+                </actions:MetroPopupWindowAction.WindowStyle>
+            </actions:MetroPopupWindowAction>
+        </prism:InteractionRequestTrigger>
+
     </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>

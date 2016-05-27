@@ -14,6 +14,11 @@
              d:DesignWidth="300"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
+        </Style>
+    </UserControl.Resources>
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding WindowCloseRequest, Mode=OneWay}">
             <actions:WindowCloseAction />
@@ -24,7 +29,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <Border Grid.Row="0" metro:MetroWindow.IsCaptionBar="True">
             <Grid>
@@ -43,26 +47,83 @@
                 <metro:SystemButtons Grid.Column="1" VerticalAlignment="Top" />
             </Grid>
         </Border>
-        <Grid Grid.Row="1" Margin="5,5,0,5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="115" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="200" />
-            </Grid.ColumnDefinitions>
-        </Grid>
-        <Grid Grid.Row="2">
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Width="90"
-                        Margin="5"
-                        Content="{x:Static properties:Resources.Ok}" />
-                <Button Width="90"
-                        Margin="5"
-                        Command="{Binding CancelCommand}"
-                        Content="{x:Static properties:Resources.Cancel}" />
-            </StackPanel>
+        <Grid Grid.Row="1">
+            <TabControl Background="{DynamicResource BackgroundBrushKey}" BorderThickness="0">
+                <TabControl.Resources>
+                    <Style TargetType="{x:Type TabItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TabItem}">
+                                    <ContentPresenter x:Name="ContentSite"
+                                                      Margin="10,5"
+                                                      ContentSource="Header" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style x:Key="HeaderTextBlockStyle" TargetType="{x:Type TextBlock}">
+                        <Setter Property="FontFamily" Value="Segoe UI" />
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="FontWeight" Value="Normal" />
+                        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
+                                <Setter Property="FontWeight" Value="Medium" />
+                                <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
+                                <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TabControl.Resources>
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{x:Static properties:Resources.RsvByTime}" />
+                    </TabItem.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="TabA" />
+                        <Grid Grid.Row="1">
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                <Button Width="90"
+                                        Margin="5"
+                                        Content="{x:Static properties:Resources.Ok}" />
+                                <Button Width="90"
+                                        Margin="5"
+                                        Command="{Binding CancelCommand}"
+                                        Content="{x:Static properties:Resources.Cancel}" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{x:Static properties:Resources.RsvByKeyword}" />
+                    </TabItem.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="TabB" />
+                        <Grid Grid.Row="1">
+                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                <Button Width="90"
+                                        Margin="5"
+                                        Content="{x:Static properties:Resources.Ok}" />
+                                <Button Width="90"
+                                        Margin="5"
+                                        Command="{Binding CancelCommand}"
+                                        Content="{x:Static properties:Resources.Cancel}" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
         </Grid>
     </Grid>
 </UserControl>

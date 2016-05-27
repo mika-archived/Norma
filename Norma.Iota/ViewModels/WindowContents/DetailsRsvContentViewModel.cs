@@ -12,6 +12,7 @@ using Prism.Interactivity.InteractionRequest;
 
 namespace Norma.Iota.ViewModels.WindowContents
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     internal class DetailsRsvContentViewModel : ViewModel, IInteractionRequestAware
     {
         private readonly Reservation _reservation;

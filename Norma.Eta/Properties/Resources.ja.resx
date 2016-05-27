@@ -261,6 +261,12 @@
   <data name="ReloadingThumbnail" xml:space="preserve">
     <value>サムネイルをリロードしています。</value>
   </data>
+  <data name="RsvByKeyword" xml:space="preserve">
+    <value>キーワードによる予約</value>
+  </data>
+  <data name="RsvByTime" xml:space="preserve">
+    <value>時間による予約</value>
+  </data>
   <data name="SamplingIntervalOfProgramState" xml:space="preserve">
     <value>番組状態の確認間隔 :</value>
   </data>

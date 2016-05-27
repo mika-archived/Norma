@@ -4,6 +4,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Norma.Iota.Views.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Norma.Iota.ViewModels.Controls"
+             d:DataContext="{d:DesignInstance vm:ChannelCellViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -15,7 +17,7 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
-                <Style TargetType="{x:Type ContentPresenter}">
+                <Style d:DataContext="{d:DesignInstance vm:ProgramCellViewModel}" TargetType="{x:Type ContentPresenter}">
                     <Setter Property="Canvas.Top" Value="{Binding Top, Mode=OneTime}" />
                     <Setter Property="Height" Value="{Binding Height, Mode=OneTime}" />
                     <Setter Property="Width" Value="200" />

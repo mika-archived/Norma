@@ -261,6 +261,12 @@
   <data name="ReloadingThumbnail" xml:space="preserve">
     <value>Reloading channel thumbnails.</value>
   </data>
+  <data name="RsvByKeyword" xml:space="preserve">
+    <value>Reservation by Keywords</value>
+  </data>
+  <data name="RsvByTime" xml:space="preserve">
+    <value>Reservation by Time</value>
+  </data>
   <data name="SamplingIntervalOfProgramState" xml:space="preserve">
     <value>Sampling interval of program state :</value>
   </data>

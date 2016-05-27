@@ -4,13 +4,19 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
+using System.Windows.Input;
 
 using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
+using Norma.Eta.Notifications;
 using Norma.Iota.ViewModels.Controls;
+
+using Prism.Commands;
+using Prism.Interactivity.InteractionRequest;
 
 namespace Norma.Iota.ViewModels
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     internal class ShellViewModel : ViewModel
     {
         private readonly Reservation _reservation;
@@ -18,11 +24,13 @@ namespace Norma.Iota.ViewModels
         private int _index; // 日付管理用(0 = 今日, 6 = 一週間後みたいな)
         public ObservableCollection<ChannelCellViewModel> Channels { get; }
         public List<string> AvailableDates { get; }
+        public InteractionRequest<INotification> ProgramDetailsRequest { get; }
 
         public ShellViewModel(Timetable timetable, Reservation reservation)
         {
             _timetable = timetable;
             _reservation = reservation;
+            ProgramDetailsRequest = new InteractionRequest<INotification>();
             _index = (DateTime.Now - timetable.LastSyncTime).Days;
             AvailableDates = new List<string>();
             Channels = new ObservableCollection<ChannelCellViewModel>();
@@ -89,6 +97,23 @@ namespace Norma.Iota.ViewModels
         {
             get { return _isLoading; }
             set { SetProperty(ref _isLoading, value); }
+        }
+
+        #endregion
+
+        #region OnMouseDownCommand
+
+        private ICommand _onMouseDownCommand;
+
+        public ICommand OnMouseDownCommand =>
+            _onMouseDownCommand ?? (_onMouseDownCommand = new DelegateCommand<MouseButtonEventArgs>(OnMouseDown));
+
+        private void OnMouseDown(MouseButtonEventArgs e)
+        {
+            if (e.ClickCount < 2)
+                return;
+            var vm = ((FrameworkElement) e.Source).DataContext as ProgramCellViewModel;
+            ProgramDetailsRequest.Raise(new DataPassingNotification {Model = vm?.Model});
         }
 
         #endregion

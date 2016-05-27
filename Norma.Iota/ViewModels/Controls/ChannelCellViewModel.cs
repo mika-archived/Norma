@@ -17,8 +17,8 @@ namespace Norma.Iota.ViewModels.Controls
             Slots = new ObservableCollection<ProgramCellViewModel>();
             foreach (var slot in slots)
             {
-                var vm = new ProgramCellViewModel(new WrapSlot(slot, date)).AddTo(this);
-                Slots.Add(vm);
+                var pcvm = new ProgramCellViewModel(new WrapSlot(slot, date)).AddTo(this);
+                Slots.Add(pcvm);
             }
 
             LogoUrl = $"https://hayabusa.io/abema/channels/logo/{channel.Id}.w120.png";
