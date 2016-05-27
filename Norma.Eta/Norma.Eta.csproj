@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="Actions\DataContextDisposeAction.cs" />
     <Compile Include="Actions\MetroPopupWindowAction.cs" />
+    <Compile Include="Actions\WindowCloseAction.cs" />
     <Compile Include="Models\AbemaApiHost.cs" />
     <Compile Include="Models\AbemaChannel.cs" />
     <Compile Include="Models\Configuration.cs" />

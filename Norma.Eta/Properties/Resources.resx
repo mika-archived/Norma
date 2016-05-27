@@ -129,6 +129,9 @@
   <data name="Browser" xml:space="preserve">
     <value>Browser</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="Cast" xml:space="preserve">
     <value>Cast</value>
   </data>
@@ -221,6 +224,9 @@
   </data>
   <data name="NumberOfHoldingComments" xml:space="preserve">
     <value>Number of holding comments :</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="Operation" xml:space="preserve">
     <value>Operation</value>

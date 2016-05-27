@@ -41,7 +41,7 @@ namespace Norma.Iota.ViewModels.Controls
         {
             if (e.ClickCount < 2)
                 return;
-            ProgramDetailsRequest.Raise(new DataPassingNotification {Content = "Blank", Title = "Blank", Model = _model});
+            ProgramDetailsRequest.Raise(new DataPassingNotification {Model = _model});
         }
 
         #endregion

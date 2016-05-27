@@ -19,6 +19,7 @@ namespace Norma.Iota.ViewModels.WindowContents
     {
         private readonly Reservation _rsvs;
         public InteractionRequest<Notification> ResponseRequest { get; }
+        public InteractionRequest<DataPassingNotification> DetailsRsvRequest { get; }
         public ObservableCollection<string> Cast { get; }
         public ObservableCollection<string> Staff { get; }
 
@@ -26,6 +27,7 @@ namespace Norma.Iota.ViewModels.WindowContents
         {
             _rsvs = reservation;
             ResponseRequest = new InteractionRequest<Notification>();
+            DetailsRsvRequest = new InteractionRequest<DataPassingNotification>();
             Cast = new ObservableCollection<string>();
             Staff = new ObservableCollection<string>();
             ViewModelHelper.Subscribe(this, nameof(Notification), w =>
@@ -163,6 +165,19 @@ namespace Norma.Iota.ViewModels.WindowContents
             return !_rsvs.Reservations.Any(w => w.IsEnable && (w as RsvProgram)?.ProgramId == model.Model.Id) &&
                    model.CanRsv;
         }
+
+        #endregion
+
+        #region AddDetailsReservationCommand
+
+        private ICommand _addDetailsRsvCommand;
+
+        public ICommand AddDetailsRsvCommand
+            => _addDetailsRsvCommand ?? (_addDetailsRsvCommand = new DelegateCommand(AddDetailsRsv));
+
+        private void AddDetailsRsv()
+            =>
+                DetailsRsvRequest.Raise(new DataPassingNotification {Model = _notification.Model});
 
         #endregion
     }

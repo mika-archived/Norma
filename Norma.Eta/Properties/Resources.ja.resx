@@ -129,6 +129,9 @@
   <data name="Browser" xml:space="preserve">
     <value>ブラウザ</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
   <data name="Cast" xml:space="preserve">
     <value>キャスト</value>
   </data>
@@ -221,6 +224,9 @@
   </data>
   <data name="NumberOfHoldingComments" xml:space="preserve">
     <value>コメント保持数 :</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="Operation" xml:space="preserve">
     <value>動作</value>

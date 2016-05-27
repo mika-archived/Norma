@@ -1,20 +1,20 @@
-﻿<Page x:Class="Norma.Iota.Views.WindowContents.SlotDetailsContent"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:actions="clr-namespace:Norma.Eta.Actions;assembly=Norma.Eta"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
-      xmlns:prism="http://prismlibrary.com/"
-      xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
-      xmlns:vm="clr-namespace:Norma.Iota.ViewModels.WindowContents"
-      Title="{Binding WindowTitle}"
-      d:DataContext="{d:DesignInstance vm:SlotDetailsContentViewModel}"
-      d:DesignHeight="300"
-      d:DesignWidth="300"
-      prism:ViewModelLocator.AutoWireViewModel="True"
-      mc:Ignorable="d">
+﻿<UserControl x:Class="Norma.Iota.Views.WindowContents.SlotDetailsContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:actions="clr-namespace:Norma.Eta.Actions;assembly=Norma.Eta"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:local="clr-namespace:Norma.Iota.Views.WindowContents"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
+             xmlns:vm="clr-namespace:Norma.Iota.ViewModels.WindowContents"
+             d:DataContext="{d:DesignInstance vm:SlotDetailsContentViewModel}"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d">
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding ResponseRequest, Mode=OneWay}">
             <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
@@ -26,6 +26,21 @@
                     </Style>
                 </actions:MetroPopupWindowAction.WindowStyle>
                 -->
+            </actions:MetroPopupWindowAction>
+        </prism:InteractionRequestTrigger>
+        <prism:InteractionRequestTrigger SourceObject="{Binding DetailsRsvRequest, Mode=OneWay}">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
+                <actions:MetroPopupWindowAction.WindowStyle>
+                    <Style TargetType="{x:Type metro:MetroWindow}">
+                        <Setter Property="ResizeMode" Value="NoResize" />
+                        <Setter Property="ShowInTaskbar" Value="False" />
+                        <Setter Property="Height" Value="450" />
+                        <Setter Property="Width" Value="600" />
+                    </Style>
+                </actions:MetroPopupWindowAction.WindowStyle>
+                <actions:MetroPopupWindowAction.WindowContent>
+                    <local:DetailsRsvContent />
+                </actions:MetroPopupWindowAction.WindowContent>
             </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
@@ -137,11 +152,15 @@
         </Grid>
         <Grid Grid.Row="2">
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Margin="5"
+                <Button Width="90"
+                        Margin="5"
                         Command="{Binding AddReservationCommand}"
                         Content="{x:Static properties:Resources.ViewingRsv}" />
-                <Button Margin="5" Content="{x:Static properties:Resources.ViewingDRsv}" />
+                <Button Width="90"
+                        Margin="5"
+                        Command="{Binding AddDetailsRsvCommand}"
+                        Content="{x:Static properties:Resources.ViewingDRsv}" />
             </StackPanel>
         </Grid>
     </Grid>
-</Page>
+</UserControl>

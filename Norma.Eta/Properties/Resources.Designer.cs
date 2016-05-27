@@ -97,6 +97,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Cancel に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cast に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Cast {
@@ -372,6 +381,15 @@ namespace Norma.Eta.Properties {
         public static string NumberOfHoldingComments {
             get {
                 return ResourceManager.GetString("NumberOfHoldingComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   OK に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Ok {
+            get {
+                return ResourceManager.GetString("Ok", resourceCulture);
             }
         }
         
