@@ -56,6 +56,7 @@ namespace Norma.Iota.ViewModels
         public override void Dispose()
         {
             base.Dispose();
+            _timetable.Save();
             _reservation.Save();
         }
 
