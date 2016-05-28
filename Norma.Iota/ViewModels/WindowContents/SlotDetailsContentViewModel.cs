@@ -156,6 +156,7 @@ namespace Norma.Iota.ViewModels.WindowContents
         {
             _rsvs.AddReservation(((WrapSlot) _notification.Model).Model);
             ResponseRequest.Raise(new Notification {Title = "Norma", Content = Resources.RsvSuccess});
+            ((DelegateCommand) AddReservationCommand).RaiseCanExecuteChanged();
         }
 
         private bool CanAddRsv()
