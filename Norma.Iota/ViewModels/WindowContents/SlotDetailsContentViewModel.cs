@@ -34,6 +34,8 @@ namespace Norma.Iota.ViewModels.WindowContents
             ViewModelHelper.Subscribe(this, nameof(Notification), w =>
             {
                 var model = _notification.Model as WrapSlot;
+                Cast.Clear();
+                Staff.Clear();
                 if (model == null)
                     return;
                 WindowTitle = $"{model.Model.Title} - {Resources.ProgramDetails} - Norma";
