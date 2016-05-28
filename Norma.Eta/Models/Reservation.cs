@@ -67,10 +67,11 @@ namespace Norma.Eta.Models
         ///     時間を対象とした視聴予約を追加します。
         /// </summary>
         /// <param name="time"></param>
+        /// <param name="repetition"></param>
         /// <param name="range"></param>
-        public void AddReservation(DateTime time, DateRange range)
+        public void AddReservation(DateTime time, RepetitionType repetition, DateRange range)
         {
-            ReservationsInternal.Add(new RsvTime {StartTime = time, Range = range});
+            ReservationsInternal.Add(new RsvTime {StartTime = time, DayOfWeek = repetition, Range = range});
             Save();
         }
 

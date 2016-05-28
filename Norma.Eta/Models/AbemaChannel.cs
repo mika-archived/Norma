@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Norma.Eta.Properties;
+
 namespace Norma.Eta.Models
 {
     public enum AbemaChannel
@@ -259,6 +261,11 @@ namespace Norma.Eta.Models
                 default:
                     throw new ArgumentOutOfRangeException(nameof(url), url, null);
             }
+        }
+
+        public static string ToLocaleString(this AbemaChannel obj)
+        {
+            return (string) typeof(Resources).GetProperty(obj.ToString()).GetValue(null);
         }
     }
 }

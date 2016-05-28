@@ -171,6 +171,9 @@
   <data name="EnterOnly" xml:space="preserve">
     <value>Enter</value>
   </data>
+  <data name="Everyday" xml:space="preserve">
+    <value>Everyday</value>
+  </data>
   <data name="FetchedComment0" xml:space="preserve">
     <value>Fetched program comment (0).</value>
   </data>
@@ -185,6 +188,9 @@
   </data>
   <data name="FetchingProgramInformation" xml:space="preserve">
     <value>Fetching program information.</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Friday</value>
   </data>
   <data name="HiddenFooterControls" xml:space="preserve">
     <value>Hide footer controls.</value>
@@ -215,6 +221,15 @@
   </data>
   <data name="Loading" xml:space="preserve">
     <value>loading...</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Monday</value>
+  </data>
+  <data name="MonToFri" xml:space="preserve">
+    <value>Monday to Friday</value>
+  </data>
+  <data name="MonToSat" xml:space="preserve">
+    <value>Monday to Saturday</value>
   </data>
   <data name="MuteKeywords" xml:space="preserve">
     <value>Mute keywords :</value>
@@ -273,14 +288,26 @@
   <data name="SamplingIntervalOfProgramState" xml:space="preserve">
     <value>Sampling interval of program state :</value>
   </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
   <data name="ShiftEnter" xml:space="preserve">
     <value>Shift + Enter</value>
   </data>
   <data name="Staff" xml:space="preserve">
     <value>Staff</value>
   </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
   <data name="Time" xml:space="preserve">
     <value>TIME</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Tuesday</value>
   </data>
   <data name="UpdateInervalOfProgramInformation" xml:space="preserve">
     <value>Update interval of program information :</value>
@@ -294,7 +321,19 @@
   <data name="ViewingRsv" xml:space="preserve">
     <value>Viewing reservation</value>
   </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Wednesday</value>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="ExpiredAt" xml:space="preserve">
+    <value>Expired at</value>
+  </data>
+  <data name="RepeatInterval" xml:space="preserve">
+    <value>Repeat interval</value>
+  </data>
+  <data name="StartAt" xml:space="preserve">
+    <value>Start at</value>
   </data>
 </root>

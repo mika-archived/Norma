@@ -16,5 +16,10 @@ namespace Norma.Eta.Models.Reservations
         ///     予約時間
         /// </summary>
         public DateTime StartTime { get; set; }
+
+        /// <summary>
+        ///     繰り返し
+        /// </summary>
+        public RepetitionType DayOfWeek { get; set; }
     }
 }

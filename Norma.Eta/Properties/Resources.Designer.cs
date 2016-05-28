@@ -223,6 +223,24 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Everyday に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Everyday {
+            get {
+                return ResourceManager.GetString("Everyday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Expired at に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ExpiredAt {
+            get {
+                return ResourceManager.GetString("ExpiredAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Fetched program comment (0). に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string FetchedComment0 {
@@ -264,6 +282,15 @@ namespace Norma.Eta.Properties {
         public static string FetchingProgramInformation {
             get {
                 return ResourceManager.GetString("FetchingProgramInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Friday に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Friday {
+            get {
+                return ResourceManager.GetString("Friday", resourceCulture);
             }
         }
         
@@ -354,6 +381,33 @@ namespace Norma.Eta.Properties {
         public static string Loading {
             get {
                 return ResourceManager.GetString("Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Monday に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Monday {
+            get {
+                return ResourceManager.GetString("Monday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Monday to Friday に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MonToFri {
+            get {
+                return ResourceManager.GetString("MonToFri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Monday to Saturday に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MonToSat {
+            get {
+                return ResourceManager.GetString("MonToSat", resourceCulture);
             }
         }
         
@@ -493,6 +547,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Repeat interval に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RepeatInterval {
+            get {
+                return ResourceManager.GetString("RepeatInterval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Reservation by Keywords に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string RsvByKeyword {
@@ -529,6 +592,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Saturday に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Saturday {
+            get {
+                return ResourceManager.GetString("Saturday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Shift + Enter に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ShiftEnter {
@@ -547,11 +619,47 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Start at に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string StartAt {
+            get {
+                return ResourceManager.GetString("StartAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sunday に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Sunday {
+            get {
+                return ResourceManager.GetString("Sunday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Thursday に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Thursday {
+            get {
+                return ResourceManager.GetString("Thursday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   TIME に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Time {
             get {
                 return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Tuesday に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Tuesday {
+            get {
+                return ResourceManager.GetString("Tuesday", resourceCulture);
             }
         }
         
@@ -588,6 +696,15 @@ namespace Norma.Eta.Properties {
         public static string ViewingRsv {
             get {
                 return ResourceManager.GetString("ViewingRsv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Wednesday に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Wednesday {
+            get {
+                return ResourceManager.GetString("Wednesday", resourceCulture);
             }
         }
         
