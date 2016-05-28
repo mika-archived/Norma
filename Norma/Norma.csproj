@@ -194,7 +194,6 @@
     <Compile Include="Models\CommentHost.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
     <Compile Include="Models\Libraries\HardcodetWpfNotifyIcon.cs" />
-    <Compile Include="Models\ShortcutKey.cs" />
     <Compile Include="Models\Libraries\CEF.cs" />
     <Compile Include="Models\Libraries\CEFSharp.cs" />
     <Compile Include="Models\Libraries\CommonServiceLocator.cs" />

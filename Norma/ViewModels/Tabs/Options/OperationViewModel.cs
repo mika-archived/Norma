@@ -8,7 +8,6 @@ using Norma.Eta.Models;
 using Norma.Eta.Models.Configurations;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Properties;
-using Norma.Models;
 
 using Prism.Commands;
 
@@ -22,15 +21,15 @@ namespace Norma.ViewModels.Tabs.Options
         private int _editIndex;
         private bool _isEditMode;
 
-        public List<ShortcutKey> KeyTypes
-            => ((PostKey[]) Enum.GetValues(typeof(PostKey))).Select(w => new ShortcutKey(w)).ToList();
+        public List<EnumWrap<PostKey>> KeyTypes
+            => ((PostKey[]) Enum.GetValues(typeof(PostKey))).Select(w => new EnumWrap<PostKey>(w)).ToList();
 
         public ReactiveProperty<uint> UpdateIntervalOfProgram { get; private set; }
         public ReactiveProperty<uint> UpdateIntervalOfThumbnails { get; private set; }
         public ReactiveProperty<uint> ReceptionIntervalOfComments { get; private set; }
         public ReactiveProperty<uint> SamplingIntervalOfProgramState { get; private set; }
         public ReactiveProperty<uint> NumberOfHoldingComments { get; private set; }
-        public ReactiveProperty<ShortcutKey> PostKey { get; private set; }
+        public ReactiveProperty<EnumWrap<PostKey>> PostKey { get; private set; }
         public ObservableCollection<MuteKeyword> MuteKeywords { get; }
         public ReactiveProperty<string> Keyword { get; }
         public ReactiveProperty<bool> IsRegex { get; }
@@ -45,7 +44,8 @@ namespace Norma.ViewModels.Tabs.Options
             ReceptionIntervalOfComments = ReactiveProperty.FromObject(oc, w => w.ReceptionIntervalOfComments);
             SamplingIntervalOfProgramState = ReactiveProperty.FromObject(oc, w => w.SamplingIntervalOfProgramState);
             NumberOfHoldingComments = ReactiveProperty.FromObject(oc, w => w.NumberOfHoldingComments);
-            PostKey = ReactiveProperty.FromObject(oc, w => w.PostKeyType, x => new ShortcutKey(x), w => w.PostKey);
+            PostKey = ReactiveProperty.FromObject(oc, w => w.PostKeyType, x => new EnumWrap<PostKey>(x),
+                                                  w => w.EnumValue);
             MuteKeywords = oc.MuteKeywords;
             IsRegex = new ReactiveProperty<bool>(false);
             Keyword = new ReactiveProperty<string>("")
