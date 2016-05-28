@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 using Norma.Eta.Models;
 using Norma.Eta.Models.Configurations;
 using Norma.Eta.Mvvm;
-using Norma.Eta.Properties;
+using Norma.Eta.Validations;
 
 using Prism.Commands;
 
@@ -18,6 +17,7 @@ namespace Norma.ViewModels.Tabs.Options
     internal class OperationViewModel : ViewModel
     {
         private readonly OperationConfig _operationConfig;
+        private readonly RegexValidator _rgxValidator = new RegexValidator();
         private int _editIndex;
         private bool _isEditMode;
 
@@ -49,7 +49,7 @@ namespace Norma.ViewModels.Tabs.Options
             MuteKeywords = oc.MuteKeywords;
             IsRegex = new ReactiveProperty<bool>(false);
             Keyword = new ReactiveProperty<string>("")
-                .SetValidateNotifyError(x => IsRegex.Value ? (IsValidRegex() ? null : Resources.InvalidRegex) : null);
+                .SetValidateNotifyError(x => IsRegex.Value ? _rgxValidator.Validate(Keyword.Value) : null);
             Keyword.Subscribe(w => AddMuteKeywordCommand.RaiseCanExecuteChanged()).AddTo(this);
             IsRegex.Subscribe(w =>
             {
@@ -63,20 +63,6 @@ namespace Norma.ViewModels.Tabs.Options
                 DeleteMuteKeywordCommand.RaiseCanExecuteChanged();
             }).AddTo(this);
             SelectedIndex = new ReactiveProperty<int>();
-        }
-
-        private bool IsValidRegex()
-        {
-            try
-            {
-                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
-                Regex.IsMatch("", Keyword.Value);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
 
         #region AddMuteKeywordCommand

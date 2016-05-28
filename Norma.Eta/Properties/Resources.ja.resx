@@ -306,7 +306,7 @@
   <data name="Tuesday" xml:space="preserve">
     <value>火曜日</value>
   </data>
-  <data name="Tursday" xml:space="preserve">
+  <data name="Thursday" xml:space="preserve">
     <value>木曜日</value>
   </data>
   <data name="UpdateInervalOfProgramInformation" xml:space="preserve">
@@ -335,5 +335,17 @@
   </data>
   <data name="StartAt" xml:space="preserve">
     <value>開始</value>
+  </data>
+  <data name="InvalidDateTime" xml:space="preserve">
+    <value>不正な日付です。</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="KeywordCannotBeBlank" xml:space="preserve">
+    <value>キーワードは空にできません。</value>
+  </data>
+  <data name="InvalidDateTime2" xml:space="preserve">
+    <value>日付は現在よりも大きい必要があります。</value>
   </data>
 </root>

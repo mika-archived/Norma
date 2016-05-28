@@ -331,6 +331,24 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Invalid date. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string InvalidDateTime {
+            get {
+                return ResourceManager.GetString("InvalidDateTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Date must be greater than now. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string InvalidDateTime2 {
+            get {
+                return ResourceManager.GetString("InvalidDateTime2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Invalid regular expression. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string InvalidRegex {
@@ -354,6 +372,15 @@ namespace Norma.Eta.Properties {
         public static string Keyword {
             get {
                 return ResourceManager.GetString("Keyword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Keyword cannot be blank. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string KeywordCannotBeBlank {
+            get {
+                return ResourceManager.GetString("KeywordCannotBeBlank", resourceCulture);
             }
         }
         
@@ -426,6 +453,15 @@ namespace Norma.Eta.Properties {
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   None に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
             }
         }
         

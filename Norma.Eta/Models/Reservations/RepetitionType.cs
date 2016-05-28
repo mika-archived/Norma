@@ -5,6 +5,11 @@ namespace Norma.Eta.Models.Reservations
     public enum RepetitionType
     {
         /// <summary>
+        ///     繰り返しなし
+        /// </summary>
+        None,
+
+        /// <summary>
         ///     月曜日
         /// </summary>
         Monday,

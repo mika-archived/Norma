@@ -336,4 +336,16 @@
   <data name="StartAt" xml:space="preserve">
     <value>Start at</value>
   </data>
+  <data name="InvalidDateTime" xml:space="preserve">
+    <value>Invalid date.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="KeywordCannotBeBlank" xml:space="preserve">
+    <value>Keyword cannot be blank.</value>
+  </data>
+  <data name="InvalidDateTime2" xml:space="preserve">
+    <value>Date must be greater than now.</value>
+  </data>
 </root>

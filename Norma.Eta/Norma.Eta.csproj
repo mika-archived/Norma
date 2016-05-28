@@ -80,6 +80,7 @@
       <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -133,6 +134,10 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Validations\DateTimeValidator.cs" />
+    <Compile Include="Validations\IValidator.cs" />
+    <Compile Include="Validations\RegexValidator.cs" />
+    <Compile Include="Validations\StringRequiredValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
