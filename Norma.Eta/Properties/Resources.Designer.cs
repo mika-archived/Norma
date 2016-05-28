@@ -61,6 +61,24 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Abema news/ に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string AbemaNews {
+            get {
+                return ResourceManager.GetString("AbemaNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Abema SPECIAL に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string AbemaSpecial {
+            get {
+                return ResourceManager.GetString("AbemaSpecial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   About に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string About {
@@ -75,6 +93,15 @@ namespace Norma.Eta.Properties {
         public static string Add {
             get {
                 return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Anime24 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Anime24 {
+            get {
+                return ResourceManager.GetString("Anime24", resourceCulture);
             }
         }
         
@@ -111,6 +138,15 @@ namespace Norma.Eta.Properties {
         public static string Cast {
             get {
                 return ResourceManager.GetString("Cast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   CLUB CHANNEL に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ClubChannel {
+            get {
+                return ResourceManager.GetString("ClubChannel", resourceCulture);
             }
         }
         
@@ -205,6 +241,33 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Documentary に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Documentary {
+            get {
+                return ResourceManager.GetString("Documentary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   DRAMA CHANNEL に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string DramaChannel {
+            get {
+                return ResourceManager.GetString("DramaChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   EDGE SPORT HD に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string EdgeSportHd {
+            get {
+                return ResourceManager.GetString("EdgeSportHd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Edit に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Edit {
@@ -237,6 +300,15 @@ namespace Norma.Eta.Properties {
         public static string ExpiredAt {
             get {
                 return ResourceManager.GetString("ExpiredAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Family Anime に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string FamilyAnime {
+            get {
+                return ResourceManager.GetString("FamilyAnime", resourceCulture);
             }
         }
         
@@ -282,6 +354,15 @@ namespace Norma.Eta.Properties {
         public static string FetchingProgramInformation {
             get {
                 return ResourceManager.GetString("FetchingProgramInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Fishing に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Fishing {
+            get {
+                return ResourceManager.GetString("Fishing", resourceCulture);
             }
         }
         
@@ -412,6 +493,24 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Mahjong に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Mahjong {
+            get {
+                return ResourceManager.GetString("Mahjong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Midnight Anime に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MidnightAnime {
+            get {
+                return ResourceManager.GetString("MidnightAnime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Monday に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Monday {
@@ -435,6 +534,15 @@ namespace Norma.Eta.Properties {
         public static string MonToSat {
             get {
                 return ResourceManager.GetString("MonToSat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   MTV HITS に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MtvHits {
+            get {
+                return ResourceManager.GetString("MtvHits", resourceCulture);
             }
         }
         
@@ -484,6 +592,24 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Oldtime Anime に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string OldtimeAnime {
+            get {
+                return ResourceManager.GetString("OldtimeAnime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Onegai Ranking に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string OnegaiRanking {
+            get {
+                return ResourceManager.GetString("OnegaiRanking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Operation に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Operation {
@@ -507,6 +633,15 @@ namespace Norma.Eta.Properties {
         public static string Others {
             get {
                 return ResourceManager.GetString("Others", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Pet に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Pet {
+            get {
+                return ResourceManager.GetString("Pet", resourceCulture);
             }
         }
         
@@ -552,6 +687,15 @@ namespace Norma.Eta.Properties {
         public static string Ready {
             get {
                 return ResourceManager.GetString("Ready", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   REALITY SHOW に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RealityShow {
+            get {
+                return ResourceManager.GetString("RealityShow", resourceCulture);
             }
         }
         
@@ -646,6 +790,24 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   SPACE SHOWER MUSIC に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SpaceShowerMusic {
+            get {
+                return ResourceManager.GetString("SpaceShowerMusic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   SPECIAL PLUS に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SpecialPlus {
+            get {
+                return ResourceManager.GetString("SpecialPlus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Staff に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Staff {
@@ -718,6 +880,24 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   VARIETY CHANNEL に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string VarieryChannel {
+            get {
+                return ResourceManager.GetString("VarieryChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   VICE に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Vice {
+            get {
+                return ResourceManager.GetString("Vice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Viewing details reservation に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ViewingDRsv {
@@ -745,11 +925,29 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   WORLD SPORTS に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string WorldSports {
+            get {
+                return ResourceManager.GetString("WorldSports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Yes に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   YOKONORI Surf Snow Skate に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string YokonoriSports {
+            get {
+                return ResourceManager.GetString("YokonoriSports", resourceCulture);
             }
         }
     }

@@ -85,6 +85,9 @@
                 <TextBlock FontSize="12"
                            Foreground="{DynamicResource SemiActiveForegroundBrushKey}"
                            Text="{Binding Time}" />
+                <TextBlock FontSize="12"
+                           Foreground="{DynamicResource SemiActiveForegroundBrushKey}"
+                           Text="{Binding Channel}" />
             </StackPanel>
             <Image Grid.Row="0"
                    Grid.Column="1"

@@ -1,6 +1,6 @@
 ﻿namespace Norma.Eta.Validations
 {
-    public interface IValidator<T>
+    public interface IValidator<out T>
     {
         string Validate(string value);
 

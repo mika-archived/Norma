@@ -5,7 +5,7 @@ using EnvSpecialFolder = System.Environment.SpecialFolder;
 
 namespace Norma.Eta
 {
-    public class NormaConstants
+    public static class NormaConstants
     {
         private static readonly string AppDirectory =
             Path.Combine(Environment.GetFolderPath(EnvSpecialFolder.ApplicationData), "kokoiroworks.com", "Norma");
