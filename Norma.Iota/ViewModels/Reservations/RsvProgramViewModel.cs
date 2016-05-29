@@ -4,7 +4,7 @@ namespace Norma.Iota.ViewModels.Reservations
 {
     internal class RsvProgramViewModel : ReservationViewModel
     {
-        public string StartAt => ((RsvProgram) Reserve).StartDate.ToString("d");
+        public string StartAt => ((RsvProgram) Reserve).StartDate.ToString("g");
 
         public string ProgramId => ((RsvProgram) Reserve).ProgramId;
 
