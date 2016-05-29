@@ -25,12 +25,14 @@ namespace Norma.Iota.ViewModels
         public ObservableCollection<ChannelCellViewModel> Channels { get; }
         public List<string> AvailableDates { get; }
         public InteractionRequest<INotification> ProgramDetailsRequest { get; }
+        public InteractionRequest<DataPassingNotification> DetailReserveRequest { get; }
 
         public ShellViewModel(Timetable timetable, Reservation reservation)
         {
             _timetable = timetable;
             _reservation = reservation;
             ProgramDetailsRequest = new InteractionRequest<INotification>();
+            DetailReserveRequest = new InteractionRequest<DataPassingNotification>();
             _index = (DateTime.Now - timetable.LastSyncTime).Days;
             AvailableDates = new List<string>();
             Channels = new ObservableCollection<ChannelCellViewModel>();
@@ -98,6 +100,17 @@ namespace Norma.Iota.ViewModels
             get { return _isLoading; }
             set { SetProperty(ref _isLoading, value); }
         }
+
+        #endregion
+
+        #region ReserveUsingKeywordOrTimeCommand
+
+        private ICommand _rsvUsingKwdOrTimeCommand;
+
+        public ICommand ReserveUsingKeywordOrTimeCommand
+            => _rsvUsingKwdOrTimeCommand ?? (_rsvUsingKwdOrTimeCommand = new DelegateCommand(ReserveUsingKwdOrTime));
+
+        private void ReserveUsingKwdOrTime() => DetailReserveRequest.Raise(new DataPassingNotification());
 
         #endregion
 

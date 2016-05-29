@@ -420,4 +420,7 @@
   <data name="RsvConfirm" xml:space="preserve">
     <value>Reservation with the following contents.</value>
   </data>
+  <data name="RsvUsingKwdOrTime" xml:space="preserve">
+    <value>Reserve using keyword or time.</value>
+  </data>
 </root>

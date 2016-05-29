@@ -420,4 +420,7 @@
   <data name="RsvConfirm" xml:space="preserve">
     <value>以下の内容で予約しました。</value>
   </data>
+  <data name="RsvUsingKwdOrTime" xml:space="preserve">
+    <value>キーワードもしくは時間で予約</value>
+  </data>
 </root>

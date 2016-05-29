@@ -781,6 +781,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Reserve using keyword or time. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RsvUsingKwdOrTime {
+            get {
+                return ResourceManager.GetString("RsvUsingKwdOrTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sampling interval of program state : に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SamplingIntervalOfProgramState {
