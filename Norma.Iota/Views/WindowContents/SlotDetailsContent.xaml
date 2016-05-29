@@ -18,14 +18,17 @@
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding ResponseRequest, Mode=OneWay}">
             <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
-                <!--
                 <actions:MetroPopupWindowAction.WindowStyle>
                     <Style TargetType="{x:Type metro:MetroWindow}">
                         <Setter Property="ResizeMode" Value="NoResize" />
                         <Setter Property="ShowInTaskbar" Value="False" />
+                        <Setter Property="Height" Value="150" />
+                        <Setter Property="Width" Value="300" />
                     </Style>
                 </actions:MetroPopupWindowAction.WindowStyle>
-                -->
+                <actions:MetroPopupWindowAction.WindowContent>
+                    <local:RsvDetailsContent />
+                </actions:MetroPopupWindowAction.WindowContent>
             </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding DetailsRsvRequest, Mode=OneWay}">

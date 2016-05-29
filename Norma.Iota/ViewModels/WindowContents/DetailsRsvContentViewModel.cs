@@ -33,6 +33,7 @@ namespace Norma.Iota.ViewModels.WindowContents
                                                                           .ToList();
 
         public InteractionRequest<Notification> WindowCloseRequest { get; }
+        public InteractionRequest<DataPassingNotification> ResponseRequest { get; }
 
         // 共通
         public ReactiveProperty<string> StartAt { get; }
@@ -54,6 +55,7 @@ namespace Norma.Iota.ViewModels.WindowContents
         {
             _rsv = reservation;
             WindowCloseRequest = new InteractionRequest<Notification>();
+            ResponseRequest = new InteractionRequest<DataPassingNotification>();
             StartAt = new ReactiveProperty<string>(DateTime.Now.ToString("g"))
                 .SetValidateNotifyError(w => _dtValidator.Validate(w)).AddTo(this);
             ExpiredAt = new ReactiveProperty<string>(DateTime.MaxValue.ToString("d"))
@@ -84,6 +86,7 @@ namespace Norma.Iota.ViewModels.WindowContents
                     return;
                 WindowTitle = $"{model.Model.Title} - {Resources.ViewingDRsv} - Norma";
                 StartAt.Value = model.StartAt.ToString("g");
+                Keyword.Value = model.Model.Title;
             }).AddTo(this);
         }
 
@@ -91,14 +94,29 @@ namespace Norma.Iota.ViewModels.WindowContents
         {
             _rsv.AddReservation(_dtValidator.Convert(StartAt.Value), Repetition.Value.EnumValue,
                                 new DateRange {Finish = _dValidator.Convert(ExpiredAt.Value)});
-            WindowCloseRequest.Raise(null);
+            ResponseRequest.Raise(new DataPassingNotification
+            {
+                Model = new RsvTime
+                {
+                    StartTime = _dtValidator.Convert(StartAt.Value),
+                    Range = new DateRange {Finish = _dValidator.Convert(ExpiredAt.Value)}
+                }
+            }, callback => WindowCloseRequest.Raise(null));
         }
 
         private void AddKeywordRsv()
         {
+            // Rsv** のインスタンスを渡すようにする？
             _rsv.AddReservation(Keyword.Value, IsRegex.Value,
                                 new DateRange {Finish = _dValidator.Convert(ExpiredAt.Value)});
-            WindowCloseRequest.Raise(null);
+            ResponseRequest.Raise(new DataPassingNotification
+            {
+                Model = new RsvKeyword
+                {
+                    IsRegexMode = IsRegex.Value, Keyword = Keyword.Value,
+                    Range = new DateRange {Finish = _dValidator.Convert(ExpiredAt.Value)}
+                }
+            }, callback => WindowCloseRequest.Raise(null));
         }
 
         #region WindowTitle

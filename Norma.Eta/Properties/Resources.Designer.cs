@@ -673,6 +673,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Program ID に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ProgramId {
+            get {
+                return ResourceManager.GetString("ProgramId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Program summary に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ProgramSummary {
@@ -750,6 +759,15 @@ namespace Norma.Eta.Properties {
         public static string RsvByTime {
             get {
                 return ResourceManager.GetString("RsvByTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Reservation with the following contents. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RsvConfirm {
+            get {
+                return ResourceManager.GetString("RsvConfirm", resourceCulture);
             }
         }
         

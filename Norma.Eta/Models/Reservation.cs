@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 
 using Newtonsoft.Json;
 
@@ -14,6 +15,15 @@ namespace Norma.Eta.Models
         private ObservableCollection<Reserve> ReservationsInternal { get; set; }
 
         public ReadOnlyObservableCollection<Reserve> Reservations { get; }
+
+        public ReadOnlyCollection<RsvProgram> RsvsByProgram
+            => ReservationsInternal.OfType<RsvProgram>().ToList().AsReadOnly();
+
+        public ReadOnlyCollection<RsvTime> RsvsByTime
+            => ReservationsInternal.OfType<RsvTime>().ToList().AsReadOnly();
+
+        public ReadOnlyCollection<RsvKeyword> RsvsByKeyword
+            => ReservationsInternal.OfType<RsvKeyword>().ToList().AsReadOnly();
 
         public Reservation()
         {

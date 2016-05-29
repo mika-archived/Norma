@@ -19,7 +19,7 @@ namespace Norma.Iota.ViewModels.WindowContents
     internal class SlotDetailsContentViewModel : ViewModel, IInteractionRequestAware
     {
         private readonly Reservation _rsvs;
-        public InteractionRequest<Notification> ResponseRequest { get; }
+        public InteractionRequest<DataPassingNotification> ResponseRequest { get; }
         public InteractionRequest<DataPassingNotification> DetailsRsvRequest { get; }
         public ObservableCollection<string> Cast { get; }
         public ObservableCollection<string> Staff { get; }
@@ -27,7 +27,7 @@ namespace Norma.Iota.ViewModels.WindowContents
         public SlotDetailsContentViewModel(Reservation reservation)
         {
             _rsvs = reservation;
-            ResponseRequest = new InteractionRequest<Notification>();
+            ResponseRequest = new InteractionRequest<DataPassingNotification>();
             DetailsRsvRequest = new InteractionRequest<DataPassingNotification>();
             Cast = new ObservableCollection<string>();
             Staff = new ObservableCollection<string>();
@@ -170,7 +170,12 @@ namespace Norma.Iota.ViewModels.WindowContents
         private void AddReservation()
         {
             _rsvs.AddReservation(((WrapSlot) _notification.Model).Model);
-            ResponseRequest.Raise(new Notification {Title = "Norma", Content = Resources.RsvSuccess});
+
+            var slot = ((WrapSlot) _notification.Model).Model;
+            ResponseRequest.Raise(new DataPassingNotification
+            {
+                Model = new RsvProgram {ProgramId = slot.Id, StartDate = slot.StartAt}
+            });
             ((DelegateCommand) AddReservationCommand).RaiseCanExecuteChanged();
         }
 

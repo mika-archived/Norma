@@ -173,8 +173,13 @@
     <Compile Include="Models\WrapSlot.cs" />
     <Compile Include="ViewModels\Controls\ChannelCellViewModel.cs" />
     <Compile Include="ViewModels\Controls\ProgramCellViewModel.cs" />
+    <Compile Include="ViewModels\Reservations\ReservationViewModel.cs" />
+    <Compile Include="ViewModels\Reservations\RsvKeywordViewModel.cs" />
+    <Compile Include="ViewModels\Reservations\RsvProgramViewModel.cs" />
+    <Compile Include="ViewModels\Reservations\RsvTimeViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\DetailsRsvContentViewModel.cs" />
+    <Compile Include="ViewModels\WindowContents\RsvDetailsContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\SlotDetailsContentViewModel.cs" />
     <Compile Include="Views\Controls\BorderedTextBlock.xaml.cs">
       <DependentUpon>BorderedTextBlock.xaml</DependentUpon>
@@ -190,6 +195,9 @@
     </Compile>
     <Compile Include="Views\WindowContents\DetailsRsvContent.xaml.cs">
       <DependentUpon>DetailsRsvContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowContents\RsvDetailsContent.xaml.cs">
+      <DependentUpon>RsvDetailsContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowContents\SlotDetailsContent.xaml.cs">
       <DependentUpon>SlotDetailsContent.xaml</DependentUpon>
@@ -216,6 +224,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\WindowContents\DetailsRsvContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowContents\RsvDetailsContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

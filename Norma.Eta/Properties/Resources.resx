@@ -414,4 +414,10 @@
   <data name="YokonoriSports" xml:space="preserve">
     <value>YOKONORI Surf Snow Skate</value>
   </data>
+  <data name="ProgramId" xml:space="preserve">
+    <value>Program ID</value>
+  </data>
+  <data name="RsvConfirm" xml:space="preserve">
+    <value>Reservation with the following contents.</value>
+  </data>
 </root>
