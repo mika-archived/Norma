@@ -54,7 +54,7 @@ function Copy-To($path1, $path2) {
 		if (-not (Test-Path -Path $path2)) {
 			return
 		}
-		Move-Item -Path "$path1\*" -Destination $path2
+		Copy-Item -Path "$path1\*" -Destination $path2 -Force
 	} catch {
 		# 
 	}
