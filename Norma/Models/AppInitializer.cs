@@ -54,7 +54,7 @@ namespace Norma.Models
         /// </summary>
         public static void PostInitialize()
         {
-            var processes = Process.GetProcessesByName(NormaConstants.IpsilonFileName);
+            var processes = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(NormaConstants.IpsilonFileName));
             if (processes.Length == 0)
                 if (File.Exists(NormaConstants.IpsilonExecutableFile))
                     Process.Start(NormaConstants.IpsilonExecutableFile);
