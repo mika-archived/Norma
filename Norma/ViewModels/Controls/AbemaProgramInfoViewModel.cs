@@ -1,5 +1,6 @@
 ﻿using System.Reactive.Linq;
 
+using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Models;
 
@@ -15,6 +16,8 @@ namespace Norma.ViewModels.Controls
         public ReadOnlyReactiveProperty<bool> HasInfo { get; private set; }
         public ReadOnlyReactiveProperty<string> Thumbnail1 { get; private set; }
         public ReadOnlyReactiveProperty<string> Thumbnail2 { get; private set; }
+        public ReadOnlyReactiveProperty<string> AtChannel { get; private set; }
+        public ReadOnlyReactiveProperty<string> Range { get; private set; }
         public ReadOnlyReactiveCollection<string> Casts { get; }
         public ReadOnlyReactiveCollection<string> Crews { get; private set; }
 
@@ -28,6 +31,12 @@ namespace Norma.ViewModels.Controls
                                  .ToReadOnlyReactiveProperty().AddTo(this);
             Thumbnail1 = programHost.ObserveProperty(w => w.Thumbnail1).ToReadOnlyReactiveProperty().AddTo(this);
             Thumbnail2 = programHost.ObserveProperty(w => w.Thumbnail2).ToReadOnlyReactiveProperty().AddTo(this);
+            AtChannel = abemaState.ObserveProperty(w => w.CurrentChannel)
+                                  .Select(w => $"at {w.ToLocaleString()}")
+                                  .ToReadOnlyReactiveProperty().AddTo(this);
+            Range = abemaState.ObserveProperty(w => w.CurrentSlot)
+                              .Select(w => $"{w.StartAt.ToString("t")} ～ {w.EndAt.ToString("t")}")
+                              .ToReadOnlyReactiveProperty().AddTo(this);
             Casts = programHost.Casts.ToReadOnlyReactiveCollection().AddTo(this);
             Crews = programHost.Crews.ToReadOnlyReactiveCollection().AddTo(this);
         }

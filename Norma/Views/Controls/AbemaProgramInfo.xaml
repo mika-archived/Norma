@@ -18,6 +18,15 @@
                     <TextBlock FontSize="20"
                                Text="{Binding Title.Value}"
                                TextWrapping="Wrap" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="11"
+                                   Foreground="{DynamicResource SemiActiveForegroundBrushKey}"
+                                   Text="{Binding Range.Value}" />
+                        <TextBlock Margin="5,0,0,0"
+                                   FontSize="11"
+                                   Foreground="{DynamicResource SemiActiveForegroundBrushKey}"
+                                   Text="{Binding AtChannel.Value}" />
+                    </StackPanel>
                     <TextBlock Text="{Binding Description.Value}" TextWrapping="Wrap" />
                     <Grid Margin="0,5,0,0">
                         <Grid.ColumnDefinitions>
