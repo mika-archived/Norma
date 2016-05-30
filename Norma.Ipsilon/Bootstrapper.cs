@@ -38,7 +38,10 @@ namespace Norma.Ipsilon
 
         protected override DependencyObject CreateShell() => Container.Resolve<Shell>();
 
-        protected override void InitializeShell() => Application.Current.MainWindow.Show();
+        protected override void InitializeShell()
+        {
+            // Nothing to do
+        }
 
         #endregion
     }

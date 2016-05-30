@@ -423,4 +423,7 @@
   <data name="RsvUsingKwdOrTime" xml:space="preserve">
     <value>Reserve using keyword or time.</value>
   </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
 </root>

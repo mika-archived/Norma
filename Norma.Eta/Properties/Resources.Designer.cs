@@ -295,6 +295,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Exit に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Exit {
+            get {
+                return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Expired at に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ExpiredAt {

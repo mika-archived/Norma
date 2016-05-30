@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+
+using Norma.Ipsilon.Views;
 
 namespace Norma.Ipsilon
 {
@@ -15,6 +18,13 @@ namespace Norma.Ipsilon
 
             var bootstrapper = new Bootstrapper();
             bootstrapper.Run();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            (Shell.TaskbarIcon.DataContext as IDisposable)?.Dispose();
+            Shell.TaskbarIcon.Dispose();
+            base.OnExit(e);
         }
 
         #endregion
