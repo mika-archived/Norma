@@ -28,7 +28,7 @@ namespace Norma.Eta.Models
         public Reservation()
         {
             Load();
-            Save();
+            Save(false);
             Reservations = new ReadOnlyObservableCollection<Reserve>(ReservationsInternal);
         }
 
@@ -49,13 +49,23 @@ namespace Norma.Eta.Models
             Migrate();
         }
 
-        public void Save()
+        public void Reload()
+        {
+            Load();
+            Save(false);
+        }
+
+        public void Save(bool isLock = true)
         {
             using (var sw = File.CreateText(NormaConstants.ReserveProgramListFile))
             {
                 var jsonSettings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.Auto};
                 sw.WriteLine(JsonConvert.SerializeObject(ReservationsInternal, jsonSettings));
             }
+            if (!isLock)
+                return;
+            if (!File.Exists(NormaConstants.ReserveProgramLockFile))
+                File.Create(NormaConstants.ReserveProgramLockFile);
         }
 
         private void Migrate()

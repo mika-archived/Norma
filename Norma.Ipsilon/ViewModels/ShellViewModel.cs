@@ -1,7 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
+using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
+using Norma.Ipsilon.Models;
 
 using Prism.Commands;
 
@@ -10,6 +12,14 @@ namespace Norma.Ipsilon.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     internal class ShellViewModel : ViewModel
     {
+        private readonly Notifier _notifier;
+
+        public ShellViewModel(Timetable timetable, Reservation reservation)
+        {
+            _notifier = new Notifier(timetable, reservation).AddTo(this);
+            _notifier.Start();
+        }
+
         #region ExitCommand
 
         private ICommand _exitCommand;
