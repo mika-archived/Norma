@@ -60,7 +60,9 @@
                            Foreground="{DynamicResource ForegroundBrushKey}"
                            Text="{Binding WindowTitle}"
                            TextTrimming="CharacterEllipsis" />
-                <metro:SystemButtons Grid.Column="1" VerticalAlignment="Top" />
+                <metro:SystemButtons Grid.Column="1"
+                                     VerticalAlignment="Top"
+                                     Style="{StaticResource MetroDialogSystemButtonsStyle}" />
             </Grid>
         </Border>
         <Grid Grid.Row="1">

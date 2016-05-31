@@ -303,15 +303,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Styles\Controls.ListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>Controls.xaml</DependentUpon>
-    </Page>
-    <Page Include="Styles\Controls.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Controls\AbemaComment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -33,7 +33,9 @@
                            Foreground="{DynamicResource ForegroundBrushKey}"
                            Text="Settings - Norma"
                            TextTrimming="CharacterEllipsis" />
-                <metro:SystemButtons Grid.Column="1" VerticalAlignment="Top" />
+                <metro:SystemButtons Grid.Column="1"
+                                     VerticalAlignment="Top"
+                                     Style="{StaticResource MetroDialogSystemButtonsStyle}" />
             </Grid>
         </Border>
         <TabControl Grid.Row="1"

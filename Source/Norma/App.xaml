@@ -13,7 +13,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MetroRadiance;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MetroRadiance;component/Themes/Dark.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MetroRadiance;component/Themes/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Norma.Eta;component/Styles/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
