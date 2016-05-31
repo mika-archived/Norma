@@ -24,6 +24,8 @@ namespace Norma.Eta
 
         public static string ReserveProgramLockFile => Path.Combine(AppDirectory, "reserve_programs.lock");
 
+        public static string OpsFile => Path.Combine(AppDirectory, "ops.json");
+
         public static string IotaFileName => "Norma.Iota.exe";
 
         public static string IotaExecutableFile => Path.Combine(CurrentDirectory, IotaFileName);
