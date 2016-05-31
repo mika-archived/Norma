@@ -8,6 +8,7 @@ namespace Norma.ViewModels.Tabs
 {
     internal class LicensesTabViewModel : ViewModel
     {
-        public List<LibraryViewModel> Libraries => ProductInfo.Libraries.Select(w => new LibraryViewModel(w)).ToList();
+        public List<LibraryViewModel> Libraries
+            => ProductInfo.Libraries.Value.Select(w => new LibraryViewModel(w)).ToList();
     }
 }
