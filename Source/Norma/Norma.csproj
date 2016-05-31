@@ -191,7 +191,7 @@
     <Compile Include="Converters\YesNoToBooleanConverter.cs" />
     <Compile Include="Models\AbemaChannels.cs" />
     <Compile Include="Models\AbemaState.cs" />
-    <Compile Include="Models\AppInitializer.cs" />
+    <Compile Include="AppInitializer.cs" />
     <Compile Include="Models\CefSetting.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\CommentHost.cs" />

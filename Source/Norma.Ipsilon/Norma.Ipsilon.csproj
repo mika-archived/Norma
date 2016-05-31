@@ -160,14 +160,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Actions\ShowBalloonTipAction.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AppInitializer.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Models\NotificationManager.cs" />
+    <Compile Include="Models\NotificationResult.cs" />
     <Compile Include="Models\Notifier.cs" />
     <Compile Include="Models\Watcher.cs" />
+    <Compile Include="Notifications\NotificationActivator.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
