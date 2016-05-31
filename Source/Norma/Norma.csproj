@@ -196,12 +196,14 @@
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\CommentHost.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
+    <Compile Include="Models\Libraries\DesktopToast.cs" />
     <Compile Include="Models\Libraries\HardcodetWpfNotifyIcon.cs" />
     <Compile Include="Models\Libraries\CEF.cs" />
     <Compile Include="Models\Libraries\CEFSharp.cs" />
     <Compile Include="Models\Libraries\CommonServiceLocator.cs" />
     <Compile Include="Models\Libraries\MetroRadiance.cs" />
     <Compile Include="Models\Libraries\NewtonsoftJson.cs" />
+    <Compile Include="Models\Libraries\NotificationsExtensions.cs" />
     <Compile Include="Models\Libraries\PrismLibrary.cs" />
     <Compile Include="Models\Libraries\ReactiveProperty.cs" />
     <Compile Include="Models\Libraries\RxNET.cs" />
