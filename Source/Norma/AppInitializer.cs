@@ -6,14 +6,15 @@ using MetroRadiance.UI;
 
 using Norma.Eta;
 using Norma.Eta.Models;
+using Norma.Models;
 using Norma.Views;
 
-namespace Norma.Models
+namespace Norma
 {
     /// <summary>
     ///     アプリケーションの初期化時に呼ばれます。
     /// </summary>
-    internal class AppInitializer
+    internal static class AppInitializer
     {
         private static StartupScreen _startupScreen;
         public static AbemaApiHost AbemaApiHost { get; private set; }

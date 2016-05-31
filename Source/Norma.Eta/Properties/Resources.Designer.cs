@@ -583,6 +583,60 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Shortly, program start that contains keyword of &quot;{0}&quot;. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string NoticeKeywordRsvBody {
+            get {
+                return ResourceManager.GetString("NoticeKeywordRsvBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Reservation Keyword Notification に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string NoticeKeywordRsvTitle {
+            get {
+                return ResourceManager.GetString("NoticeKeywordRsvTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Shortly, reserved program &quot;{0}&quot; start. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string NoticeSlotRsvBody {
+            get {
+                return ResourceManager.GetString("NoticeSlotRsvBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Reservation Program Notification に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string NoticeSlotRsvTitle {
+            get {
+                return ResourceManager.GetString("NoticeSlotRsvTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Shortly, your reserved time &quot;{0}&quot;. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string NoticeTimeRsvBody {
+            get {
+                return ResourceManager.GetString("NoticeTimeRsvBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Reservation Time Notification に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string NoticeTimeRsvTitle {
+            get {
+                return ResourceManager.GetString("NoticeTimeRsvTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Number of holding comments : に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string NumberOfHoldingComments {

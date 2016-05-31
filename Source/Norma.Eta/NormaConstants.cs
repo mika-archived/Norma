@@ -30,6 +30,10 @@ namespace Norma.Eta
 
         public static string IpsilonFileName => "Norma.Ipsilon.exe";
 
+        public static string IpsilonLinkName => "Norma.Ipsilon.lnk";
+
+        public static string IpsilonAppId => "Norma.Ipsilon";
+
         public static string IpsilonExecutableFile => Path.Combine(CurrentDirectory, IpsilonFileName);
 
         // Windows 10

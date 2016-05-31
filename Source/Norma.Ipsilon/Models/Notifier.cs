@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 using Norma.Eta.Models;
+using Norma.Eta.Models.Reservations;
 
 namespace Norma.Ipsilon.Models
 {
@@ -30,18 +32,22 @@ namespace Norma.Ipsilon.Models
         internal void Start()
         {
             _watcher.Start();
-            _compositeDisposable.Add(Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(w => Check()));
+            _compositeDisposable.Add(
+                                     Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1))
+                                               .Subscribe(async w => await Check()));
         }
 
-        private void Check()
+        private async Task Check()
         {
             var now = DateTime.Now;
             foreach (var program in _reservation.RsvsByProgram) {}
+
+            await Notify(null);
         }
 
-        private void Notify()
+        private async Task Notify(Reserve reserve)
         {
-
+            await NotificationManager.ShowNotification("", "");
         }
 
         private bool EqualityWithoutDate(DateTime obj1, DateTime obj2) =>

@@ -426,4 +426,22 @@
   <data name="Exit" xml:space="preserve">
     <value>終了</value>
   </data>
+  <data name="NoticeKeywordRsvBody" xml:space="preserve">
+    <value>まもなく、キーワード「{0}」が含まれている番組が始まります。</value>
+  </data>
+  <data name="NoticeKeywordRsvTitle" xml:space="preserve">
+    <value>予約キーワード通知</value>
+  </data>
+  <data name="NoticeSlotRsvBody" xml:space="preserve">
+    <value>まもなく、予約した番組「{0}」が始まります。</value>
+  </data>
+  <data name="NoticeSlotRsvTitle" xml:space="preserve">
+    <value>予約番組通知</value>
+  </data>
+  <data name="NoticeTimeRsvBody" xml:space="preserve">
+    <value>まもなく、予約時間「{0}」になります。</value>
+  </data>
+  <data name="NoticeTimeRsvTitle" xml:space="preserve">
+    <value>予約時間通知</value>
+  </data>
 </root>

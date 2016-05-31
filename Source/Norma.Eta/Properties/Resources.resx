@@ -426,4 +426,22 @@
   <data name="Exit" xml:space="preserve">
     <value>Exit</value>
   </data>
+  <data name="NoticeKeywordRsvBody" xml:space="preserve">
+    <value>Shortly, program start that contains keyword of "{0}".</value>
+  </data>
+  <data name="NoticeKeywordRsvTitle" xml:space="preserve">
+    <value>Reservation Keyword Notification</value>
+  </data>
+  <data name="NoticeSlotRsvBody" xml:space="preserve">
+    <value>Shortly, reserved program "{0}" start.</value>
+  </data>
+  <data name="NoticeSlotRsvTitle" xml:space="preserve">
+    <value>Reservation Program Notification</value>
+  </data>
+  <data name="NoticeTimeRsvBody" xml:space="preserve">
+    <value>Shortly, your reserved time "{0}".</value>
+  </data>
+  <data name="NoticeTimeRsvTitle" xml:space="preserve">
+    <value>Reservation Time Notification</value>
+  </data>
 </root>
