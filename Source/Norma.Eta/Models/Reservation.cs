@@ -60,7 +60,7 @@ namespace Norma.Eta.Models
             using (var sw = File.CreateText(NormaConstants.ReserveProgramListFile))
             {
                 var jsonSettings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.Auto};
-                sw.WriteLine(JsonConvert.SerializeObject(ReservationsInternal, jsonSettings));
+                sw.WriteLine(JsonConvert.SerializeObject(ReservationsInternal.Where(w => w.IsEnable), jsonSettings));
             }
             if (!isLock)
                 return;

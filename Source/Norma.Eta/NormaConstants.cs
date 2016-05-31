@@ -36,7 +36,7 @@ namespace Norma.Eta
         public static bool IsSupportedNewToast
             => Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor == 4;
 
-        // Windows 8.1
+        // Windows 8.1 ~
         public static bool IsSupportedToast
             => Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor >= 3;
 
