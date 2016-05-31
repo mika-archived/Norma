@@ -9,16 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Norma.Gamma", "Norma.Gamma\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{2DA43B35-41AA-42A6-A58A-8780AAF4B406}"
 	ProjectSection(SolutionItems) = preProject
-		.gitattributes = .gitattributes
-		.gitignore = .gitignore
-		alpha.txt = alpha.txt
-		LICENSE = LICENSE
-		README.md = README.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{26CAC58D-DD2E-4942-B7DC-C60C58813131}"
-	ProjectSection(SolutionItems) = preProject
-		scripts\dist.ps1 = scripts\dist.ps1
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\alpha.txt = ..\alpha.txt
+		..\LICENSE = ..\LICENSE
+		..\README.en.md = ..\README.en.md
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Norma.Ipsilon", "Norma.Ipsilon\Norma.Ipsilon.csproj", "{6BB77E58-D783-44C9-92A9-2A1F237D7A60}"
@@ -26,6 +22,23 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Norma.Iota", "Norma.Iota\Norma.Iota.csproj", "{40B53D9A-3F37-450F-9CA9-4E8E1CBFE08D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Norma.Eta", "Norma.Eta\Norma.Eta.csproj", "{EBE2DF20-507C-4071-846B-88E7C3A459E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assemblies", "Assemblies", "{F460236E-D631-466D-9DA9-8D59ACF915F6}"
+	ProjectSection(SolutionItems) = preProject
+		..\Assemblies\DesktopToast.dll = ..\Assemblies\DesktopToast.dll
+		..\Assemblies\DesktopToast.xml = ..\Assemblies\DesktopToast.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packaging", "Packaging", "{EE6CA734-2AD7-41DA-8730-60C992094B09}"
+	ProjectSection(SolutionItems) = preProject
+		..\Packaging\dist.ps1 = ..\Packaging\dist.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{E7853467-6D72-4565-B479-4D68B07F365E}"
+	ProjectSection(SolutionItems) = preProject
+		..\Resources\Icon_dummy.ico = ..\Resources\Icon_dummy.ico
+		..\Resources\Icon_dummy.png = ..\Resources\Icon_dummy.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,6 +115,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{26CAC58D-DD2E-4942-B7DC-C60C58813131} = {2DA43B35-41AA-42A6-A58A-8780AAF4B406}
+		{F460236E-D631-466D-9DA9-8D59ACF915F6} = {2DA43B35-41AA-42A6-A58A-8780AAF4B406}
+		{EE6CA734-2AD7-41DA-8730-60C992094B09} = {2DA43B35-41AA-42A6-A58A-8780AAF4B406}
+		{E7853467-6D72-4565-B479-4D68B07F365E} = {2DA43B35-41AA-42A6-A58A-8780AAF4B406}
 	EndGlobalSection
 EndGlobal
