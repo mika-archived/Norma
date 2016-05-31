@@ -32,8 +32,7 @@ namespace Norma.Ipsilon.Models
         internal void Start()
         {
             _watcher.Start();
-            _compositeDisposable.Add(
-                                     Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1))
+            _compositeDisposable.Add(Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1))
                                                .Subscribe(async w => await Check()));
         }
 
