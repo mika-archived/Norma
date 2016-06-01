@@ -116,7 +116,8 @@ namespace Norma.Ipsilon.Models
             }
         }
 
-        private bool IsNoticeable(DateTime dateTime) => DateTime.Now >= dateTime.AddMinutes(-5);
+        private bool IsNoticeable(DateTime dateTime)
+            => dateTime >= DateTime.Now && DateTime.Now >= dateTime.AddMinutes(-5);
 
         private bool IsNoticeableRange(DateRange range) => range.Start <= DateTime.Now && DateTime.Now <= range.Finish;
     }
