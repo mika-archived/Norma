@@ -90,14 +90,22 @@ namespace Norma.Ipsilon.Models
             Slot slot = null;
             if (reserve is RsvProgram)
             {
-                title = Resources.NoticeSlotRsvTitle;
-                _reservation.Reservations.Single(w => w.Id == reserve.Id).IsEnable = false;
-                foreach (var schedule in _todaySchedules)
+                try
                 {
-                    if (schedule.Slots.Any(w => w.Id == ((RsvProgram) reserve).ProgramId))
-                        slot = schedule.Slots.Single(w => w.Id == ((RsvProgram) reserve).ProgramId);
+                    title = Resources.NoticeSlotRsvTitle;
+                    _reservation.Reservations.Single(w => w.Id == reserve.Id).IsEnable = false;
+                    foreach (var schedule in _todaySchedules)
+                    {
+                        if (schedule.Slots.Any(w => w.Id == ((RsvProgram) reserve).ProgramId))
+                            slot = schedule.Slots.Single(w => w.Id == ((RsvProgram) reserve).ProgramId);
+                    }
+                    body = string.Format(Resources.NoticeSlotRsvBody, slot?.Title);
                 }
-                body = string.Format(Resources.NoticeSlotRsvBody, slot?.Title);
+                catch
+                {
+                    // IEnumerable.Single throw
+                    return;
+                }
             }
             else
             {
