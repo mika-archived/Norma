@@ -18,6 +18,8 @@ namespace Norma.Ipsilon.Models
     internal class Notifier : IDisposable
     {
         private readonly CompositeDisposable _compositeDisposable;
+        private readonly List<Slot> _notifiedSlots;
+        private readonly List<RsvTime> _notifiedTimes;
         private readonly Reservation _reservation;
         private readonly Timetable _timetable;
         private readonly Watcher _watcher;
@@ -31,6 +33,8 @@ namespace Norma.Ipsilon.Models
             _reservation = reservation;
             _watcher = new Watcher(reservation);
             _compositeDisposable = new CompositeDisposable {_watcher};
+            _notifiedSlots = new List<Slot>();
+            _notifiedTimes = new List<RsvTime>();
             SyncSchedule();
         }
 
@@ -45,6 +49,12 @@ namespace Norma.Ipsilon.Models
             _watcher.Start();
             _compositeDisposable.Add(Observable.Timer(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(1))
                                                .Subscribe(async w => await Check()));
+            _compositeDisposable.Add(Observable.Timer(TimeSpan.Zero, TimeSpan.FromHours(1))
+                                               .Subscribe(w =>
+                                               {
+                                                   _notifiedSlots.Clear();
+                                                   _notifiedTimes.Clear();
+                                               }));
         }
 
         private async Task Check()
@@ -60,8 +70,11 @@ namespace Norma.Ipsilon.Models
             foreach (var time in _reservation.RsvsByTime.Where(w => w.IsEnable))
             {
                 if (time.DayOfWeek.IsMatch(DateTime.Now) && IsNoticeable(time.StartTime) &&
-                    IsNoticeableRange(time.Range))
+                    IsNoticeableRange(time.Range) && !_notifiedTimes.Contains(time))
+                {
                     list.Add(time);
+                    _notifiedTimes.Add(time);
+                }
             }
 
             // Design Guide 的には、まとめたほうがよさ気。
@@ -105,8 +118,9 @@ namespace Norma.Ipsilon.Models
                         : w.Title == keyword.Keyword);
                     foreach (var slot in slots)
                     {
-                        if (!IsNoticeable(slot.StartAt))
+                        if (!IsNoticeable(slot.StartAt) || _notifiedSlots.Contains(slot))
                             continue;
+                        _notifiedSlots.Add(slot);
                         var title = Resources.NoticeKeywordRsvTitle;
                         var body = string.Format(Resources.NoticeKeywordRsvBody, keyword.Keyword);
                         await NotificationManager.ShowNotification(title, body);
