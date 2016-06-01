@@ -26,6 +26,10 @@ namespace Norma.Eta
 
         public static string OpsFile => Path.Combine(AppDirectory, "ops.json");
 
+        public static string MainFileName => "Norma.exe";
+
+        public static string MainExecutableFile => Path.Combine(CurrentDirectory, MainFileName);
+
         public static string IotaFileName => "Norma.Iota.exe";
 
         public static string IotaExecutableFile => Path.Combine(CurrentDirectory, IotaFileName);

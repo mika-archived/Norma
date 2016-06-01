@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
+using System.Web;
 
 using DesktopToast;
 
@@ -51,14 +54,50 @@ namespace Norma.Ipsilon
                         r = NotificationResult.TimedOut;
                         break;
 
-                    default:
+                    case "Ignored":
                         r = NotificationResult.Canceled;
+                        break;
+
+                    // View&channel=???
+                    default:
+                        r = NotificationResult.Activated;
                         break;
                 }
             }
             if (r != NotificationResult.Activated)
                 return;
             // Launch application or Change channel.
+            LaunchApplicationIfNotLaunched();
+            ChanngeChannel(s);
+        }
+
+        private static void LaunchApplicationIfNotLaunched()
+        {
+            var processes =
+                Process.GetProcessesByName(Path.GetFileNameWithoutExtension(NormaConstants.MainFileName));
+            if (processes.Length == 0)
+                if (File.Exists(NormaConstants.MainExecutableFile))
+                    Process.Start(NormaConstants.MainExecutableFile);
+        }
+
+        private static void ChanngeChannel(string queryParameters)
+        {
+            var parameters = HttpUtility.ParseQueryString(queryParameters);
+            if (string.IsNullOrWhiteSpace(parameters["channelId"]))
+                return;
+            var channel = parameters["channelId"];
+
+            try
+            {
+                if (File.Exists(NormaConstants.OpsFile))
+                    File.Delete(NormaConstants.OpsFile);
+                using (var sw = File.CreateText(NormaConstants.OpsFile))
+                    sw.WriteLine($"{{\"channel\": \"{channel}\"}}");
+            }
+            catch
+            {
+                // ignored
+            }
         }
     }
 }
