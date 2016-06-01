@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Windows.Threading;
 
 using DesktopToast;
 
@@ -32,7 +33,11 @@ namespace Norma.Ipsilon.Models
                 result = rs.ToString();
             }
             else
-                Shell.TaskbarIcon.ShowBalloonTip(title, body, BalloonIcon.Info);
+                Dispatcher.CurrentDispatcher.Invoke(() =>
+                {
+                    //
+                    Shell.TaskbarIcon.ShowBalloonTip(title, body, BalloonIcon.Info);
+                });
 
             return result;
         }
