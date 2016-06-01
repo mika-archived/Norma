@@ -47,7 +47,7 @@ namespace Norma.Iota.Models
                 else
                     DetailHighlight = Model.TableHighlight;
             }
-            CanRsv = StartAt > DateTime.Now.AddMinutes(10);
+            CanRsv = StartAt > DateTime.Now.AddMinutes(5);
         }
     }
 }
