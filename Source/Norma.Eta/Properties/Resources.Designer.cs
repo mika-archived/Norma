@@ -412,6 +412,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Ignore に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Ignore {
+            get {
+                return ResourceManager.GetString("Ignore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Input comment に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string InputComment {
@@ -984,6 +993,15 @@ namespace Norma.Eta.Properties {
         public static string Vice {
             get {
                 return ResourceManager.GetString("Vice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   View に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string View {
+            get {
+                return ResourceManager.GetString("View", resourceCulture);
             }
         }
         

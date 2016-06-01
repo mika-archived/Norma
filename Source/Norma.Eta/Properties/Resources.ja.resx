@@ -444,4 +444,10 @@
   <data name="NoticeTimeRsvTitle" xml:space="preserve">
     <value>予約時間通知</value>
   </data>
+  <data name="Ignore" xml:space="preserve">
+    <value>無視する</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>視聴する</value>
+  </data>
 </root>

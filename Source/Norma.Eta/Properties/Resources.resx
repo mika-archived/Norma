@@ -444,4 +444,10 @@
   <data name="NoticeTimeRsvTitle" xml:space="preserve">
     <value>Reservation Time Notification</value>
   </data>
+  <data name="Ignore" xml:space="preserve">
+    <value>Ignore</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
 </root>

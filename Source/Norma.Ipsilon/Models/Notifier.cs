@@ -87,11 +87,11 @@ namespace Norma.Ipsilon.Models
         {
             string title;
             string body;
+            Slot slot = null;
             if (reserve is RsvProgram)
             {
                 title = Resources.NoticeSlotRsvTitle;
                 _reservation.Reservations.Single(w => w.Id == reserve.Id).IsEnable = false;
-                Slot slot = null;
                 foreach (var schedule in _todaySchedules)
                 {
                     if (schedule.Slots.Any(w => w.Id == ((RsvProgram) reserve).ProgramId))
@@ -104,7 +104,7 @@ namespace Norma.Ipsilon.Models
                 title = Resources.NoticeTimeRsvTitle;
                 body = string.Format(Resources.NoticeTimeRsvBody, ((RsvTime) reserve).StartTime.ToString("t"));
             }
-            await NotificationManager.ShowNotification(title, body);
+            await NotificationManager.ShowNotification(title, body, slot);
         }
 
         private async Task KeywordNotify()
@@ -123,7 +123,7 @@ namespace Norma.Ipsilon.Models
                         _notifiedSlots.Add(slot);
                         var title = Resources.NoticeKeywordRsvTitle;
                         var body = string.Format(Resources.NoticeKeywordRsvBody, keyword.Keyword);
-                        await NotificationManager.ShowNotification(title, body);
+                        await NotificationManager.ShowNotification(title, body, slot);
                         return;
                     }
                 }
