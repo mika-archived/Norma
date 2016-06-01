@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,7 +11,6 @@ namespace Norma.Gamma
         public AbemaAuthorizationHandler(AbemaTv abemaApi)
         {
             _abemaApi = abemaApi;
-            Credentials = new NetworkCredential("abema", "goto");
         }
 
         #region Overrides of HttpClientHandler
