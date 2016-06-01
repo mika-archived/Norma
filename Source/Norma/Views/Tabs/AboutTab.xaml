@@ -23,5 +23,20 @@
             <TextBlock FontSize="20" Text="{Binding Version}" />
             <TextBlock FontSize="14" Text="{Binding Copyright}" />
         </StackPanel>
+        <StackPanel HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Orientation="Vertical">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="FontFamily" Value="Segoe UI" />
+                    <Setter Property="Foreground" Value="{DynamicResource SemiActiveForegroundBrushKey}" />
+                    <Setter Property="FontSize" Value="10" />
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="Environment Values" />
+            <TextBlock Text="{Binding IsSupportNewToast}" />
+            <TextBlock Text="{Binding IsSupportToast}" />
+            <TextBlock Text="{Binding OsVersion}" />
+        </StackPanel>
     </Grid>
 </UserControl>

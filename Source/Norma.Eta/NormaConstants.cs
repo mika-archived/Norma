@@ -40,11 +40,12 @@ namespace Norma.Eta
 
         // Windows 10
         public static bool IsSupportedNewToast
-            => Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor == 4;
+            => Environment.OSVersion.Version.Major >= 10;
 
-        // Windows 8.1 ~
+        // Windows 8.0 ~
         public static bool IsSupportedToast
-            => Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor >= 3;
+            => (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor >= 2) ||
+               IsSupportedNewToast;
 
         // Windows 8, Windows 7, Windows Vista
         // 諦めてくれ
