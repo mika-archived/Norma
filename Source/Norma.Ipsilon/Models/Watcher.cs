@@ -32,8 +32,15 @@ namespace Norma.Ipsilon.Models
         {
             if (!File.Exists(NormaConstants.ReserveProgramLockFile))
                 return;
-            File.Delete(NormaConstants.ReserveProgramLockFile);
-            _reservation.Reload();
+            try
+            {
+                File.Delete(NormaConstants.ReserveProgramLockFile);
+                _reservation.Reload();
+            }
+            catch
+            {
+                // ignored
+            }
         }
     }
 }
