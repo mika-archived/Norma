@@ -20,20 +20,18 @@ namespace Norma.Ipsilon.Models
         private readonly CompositeDisposable _compositeDisposable;
         private readonly Reservation _reservation;
         private readonly Timetable _timetable;
-        private readonly List<ChannelSchedule> _todaySchedules;
         private readonly Watcher _watcher;
 
         private DateTime _lastSyncTime;
+        private List<ChannelSchedule> _todaySchedules;
 
         public Notifier(Timetable timetable, Reservation reservation)
         {
             _timetable = timetable;
-            _lastSyncTime = DateTime.Now;
-            _todaySchedules = timetable.ChannelSchedules.Where(w => EqualsWithDates(w.Date, DateTime.Today))
-                                       .ToList();
             _reservation = reservation;
             _watcher = new Watcher(reservation);
             _compositeDisposable = new CompositeDisposable {_watcher};
+            SyncSchedule();
         }
 
         #region Implementation of IDisposable
@@ -51,6 +49,8 @@ namespace Norma.Ipsilon.Models
 
         private async Task Check()
         {
+            if (!EqualsWithDates(_lastSyncTime, DateTime.Now))
+                SyncSchedule();
             var list = new List<Reserve>(); // 複数重なる場合もまぁ
             foreach (var program in _reservation.RsvsByProgram.Where(w => w.IsEnable))
             {
@@ -114,6 +114,13 @@ namespace Norma.Ipsilon.Models
                     }
                 }
             }
+        }
+
+        private void SyncSchedule()
+        {
+            _todaySchedules = _timetable.ChannelSchedules.Where(w => EqualsWithDates(w.Date, DateTime.Today))
+                                        .ToList();
+            _lastSyncTime = DateTime.Now;
         }
 
         private bool IsNoticeable(DateTime dateTime)
