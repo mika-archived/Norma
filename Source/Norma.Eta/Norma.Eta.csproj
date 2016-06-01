@@ -104,6 +104,7 @@
     <Compile Include="Models\Configurations\OthersConfig.cs" />
     <Compile Include="Models\Configurations\RootConfig.cs" />
     <Compile Include="Models\DateRange.cs" />
+    <Compile Include="Models\DateTimeHelper.cs" />
     <Compile Include="Models\EnumWrap.cs" />
     <Compile Include="Models\MuteKeyword.cs" />
     <Compile Include="Models\PostKey.cs" />

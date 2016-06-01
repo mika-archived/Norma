@@ -1,4 +1,6 @@
-﻿using Norma.Eta.Properties;
+﻿using System;
+
+using Norma.Eta.Properties;
 
 namespace Norma.Eta.Models.Reservations
 {
@@ -65,6 +67,44 @@ namespace Norma.Eta.Models.Reservations
         public static string ToLocaleString(this RepetitionType obj)
         {
             return (string) typeof(Resources).GetProperty(obj.ToString()).GetValue(null);
+        }
+
+        public static bool IsMatch(this RepetitionType obj, DateTime date)
+        {
+            switch (obj)
+            {
+                case RepetitionType.None:
+                case RepetitionType.Everyday:
+                    return true;
+
+                case RepetitionType.Monday:
+                    return date.DayOfWeek == DayOfWeek.Monday;
+
+                case RepetitionType.Tuesday:
+                    return date.DayOfWeek == DayOfWeek.Tuesday;
+
+                case RepetitionType.Wednesday:
+                    return date.DayOfWeek == DayOfWeek.Wednesday;
+
+                case RepetitionType.Thursday:
+                    return date.DayOfWeek == DayOfWeek.Thursday;
+
+                case RepetitionType.Friday:
+                    return date.DayOfWeek == DayOfWeek.Friday;
+
+                case RepetitionType.Saturday:
+                    return date.DayOfWeek == DayOfWeek.Saturday;
+
+                case RepetitionType.Sunday:
+                    return date.DayOfWeek == DayOfWeek.Sunday;
+
+                case RepetitionType.MonToFri:
+                    return 1 <= (int) date.DayOfWeek && (int) date.DayOfWeek <= 5;
+
+                case RepetitionType.MonToSat:
+                    return 1 <= (int) date.DayOfWeek && (int) date.DayOfWeek <= 6;
+            }
+            return false;
         }
     }
 }
