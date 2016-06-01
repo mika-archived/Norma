@@ -36,7 +36,7 @@ namespace Norma.Iota.ViewModels
             _index = (DateTime.Now - timetable.LastSyncTime).Days;
             AvailableDates = new List<string>();
             Channels = new ObservableCollection<ChannelCellViewModel>();
-            for (var i = 0; i < 7; i++)
+            for (var i = 0; i < 6; i++)
                 AvailableDates.Add(timetable.LastSyncTime.AddDays(i).ToString("MM/dd"));
 
             SelectedDate = AvailableDates[0];

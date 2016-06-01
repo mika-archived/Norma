@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+
+using Newtonsoft.Json;
+
+using Norma.Gamma.Converters;
 
 namespace Norma.Gamma.Models
 {
@@ -9,5 +13,9 @@ namespace Norma.Gamma.Models
 
         [JsonProperty("sceneThumbImgs")]
         public string[] SceneThumbImgs { get; set; }
+
+        [JsonProperty("updatedAt")]
+        [JsonConverter(typeof(UnixTimeDateTimeConverter))]
+        public DateTime UpdatedAt { get; set; }
     }
 }
