@@ -12,25 +12,13 @@ namespace Norma.Ipsilon.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     internal class ShellViewModel : ViewModel
     {
-        private readonly ConnectOps _connectOps;
         private readonly Notifier _notifier;
 
-        public ShellViewModel(Timetable timetable, Reservation reservation, ConnectOps connectOps)
+        public ShellViewModel(Timetable timetable, Reservation reservation)
         {
-            _connectOps = connectOps;
             _notifier = new Notifier(timetable, reservation).AddTo(this);
             _notifier.Start();
         }
-
-        #region Overrides of ViewModel
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            _connectOps.Dispose();
-        }
-
-        #endregion
 
         #region ExitCommand
 

@@ -21,7 +21,6 @@ namespace Norma.ViewModels
     internal class ShellViewModel : ViewModel
     {
         private readonly Configuration _configuration;
-        private readonly ConnectOps _connectOps;
         private readonly Timetable _timetable;
         public AbemaHostViewModel HostViewModel { get; }
         public AbemaTVGuideViewModel TvGuideViewModel { get; }
@@ -30,13 +29,12 @@ namespace Norma.ViewModels
         public ReadOnlyReactiveProperty<string> Title { get; private set; }
         public ReactiveProperty<bool> IsTopMost { get; private set; }
 
-        public ShellViewModel(AbemaState abemaState, Configuration config, Timetable timetable, ConnectOps connectOps)
+        public ShellViewModel(AbemaState abemaState, Configuration config, Timetable timetable, Connector connector)
         {
             _configuration = config;
             _timetable = timetable;
-            _connectOps = connectOps;
 
-            HostViewModel = new AbemaHostViewModel(abemaState, config).AddTo(this);
+            HostViewModel = new AbemaHostViewModel(abemaState, config, connector).AddTo(this);
             TvGuideViewModel = new AbemaTVGuideViewModel(this, config, timetable).AddTo(this);
             StatusBar = new AbemaStatusViewModel().AddTo(this);
             SettingsRequest = new InteractionRequest<INotification>();
@@ -56,7 +54,6 @@ namespace Norma.ViewModels
             // ?
             _timetable.Save();
             _configuration.Save();
-            _connectOps.Dispose();
         }
 
         #endregion

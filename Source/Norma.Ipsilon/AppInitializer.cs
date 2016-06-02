@@ -8,6 +8,7 @@ using DesktopToast;
 
 using Norma.Eta;
 using Norma.Eta.Models;
+using Norma.Eta.Models.Operations;
 using Norma.Ipsilon.Models;
 using Norma.Ipsilon.Notifications;
 
@@ -31,7 +32,6 @@ namespace Norma.Ipsilon
         {
             AbemaApiHost.Initialize();
             Timetable.Sync();
-            ConnectOps.Start();
         }
 
         public static void PostInitialize()
@@ -89,17 +89,7 @@ namespace Norma.Ipsilon
                 return;
             var channel = parameters["channelId"];
 
-            try
-            {
-                if (File.Exists(NormaConstants.OpsFile))
-                    File.Delete(NormaConstants.OpsFile);
-                using (var sw = File.CreateText(NormaConstants.OpsFile))
-                    sw.WriteLine($"{{\"channel\": \"{channel}\"}}");
-            }
-            catch
-            {
-                // ignored
-            }
+            ConnectOps.Save(new ChangeChannelOp(channel));
         }
     }
 }
