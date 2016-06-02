@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Reactive.Linq;
 
+using Norma.Eta;
 using Norma.Eta.Models;
 using Norma.Eta.Models.Operations;
 
@@ -50,9 +52,11 @@ namespace Norma.Models
             {
                 Debug.WriteLine($"[Warning]Does not registered {operation.GetType().Name}'s handler.");
                 Debug.WriteLine($"[Warning]Request does not invoke.");
+                File.Delete(NormaConstants.OpsFile);
                 return;
             }
             _operationTables[operation.GetType()].Invoke(operation);
+            File.Delete(NormaConstants.OpsFile);
         }
     }
 }
