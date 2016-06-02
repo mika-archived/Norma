@@ -103,10 +103,14 @@
     <Compile Include="Models\Configurations\OperationConfig.cs" />
     <Compile Include="Models\Configurations\OthersConfig.cs" />
     <Compile Include="Models\Configurations\RootConfig.cs" />
+    <Compile Include="Models\ConnectOps.cs" />
     <Compile Include="Models\DateRange.cs" />
     <Compile Include="Models\DateTimeHelper.cs" />
     <Compile Include="Models\EnumWrap.cs" />
     <Compile Include="Models\MuteKeyword.cs" />
+    <Compile Include="Models\Operations\ChangeChannelOp.cs" />
+    <Compile Include="Models\Operations\IOperation.cs" />
+    <Compile Include="Models\Operations\IOperationRequestAware.cs" />
     <Compile Include="Models\PostKey.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\Reservations\RepetitionType.cs" />
@@ -179,6 +183,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

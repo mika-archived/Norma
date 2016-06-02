@@ -196,6 +196,7 @@
     <Compile Include="Models\CefSetting.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\CommentHost.cs" />
+    <Compile Include="Models\Connector.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
     <Compile Include="Models\Libraries\DesktopToast.cs" />
     <Compile Include="Models\Libraries\HardcodetWpfNotifyIcon.cs" />
