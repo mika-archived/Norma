@@ -25,6 +25,9 @@ namespace Norma.Eta.Models.Configurations
         public PostKey PostKeyType { get; set; }
 
         [JsonProperty]
+        public uint ToastNotificationBeforeMinutes { get; set; }
+
+        [JsonProperty]
         public ObservableCollection<MuteKeyword> MuteKeywords { get; set; }
 
         public OperationConfig()
@@ -35,6 +38,7 @@ namespace Norma.Eta.Models.Configurations
             SamplingIntervalOfProgramState = 1;
             NumberOfHoldingComments = 200;
             PostKeyType = PostKey.EnterOnly;
+            ToastNotificationBeforeMinutes = 5;
             MuteKeywords = new ObservableCollection<MuteKeyword>();
         }
     }

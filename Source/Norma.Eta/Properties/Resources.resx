@@ -450,4 +450,10 @@
   <data name="View" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="MinutesBefore" xml:space="preserve">
+    <value>minutes before.</value>
+  </data>
+  <data name="ToastNotification" xml:space="preserve">
+    <value>Toast Notification :</value>
+  </data>
 </root>

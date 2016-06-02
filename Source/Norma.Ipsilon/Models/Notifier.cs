@@ -18,6 +18,7 @@ namespace Norma.Ipsilon.Models
     internal class Notifier : IDisposable
     {
         private readonly CompositeDisposable _compositeDisposable;
+        private readonly Configuration _configuration;
         private readonly List<Slot> _notifiedSlots;
         private readonly List<RsvTime> _notifiedTimes;
         private readonly Reservation _reservation;
@@ -27,8 +28,9 @@ namespace Norma.Ipsilon.Models
         private DateTime _lastSyncTime;
         private List<ChannelSchedule> _todaySchedules;
 
-        public Notifier(Timetable timetable, Reservation reservation)
+        public Notifier(Configuration configuration, Timetable timetable, Reservation reservation)
         {
+            _configuration = configuration;
             _timetable = timetable;
             _reservation = reservation;
             _watcher = new Watcher(reservation);
@@ -146,7 +148,8 @@ namespace Norma.Ipsilon.Models
         }
 
         private bool IsNoticeable(DateTime dateTime)
-            => dateTime >= DateTime.Now && DateTime.Now >= dateTime.AddMinutes(-5);
+            => dateTime >= DateTime.Now &&
+               DateTime.Now >= dateTime.AddMinutes(-_configuration.Root.Operation.ToastNotificationBeforeMinutes);
 
         private bool IsNoticeableRange(DateRange range) => range.Start <= DateTime.Now && DateTime.Now <= range.Finish;
     }

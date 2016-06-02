@@ -30,6 +30,7 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="150" />
         </Grid.RowDefinitions>
 
@@ -156,14 +157,35 @@
                               SelectedValue="{Binding PostKey.Value,
                                                       Mode=TwoWay}" />
         <!--#endregion-->
-
-        <!--#region MuteKeywords-->
+        <!--#region NotificationOffsetTime-->
         <TextBlock Grid.Row="6"
+                   Grid.Column="0"
+                   Text="{x:Static properties:Resources.ToastNotification}" />
+        <StackPanel Grid.Row="6"
+                    Grid.Column="1"
+                    Orientation="Horizontal">
+            <metro:PromptTextBox Width="100"
+                                 Height="30"
+                                 Margin="5"
+                                 VerticalAlignment="Center">
+                <metro:PromptTextBox.Text>
+                    <Binding Path="ToastNotificationBeforeMinutes.Value" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <metro:Int32Rule Min="1" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </metro:PromptTextBox.Text>
+            </metro:PromptTextBox>
+            <TextBlock Text="{x:Static properties:Resources.MinutesBefore}" />
+        </StackPanel>
+        <!--#endregion-->
+        <!--#region MuteKeywords-->
+        <TextBlock Grid.Row="7"
                    Grid.Column="0"
                    Margin="0,5,0,0"
                    VerticalAlignment="Top"
                    Text="{x:Static properties:Resources.MuteKeywords}" />
-        <Grid Grid.Row="6"
+        <Grid Grid.Row="7"
               Grid.Column="1"
               Margin="5"
               HorizontalAlignment="Left">

@@ -14,9 +14,9 @@ namespace Norma.Ipsilon.ViewModels
     {
         private readonly Notifier _notifier;
 
-        public ShellViewModel(Timetable timetable, Reservation reservation)
+        public ShellViewModel(Configuration configuration, Timetable timetable, Reservation reservation)
         {
-            _notifier = new Notifier(timetable, reservation).AddTo(this);
+            _notifier = new Notifier(configuration, timetable, reservation).AddTo(this);
             _notifier.Start();
         }
 

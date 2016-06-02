@@ -529,6 +529,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   minutes before. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MinutesBefore {
+            get {
+                return ResourceManager.GetString("MinutesBefore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Monday に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Monday {
@@ -948,6 +957,15 @@ namespace Norma.Eta.Properties {
         public static string Time {
             get {
                 return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Toast Notification : に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ToastNotification {
+            get {
+                return ResourceManager.GetString("ToastNotification", resourceCulture);
             }
         }
         

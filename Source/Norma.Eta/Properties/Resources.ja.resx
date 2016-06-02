@@ -450,4 +450,10 @@
   <data name="View" xml:space="preserve">
     <value>視聴する</value>
   </data>
+  <data name="MinutesBefore" xml:space="preserve">
+    <value>分前</value>
+  </data>
+  <data name="ToastNotification" xml:space="preserve">
+    <value>トースト通知 :</value>
+  </data>
 </root>

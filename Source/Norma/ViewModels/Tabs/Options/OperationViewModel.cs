@@ -30,6 +30,7 @@ namespace Norma.ViewModels.Tabs.Options
         public ReactiveProperty<uint> SamplingIntervalOfProgramState { get; private set; }
         public ReactiveProperty<uint> NumberOfHoldingComments { get; private set; }
         public ReactiveProperty<EnumWrap<PostKey>> PostKey { get; private set; }
+        public ReactiveProperty<uint> ToastNotificationBeforeMinutes { get; private set; }
         public ObservableCollection<MuteKeyword> MuteKeywords { get; }
         public ReactiveProperty<string> Keyword { get; }
         public ReactiveProperty<bool> IsRegex { get; }
@@ -46,6 +47,7 @@ namespace Norma.ViewModels.Tabs.Options
             NumberOfHoldingComments = ReactiveProperty.FromObject(oc, w => w.NumberOfHoldingComments);
             PostKey = ReactiveProperty.FromObject(oc, w => w.PostKeyType, x => new EnumWrap<PostKey>(x),
                                                   w => w.EnumValue);
+            ToastNotificationBeforeMinutes = ReactiveProperty.FromObject(oc, w => w.ToastNotificationBeforeMinutes);
             MuteKeywords = oc.MuteKeywords;
             IsRegex = new ReactiveProperty<bool>(false);
             Keyword = new ReactiveProperty<string>("")
