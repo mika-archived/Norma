@@ -1,4 +1,5 @@
-﻿using CefSharp.Wpf;
+﻿using CefSharp;
+using CefSharp.Wpf;
 
 using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
@@ -27,6 +28,18 @@ namespace Norma.ViewModels.Controls
             _javaScritHost = new JavaScriptHost(WebBrowser, _abemaState, _configuration).AddTo(this);
             _javaScritHost.Address = Address; // Initialize
         }
+
+        #region Overrides of ViewModel
+
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            WebBrowser.Dispose();
+            Cef.Shutdown();
+        }
+
+        #endregion
 
         #region WebBrowser
 
