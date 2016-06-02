@@ -18,6 +18,7 @@ namespace Norma.Ipsilon
         public static AbemaApiHost AbemaApiHost { get; private set; }
         public static Configuration Configuration { get; private set; }
         public static Timetable Timetable { get; private set; }
+        public static ConnectOps ConnectOps { get; private set; }
 
         public static void PreInitialize()
         {
@@ -30,6 +31,7 @@ namespace Norma.Ipsilon
         {
             AbemaApiHost.Initialize();
             Timetable.Sync();
+            ConnectOps.Start();
         }
 
         public static void PostInitialize()

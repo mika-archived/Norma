@@ -21,6 +21,7 @@ namespace Norma.ViewModels
     internal class ShellViewModel : ViewModel
     {
         private readonly Configuration _configuration;
+        private readonly ConnectOps _connectOps;
         private readonly Timetable _timetable;
         public AbemaHostViewModel HostViewModel { get; }
         public AbemaTVGuideViewModel TvGuideViewModel { get; }
@@ -29,13 +30,14 @@ namespace Norma.ViewModels
         public ReadOnlyReactiveProperty<string> Title { get; private set; }
         public ReactiveProperty<bool> IsTopMost { get; private set; }
 
-        public ShellViewModel(AbemaState abemaState, Configuration configuration, Timetable timetable)
+        public ShellViewModel(AbemaState abemaState, Configuration config, Timetable timetable, ConnectOps connectOps)
         {
-            _configuration = configuration;
+            _configuration = config;
             _timetable = timetable;
+            _connectOps = connectOps;
 
-            HostViewModel = new AbemaHostViewModel(abemaState, configuration).AddTo(this);
-            TvGuideViewModel = new AbemaTVGuideViewModel(this, configuration, timetable).AddTo(this);
+            HostViewModel = new AbemaHostViewModel(abemaState, config).AddTo(this);
+            TvGuideViewModel = new AbemaTVGuideViewModel(this, config, timetable).AddTo(this);
             StatusBar = new AbemaStatusViewModel().AddTo(this);
             SettingsRequest = new InteractionRequest<INotification>();
 
@@ -43,7 +45,7 @@ namespace Norma.ViewModels
                               .Select(w => $"{w?.Title ?? "AbemaTV"} - Norma")
                               .ToReadOnlyReactiveProperty($"{abemaState.CurrentSlot?.Title ?? "AbemaTV"} - Norma")
                               .AddTo(this);
-            IsTopMost = ReactiveProperty.FromObject(configuration.Root.Internal, w => w.IsTopMost).AddTo(this);
+            IsTopMost = ReactiveProperty.FromObject(config.Root.Internal, w => w.IsTopMost).AddTo(this);
         }
 
         #region Overrides of ViewModel
@@ -54,6 +56,7 @@ namespace Norma.ViewModels
             // ?
             _timetable.Save();
             _configuration.Save();
+            _connectOps.Dispose();
         }
 
         #endregion

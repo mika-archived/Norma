@@ -22,6 +22,7 @@ namespace Norma.Ipsilon
             Container.RegisterInstance(AppInitializer.Configuration, new ContainerControlledLifetimeManager());
             Container.RegisterInstance(AppInitializer.AbemaApiHost, new ContainerControlledLifetimeManager());
             Container.RegisterInstance(AppInitializer.Timetable, new ContainerControlledLifetimeManager());
+            Container.RegisterInstance(AppInitializer.ConnectOps, new ContainerControlledLifetimeManager());
             Container.RegisterType(typeof(Reservation), new ContainerControlledLifetimeManager());
         }
 

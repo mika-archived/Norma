@@ -2,7 +2,6 @@
 
 using Microsoft.Practices.Unity;
 
-using Norma.Models;
 using Norma.Views;
 
 using Prism.Unity;
@@ -23,6 +22,7 @@ namespace Norma
             Container.RegisterInstance(AppInitializer.AbemaApiHost, new ContainerControlledLifetimeManager());
             Container.RegisterInstance(AppInitializer.Timetable, new ContainerControlledLifetimeManager());
             Container.RegisterInstance(AppInitializer.AbemaState, new ContainerControlledLifetimeManager());
+            Container.RegisterInstance(AppInitializer.ConnectOps, new ContainerControlledLifetimeManager());
         }
 
         #endregion
