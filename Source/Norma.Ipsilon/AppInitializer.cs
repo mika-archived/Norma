@@ -26,6 +26,7 @@ namespace Norma.Ipsilon
             Configuration = new Configuration();
             AbemaApiHost = new AbemaApiHost(Configuration);
             Timetable = new Timetable(AbemaApiHost);
+            ConnectOps = new ConnectOps();
         }
 
         public static void Initialize()
@@ -75,11 +76,13 @@ namespace Norma.Ipsilon
 
         private static void LaunchApplicationIfNotLaunched()
         {
-            var processes =
-                Process.GetProcessesByName(Path.GetFileNameWithoutExtension(NormaConstants.MainFileName));
+            var processes = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(NormaConstants.MainFileName));
             if (processes.Length == 0)
+#if !DEBUG
                 if (File.Exists(NormaConstants.MainExecutableFile))
                     Process.Start(NormaConstants.MainExecutableFile);
+#endif
+                Debug.WriteLine("DebugMode=true");
         }
 
         private static void ChanngeChannel(string queryParameters)

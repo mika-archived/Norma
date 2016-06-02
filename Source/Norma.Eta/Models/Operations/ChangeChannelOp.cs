@@ -9,7 +9,7 @@
 
         #region Implementation of IOperation
 
-        public object Context { get; }
+        public object Context { get; set; }
 
         #endregion
     }

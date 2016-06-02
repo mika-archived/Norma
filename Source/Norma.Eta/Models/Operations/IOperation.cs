@@ -2,6 +2,6 @@
 {
     public interface IOperation
     {
-        object Context { get; }
+        object Context { get; set; }
     }
 }

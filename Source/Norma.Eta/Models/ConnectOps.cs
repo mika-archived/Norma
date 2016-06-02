@@ -18,13 +18,20 @@ namespace Norma.Eta.Models
             if (!File.Exists(NormaConstants.OpsFile))
                 return;
             using (var sr = File.OpenText(NormaConstants.OpsFile))
-                Operation = JsonConvert.DeserializeObject<IOperation>(sr.ReadToEnd());
+            {
+                var jsonSettings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All};
+                Operation = (IOperation) JsonConvert.DeserializeObject<object>(sr.ReadToEnd(), jsonSettings);
+            }
         }
 
+        //public void Save<T>(T operation) where T : IOperation
         public void Save(IOperation operation)
         {
             using (var sw = File.CreateText(NormaConstants.OpsFile))
-                sw.WriteLine(JsonConvert.SerializeObject(operation));
+            {
+                var jsonSettings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All};
+                sw.WriteLine(JsonConvert.SerializeObject(operation, jsonSettings));
+            }
         }
     }
 }

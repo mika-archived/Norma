@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 
@@ -30,7 +31,11 @@ namespace Norma.Ipsilon.Models
                 {
                     ToastXml = toastXml,
                     ShortcutFileName = NormaConstants.IpsilonLinkName,
+#if DEBUG
+                    ShortcutTargetFilePath = Assembly.GetExecutingAssembly().Location,
+#else
                     ShortcutTargetFilePath = NormaConstants.IpsilonExecutableFile,
+#endif
                     AppId = NormaConstants.IpsilonAppId
                 };
                 if (NormaConstants.IsSupportedNewToast)
