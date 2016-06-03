@@ -1026,9 +1026,9 @@ namespace Norma.Eta.Properties {
         /// <summary>
         ///   VARIETY CHANNEL に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        public static string VarieryChannel {
+        public static string VarietyChannel {
             get {
-                return ResourceManager.GetString("VarieryChannel", resourceCulture);
+                return ResourceManager.GetString("VarietyChannel", resourceCulture);
             }
         }
         
