@@ -853,7 +853,7 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
-        ///   Reservation by Keywords に類似しているローカライズされた文字列を検索します。
+        ///   by Keywords に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string RsvByKeyword {
             get {
@@ -862,7 +862,7 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
-        ///   Reservation by Time に類似しているローカライズされた文字列を検索します。
+        ///   by Time に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string RsvByTime {
             get {
