@@ -106,6 +106,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Application has been crashed. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ApplicationHasBeenCrash {
+            get {
+                return ResourceManager.GetString("ApplicationHasBeenCrash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Cannot get program information. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string BlankInformation {
@@ -165,6 +174,15 @@ namespace Norma.Eta.Properties {
         public static string Comment {
             get {
                 return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Crash report has written to {0}. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string CrashReportPath {
+            get {
+                return ResourceManager.GetString("CrashReportPath", resourceCulture);
             }
         }
         
@@ -723,6 +741,15 @@ namespace Norma.Eta.Properties {
         public static string Pet {
             get {
                 return ResourceManager.GetString("Pet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Please send crash report. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string PleaseSendCrashReportToMe {
+            get {
+                return ResourceManager.GetString("PleaseSendCrashReportToMe", resourceCulture);
             }
         }
         

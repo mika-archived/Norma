@@ -456,4 +456,13 @@
   <data name="ToastNotification" xml:space="preserve">
     <value>トースト通知 :</value>
   </data>
+  <data name="ApplicationHasBeenCrash" xml:space="preserve">
+    <value>アプリケーションはクラッシュしました。</value>
+  </data>
+  <data name="CrashReportPath" xml:space="preserve">
+    <value>クラッシュレポートは {0} に書きだされました。</value>
+  </data>
+  <data name="PleaseSendCrashReportToMe" xml:space="preserve">
+    <value>クラッシュレポートを送信してください。</value>
+  </data>
 </root>

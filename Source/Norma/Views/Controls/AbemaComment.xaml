@@ -6,15 +6,14 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
              xmlns:vm="clr-namespace:Norma.ViewModels.Controls"
+             xmlns:vmroot="clr-namespace:Norma.ViewModels"
              d:DataContext="{d:DesignInstance vm:AbemaCommentViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
     <Grid>
-        <ListView BorderThickness="0"
-                  IsEnabled="{Binding IsEnableCommentArea.Value}"
-                  ItemsSource="{Binding Comments}">
+        <ListView BorderThickness="0" ItemsSource="{Binding Comments}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="60">
@@ -22,7 +21,7 @@
                             <TextBlock Text="{x:Static properties:Resources.Time}" />
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
-                            <DataTemplate>
+                            <DataTemplate DataType="{x:Type vmroot:CommentViewModel}">
                                 <TextBlock Text="{Binding CreatedAt, Mode=OneWay}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -32,7 +31,7 @@
                             <TextBlock Text="{x:Static properties:Resources.Comment}" />
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
-                            <DataTemplate>
+                            <DataTemplate DataType="{x:Type vmroot:CommentViewModel}">
                                 <TextBlock Text="{Binding Message, Mode=OneWay}" TextWrapping="Wrap" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

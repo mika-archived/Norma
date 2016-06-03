@@ -33,6 +33,9 @@ namespace Norma
             _startupScreen = new StartupScreen();
             _startupScreen.Show();
 
+            if (!Directory.Exists(NormaConstants.CrashReportsDir))
+                Directory.CreateDirectory(NormaConstants.CrashReportsDir);
+
             CefSetting.Init();
             ThemeService.Current.Register(application, Theme.Dark, Accent.Blue);
 

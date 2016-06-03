@@ -456,4 +456,13 @@
   <data name="ToastNotification" xml:space="preserve">
     <value>Toast Notification :</value>
   </data>
+  <data name="ApplicationHasBeenCrash" xml:space="preserve">
+    <value>Application has been crashed.</value>
+  </data>
+  <data name="CrashReportPath" xml:space="preserve">
+    <value>Crash report has written to {0}.</value>
+  </data>
+  <data name="PleaseSendCrashReportToMe" xml:space="preserve">
+    <value>Please send crash report.</value>
+  </data>
 </root>
