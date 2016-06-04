@@ -12,10 +12,12 @@ namespace Norma.Models
     internal class AbemaChannels : BindableBase, IDisposable
     {
         private readonly IDisposable _disposable;
+        private readonly Timetable _timetable;
         public ObservableCollection<AbemaChannel> Channels { get; }
 
-        public AbemaChannels()
+        public AbemaChannels(Timetable timetable)
         {
+            _timetable = timetable;
             Channels = new ObservableCollection<AbemaChannel>();
             var channels = (AbemaChannel[]) Enum.GetValues(typeof(AbemaChannel));
             foreach (var value in channels.Skip(1))
@@ -35,35 +37,20 @@ namespace Norma.Models
 
         private void FetchChannels()
         {
-            // Mon ~ Thu の 00:00 ~ 02:30 限定で、 OnegaiRanking が追加されてる
-            var today = DateTime.Now;
-            var dayOfWeek = today.DayOfWeek;
-            if (dayOfWeek == DayOfWeek.Saturday || dayOfWeek == DayOfWeek.Sunday || dayOfWeek == DayOfWeek.Monday)
+            var channels = _timetable.CurrentChannels();
+            // 削除
+            foreach (var channel in Channels)
             {
-                Remove();
-                return;
+                if (!channels.Contains(channel))
+                    Channels.Remove(channel);
             }
-            if (today.Hour >= 3)
+            // 追加
+            foreach (var channel in channels.Select((v, i) => new {Value = v, Index = i}))
             {
-                Remove();
-                return;
+                if (Channels.Contains(channel.Value))
+                    continue;
+                Channels.Insert(channel.Index, channel.Value);
             }
-            if (today.Hour == 2 && today.Minute > 30)
-            {
-                Remove();
-                return;
-            }
-
-            if (Channels.Contains(AbemaChannel.OnegaiRanking))
-                return;
-            Channels.Insert(0, AbemaChannel.OnegaiRanking);
-        }
-
-        private void Remove()
-        {
-            if (!Channels.Contains(AbemaChannel.OnegaiRanking))
-                return;
-            Channels.Remove(AbemaChannel.OnegaiRanking);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Norma.ViewModels.Controls
 
         public AbemaTVGuideViewModel(ShellViewModel parent, Configuration c, Timetable t)
         {
-            var channels = new AbemaChannels().AddTo(this);
+            var channels = new AbemaChannels(t).AddTo(this);
             Channnels = channels.Channels
                                 .ToReadOnlyReactiveCollection(w => new ChannelViewModel(parent, new Channel(w, c, t)))
                                 .AddTo(this);

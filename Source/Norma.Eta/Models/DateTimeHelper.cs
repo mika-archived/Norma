@@ -13,5 +13,10 @@ namespace Norma.Eta.Models
         {
             return obj1.Hour == obj2.Hour && obj1.Minute == obj2.Minute;
         }
+
+        public static bool IsRangeOf(DateTime startAt, DateTime endAt, DateTime target)
+        {
+            return startAt <= target && target <= endAt;
+        }
     }
 }

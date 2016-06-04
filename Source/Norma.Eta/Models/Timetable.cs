@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,6 +8,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 using Norma.Gamma.Models;
+
+using static Norma.Eta.Models.DateTimeHelper;
 
 namespace Norma.Eta.Models
 {
@@ -80,6 +84,20 @@ namespace Norma.Eta.Models
         {
             var schedule = ChannelSchedules.FirstOrDefault(w => w.ChannelId == channel.ToUrlString());
             return schedule?.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);
+        }
+
+        public ReadOnlyCollection<AbemaChannel> CurrentChannels()
+        {
+            var channels = new List<AbemaChannel>();
+            var anons = ChannelSchedules.Where(w => EqualsWithDates(w.Date, DateTime.Today))
+                                        .Select(w => new {w.Slots, w.ChannelId});
+            foreach (var anon in anons)
+            {
+                if (!anon.Slots.Any(w => IsRangeOf(w.StartAt, w.EndAt, DateTime.Now)))
+                    continue;
+                channels.Add(AbemaChannelExt.FromUrlString(anon.ChannelId));
+            }
+            return new ReadOnlyCollection<AbemaChannel>(channels);
         }
     }
 }
