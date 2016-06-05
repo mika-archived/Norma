@@ -199,6 +199,7 @@
     <Compile Include="Models\Connector.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
     <Compile Include="Models\Libraries\DesktopToast.cs" />
+    <Compile Include="Models\Libraries\EntityFramework.cs" />
     <Compile Include="Models\Libraries\HardcodetWpfNotifyIcon.cs" />
     <Compile Include="Models\Libraries\CEF.cs" />
     <Compile Include="Models\Libraries\CEFSharp.cs" />
@@ -209,6 +210,8 @@
     <Compile Include="Models\Libraries\PrismLibrary.cs" />
     <Compile Include="Models\Libraries\ReactiveProperty.cs" />
     <Compile Include="Models\Libraries\RxNET.cs" />
+    <Compile Include="Models\Libraries\SqLiteCodeFirst.cs" />
+    <Compile Include="Models\Libraries\SQLiteProvider.cs" />
     <Compile Include="Models\Libraries\Unity.cs" />
     <Compile Include="Models\Library.cs" />
     <Compile Include="Models\ProductInfo.cs" />

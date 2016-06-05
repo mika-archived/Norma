@@ -31,15 +31,18 @@ namespace Norma.Models
             new CEF(),
             new CEFSharp(),
             new CommonServiceLocator(),
+            new DesktopToast(),
+            new EntityFramework(),
+            new HardcodetWpfNotifyIcon(),
             new LibMetroRadiance(),
             new NewtonsoftJson(),
+            new NotificationsExtensions(),
             new PrismLibrary(),
             new ReactiveProperty(),
             new RxNET(),
-            new Unity(),
-            new HardcodetWpfNotifyIcon(),
-            new DesktopToast(),
-            new NotificationsExtensions()
+            new SqLiteCodeFirst(),
+            new SqLiteProvider(),
+            new Unity()
         });
 
         private static T GetAssemblyInfo<T>() where T : Attribute
