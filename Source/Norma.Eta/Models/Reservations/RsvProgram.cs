@@ -10,11 +10,16 @@ namespace Norma.Eta.Models.Reservations
         /// <summary>
         ///     予約開始時間
         /// </summary>
-        public DateTime StartDate { get; set; }
+        public virtual DateTime StartDate { get; set; }
 
         /// <summary>
         ///     対象番組ID
         /// </summary>
         public string ProgramId { get; set; }
+
+        public RsvProgram()
+        {
+            Type = nameof(RsvProgram);
+        }
     }
 }

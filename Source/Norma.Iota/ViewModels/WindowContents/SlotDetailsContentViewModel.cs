@@ -184,7 +184,7 @@ namespace Norma.Iota.ViewModels.WindowContents
             if (_notification == null)
                 return false;
             var model = (WrapSlot) _notification.Model;
-            return !_rsvs.Reservations.Any(w => w.IsEnable && (w as RsvProgram)?.ProgramId == model.Model.Id) &&
+            return !_rsvs.RsvsByProgram.Any(w => w.IsEnable && w?.ProgramId == model.Model.Id) &&
                    model.CanRsv;
         }
 

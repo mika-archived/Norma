@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 
-using Newtonsoft.Json;
-
+using Norma.Eta.Database;
 using Norma.Eta.Models.Reservations;
 using Norma.Gamma.Models;
 
@@ -12,60 +10,42 @@ namespace Norma.Eta.Models
 {
     public class Reservation
     {
-        private ObservableCollection<Reserve> ReservationsInternal { get; set; }
+        private readonly ReservationDbContext _dbContext;
+        private readonly object _lockObj = new object();
 
-        public ReadOnlyObservableCollection<Reserve> Reservations { get; }
+        public ReadOnlyCollection<RsvAll> Reservations
+            => _dbContext.Reservations.Cast<RsvAll>().ToList().AsReadOnly();
 
         public ReadOnlyCollection<RsvProgram> RsvsByProgram
-            => ReservationsInternal.OfType<RsvProgram>().ToList().AsReadOnly();
+            => _dbContext.Reservations.Where(w => w.Type == nameof(RsvProgram)).ToList()
+                         .Select(w => w.Cast<RsvProgram>()).ToList().AsReadOnly();
 
         public ReadOnlyCollection<RsvTime> RsvsByTime
-            => ReservationsInternal.OfType<RsvTime>().ToList().AsReadOnly();
+            => _dbContext.Reservations.Where(w => w.Type == nameof(RsvTime)).ToList()
+                         .Select(w => w.Cast<RsvTime>()).ToList().AsReadOnly();
 
         public ReadOnlyCollection<RsvKeyword> RsvsByKeyword
-            => ReservationsInternal.OfType<RsvKeyword>().ToList().AsReadOnly();
+            => _dbContext.Reservations.Where(w => w.Type == nameof(RsvKeyword)).ToList()
+                         .Select(w => w.Cast<RsvKeyword>()).ToList().AsReadOnly();
 
         public Reservation()
         {
-            Load();
-            Save(false);
-            Reservations = new ReadOnlyObservableCollection<Reserve>(ReservationsInternal);
+            _dbContext = new ReservationDbContext();
+            Init();
         }
 
-        private void Load()
+        private void Init()
         {
-            if (!File.Exists(NormaConstants.ReserveProgramListFile))
-            {
-                ReservationsInternal = new ObservableCollection<Reserve>();
-                Migrate();
-                return;
-            }
-            using (var sr = File.OpenText(NormaConstants.ReserveProgramListFile))
-            {
-                var jsonSettings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.Auto};
-                ReservationsInternal = JsonConvert.DeserializeObject<ObservableCollection<Reserve>>(sr.ReadToEnd(),
-                                                                                                    jsonSettings);
-            }
-            Migrate();
+            _dbContext.Reservations.Create();
+            _dbContext.SaveChanges();
         }
 
-        public void Reload()
+        public void Save()
         {
-            Load();
-            Save(false);
-        }
-
-        public void Save(bool isLock = true)
-        {
-            using (var sw = File.CreateText(NormaConstants.ReserveProgramListFile))
+            lock (_lockObj)
             {
-                var jsonSettings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.Auto};
-                sw.WriteLine(JsonConvert.SerializeObject(ReservationsInternal.Where(w => w.IsEnable), jsonSettings));
+                _dbContext.SaveChanges();
             }
-            if (!isLock)
-                return;
-            if (!File.Exists(NormaConstants.ReserveProgramLockFile))
-                File.Create(NormaConstants.ReserveProgramLockFile);
         }
 
         private void Migrate()
@@ -79,7 +59,11 @@ namespace Norma.Eta.Models
         /// <param name="slot"></param>
         public void AddReservation(Slot slot)
         {
-            ReservationsInternal.Add(new RsvProgram {ProgramId = slot.Id, StartDate = slot.StartAt});
+            _dbContext.Reservations.Add(RsvAll.Create(new RsvProgram
+            {
+                ProgramId = slot.Id,
+                StartDate = slot.StartAt
+            }));
             Save();
         }
 
@@ -91,7 +75,12 @@ namespace Norma.Eta.Models
         /// <param name="range"></param>
         public void AddReservation(DateTime time, RepetitionType repetition, DateRange range)
         {
-            ReservationsInternal.Add(new RsvTime {StartTime = time, DayOfWeek = repetition, Range = range});
+            _dbContext.Reservations.Add(RsvAll.Create(new RsvTime
+            {
+                StartTime = time,
+                DayOfWeek = repetition,
+                Range = range
+            }));
             Save();
         }
 
@@ -103,7 +92,12 @@ namespace Norma.Eta.Models
         /// <param name="range"></param>
         public void AddReservation(string keyword, bool isRegex, DateRange range)
         {
-            ReservationsInternal.Add(new RsvKeyword {Keyword = keyword, IsRegexMode = isRegex, Range = range});
+            _dbContext.Reservations.Add(RsvAll.Create(new RsvKeyword
+            {
+                Keyword = keyword,
+                IsRegexMode = isRegex,
+                Range = range
+            }));
             Save();
         }
     }

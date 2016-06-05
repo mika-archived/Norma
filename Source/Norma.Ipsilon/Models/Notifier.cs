@@ -23,7 +23,6 @@ namespace Norma.Ipsilon.Models
         private readonly List<RsvTime> _notifiedTimes;
         private readonly Reservation _reservation;
         private readonly Timetable _timetable;
-        private readonly Watcher _watcher;
 
         private DateTime _lastSyncTime;
         private List<ChannelSchedule> _todaySchedules;
@@ -33,8 +32,7 @@ namespace Norma.Ipsilon.Models
             _configuration = configuration;
             _timetable = timetable;
             _reservation = reservation;
-            _watcher = new Watcher(reservation);
-            _compositeDisposable = new CompositeDisposable {_watcher};
+            _compositeDisposable = new CompositeDisposable();
             _notifiedSlots = new List<Slot>();
             _notifiedTimes = new List<RsvTime>();
             SyncSchedule();
@@ -48,7 +46,6 @@ namespace Norma.Ipsilon.Models
 
         internal void Start()
         {
-            _watcher.Start();
             _compositeDisposable.Add(Observable.Timer(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(1))
                                                .Subscribe(async w => await Check()));
             _compositeDisposable.Add(Observable.Timer(TimeSpan.Zero, TimeSpan.FromHours(1))
@@ -96,6 +93,7 @@ namespace Norma.Ipsilon.Models
                 {
                     title = Resources.NoticeSlotRsvTitle;
                     _reservation.Reservations.Single(w => w.Id == reserve.Id).IsEnable = false;
+                    _reservation.Save();
                     foreach (var schedule in _todaySchedules)
                     {
                         if (schedule.Slots.Any(w => w.Id == ((RsvProgram) reserve).ProgramId))

@@ -8,7 +8,7 @@
         /// <summary>
         ///     有効期間
         /// </summary>
-        public DateRange Range { get; set; }
+        public virtual DateRange Range { get; set; }
 
         /// <summary>
         ///     キーワード
@@ -23,6 +23,7 @@
         public RsvKeyword()
         {
             IsRegexMode = false;
+            Type = nameof(RsvKeyword);
         }
     }
 }

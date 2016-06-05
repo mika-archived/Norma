@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Norma.Eta.Models.Reservations
+﻿namespace Norma.Eta.Models.Reservations
 {
 #pragma warning disable CS0659 // 型は Object.Equals(object o) をオーバーライドしますが、Object.GetHashCode() をオーバーライドしません
 
@@ -8,6 +6,10 @@ namespace Norma.Eta.Models.Reservations
 #pragma warning restore CS0659 // 型は Object.Equals(object o) をオーバーライドしますが、Object.GetHashCode() をオーバーライドしません
     {
         public bool IsEnable { get; set; }
+
+        public int Id { get; set; }
+
+        public string Type { get; set; }
 
         protected Reserve()
         {
@@ -22,18 +24,6 @@ namespace Norma.Eta.Models.Reservations
 #pragma warning restore 659
         {
             return (obj as Reserve)?.Id == Id;
-        }
-
-        #endregion
-
-        #region Id
-
-        private string _id;
-
-        public string Id
-        {
-            get { return _id ?? (_id = Guid.NewGuid().ToString()); }
-            set { _id = value; }
         }
 
         #endregion
