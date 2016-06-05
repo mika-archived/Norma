@@ -38,8 +38,9 @@ namespace Norma.Models
         private void FetchChannels()
         {
             var channels = _timetable.CurrentChannels();
+            var temp = Channels.ToArray();
             // 削除
-            foreach (var channel in Channels)
+            foreach (var channel in temp)
             {
                 if (!channels.Contains(channel))
                     Channels.Remove(channel);
