@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CefSharp;
 using CefSharp.Wpf;
 
+using Norma.Eta.Extensions;
 using Norma.Eta.Models;
 using Norma.Eta.Properties;
 
@@ -39,7 +40,7 @@ namespace Norma.Models
                 if (!Address.StartsWith("https://abema.tv/now-on-air/"))
                     return;
                 Run();
-                Observable.Return(1).Delay(TimeSpan.FromSeconds(1)).Subscribe(w => RunLater()).Dispose();
+                Observable.Return(1).Delay(TimeSpanExt.OneSecond).Subscribe(w => RunLater()).Dispose();
             };
         }
 

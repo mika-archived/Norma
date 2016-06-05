@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 
+using Norma.Eta.Extensions;
 using Norma.Eta.Models;
 using Norma.Eta.Properties;
 
@@ -23,7 +24,7 @@ namespace Norma.Models
 
             // 1分毎にサムネとか更新
             var val = configuration.Root.Operation.UpdateIntervalOfThumbnails;
-            _disposable = Observable.Timer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(val))
+            _disposable = Observable.Timer(TimeSpanExt.OneSecond, TimeSpan.FromSeconds(val))
                                     .Subscribe(w => UpdateChannelInfo());
         }
 

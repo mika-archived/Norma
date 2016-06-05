@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+using Norma.Eta.Extensions;
 using Norma.Eta.Models;
 using Norma.Eta.Properties;
 using Norma.Gamma.Models;
@@ -59,7 +60,7 @@ namespace Norma.Models
                 return;
 
             var val = _configuration.Root.Operation.ReceptionIntervalOfComments;
-            _disposable = Observable.Timer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(val))
+            _disposable = Observable.Timer(TimeSpanExt.OneSecond, TimeSpan.FromSeconds(val))
                                     .Subscribe(async w => await FetchComment());
         }
 

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 
+using Norma.Eta.Extensions;
 using Norma.Eta.Models;
 
 using Prism.Mvvm;
@@ -19,11 +20,8 @@ namespace Norma.Models
         {
             _timetable = timetable;
             Channels = new ObservableCollection<AbemaChannel>();
-            var channels = (AbemaChannel[]) Enum.GetValues(typeof(AbemaChannel));
-            foreach (var value in channels.Skip(1))
-                Channels.Add(value);
-
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(w => FetchChannels());
+            FetchChannels();
+            _disposable = Observable.Timer(TimeSpanExt.OneSecond, TimeSpanExt.OneSecond).Subscribe(w => FetchChannels());
         }
 
         #region Implementation of IDisposable

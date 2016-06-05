@@ -5,6 +5,7 @@ using System.IO;
 using System.Reactive.Linq;
 
 using Norma.Eta;
+using Norma.Eta.Extensions;
 using Norma.Eta.Models;
 using Norma.Eta.Models.Operations;
 
@@ -39,7 +40,7 @@ namespace Norma.Models
 
         private void Start()
         {
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(w => Watch());
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpanExt.OneSecond).Subscribe(w => Watch());
         }
 
         private void Watch()

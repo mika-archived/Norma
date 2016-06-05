@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+using Norma.Eta.Extensions;
 using Norma.Eta.Models;
 using Norma.Eta.Models.Reservations;
 using Norma.Eta.Properties;
@@ -46,7 +47,7 @@ namespace Norma.Ipsilon.Models
 
         internal void Start()
         {
-            _compositeDisposable.Add(Observable.Timer(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(1))
+            _compositeDisposable.Add(Observable.Timer(TimeSpan.FromSeconds(5), TimeSpanExt.OneSecond)
                                                .Subscribe(async w => await Check()));
             _compositeDisposable.Add(Observable.Timer(TimeSpan.Zero, TimeSpan.FromHours(1))
                                                .Subscribe(w =>

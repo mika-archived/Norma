@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Input;
 
+using Norma.Eta.Extensions;
 using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
@@ -85,7 +86,7 @@ namespace Norma.Iota.ViewModels
                     return;
                 _index = AvailableDates.IndexOf(_selectedDate);
                 IsLoading = true;
-                Observable.Return(0).Delay(TimeSpan.FromSeconds(1)).Subscribe(w => UpdateChannels());
+                Observable.Return(0).Delay(TimeSpanExt.OneSecond).Subscribe(w => UpdateChannels());
             }
         }
 
