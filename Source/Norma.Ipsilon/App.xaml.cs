@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows;
 
 using DesktopToast;
@@ -13,6 +14,8 @@ namespace Norma.Ipsilon
     /// </summary>
     public partial class App : Application
     {
+        private Mutex _mutex;
+
         #region Overrides of Application
 
         protected override void OnStartup(StartupEventArgs e)
@@ -20,6 +23,13 @@ namespace Norma.Ipsilon
             base.OnStartup(e);
 
             AppInitializer.PreInitialize();
+
+            _mutex = new Mutex(false, NormaConstants.IpsilonAppId);
+            if (!_mutex.WaitOne(0, false))
+            {
+                _mutex.Close();
+                Shutdown();
+            }
 
             var bootstrapper = new Bootstrapper();
             bootstrapper.Run();
@@ -31,6 +41,9 @@ namespace Norma.Ipsilon
                 NotificationActivatorBase.UnregisterComType();
             (Shell.TaskbarIcon.DataContext as IDisposable)?.Dispose();
             Shell.TaskbarIcon.Dispose();
+
+            _mutex?.ReleaseMutex();
+            _mutex?.Close();
             base.OnExit(e);
         }
 
