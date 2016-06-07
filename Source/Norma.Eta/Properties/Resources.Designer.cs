@@ -943,6 +943,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   SPECIAL PLUS 2 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SpecialPlus2 {
+            get {
+                return ResourceManager.GetString("SpecialPlus2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Staff に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Staff {

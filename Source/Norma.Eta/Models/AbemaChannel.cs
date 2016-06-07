@@ -27,92 +27,97 @@ namespace Norma.Eta.Models
         SpecialPlus,
 
         /// <summary>
-        ///     5ch - REALITY SHOW
+        ///     5ch - SPECIAL PLUS 2
+        /// </summary>
+        SpecialPlus2,
+
+        /// <summary>
+        ///     6ch - REALITY SHOW
         /// </summary>
         RealityShow,
 
         /// <summary>
-        ///     6ch - MTV HITS
+        ///     7ch - MTV HITS
         /// </summary>
         MtvHits,
 
         /// <summary>
-        ///     7ch - SPACE SHOWER MUSIC
+        ///     8ch - SPACE SHOWER MUSIC
         /// </summary>
         SpaceShowerMusic,
 
         /// <summary>
-        ///     8ch - ドラマ CHANNEL
+        ///     9ch - ドラマ CHANNEL
         /// </summary>
         DramaChannel,
 
         /// <summary>
-        ///     9ch - Documentary
+        ///     10ch - Documentary
         /// </summary>
         Documentary,
 
         /// <summary>
-        ///     10ch - バラエティ CHANNEL
+        ///     11ch - バラエティ CHANNEL
         /// </summary>
         VarietyChannel,
 
         /// <summary>
-        ///     11ch - ペット
+        ///     12ch - ペット
         /// </summary>
         Pet,
 
         /// <summary>
-        ///     12ch - CLUB CHANNEL
+        ///     13ch - CLUB CHANNEL
         /// </summary>
         ClubChannel,
 
         /// <summary>
-        ///     13ch - WORLD SPORTS
+        ///     14ch - WORLD SPORTS
         /// </summary>
         WorldSports,
 
         /// <summary>
-        ///     14ch - ヨコノリ Surf Snow Skate
+        ///     15ch - ヨコノリ Surf Snow Skate
         /// </summary>
         YokonoriSports,
 
         /// <summary>
-        ///     15ch - VICE
+        ///     16ch - VICE
         /// </summary>
         Vice,
 
         /// <summary>
-        ///     16ch - アニメ24
+        ///     17ch - アニメ24
         /// </summary>
         Anime24,
 
         /// <summary>
-        ///     17ch - 深夜アニメ
+        ///     18ch - 深夜アニメ
         /// </summary>
         MidnightAnime,
 
         /// <summary>
-        ///     18ch - なつかしアニメ
+        ///     19ch - なつかしアニメ
         /// </summary>
         OldtimeAnime,
 
         /// <summary>
-        ///     19ch - 家族アニメ
+        ///     20ch - 家族アニメ
         /// </summary>
         FamilyAnime,
 
         /// <summary>
-        ///     20ch - EDGE SPORT HD
+        ///     21ch - EDGE SPORT HD
         /// </summary>
         EdgeSportHd,
 
         /// <summary>
-        ///     21ch - 釣り
+        ///     22ch - 釣り
         /// </summary>
         Fishing,
 
         /// <summary>
-        ///     22ch - 麻雀
+        ///     23ch - 麻雀
         /// </summary>
         Mahjong
     }
@@ -142,6 +147,9 @@ namespace Norma.Eta.Models
 
                 case AbemaChannel.SpecialPlus:
                     return "special-plus";
+
+                case AbemaChannel.SpecialPlus2:
+                    return "special-plus-2";
 
                 case AbemaChannel.RealityShow:
                     return "reality-show";
@@ -203,6 +211,9 @@ namespace Norma.Eta.Models
 
                 case "special-plus":
                     return AbemaChannel.SpecialPlus;
+
+                case "special-plus-2":
+                    return AbemaChannel.SpecialPlus2;
 
                 case "reality-show":
                     return AbemaChannel.RealityShow;

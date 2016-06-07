@@ -465,4 +465,7 @@
   <data name="PleaseSendCrashReportToMe" xml:space="preserve">
     <value>Please send crash report.</value>
   </data>
+  <data name="SpecialPlus2" xml:space="preserve">
+    <value>SPECIAL PLUS 2</value>
+  </data>
 </root>
