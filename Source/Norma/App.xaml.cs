@@ -17,6 +17,8 @@ namespace Norma
     // ReSharper disable once RedundantExtendsListEntry
     public partial class App : Application
     {
+        private bool _isHandled;
+
         #region Overrides of Application
 
         protected override void OnStartup(StartupEventArgs e)
@@ -40,18 +42,22 @@ namespace Norma
         // ReSharper disable once UnusedMember.Local
         private void DispatcherOnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            OnUnhandledException(e.Exception);
+            if (!_isHandled)
+                OnUnhandledException(e.Exception);
         }
 
         // 他
         // ReSharper disable once UnusedMember.Local
         private void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            OnUnhandledException((Exception) e.ExceptionObject);
+            if (!_isHandled)
+                OnUnhandledException((Exception) e.ExceptionObject);
         }
 
         private void OnUnhandledException(Exception exception)
         {
+            _isHandled = true;
+
             // TODO: ApplicationInsights とかで。
             var path = Path.Combine(NormaConstants.CrashReportsDir,
                                     $"{DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss")}.log");
