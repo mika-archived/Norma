@@ -880,6 +880,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Reservation list に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RsvList {
+            get {
+                return ResourceManager.GetString("RsvList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Reservation success. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string RsvSuccess {

@@ -152,6 +152,7 @@
     <Compile Include="Models\Timetable.cs" />
     <Compile Include="Models\TimetableCache.cs" />
     <Compile Include="Mvvm\IDisposableExtension.cs" />
+    <Compile Include="Mvvm\InteractionViewModel.cs" />
     <Compile Include="Mvvm\ViewModel.cs" />
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="NormaConstants.cs" />

@@ -205,6 +205,7 @@
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\DetailsRsvContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\RsvDetailsContentViewModel.cs" />
+    <Compile Include="ViewModels\WindowContents\RsvListContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\SlotDetailsContentViewModel.cs" />
     <Compile Include="Views\Controls\BorderedTextBlock.xaml.cs">
       <DependentUpon>BorderedTextBlock.xaml</DependentUpon>
@@ -223,6 +224,9 @@
     </Compile>
     <Compile Include="Views\WindowContents\RsvDetailsContent.xaml.cs">
       <DependentUpon>RsvDetailsContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowContents\RsvListContent.xaml.cs">
+      <DependentUpon>RsvListContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowContents\SlotDetailsContent.xaml.cs">
       <DependentUpon>SlotDetailsContent.xaml</DependentUpon>
@@ -253,6 +257,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\WindowContents\RsvDetailsContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowContents\RsvListContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

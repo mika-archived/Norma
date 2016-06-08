@@ -13,7 +13,7 @@ using Prism.Interactivity.InteractionRequest;
 namespace Norma.Iota.ViewModels.WindowContents
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    internal class RsvDetailsContentViewModel : ViewModel, IInteractionRequestAware
+    internal class RsvDetailsContentViewModel : InteractionViewModel<DataPassingNotification>
     {
         public InteractionRequest<Notification> WindowCloseRequest { get; }
         public string WindowTitle => Resources.RsvSuccess;
@@ -23,7 +23,7 @@ namespace Norma.Iota.ViewModels.WindowContents
             WindowCloseRequest = new InteractionRequest<Notification>();
             ViewModelHelper.Subscribe(this, nameof(Notification), w =>
             {
-                var model = _notification.Model as Reserve;
+                var model = RawNotification.Model as Reserve;
                 if (model == null)
                     return;
                 if (model is RsvProgram)
@@ -55,31 +55,6 @@ namespace Norma.Iota.ViewModels.WindowContents
         public ICommand OkCommand => _okCommand ?? (_okCommand = new DelegateCommand(Ok));
 
         private void Ok() => WindowCloseRequest.Raise(null);
-
-        #endregion
-
-        #region Implementation of IInteractionRequestAware
-
-        #region Notification
-
-        private DataPassingNotification _notification;
-
-        public INotification Notification
-        {
-            get { return _notification; }
-            set
-            {
-                var notification = value as DataPassingNotification;
-                if (notification == null)
-                    return;
-                _notification = notification;
-                OnPropertyChanged();
-            }
-        }
-
-        #endregion
-
-        public Action FinishInteraction { get; set; }
 
         #endregion
     }

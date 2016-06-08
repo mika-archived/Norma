@@ -26,6 +26,7 @@ namespace Norma.Iota.ViewModels
         public ObservableCollection<ChannelCellViewModel> Channels { get; }
         public List<string> AvailableDates { get; }
         public InteractionRequest<INotification> ProgramDetailsRequest { get; }
+        public InteractionRequest<INotification> ReservationListRequest { get; }
         public InteractionRequest<DataPassingNotification> DetailReserveRequest { get; }
 
         public ShellViewModel(Timetable timetable, Reservation reservation)
@@ -33,6 +34,7 @@ namespace Norma.Iota.ViewModels
             _timetable = timetable;
             _reservation = reservation;
             ProgramDetailsRequest = new InteractionRequest<INotification>();
+            ReservationListRequest = new InteractionRequest<INotification>();
             DetailReserveRequest = new InteractionRequest<DataPassingNotification>();
             _index = (DateTime.Now - timetable.LastSyncTime).Days;
             AvailableDates = new List<string>();
@@ -112,6 +114,17 @@ namespace Norma.Iota.ViewModels
             => _rsvUsingKwdOrTimeCommand ?? (_rsvUsingKwdOrTimeCommand = new DelegateCommand(ReserveUsingKwdOrTime));
 
         private void ReserveUsingKwdOrTime() => DetailReserveRequest.Raise(new DataPassingNotification());
+
+        #endregion
+
+        #region OpenReservationListCommand
+
+        private ICommand _openRsvListCommand;
+
+        public ICommand OpenRsvListCommand
+            => _openRsvListCommand ?? (_openRsvListCommand = new DelegateCommand(OpenRsvList));
+
+        private void OpenRsvList() => ReservationListRequest.Raise(new DataPassingNotification());
 
         #endregion
 

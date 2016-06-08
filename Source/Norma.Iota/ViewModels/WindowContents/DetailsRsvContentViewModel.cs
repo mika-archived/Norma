@@ -20,7 +20,7 @@ using Reactive.Bindings.Extensions;
 namespace Norma.Iota.ViewModels.WindowContents
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    internal class DetailsRsvContentViewModel : ViewModel, IInteractionRequestAware
+    internal class DetailsRsvContentViewModel : InteractionViewModel<DataPassingNotification>
     {
         private readonly DateTimeValidator _dtValidator = new DateTimeValidator(true);
         private readonly DateTimeValidator _dValidator = new DateTimeValidator();
@@ -81,7 +81,7 @@ namespace Norma.Iota.ViewModels.WindowContents
 
             ViewModelHelper.Subscribe(this, nameof(Notification), w =>
             {
-                var model = _notification.Model as WrapSlot;
+                var model = RawNotification.Model as WrapSlot;
                 if (model == null)
                     return;
                 WindowTitle = $"{model.Model.Title} - {Resources.ViewingDRsv} - Norma";
@@ -128,31 +128,6 @@ namespace Norma.Iota.ViewModels.WindowContents
             get { return _windowTitle; }
             set { SetProperty(ref _windowTitle, value); }
         }
-
-        #endregion
-
-        #region Implementation of IInteractionRequestAware
-
-        #region Notification
-
-        private DataPassingNotification _notification;
-
-        public INotification Notification
-        {
-            get { return _notification; }
-            set
-            {
-                var notification = value as DataPassingNotification;
-                if (notification == null)
-                    return;
-                _notification = notification;
-                OnPropertyChanged();
-            }
-        }
-
-        #endregion
-
-        public Action FinishInteraction { get; set; }
 
         #endregion
 

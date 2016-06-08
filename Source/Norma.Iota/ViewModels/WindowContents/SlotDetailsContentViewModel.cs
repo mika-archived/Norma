@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -16,7 +15,7 @@ using Prism.Interactivity.InteractionRequest;
 namespace Norma.Iota.ViewModels.WindowContents
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    internal class SlotDetailsContentViewModel : ViewModel, IInteractionRequestAware
+    internal class SlotDetailsContentViewModel : InteractionViewModel<DataPassingNotification>
     {
         private readonly Reservation _rsvs;
         public InteractionRequest<DataPassingNotification> ResponseRequest { get; }
@@ -33,7 +32,7 @@ namespace Norma.Iota.ViewModels.WindowContents
             Staff = new ObservableCollection<string>();
             ViewModelHelper.Subscribe(this, nameof(Notification), w =>
             {
-                var model = _notification.Model as WrapSlot;
+                var model = RawNotification.Model as WrapSlot;
                 Cast.Clear();
                 Staff.Clear();
                 if (model == null)
@@ -135,31 +134,6 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         #endregion
 
-        #region Implementation of IInteractionRequestAware
-
-        #region Notification
-
-        private DataPassingNotification _notification;
-
-        public INotification Notification
-        {
-            get { return _notification; }
-            set
-            {
-                var notification = value as DataPassingNotification;
-                if (notification == null)
-                    return;
-                _notification = notification;
-                OnPropertyChanged();
-            }
-        }
-
-        #endregion
-
-        public Action FinishInteraction { get; set; }
-
-        #endregion
-
         #region AddNormalReservationCommand
 
         private ICommand _addReservationCommand;
@@ -169,9 +143,9 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         private void AddReservation()
         {
-            _rsvs.AddReservation(((WrapSlot) _notification.Model).Model);
+            _rsvs.AddReservation(((WrapSlot) RawNotification.Model).Model);
 
-            var slot = ((WrapSlot) _notification.Model).Model;
+            var slot = ((WrapSlot) RawNotification.Model).Model;
             ResponseRequest.Raise(new DataPassingNotification
             {
                 Model = new RsvProgram {ProgramId = slot.Id, StartDate = slot.StartAt}
@@ -181,10 +155,10 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         private bool CanAddRsv()
         {
-            if (_notification == null)
+            if (RawNotification == null)
                 return false;
-            var model = (WrapSlot) _notification.Model;
-            return !_rsvs.RsvsByProgram.Any(w => w.IsEnable && w?.ProgramId == model.Model.Id) &&
+            var model = (WrapSlot) RawNotification.Model;
+            return !_rsvs.RsvsByProgram.Any(w => w.IsEnable && w.ProgramId == model.Model.Id) &&
                    model.CanRsv;
         }
 
@@ -198,7 +172,7 @@ namespace Norma.Iota.ViewModels.WindowContents
             => _addDetailsRsvCommand ?? (_addDetailsRsvCommand = new DelegateCommand(AddDetailsRsv));
 
         private void AddDetailsRsv()
-            => DetailsRsvRequest.Raise(new DataPassingNotification {Model = _notification.Model});
+            => DetailsRsvRequest.Raise(new DataPassingNotification {Model = RawNotification.Model});
 
         #endregion
     }

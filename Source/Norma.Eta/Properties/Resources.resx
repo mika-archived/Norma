@@ -468,4 +468,7 @@
   <data name="SpecialPlus2" xml:space="preserve">
     <value>SPECIAL PLUS 2</value>
   </data>
+  <data name="RsvList" xml:space="preserve">
+    <value>Reservation list</value>
+  </data>
 </root>
