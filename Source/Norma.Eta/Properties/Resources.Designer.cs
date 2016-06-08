@@ -178,6 +178,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Confirmation に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Confirmation {
+            get {
+                return ResourceManager.GetString("Confirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Are you sure you wanto to delete this item? に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ConfirmDelete {

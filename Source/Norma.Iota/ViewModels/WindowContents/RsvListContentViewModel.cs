@@ -76,7 +76,7 @@ namespace Norma.Iota.ViewModels.WindowContents
             // ここで確認ダイアログを出したい。
             var result = await ConfirmationRequest.RaiseAsync(new Confirmation
             {
-                Title = "",
+                Title = Resources.Confirmation,
                 Content = Resources.ConfirmDelete
             });
             if (!result.Confirmed)

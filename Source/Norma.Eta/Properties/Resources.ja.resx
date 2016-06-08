@@ -477,4 +477,7 @@
   <data name="ConfirmDelete" xml:space="preserve">
     <value>このアイテムを削除してもよろしいですか？</value>
   </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>確認</value>
+  </data>
 </root>
