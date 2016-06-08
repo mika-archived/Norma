@@ -1024,6 +1024,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Type に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Update interval of program information : に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string UpdateInervalOfProgramInformation {

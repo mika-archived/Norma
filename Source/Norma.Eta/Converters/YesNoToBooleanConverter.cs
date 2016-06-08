@@ -4,9 +4,9 @@ using System.Windows.Data;
 
 using Norma.Eta.Properties;
 
-namespace Norma.Converters
+namespace Norma.Eta.Converters
 {
-    internal class YesNoToBooleanConverter : IValueConverter
+    public class YesNoToBooleanConverter : IValueConverter
     {
         #region Implementation of IValueConverter
 

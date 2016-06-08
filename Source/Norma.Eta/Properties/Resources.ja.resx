@@ -471,4 +471,7 @@
   <data name="RsvList" xml:space="preserve">
     <value>予約リスト</value>
   </data>
+  <data name="Type" xml:space="preserve">
+    <value>タイプ</value>
+  </data>
 </root>

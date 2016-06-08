@@ -189,7 +189,6 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
-    <Compile Include="Converters\YesNoToBooleanConverter.cs" />
     <Compile Include="Models\AbemaChannels.cs" />
     <Compile Include="Models\AbemaState.cs" />
     <Compile Include="AppInitializer.cs" />

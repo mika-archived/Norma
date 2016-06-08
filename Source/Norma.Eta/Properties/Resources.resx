@@ -471,4 +471,7 @@
   <data name="RsvList" xml:space="preserve">
     <value>Reservation list</value>
   </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
 </root>

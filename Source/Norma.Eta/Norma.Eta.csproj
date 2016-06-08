@@ -122,6 +122,7 @@
     <Compile Include="Actions\DataContextDisposeAction.cs" />
     <Compile Include="Actions\MetroPopupWindowAction.cs" />
     <Compile Include="Actions\WindowCloseAction.cs" />
+    <Compile Include="Converters\YesNoToBooleanConverter.cs" />
     <Compile Include="Database\DatabaseConnectionProvider.cs" />
     <Compile Include="Database\ReservationDbContext.cs" />
     <Compile Include="Extensions\TimeSpanExt.cs" />
