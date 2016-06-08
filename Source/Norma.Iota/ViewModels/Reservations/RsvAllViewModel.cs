@@ -25,6 +25,8 @@ namespace Norma.Iota.ViewModels.Reservations
         // Manage
         public string Type => ((RsvAll) Reserve).Type;
 
+        public RsvAll Model => (RsvAll) Reserve;
+
         public RsvAllViewModel(RsvAll reserve) : base(reserve)
         {
 

@@ -62,12 +62,18 @@
             </Grid>
         </Border>
         <Grid Grid.Row="1" Margin="5">
-            <ListView HorizontalAlignment="Stretch"
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <ListView Grid.Row="0"
+                      HorizontalAlignment="Stretch"
                       BorderBrush="{DynamicResource BorderBrushKey}"
                       BorderThickness="1"
                       ItemContainerStyle="{DynamicResource SelectHighlightListViewItem}"
                       ItemsSource="{Binding Reservations}"
-                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      SelectedItem="{Binding SelectedItem.Value}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="110">
@@ -80,7 +86,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="90">
+                        <GridViewColumn Width="110">
                             <GridViewColumn.Header>
                                 <TextBlock Text="{x:Static properties:Resources.ProgramId}" />
                             </GridViewColumn.Header>
@@ -143,6 +149,20 @@
                     </GridView>
                 </ListView.View>
             </ListView>
+            <Grid Grid.Row="1">
+                <StackPanel HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                    <Button Width="80"
+                            Height="25"
+                            Command="{Binding EditReservationCommand}"
+                            Content="{x:Static properties:Resources.Edit}" />
+                    <Button Width="80"
+                            Height="25"
+                            Command="{Binding DeleteReservationCommand}"
+                            Content="{x:Static properties:Resources.Delete}" />
+                </StackPanel>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>
