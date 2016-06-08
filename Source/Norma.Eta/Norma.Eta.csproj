@@ -158,6 +158,9 @@
     <Compile Include="Mvvm\ViewModelHelper.cs" />
     <Compile Include="NormaConstants.cs" />
     <Compile Include="Notifications\DataPassingNotification.cs" />
+    <Compile Include="PopupWindows\DefaultConfirmationMetroWindow.xaml.cs">
+      <DependentUpon>DefaultConfirmationMetroWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PopupWindows\DefaultNotificationMetroWindow.xaml.cs">
       <DependentUpon>DefaultNotificationMetroWindow.xaml</DependentUpon>
     </Compile>
@@ -198,6 +201,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="PopupWindows\DefaultConfirmationMetroWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PopupWindows\DefaultNotificationMetroWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -10,6 +10,7 @@ using Norma.Eta.Properties;
 using Norma.Iota.ViewModels.Reservations;
 
 using Prism.Commands;
+using Prism.Interactivity.InteractionRequest;
 
 using Reactive.Bindings;
 
@@ -22,12 +23,14 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         public ObservableCollection<RsvAllViewModel> Reservations { get; }
         public ReactiveProperty<RsvAllViewModel> SelectedItem { get; }
+        public InteractionRequest<Confirmation> ConfirmationRequest { get; }
 
         public RsvListContentViewModel(Reservation reservation)
         {
             _reservation = reservation;
             Reservations = new ObservableCollection<RsvAllViewModel>();
             SelectedItem = new ReactiveProperty<RsvAllViewModel>();
+            ConfirmationRequest = new InteractionRequest<Confirmation>();
             SelectedItem.Subscribe(w =>
             {
                 ((DelegateCommand) EditReservationCommand).RaiseCanExecuteChanged();
@@ -53,6 +56,7 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         private void EditReservation()
         {
+            _reservation.Save();
             UpdateRsvList();
         }
 
@@ -67,10 +71,18 @@ namespace Norma.Iota.ViewModels.WindowContents
         public ICommand DeleteReservationCommand
             => _deleteRsvCommand ?? (_deleteRsvCommand = new DelegateCommand(DeleteReservation, CanDeleteReservation));
 
-        private void DeleteReservation()
+        private async void DeleteReservation()
         {
             // ここで確認ダイアログを出したい。
+            var result = await ConfirmationRequest.RaiseAsync(new Confirmation
+            {
+                Title = "",
+                Content = Resources.ConfirmDelete
+            });
+            if (!result.Confirmed)
+                return;
             _reservation.Reservations.Single(w => w.Id == SelectedItem.Value.Model.Id).IsEnable = false;
+            _reservation.Save();
             UpdateRsvList();
         }
 

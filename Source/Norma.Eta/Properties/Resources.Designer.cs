@@ -178,6 +178,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Are you sure you wanto to delete this item? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConfirmDelete {
+            get {
+                return ResourceManager.GetString("ConfirmDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Crash report has written to {0}. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string CrashReportPath {

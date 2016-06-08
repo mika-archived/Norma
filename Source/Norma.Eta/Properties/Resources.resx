@@ -474,4 +474,7 @@
   <data name="Type" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Are you sure you wanto to delete this item?</value>
+  </data>
 </root>

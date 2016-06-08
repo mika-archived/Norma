@@ -7,7 +7,6 @@ using MetroRadiance.UI.Controls;
 using Norma.Eta.PopupWindows;
 
 using Prism.Interactivity;
-using Prism.Interactivity.DefaultPopupWindows;
 using Prism.Interactivity.InteractionRequest;
 
 namespace Norma.Eta.Actions
@@ -24,22 +23,27 @@ namespace Norma.Eta.Actions
 
         protected override Window GetWindow(INotification notification)
         {
-            var window = base.GetWindow(notification);
-            if (window is DefaultNotificationWindow)
+            Window wrapperWindow;
+            if (WindowContent != null)
             {
-                window = CreateDefaultMetroWindow(notification);
-                if (AssociatedObject != null)
-                    window.Owner = Window.GetWindow(AssociatedObject);
-                if (WindowStyle != null)
-                    window.Style = WindowStyle;
+                wrapperWindow = CreateWindow();
+                wrapperWindow.DataContext = notification;
+                wrapperWindow.Title = notification.Title;
+                PrepareContentForWindow(notification, wrapperWindow);
             }
+            else
+                wrapperWindow = CreateDefaultMetroWindow(notification);
+            if (AssociatedObject != null)
+                wrapperWindow.Owner = Window.GetWindow(AssociatedObject);
+            if (WindowStyle != null)
+                wrapperWindow.Style = WindowStyle;
             if (CenterOverAssociatedObject && AssociatedObject != null)
             {
-                window.Owner = Window.GetWindow(AssociatedObject);
-                window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                wrapperWindow.Owner = Window.GetWindow(AssociatedObject);
+                wrapperWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
                 CenterOverAssociatedObject = false;
             }
-            return window;
+            return wrapperWindow;
         }
 
         protected override Window CreateWindow()
@@ -58,7 +62,7 @@ namespace Norma.Eta.Actions
         private Window CreateDefaultMetroWindow(INotification notification)
         {
             if (notification is IConfirmation)
-                return CreateDefaultWindow(notification);
+                return new DefaultConfirmationMetroWindow {Confirmation = (IConfirmation) notification};
             return new DefaultNotificationMetroWindow {Notification = notification};
         }
 

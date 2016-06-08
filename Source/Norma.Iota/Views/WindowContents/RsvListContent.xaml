@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:actions="clr-namespace:Norma.Eta.Actions;assembly=Norma.Eta"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dialog="clr-namespace:Norma.Eta.PopupWindows;assembly=Norma.Eta"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:local="clr-namespace:Norma.Iota.Views.WindowContents"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
              xmlns:prism="http://prismlibrary.com/"
@@ -22,19 +22,16 @@
         </Style>
     </UserControl.Resources>
     <i:Interaction.Triggers>
-        <prism:InteractionRequestTrigger SourceObject="{Binding ResponseRequest, Mode=OneWay}">
+        <prism:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest, Mode=OneWay}">
             <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
                 <actions:MetroPopupWindowAction.WindowStyle>
-                    <Style TargetType="{x:Type metro:MetroWindow}">
+                    <Style TargetType="{x:Type dialog:DefaultConfirmationMetroWindow}">
                         <Setter Property="ResizeMode" Value="NoResize" />
                         <Setter Property="ShowInTaskbar" Value="False" />
-                        <Setter Property="Height" Value="160" />
+                        <Setter Property="MaxHeight" Value="120" />
                         <Setter Property="Width" Value="300" />
                     </Style>
                 </actions:MetroPopupWindowAction.WindowStyle>
-                <actions:MetroPopupWindowAction.WindowContent>
-                    <local:RsvDetailsContent />
-                </actions:MetroPopupWindowAction.WindowContent>
             </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
