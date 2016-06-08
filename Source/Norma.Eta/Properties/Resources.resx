@@ -475,7 +475,7 @@
     <value>Type</value>
   </data>
   <data name="ConfirmDelete" xml:space="preserve">
-    <value>Are you sure you wanto to delete this item?</value>
+    <value>Are you sure you want to delete this item?</value>
   </data>
   <data name="Confirmation" xml:space="preserve">
     <value>Confirmation</value>
