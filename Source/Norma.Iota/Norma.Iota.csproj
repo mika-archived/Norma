@@ -197,7 +197,9 @@
     <Compile Include="Models\Orientation.cs" />
     <Compile Include="Models\WrapSlot.cs" />
     <Compile Include="ViewModels\Controls\ChannelCellViewModel.cs" />
+    <Compile Include="ViewModels\Controls\KeywordRsvControlViewModel.cs" />
     <Compile Include="ViewModels\Controls\ProgramCellViewModel.cs" />
+    <Compile Include="ViewModels\Controls\TimeRsvControlViewModel.cs" />
     <Compile Include="ViewModels\Reservations\ReservationViewModel.cs" />
     <Compile Include="ViewModels\Reservations\RsvAllViewModel.cs" />
     <Compile Include="ViewModels\Reservations\RsvKeywordViewModel.cs" />
@@ -214,8 +216,14 @@
     <Compile Include="Views\Controls\ChannelCell.xaml.cs">
       <DependentUpon>ChannelCell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Controls\KeywordRsvControl.xaml.cs">
+      <DependentUpon>KeywordRsvControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\ProgramCell.xaml.cs">
       <DependentUpon>ProgramCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\TimeRsvControl.xaml.cs">
+      <DependentUpon>TimeRsvControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
@@ -245,7 +253,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Controls\KeywordRsvControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\ProgramCell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\TimeRsvControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
