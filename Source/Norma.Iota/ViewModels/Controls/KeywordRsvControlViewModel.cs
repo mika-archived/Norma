@@ -18,7 +18,6 @@ namespace Norma.Iota.ViewModels.Controls
 {
     internal class KeywordRsvControlViewModel : InteractionViewModel<DataPassingNotification>
     {
-        private readonly DateTimeValidator _dtValidator = new DateTimeValidator(true);
         private readonly DateTimeValidator _dValidator = new DateTimeValidator();
         private readonly bool _isUpdate;
         private readonly RegexValidator _rgxValidator = new RegexValidator();
