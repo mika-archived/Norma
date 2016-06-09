@@ -11,6 +11,7 @@
              xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
              xmlns:rsvVm="clr-namespace:Norma.Iota.ViewModels.Reservations"
              xmlns:vm="clr-namespace:Norma.Iota.ViewModels.WindowContents"
+             xmlns:wc="clr-namespace:Norma.Iota.Views.WindowContents"
              d:DataContext="{d:DesignInstance vm:RsvListContentViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
@@ -32,6 +33,21 @@
                         <Setter Property="Width" Value="300" />
                     </Style>
                 </actions:MetroPopupWindowAction.WindowStyle>
+            </actions:MetroPopupWindowAction>
+        </prism:InteractionRequestTrigger>
+        <prism:InteractionRequestTrigger SourceObject="{Binding EditRequest}">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
+                <actions:MetroPopupWindowAction.WindowStyle>
+                    <Style TargetType="{x:Type metro:MetroWindow}">
+                        <Setter Property="ResizeMode" Value="NoResize" />
+                        <Setter Property="ShowInTaskbar" Value="False" />
+                        <Setter Property="MaxHeight" Value="180" />
+                        <Setter Property="Width" Value="300" />
+                    </Style>
+                </actions:MetroPopupWindowAction.WindowStyle>
+                <actions:MetroPopupWindowAction.WindowContent>
+                    <wc:EditRsvContent />
+                </actions:MetroPopupWindowAction.WindowContent>
             </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>

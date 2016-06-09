@@ -480,4 +480,7 @@
   <data name="Confirmation" xml:space="preserve">
     <value>確認</value>
   </data>
+  <data name="EditRsv" xml:space="preserve">
+    <value>予約の編集</value>
+  </data>
 </root>

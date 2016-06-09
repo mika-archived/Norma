@@ -207,6 +207,7 @@
     <Compile Include="ViewModels\Reservations\RsvTimeViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\DetailsRsvContentViewModel.cs" />
+    <Compile Include="ViewModels\WindowContents\EditRsvContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\RsvDetailsContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\RsvListContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\SlotDetailsContentViewModel.cs" />
@@ -230,6 +231,9 @@
     </Compile>
     <Compile Include="Views\WindowContents\DetailsRsvContent.xaml.cs">
       <DependentUpon>DetailsRsvContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowContents\EditRsvContent.xaml.cs">
+      <DependentUpon>EditRsvContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowContents\RsvDetailsContent.xaml.cs">
       <DependentUpon>RsvDetailsContent.xaml</DependentUpon>
@@ -270,6 +274,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\WindowContents\DetailsRsvContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowContents\EditRsvContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

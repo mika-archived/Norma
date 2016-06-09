@@ -53,19 +53,7 @@ namespace Norma.Eta.Models
             // Not yet
         }
 
-        /// <summary>
-        ///     Slot を対象とした視聴予約を追加します。
-        /// </summary>
-        /// <param name="slot"></param>
-        public void AddReservation(Slot slot)
-        {
-            _dbContext.Reservations.Add(RsvAll.Create(new RsvProgram
-            {
-                ProgramId = slot.Id,
-                StartDate = slot.StartAt
-            }));
-            Save();
-        }
+        #region Time
 
         /// <summary>
         ///     時間を対象とした視聴予約を追加します。
@@ -85,6 +73,23 @@ namespace Norma.Eta.Models
         }
 
         /// <summary>
+        ///     対象の RsvTime を更新します。
+        /// </summary>
+        /// <param name="time"></param>
+        public void UpdateReservation(RsvTime time)
+        {
+            var target = _dbContext.Reservations.Single(w => w.Id == time.Id);
+            target.StartDate = time.StartTime;
+            target.DayOfWeek = time.DayOfWeek;
+            target.Range = time.Range;
+            Save();
+        }
+
+        #endregion
+
+        #region Keyword
+
+        /// <summary>
         ///     キーワード及び正規表現を対象とした視聴予約を追加します。
         /// </summary>
         /// <param name="keyword"></param>
@@ -100,5 +105,50 @@ namespace Norma.Eta.Models
             }));
             Save();
         }
+
+        /// <summary>
+        ///     対象の RsvKeyword を更新します。
+        /// </summary>
+        /// <param name="keyword"></param>
+        public void UpdateReservation(RsvKeyword keyword)
+        {
+            var target = _dbContext.Reservations.Single(w => w.Id == keyword.Id);
+            target.IsRegexMode = keyword.IsRegexMode;
+            target.Keyword = keyword.Keyword;
+            target.Range = keyword.Range;
+            Save();
+        }
+
+        #endregion
+
+        #region Program
+
+        /// <summary>
+        ///     Slot を対象とした視聴予約を追加します。
+        /// </summary>
+        /// <param name="slot"></param>
+        public void AddReservation(Slot slot)
+        {
+            _dbContext.Reservations.Add(RsvAll.Create(new RsvProgram
+            {
+                ProgramId = slot.Id,
+                StartDate = slot.StartAt
+            }));
+            Save();
+        }
+
+        /// <summary>
+        ///     対象の RsvProgram を更新します。
+        /// </summary>
+        /// <param name="program"></param>
+        public void UpdateReservation(RsvProgram program)
+        {
+            var target = _dbContext.Reservations.Single(w => w.Id == program.Id);
+            target.ProgramId = program.ProgramId;
+            target.StartDate = program.StartDate;
+            Save();
+        }
+
+        #endregion
     }
 }

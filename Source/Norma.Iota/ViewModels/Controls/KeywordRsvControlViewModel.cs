@@ -23,6 +23,7 @@ namespace Norma.Iota.ViewModels.Controls
         private readonly RegexValidator _rgxValidator = new RegexValidator();
         private readonly Reservation _rsv;
         private readonly StringRequiredValidator _srValidator = new StringRequiredValidator();
+        private RsvKeyword _model;
 
         public InteractionRequest<Notification> WindowCloseRequest { get; }
         public InteractionRequest<DataPassingNotification> ResponseRequest { get; }
@@ -59,13 +60,15 @@ namespace Norma.Iota.ViewModels.Controls
                     Keyword.Value = ((WrapSlot) model).Model.Title;
                 else if (model is RsvKeyword)
                 {
-                    var rt = model as RsvKeyword;
-                    ExpiredAt.Value = rt.Range.Finish.ToString("g");
-                    IsRegex.Value = rt.IsRegexMode;
-                    Keyword.Value = rt.Keyword;
+                    var rk = model as RsvKeyword;
+                    ExpiredAt.Value = rk.Range.Finish.ToString("g");
+                    IsRegex.Value = rk.IsRegexMode;
+                    Keyword.Value = rk.Keyword;
+
+                    _model = rk;
                 }
                 else
-                    return;
+                    throw new NotSupportedException();
             });
         }
 
@@ -74,6 +77,13 @@ namespace Norma.Iota.ViewModels.Controls
             if (!_isUpdate)
                 _rsv.AddReservation(Keyword.Value, IsRegex.Value,
                                     new DateRange {Finish = _dValidator.Convert(ExpiredAt.Value)});
+            else
+            {
+                _model.Range.Finish = _dValidator.Convert(ExpiredAt.Value);
+                _model.IsRegexMode = IsRegex.Value;
+                _model.Keyword = Keyword.Value;
+                _rsv.UpdateReservation(_model);
+            }
             ResponseRequest.Raise(new DataPassingNotification
             {
                 Model = new RsvKeyword

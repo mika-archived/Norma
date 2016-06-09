@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 
@@ -24,6 +25,7 @@ namespace Norma.Iota.ViewModels.WindowContents
         public ObservableCollection<RsvAllViewModel> Reservations { get; }
         public ReactiveProperty<RsvAllViewModel> SelectedItem { get; }
         public InteractionRequest<Confirmation> ConfirmationRequest { get; }
+        public InteractionRequest<DataPassingNotification> EditRequest { get; }
 
         public RsvListContentViewModel(Reservation reservation)
         {
@@ -31,6 +33,7 @@ namespace Norma.Iota.ViewModels.WindowContents
             Reservations = new ObservableCollection<RsvAllViewModel>();
             SelectedItem = new ReactiveProperty<RsvAllViewModel>();
             ConfirmationRequest = new InteractionRequest<Confirmation>();
+            EditRequest = new InteractionRequest<DataPassingNotification>();
             SelectedItem.Subscribe(w =>
             {
                 ((DelegateCommand) EditReservationCommand).RaiseCanExecuteChanged();
@@ -54,8 +57,10 @@ namespace Norma.Iota.ViewModels.WindowContents
         public ICommand EditReservationCommand
             => _editRsvCommand ?? (_editRsvCommand = new DelegateCommand(EditReservation, CanEditReservation));
 
-        private void EditReservation()
+        private async void EditReservation()
         {
+            var model = await EditRequest.RaiseAsync(new DataPassingNotification {Model = SelectedItem.Value.Model});
+            Debug.WriteLine(model);
             _reservation.Save();
             UpdateRsvList();
         }

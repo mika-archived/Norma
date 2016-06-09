@@ -480,4 +480,7 @@
   <data name="Confirmation" xml:space="preserve">
     <value>Confirmation</value>
   </data>
+  <data name="EditRsv" xml:space="preserve">
+    <value>Edit reservation</value>
+  </data>
 </root>

@@ -24,6 +24,7 @@ namespace Norma.Iota.ViewModels.Controls
         private readonly DateTimeValidator _dValidator = new DateTimeValidator();
         private readonly bool _isUpdate;
         private readonly Reservation _rsv;
+        private RsvTime _model;
 
         public List<EnumWrap<RepetitionType>> RepetitionTypes
             => ((RepetitionType[]) Enum.GetValues(typeof(RepetitionType))).Select(w => new EnumWrap<RepetitionType>(w))
@@ -69,9 +70,11 @@ namespace Norma.Iota.ViewModels.Controls
                     StartAt.Value = rt.StartTime.ToString("g");
                     ExpiredAt.Value = rt.Range.Finish.ToString("g");
                     Repetition.Value = new EnumWrap<RepetitionType>(rt.DayOfWeek);
+
+                    _model = rt;
                 }
                 else
-                    return;
+                    throw new NotSupportedException();
             });
         }
 
@@ -80,6 +83,13 @@ namespace Norma.Iota.ViewModels.Controls
             if (!_isUpdate)
                 _rsv.AddReservation(_dtValidator.Convert(StartAt.Value), Repetition.Value.EnumValue,
                                     new DateRange {Finish = _dValidator.Convert(ExpiredAt.Value)});
+            else
+            {
+                _model.StartTime = _dtValidator.Convert(StartAt.Value);
+                _model.DayOfWeek = Repetition.Value.EnumValue;
+                _model.Range.Finish = _dValidator.Convert(ExpiredAt.Value);
+                _rsv.UpdateReservation(_model);
+            }
             ResponseRequest.Raise(new DataPassingNotification
             {
                 Model = new RsvTime
