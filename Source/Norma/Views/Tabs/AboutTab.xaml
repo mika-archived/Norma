@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Norma.Views.Tabs.AboutTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:vm="clr-namespace:Norma.ViewModels.Tabs"
+             d:DataContext="{d:DesignInstance vm:AboutTabViewModel}"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="FontFamily" Value="Segoe UI" />
+                    <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock FontSize="30" Text="{Binding Name}" />
+            <TextBlock FontSize="20" Text="{Binding Version}" />
+            <TextBlock FontSize="14" Text="{Binding Copyright}" />
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Orientation="Vertical">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="FontFamily" Value="Segoe UI" />
+                    <Setter Property="Foreground" Value="{DynamicResource SemiActiveForegroundBrushKey}" />
+                    <Setter Property="FontSize" Value="10" />
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="Environment Values" />
+            <TextBlock Text="{Binding IsSupportNewToast}" />
+            <TextBlock Text="{Binding IsSupportToast}" />
+            <TextBlock Text="{Binding OsVersion}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

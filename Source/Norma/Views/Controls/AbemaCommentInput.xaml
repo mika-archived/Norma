@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Norma.Views.Controls.AbemaCommentInput"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
+             xmlns:vm="clr-namespace:Norma.ViewModels.Controls"
+             d:DataContext="{d:DesignInstance vm:AbemaCommentInputViewModel}"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d">
+    <Border BorderBrush="{DynamicResource BorderBrushKey}" BorderThickness="0,1,0,0">
+        <Grid Margin="5" IsEnabled="{Binding IsEnableCommentInput.Value}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="80" />
+            </Grid.ColumnDefinitions>
+            <metro:PromptTextBox Grid.Column="0"
+                                 AcceptsReturn="True"
+                                 HorizontalScrollBarVisibility="Disabled"
+                                 MaxLines="2"
+                                 Prompt="{x:Static properties:Resources.InputComment}"
+                                 Text="{Binding Comment.Value,
+                                                Mode=TwoWay,
+                                                UpdateSourceTrigger=PropertyChanged}"
+                                 VerticalScrollBarVisibility="Auto">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewKeyDown">
+                        <prism:InvokeCommandAction Command="{Binding OnKeyInputCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </metro:PromptTextBox>
+            <Button Grid.Column="2"
+                    Command="{Binding SendCommentCommand}"
+                    Content="{x:Static properties:Resources.Comment}" />
+        </Grid>
+    </Border>
+</UserControl>

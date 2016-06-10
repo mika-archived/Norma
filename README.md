@@ -5,39 +5,45 @@ Norma
 [![Github All Releases](https://img.shields.io/github/downloads/fuyuno/norma/total.svg?maxAge=1800&style=flat-square)](https://github.com/fuyuno/Norma/releases)
 [![license](https://img.shields.io/github/license/fuyuno/norma.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/blob/develop/LICENSE)
 
-"Norma" is unoffcial desktop application for [AbemaTV](https://abema.tv).  
-This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).
+"Norma" は [AbemaTV](https://abema.tv) の非公式デスクトップアプリケーションです。.  
+[AbemaTV FRESH!](https://abemafresh.tv) は **サポートしていません。**
 
-## Screenshots
+## スクリーンショット
 ![alt](https://cloud.githubusercontent.com/assets/10832834/15273926/060448c8-1ae2-11e6-981a-28db38974665.PNG)
 
 
-## Requirements
+## 必須コンポーネント
 
 * Microsoft .NET Framework 4.6.1
 * Visual C++ Redistributable Packages for Visual Studio 2013
 * Adobe Flash Player FP 21 for Opera and Chromium - PPAPI
 
 
-## Installation
+## インストール
 
-How to install Norma: [Wiki](https://github.com/fuyuno/Norma/wiki/How-to-install-Norma).
+Norma のインストール方法: [Wiki](https://github.com/fuyuno/Norma/wiki/How-to-install-Norma).  
+クラッシュしたもしくは起動しない: [Wiki](https://github.com/fuyuno/Norma/wiki/Norma-has-been-crashed).
 
-1. Download binary files from [Releases](https://github.com/fuyuno/Norma/releases). <br />
-   If your OS is 32-bit architecture, please download `x86` binary. 
-2. Extract zip file.
-3. Run `Norma.exe`.
+
+1. [Releases](https://github.com/fuyuno/Norma/releases) から、バイナリファイルをダウンロードします。 <br />
+   もし、 32-bit アーキテクチャ場合は、 `x86` 用バイナリをダウンロードしてください。 
+2. ZIP ファイルを解凍します。
+3. `Norma.exe` を起動します。
 4. Enjoy AbemaTV!
 
-If you want to use latest build, please download [here](https://ci.appveyor.com/project/fuyuno/norma).  
+最新ビルドを使用したい場合は, [こちら](https://ci.appveyor.com/project/fuyuno/norma)からダウンロードしてください。   
 
-1. If you use 64-bit architecture, please select `Platform: x64`.
-2. Select `ARTIFACTS` tab.
-3. Click `Norma\bin\x64\Norma.zip`.
+1. 64-bit アーキテクチャを使用しているならば, `Platform: x64` を選択します。
+2. `ARTIFACTS` タブを選択します。
+3. `Norma\bin\x64\Norma.zip` をクリックします。
+
+
+## 使い方
+[このページ](https://github.com/fuyuno/Norma/wiki/How-to-use) を見てください。
 
 
 ## References
-This application reference below resources.  
+このアプリは、以下のリソースを参考にしています。 
 Very thanks!
 
 * [AbemaTVChromeExtension](https://github.com/nakayuki805/AbemaTVChromeExtension)
@@ -54,5 +60,5 @@ Very thanks!
 
 
 ## Warning
-**If this application has a problem, please contact me.**  
-**I will delete all artifacts, source codes and repository.**
+**何かしら問題があれば、私(@fuyuno)まで連絡をお願いします。**  
+**すべての成果物、ソースコード、リポジトリを削除いたします。**
