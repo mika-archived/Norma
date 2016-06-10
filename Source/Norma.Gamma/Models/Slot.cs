@@ -6,7 +6,10 @@ using Norma.Gamma.Converters;
 
 namespace Norma.Gamma.Models
 {
+#pragma warning disable CS0659 // 型は Object.Equals(object o) をオーバーライドしますが、Object.GetHashCode() をオーバーライドしません
+
     public class Slot
+#pragma warning restore CS0659 // 型は Object.Equals(object o) をオーバーライドしますが、Object.GetHashCode() をオーバーライドしません
     {
         [JsonProperty("id")]
         public string Id { get; set; }
@@ -57,5 +60,18 @@ namespace Norma.Gamma.Models
         [JsonProperty("timeshiftEndAt")]
         [JsonConverter(typeof(UnixTimeDateTimeConverter))]
         public DateTime TimeshiftEndAt { get; set; }
+
+        #region Overrides of Object
+
+#pragma warning disable 659
+
+        public override bool Equals(object obj)
+#pragma warning restore 659
+        {
+            var slot = obj as Slot;
+            return slot?.Id == Id;
+        }
+
+        #endregion
     }
 }
