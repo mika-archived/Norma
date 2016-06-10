@@ -35,7 +35,7 @@
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
-    <Grid Margin="5" IsEnabled="{Binding IsPending}">
+    <Grid Margin="5" IsEnabled="{Binding IsEnabled}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="40" />

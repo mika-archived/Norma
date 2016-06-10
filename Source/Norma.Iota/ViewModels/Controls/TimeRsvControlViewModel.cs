@@ -75,13 +75,13 @@ namespace Norma.Iota.ViewModels.Controls
                 }
                 else
                     throw new NotSupportedException();
-                IsPending = false;
+                IsEnabled = true;
             });
         }
 
         private void AddTimeRsv()
         {
-            IsPending = true;
+            IsEnabled = false;
             if (!_isUpdate)
                 _rsv.AddReservation(_dtValidator.Convert(StartAt.Value), Repetition.Value.EnumValue,
                                     new DateRange {Finish = _dValidator.Convert(ExpiredAt.Value)});
@@ -102,14 +102,14 @@ namespace Norma.Iota.ViewModels.Controls
             }, callback => WindowCloseRequest.Raise(null));
         }
 
-        #region IsPending
+        #region IsEnabled
 
-        private bool _isPending;
+        private bool _isEnabled;
 
-        public bool IsPending
+        public bool IsEnabled
         {
-            get { return _isPending; }
-            set { SetProperty(ref _isPending, value); }
+            get { return _isEnabled; }
+            set { SetProperty(ref _isEnabled, value); }
         }
 
         #endregion
