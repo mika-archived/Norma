@@ -16,7 +16,10 @@ namespace Norma.Eta.Models
         public void Load()
         {
             if (!File.Exists(NormaConstants.OpsFile))
+            {
+                Operation = null;
                 return;
+            }
             using (var sr = File.OpenText(NormaConstants.OpsFile))
             {
                 var jsonSettings = new JsonSerializerSettings {TypeNameHandling = TypeNameHandling.All};
