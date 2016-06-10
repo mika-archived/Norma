@@ -2,7 +2,6 @@
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
 using Norma.Eta.Properties;
-using Norma.Iota.Models;
 using Norma.Iota.ViewModels.Controls;
 
 namespace Norma.Iota.ViewModels.WindowContents
@@ -19,10 +18,7 @@ namespace Norma.Iota.ViewModels.WindowContents
             KeywordRsvControlViewModel = new KeywordRsvControlViewModel(reservation, false);
             ViewModelHelper.Subscribe(this, w => w.Notification, w =>
             {
-                var model = RawNotification.Model as WrapSlot;
-                if (model == null)
-                    return;
-                WindowTitle = $"{model.Model.Title} - {Resources.ViewingDRsv}";
+                WindowTitle = Resources.ViewingDRsv;
                 TimeRsvControlViewModel.Notification = RawNotification;
                 KeywordRsvControlViewModel.Notification = RawNotification;
             }).AddTo(this);

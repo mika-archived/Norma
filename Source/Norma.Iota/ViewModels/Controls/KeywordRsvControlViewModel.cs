@@ -67,8 +67,6 @@ namespace Norma.Iota.ViewModels.Controls
 
                     _model = rk;
                 }
-                else
-                    throw new NotSupportedException();
                 IsEnabled = true;
             });
         }
