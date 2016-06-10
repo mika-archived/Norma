@@ -15,7 +15,7 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         public EditRsvContentViewModel(Reservation rsv)
         {
-            ViewModelHelper.Subscribe(this, nameof(Notification), w =>
+            ViewModelHelper.Subscribe(this, w => w.Notification, w =>
             {
                 var model = RawNotification.Model as RsvAll;
                 if (model == null)

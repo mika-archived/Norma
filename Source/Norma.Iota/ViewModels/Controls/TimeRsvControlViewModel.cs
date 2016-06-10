@@ -59,7 +59,7 @@ namespace Norma.Iota.ViewModels.Controls
                 ExpiredAt.ObserveHasErrors
             }.CombineLatestValuesAreAllFalse().ToReactiveCommand().AddTo(this);
             AddTimeRsvCommand.Subscribe(w => AddTimeRsv()).AddTo(this);
-            ViewModelHelper.Subscribe(this, nameof(Notification), w =>
+            ViewModelHelper.Subscribe(this, w => w.Notification, w =>
             {
                 var model = RawNotification.Model;
                 if (model is WrapSlot)

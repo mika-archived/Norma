@@ -17,7 +17,7 @@ namespace Norma.Iota.ViewModels.WindowContents
         {
             TimeRsvControlViewModel = new TimeRsvControlViewModel(reservation, false);
             KeywordRsvControlViewModel = new KeywordRsvControlViewModel(reservation, false);
-            ViewModelHelper.Subscribe(this, nameof(Notification), w =>
+            ViewModelHelper.Subscribe(this, w => w.Notification, w =>
             {
                 var model = RawNotification.Model as WrapSlot;
                 if (model == null)

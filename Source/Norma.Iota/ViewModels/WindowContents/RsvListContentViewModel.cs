@@ -39,7 +39,7 @@ namespace Norma.Iota.ViewModels.WindowContents
                 ((DelegateCommand) DeleteReservationCommand).RaiseCanExecuteChanged();
             }).AddTo(this);
 
-            ViewModelHelper.Subscribe(this, nameof(Notification), w => UpdateRsvList());
+            ViewModelHelper.Subscribe(this, w => w.Notification, w => UpdateRsvList());
         }
 
         private void UpdateRsvList()

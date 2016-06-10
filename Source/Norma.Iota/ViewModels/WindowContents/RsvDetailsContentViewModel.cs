@@ -21,7 +21,7 @@ namespace Norma.Iota.ViewModels.WindowContents
         public RsvDetailsContentViewModel()
         {
             WindowCloseRequest = new InteractionRequest<Notification>();
-            ViewModelHelper.Subscribe(this, nameof(Notification), w =>
+            ViewModelHelper.Subscribe(this, w => w.Notification, w =>
             {
                 var model = RawNotification.Model as Reserve;
                 if (model == null)

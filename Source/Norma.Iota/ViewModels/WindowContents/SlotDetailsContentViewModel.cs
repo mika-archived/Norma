@@ -30,7 +30,7 @@ namespace Norma.Iota.ViewModels.WindowContents
             DetailsRsvRequest = new InteractionRequest<DataPassingNotification>();
             Cast = new ObservableCollection<string>();
             Staff = new ObservableCollection<string>();
-            ViewModelHelper.Subscribe(this, nameof(Notification), w =>
+            ViewModelHelper.Subscribe(this, w => w.Notification, w =>
             {
                 var model = RawNotification.Model as WrapSlot;
                 Cast.Clear();
