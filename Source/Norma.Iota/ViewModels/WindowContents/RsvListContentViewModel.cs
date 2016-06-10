@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 
@@ -59,9 +58,7 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         private async void EditReservation()
         {
-            var model = await EditRequest.RaiseAsync(new DataPassingNotification {Model = SelectedItem.Value.Model});
-            Debug.WriteLine(model);
-            _reservation.Save();
+            await EditRequest.RaiseAsync(new DataPassingNotification {Model = SelectedItem.Value.Model});
             UpdateRsvList();
         }
 
@@ -86,8 +83,7 @@ namespace Norma.Iota.ViewModels.WindowContents
             });
             if (!result.Confirmed)
                 return;
-            _reservation.Reservations.Single(w => w.Id == SelectedItem.Value.Model.Id).IsEnable = false;
-            _reservation.Save();
+            _reservation.DeleteReservation(SelectedItem.Value.Model);
             UpdateRsvList();
         }
 

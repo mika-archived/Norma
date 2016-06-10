@@ -92,14 +92,14 @@ namespace Norma.Ipsilon.Models
             {
                 try
                 {
-                    title = Resources.NoticeSlotRsvTitle;
-                    _reservation.Reservations.Single(w => w.Id == reserve.Id).IsEnable = false;
-                    _reservation.Save();
+                    var program = (RsvProgram) reserve;
+                    _reservation.DeleteReservation(program);
                     foreach (var schedule in _todaySchedules)
                     {
-                        if (schedule.Slots.Any(w => w.Id == ((RsvProgram) reserve).ProgramId))
-                            slot = schedule.Slots.Single(w => w.Id == ((RsvProgram) reserve).ProgramId);
+                        if (schedule.Slots.Any(w => w.Id == program.ProgramId))
+                            slot = schedule.Slots.Single(w => w.Id == program.ProgramId);
                     }
+                    title = Resources.NoticeSlotRsvTitle;
                     body = string.Format(Resources.NoticeSlotRsvBody, slot?.Title);
                 }
                 catch

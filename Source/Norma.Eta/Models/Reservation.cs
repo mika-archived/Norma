@@ -40,7 +40,7 @@ namespace Norma.Eta.Models
             _dbContext.SaveChanges();
         }
 
-        public void Save()
+        private void Save()
         {
             lock (_lockObj)
             {
@@ -48,10 +48,38 @@ namespace Norma.Eta.Models
             }
         }
 
+        public void Cleanup()
+        {
+            lock (_lockObj)
+            {
+                var rsvs = _dbContext.Reservations.Where(w => !w.IsEnable);
+                foreach (var rsv in rsvs)
+                    _dbContext.Reservations.Remove(rsv);
+            }
+        }
+
         private void Migrate()
         {
             // Not yet
         }
+
+        #region All
+
+        /// <summary>
+        ///     対象の RsvALl を無効にします。
+        /// </summary>
+        /// <param name="all"></param>
+        public void DeleteReservation(RsvAll all)
+        {
+            lock (_lockObj)
+            {
+                var target = _dbContext.Reservations.Single(w => w.Id == all.Id);
+                target.IsEnable = false;
+                Save();
+            }
+        }
+
+        #endregion
 
         #region Time
 
@@ -78,11 +106,24 @@ namespace Norma.Eta.Models
         /// <param name="time"></param>
         public void UpdateReservation(RsvTime time)
         {
-            var target = _dbContext.Reservations.Single(w => w.Id == time.Id);
-            target.StartDate = time.StartTime;
-            target.DayOfWeek = time.DayOfWeek;
-            target.Range = time.Range;
-            Save();
+            lock (_lockObj)
+            {
+                var target = _dbContext.Reservations.Single(w => w.Id == time.Id);
+                target.StartDate = time.StartTime;
+                target.DayOfWeek = time.DayOfWeek;
+                target.Range = time.Range;
+                Save();
+            }
+        }
+
+        /// <summary>
+        ///     対象の RsvTime を無効にします。
+        /// </summary>
+        /// <param name="time"></param>
+        public void DeleteReservation(RsvTime time)
+        {
+            time.IsEnable = false;
+            UpdateReservation(time);
         }
 
         #endregion
@@ -112,11 +153,24 @@ namespace Norma.Eta.Models
         /// <param name="keyword"></param>
         public void UpdateReservation(RsvKeyword keyword)
         {
-            var target = _dbContext.Reservations.Single(w => w.Id == keyword.Id);
-            target.IsRegexMode = keyword.IsRegexMode;
-            target.Keyword = keyword.Keyword;
-            target.Range = keyword.Range;
-            Save();
+            lock (_lockObj)
+            {
+                var target = _dbContext.Reservations.Single(w => w.Id == keyword.Id);
+                target.IsRegexMode = keyword.IsRegexMode;
+                target.Keyword = keyword.Keyword;
+                target.Range = keyword.Range;
+                Save();
+            }
+        }
+
+        /// <summary>
+        ///     対象の RsvKeyword を無効にします。
+        /// </summary>
+        /// <param name="keyword"></param>
+        public void DeleteReservation(RsvKeyword keyword)
+        {
+            keyword.IsEnable = false;
+            UpdateReservation(keyword);
         }
 
         #endregion
@@ -143,10 +197,23 @@ namespace Norma.Eta.Models
         /// <param name="program"></param>
         public void UpdateReservation(RsvProgram program)
         {
-            var target = _dbContext.Reservations.Single(w => w.Id == program.Id);
-            target.ProgramId = program.ProgramId;
-            target.StartDate = program.StartDate;
-            Save();
+            lock (_lockObj)
+            {
+                var target = _dbContext.Reservations.Single(w => w.Id == program.Id);
+                target.ProgramId = program.ProgramId;
+                target.StartDate = program.StartDate;
+                Save();
+            }
+        }
+
+        /// <summary>
+        ///     対象の RsvProgram を無効にします。
+        /// </summary>
+        /// <param name="program"></param>
+        public void DeleteReservation(RsvProgram program)
+        {
+            program.IsEnable = false;
+            UpdateReservation(program);
         }
 
         #endregion

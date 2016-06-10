@@ -70,7 +70,6 @@ namespace Norma.Iota.ViewModels
         {
             base.Dispose();
             _timetable.Save();
-            _reservation.Save();
         }
 
         #endregion
