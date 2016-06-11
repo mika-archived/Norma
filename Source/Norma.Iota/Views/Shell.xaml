@@ -13,13 +13,14 @@
                    xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
                    xmlns:vm="clr-namespace:Norma.Iota.ViewModels"
                    xmlns:wc="clr-namespace:Norma.Iota.Views.WindowContents"
-                   Title="Shell"
+                   Title="Timetable - Norma"
                    Width="900"
                    Height="600"
                    d:DataContext="{d:DesignInstance vm:ShellViewModel}"
                    prism:ViewModelLocator.AutoWireViewModel="True"
                    Background="{DynamicResource ThemeBrushKey}"
                    FontFamily="Segoe UI"
+                   Icon="../app.ico"
                    IsRestoringWindowPlacement="True"
                    TextOptions.TextFormattingMode="Display"
                    UseLayoutRounding="True"
@@ -90,9 +91,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <metro:CaptionIcon Grid.Column="0">
-                    <Ellipse Width="18"
-                             Height="18"
-                             Fill="{DynamicResource ActiveForegroundBrushKey}" />
+                    <Image Width="18"
+                           Height="18"
+                           Source="../app.ico" />
                 </metro:CaptionIcon>
                 <TextBlock Grid.Column="1"
                            Margin="3,0,0,0"

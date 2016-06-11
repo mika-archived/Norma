@@ -9,8 +9,8 @@ Norma
 This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).
 
 ## Screenshots
-![alt](https://cloud.githubusercontent.com/assets/10832834/15273926/060448c8-1ae2-11e6-981a-28db38974665.PNG)
-
+![alt](https://cloud.githubusercontent.com/assets/10832834/15974547/f8aa96f8-2f83-11e6-8db1-5025b9f70b60.PNG)  
+![alt](https://cloud.githubusercontent.com/assets/10832834/15974591/37990d5e-2f84-11e6-9a3d-c84a43093e0c.PNG)
 
 ## Requirements
 
