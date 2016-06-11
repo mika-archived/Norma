@@ -112,6 +112,7 @@ namespace Norma.Eta.Models
                 target.StartDate = time.StartTime;
                 target.DayOfWeek = time.DayOfWeek;
                 target.Range = time.Range;
+                target.IsEnable = time.IsEnable;
                 Save();
             }
         }
@@ -159,6 +160,7 @@ namespace Norma.Eta.Models
                 target.IsRegexMode = keyword.IsRegexMode;
                 target.Keyword = keyword.Keyword;
                 target.Range = keyword.Range;
+                target.IsEnable = keyword.IsEnable;
                 Save();
             }
         }
@@ -202,6 +204,7 @@ namespace Norma.Eta.Models
                 var target = _dbContext.Reservations.Single(w => w.Id == program.Id);
                 target.ProgramId = program.ProgramId;
                 target.StartDate = program.StartDate;
+                target.IsEnable = program.IsEnable;
                 Save();
             }
         }
