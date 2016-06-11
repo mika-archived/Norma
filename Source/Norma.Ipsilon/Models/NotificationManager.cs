@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Threading;
@@ -36,7 +37,8 @@ namespace Norma.Ipsilon.Models
 #else
                     ShortcutTargetFilePath = NormaConstants.IpsilonExecutableFile,
 #endif
-                    AppId = NormaConstants.IpsilonAppId
+                    AppId = NormaConstants.IpsilonAppId,
+                    ToastLogoFilePath = $"file:///{Path.GetFullPath("Resources/128.png")}"
                 };
                 if (NormaConstants.IsSupportedNewToast)
                     toastRequest.ActivatorId = typeof(NotificationActivator).GUID;

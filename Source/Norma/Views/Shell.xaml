@@ -18,6 +18,7 @@
                    prism:ViewModelLocator.AutoWireViewModel="True"
                    Background="{DynamicResource ThemeBrushKey}"
                    FontFamily="Segoe UI"
+                   Icon="../app.ico"
                    IsRestoringWindowPlacement="True"
                    TextOptions.TextFormattingMode="Display"
                    Topmost="{Binding IsTopMost.Value}"
@@ -61,9 +62,9 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <metro:CaptionIcon Grid.Column="0">
-                    <Ellipse Width="18"
-                             Height="18"
-                             Fill="{DynamicResource ActiveForegroundBrushKey}" />
+                    <Image Width="18"
+                           Height="18"
+                           Source="../app.ico" />
                 </metro:CaptionIcon>
                 <TextBlock Grid.Column="1"
                            Margin="3,0,0,0"

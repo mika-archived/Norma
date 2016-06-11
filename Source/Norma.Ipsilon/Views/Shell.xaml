@@ -11,7 +11,7 @@
                 xmlns:vm="clr-namespace:Norma.Ipsilon.ViewModels"
                 d:DataContext="{d:DesignInstance vm:ShellViewModel}"
                 prism:ViewModelLocator.AutoWireViewModel="True"
-                IconSource="../Resources/Icon_dummy.ico"
+                IconSource="../app.ico"
                 mc:Ignorable="d">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">

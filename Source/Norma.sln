@@ -35,10 +35,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packaging", "Packaging", "{
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{E7853467-6D72-4565-B479-4D68B07F365E}"
-	ProjectSection(SolutionItems) = preProject
-		..\Resources\Icon_dummy.ico = ..\Resources\Icon_dummy.ico
-		..\Resources\Icon_dummy.png = ..\Resources\Icon_dummy.png
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Norma.Delta", "Norma.Delta\Norma.Delta.csproj", "{210958B7-2C71-46EC-A256-18264CAFA6F7}"
 EndProject
@@ -50,6 +46,39 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "x86", "x86", "{3CF3F7B2-A371-4AB1-A63F-DF204506233F}"
 	ProjectSection(SolutionItems) = preProject
 		..\Assemblies\x86\SQLite.Interop.dll = ..\Assemblies\x86\SQLite.Interop.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{4F723C50-7ECE-4738-83C5-AC566CC40797}"
+	ProjectSection(SolutionItems) = preProject
+		..\Resources\data\norma.ai = ..\Resources\data\norma.ai
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "norma", "norma", "{9DA6A211-D71C-41CD-82A8-B9B22E5FA81A}"
+	ProjectSection(SolutionItems) = preProject
+		..\Resources\norma\128.png = ..\Resources\norma\128.png
+		..\Resources\norma\16.png = ..\Resources\norma\16.png
+		..\Resources\norma\20.png = ..\Resources\norma\20.png
+		..\Resources\norma\24.png = ..\Resources\norma\24.png
+		..\Resources\norma\256.png = ..\Resources\norma\256.png
+		..\Resources\norma\32.png = ..\Resources\norma\32.png
+		..\Resources\norma\40.png = ..\Resources\norma\40.png
+		..\Resources\norma\48.png = ..\Resources\norma\48.png
+		..\Resources\norma\64.png = ..\Resources\norma\64.png
+		..\Resources\norma\app.ico = ..\Resources\norma\app.ico
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iota", "iota", "{32F215CC-7953-4C8F-9867-93F51AD13E8B}"
+	ProjectSection(SolutionItems) = preProject
+		..\Resources\iota\128.png = ..\Resources\iota\128.png
+		..\Resources\iota\16.png = ..\Resources\iota\16.png
+		..\Resources\iota\20.png = ..\Resources\iota\20.png
+		..\Resources\iota\24.png = ..\Resources\iota\24.png
+		..\Resources\iota\256.png = ..\Resources\iota\256.png
+		..\Resources\iota\32.png = ..\Resources\iota\32.png
+		..\Resources\iota\40.png = ..\Resources\iota\40.png
+		..\Resources\iota\48.png = ..\Resources\iota\48.png
+		..\Resources\iota\64.png = ..\Resources\iota\64.png
+		..\Resources\iota\app.ico = ..\Resources\iota\app.ico
 	EndProjectSection
 EndProject
 Global
@@ -144,5 +173,8 @@ Global
 		{E7853467-6D72-4565-B479-4D68B07F365E} = {2DA43B35-41AA-42A6-A58A-8780AAF4B406}
 		{C970333A-C0F5-4C0F-97B7-5522FF1DF0B0} = {F460236E-D631-466D-9DA9-8D59ACF915F6}
 		{3CF3F7B2-A371-4AB1-A63F-DF204506233F} = {F460236E-D631-466D-9DA9-8D59ACF915F6}
+		{4F723C50-7ECE-4738-83C5-AC566CC40797} = {E7853467-6D72-4565-B479-4D68B07F365E}
+		{9DA6A211-D71C-41CD-82A8-B9B22E5FA81A} = {E7853467-6D72-4565-B479-4D68B07F365E}
+		{32F215CC-7953-4C8F-9867-93F51AD13E8B} = {E7853467-6D72-4565-B479-4D68B07F365E}
 	EndGlobalSection
 EndGlobal
