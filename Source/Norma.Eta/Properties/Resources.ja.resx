@@ -483,4 +483,7 @@
   <data name="EditRsv" xml:space="preserve">
     <value>予約の編集</value>
   </data>
+  <data name="OpenTimetable" xml:space="preserve">
+    <value>番組表を開く</value>
+  </data>
 </root>

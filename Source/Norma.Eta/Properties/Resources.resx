@@ -483,4 +483,7 @@
   <data name="EditRsv" xml:space="preserve">
     <value>Edit reservation</value>
   </data>
+  <data name="OpenTimetable" xml:space="preserve">
+    <value>Open timetable</value>
+  </data>
 </root>

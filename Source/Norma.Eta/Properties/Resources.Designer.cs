@@ -736,6 +736,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Open timetable に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string OpenTimetable {
+            get {
+                return ResourceManager.GetString("OpenTimetable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Operation に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Operation {

@@ -1,6 +1,9 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Windows;
 using System.Windows.Input;
 
+using Norma.Eta;
 using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Ipsilon.Models;
@@ -19,6 +22,21 @@ namespace Norma.Ipsilon.ViewModels
             _notifier = new Notifier(configuration, timetable, reservation).AddTo(this);
             _notifier.Start();
         }
+
+        #region OpenTimetableCommand
+
+        private ICommand _openTimetableCommand;
+
+        public ICommand OpenTimetableCommand
+            => _openTimetableCommand ?? (_openTimetableCommand = new DelegateCommand(OpenTimetable));
+
+        private void OpenTimetable()
+        {
+            if (File.Exists(NormaConstants.IotaExecutableFile))
+                Process.Start(NormaConstants.IotaExecutableFile);
+        }
+
+        #endregion
 
         #region ExitCommand
 
