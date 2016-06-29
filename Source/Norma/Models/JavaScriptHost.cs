@@ -158,7 +158,7 @@ function cs_HideTvContainerLeftSide() {
   if (appContainerSide == null) {
     return;
   }
-  appContainerSide.style.disokat = 'none';
+  appContainerSide.style.display = 'none';
 }
 setTimeout(HideTvContainerLeftSide, 500);
 ";
