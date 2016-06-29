@@ -448,6 +448,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Hide left side control. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string HiddenLeftControl {
+            get {
+                return ResourceManager.GetString("HiddenLeftControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Hide side controls. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string HiddenSideControls {

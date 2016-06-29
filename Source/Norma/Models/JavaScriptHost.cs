@@ -64,6 +64,8 @@ namespace Norma.Models
                 HideTvContainerFooter();
             if (_configuration.Root.Browser.HiddenSideControls)
                 HideTvContainerSide();
+            if (_configuration.Root.Browser.HiddenLeftControls)
+                HideTvContainerLeftSide();
         }
 
         private void RunLater()
@@ -145,6 +147,22 @@ function cs_HideTvContainerSide() {
 setTimeout(cs_HideTvContainerSide, 500);
 ";
             StatusInfo.Instance.Text = Resources.HiddenSideControls;
+            WrapExecuteScriptAsync(jsCode);
+        }
+
+        private void HideTvContainerLeftSide()
+        {
+            const string jsCode = @"
+function cs_HideTvContainerLeftSide() {
+  var appContainerSide = window.document.querySelector('[class^=""TVContainer__ad-reserve-button___""');
+  if (appContainerSide == null) {
+    return;
+  }
+  appContainerSide.style.disokat = 'none';
+}
+setTimeout(HideTvContainerLeftSide, 500);
+";
+            StatusInfo.Instance.Text = Resources.HiddenLeftControl;
             WrapExecuteScriptAsync(jsCode);
         }
 

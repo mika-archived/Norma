@@ -486,4 +486,7 @@
   <data name="OpenTimetable" xml:space="preserve">
     <value>Open timetable</value>
   </data>
+  <data name="HiddenLeftControl" xml:space="preserve">
+    <value>Hide left side control.</value>
+  </data>
 </root>
