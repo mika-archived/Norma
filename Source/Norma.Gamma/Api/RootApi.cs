@@ -30,6 +30,12 @@ namespace Norma.Gamma.Api
 
         // Feed
 
+        public async Task<Slot> SlotDetailAsync(string slotId, params Expression<Func<string, object>>[] parameters)
+            => await AbemaTv.GetAsync<Slot>(string.Format(EndPoints.SlotDetail, slotId), parameters);
+
+        public Slot SlotDetail(string slotId, params Expression<Func<string, object>>[] parameters)
+            => AbemaTv.Get<Slot>(string.Format(EndPoints.SlotDetail, slotId), parameters);
+
         public async Task<SlotAudience> SlotAudienceAsync(params Expression<Func<string, object>>[] parameters)
             => await AbemaTv.GetAsync<SlotAudience>(EndPoints.SlotAudicence, parameters).Stay();
 
