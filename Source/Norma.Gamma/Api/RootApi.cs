@@ -2,6 +2,8 @@
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+using Newtonsoft.Json;
+
 using Norma.Gamma.Extensions;
 using Norma.Gamma.Models;
 
@@ -31,10 +33,10 @@ namespace Norma.Gamma.Api
         // Feed
 
         public async Task<Slot> SlotDetailAsync(string slotId, params Expression<Func<string, object>>[] parameters)
-            => await AbemaTv.GetAsync<Slot>(string.Format(EndPoints.SlotDetail, slotId), parameters);
+            => (await AbemaTv.GetAsync<SlotWrapper>(string.Format(EndPoints.SlotDetail, slotId), parameters)).Slot;
 
         public Slot SlotDetail(string slotId, params Expression<Func<string, object>>[] parameters)
-            => AbemaTv.Get<Slot>(string.Format(EndPoints.SlotDetail, slotId), parameters);
+            => AbemaTv.Get<SlotWrapper>(string.Format(EndPoints.SlotDetail, slotId), parameters).Slot;
 
         public async Task<SlotAudience> SlotAudienceAsync(params Expression<Func<string, object>>[] parameters)
             => await AbemaTv.GetAsync<SlotAudience>(EndPoints.SlotAudicence, parameters).Stay();
@@ -54,5 +56,11 @@ namespace Norma.Gamma.Api
 
         public Comment Comment(string slotId, params Expression<Func<string, object>>[] parameters)
             => AbemaTv.Post<Comment>(string.Format(EndPoints.Comments, slotId), parameters);
+
+        public class SlotWrapper
+        {
+            [JsonProperty("slot")]
+            public Slot Slot { get; set; }
+        }
     }
 }

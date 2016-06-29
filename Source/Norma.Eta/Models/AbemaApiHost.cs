@@ -92,5 +92,8 @@ namespace Norma.Eta.Models
             var firstDayOfNextWeek = DateTime.Today.AddDays(5).ToString("yyyyMMdd");
             return _abemaTv.Root.Media(dateFrom => today, dateTo => firstDayOfNextWeek);
         }
+
+        public async Task<Slot> CurrentSlot(string slotId)
+            => await _abemaTv.Root.SlotDetailAsync(slotId);
     }
 }

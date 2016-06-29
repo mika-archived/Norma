@@ -14,7 +14,7 @@
 
         public static readonly string Token = EndPoint + "media/token";
 
-        public static readonly string SlotDetail = EndPoint + "media/slot/{0}";
+        public static readonly string SlotDetail = EndPoint + "media/slots/{0}";
 
         public static readonly string Media = EndPoint + "media";
 

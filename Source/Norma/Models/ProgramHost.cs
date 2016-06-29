@@ -61,8 +61,10 @@ namespace Norma.Models
             // ReSharper disable once RedundantIfElseBlock
             else
             {
-                Title = $"{slot.Title} - {program.Episode.Name} \"{program.Episode.Title}\"";
-                Description = program.Episode.Overview;
+                // FIX: AbemaTV が、 slot.programs[0].episode.title などを提供しなくなった。
+                //      それ故、 Episode.Name と Episode.Overview が null になる。
+                Title = $"{slot.Title} - {program.Episode.Name} \"Ep.{program.Episode.Sequence}\"";
+                Description = program.Episode.Overview ?? slot.TableHighlight;
                 ProvideCredits(program.Credit);
                 ProvideThumbnails(program);
             }
