@@ -43,6 +43,10 @@ Norma のインストール方法: [Wiki](https://github.com/fuyuno/Norma/wiki/H
 [このページ](https://github.com/fuyuno/Norma/wiki/How-to-use) を見てください。
 
 
+## サポート
+Twitter ハッシュタグ [#Norma](https://twitter.com/search?f=tweets&vertical=default&q=%23Norma%20lang%3Aja&src=typd) でつぶやくか、メンションで反応します。
+
+
 ## References
 このアプリは、以下のリソースを参考にしています。 
 Very thanks!
