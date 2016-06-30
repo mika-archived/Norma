@@ -107,17 +107,22 @@ namespace Norma.Eta.Models
         FamilyAnime,
 
         /// <summary>
-        ///     21ch - EDGE SPORT HD
+        ///     21ch - 新作アニメ
+        /// </summary>
+        NewAnime,
+
+        /// <summary>
+        ///     22ch - EDGE SPORT HD
         /// </summary>
         EdgeSportHd,
 
         /// <summary>
-        ///     22ch - 釣り
+        ///     23ch - 釣り
         /// </summary>
         Fishing,
 
         /// <summary>
-        ///     23ch - 麻雀
+        ///     24ch - 麻雀
         /// </summary>
         Mahjong
     }
@@ -183,6 +188,9 @@ namespace Norma.Eta.Models
 
                 case AbemaChannel.FamilyAnime:
                     return "family-anime";
+
+                case AbemaChannel.NewAnime:
+                    return "new-anime";
 
                 case AbemaChannel.EdgeSportHd:
                     return "edge-sport";
@@ -259,6 +267,9 @@ namespace Norma.Eta.Models
 
                 case "family-anime":
                     return AbemaChannel.FamilyAnime;
+
+                case "new-anime":
+                    return AbemaChannel.NewAnime;
 
                 case "edge-sport":
                     return AbemaChannel.EdgeSportHd;

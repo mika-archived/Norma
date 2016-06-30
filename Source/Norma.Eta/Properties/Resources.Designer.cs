@@ -637,6 +637,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   New anime に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string NewAnime {
+            get {
+                return ResourceManager.GetString("NewAnime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   No に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string No {

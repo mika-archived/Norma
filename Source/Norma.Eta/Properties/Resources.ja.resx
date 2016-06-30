@@ -489,4 +489,7 @@
   <data name="HiddenLeftControl" xml:space="preserve">
     <value>左側コントロールの非表示</value>
   </data>
+  <data name="NewAnime" xml:space="preserve">
+    <value>新作アニメ</value>
+  </data>
 </root>
