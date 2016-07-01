@@ -61,7 +61,10 @@ namespace Norma.Models
             while (!(CurrentSlot.StartAt.AddSeconds(perTime * count) <= DateTime.Now &&
                      DateTime.Now <= CurrentSlot.StartAt.AddSeconds(perTime * ++count))) {}
 
-            CurrentProgram = CurrentSlot.Programs[--count];
+            --count;
+            if (count < 0 || count >= CurrentSlot.Programs.Length)
+                return;
+            CurrentProgram = CurrentSlot.Programs[count];
         }
 
         #region CurrentChannel
