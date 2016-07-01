@@ -7,122 +7,122 @@ namespace Norma.Eta.Models
     public enum AbemaChannel
     {
         /// <summary>
-        ///     1ch - Onegai Ranking
-        /// </summary>
-        OnegaiRanking,
-
-        /// <summary>
-        ///     2ch - Abema news/
+        ///     1ch - Abema news/
         /// </summary>
         AbemaNews,
 
         /// <summary>
-        ///     3ch - Abema SPECIAL
+        ///     2ch - Abema SPECIAL
         /// </summary>
         AbemaSpecial,
 
         /// <summary>
-        ///     4ch - SPECIAL PLUS
+        ///     3ch - SPECIAL PLUS
         /// </summary>
         SpecialPlus,
 
         /// <summary>
-        ///     5ch - SPECIAL PLUS 2
+        ///     Nch - Onegai Ranking
+        /// </summary>
+        OnegaiRanking,
+
+        /// <summary>
+        ///     Nch - SPECIAL PLUS 2
         /// </summary>
         SpecialPlus2,
 
         /// <summary>
-        ///     6ch - REALITY SHOW
-        /// </summary>
-        RealityShow,
-
-        /// <summary>
-        ///     7ch - MTV HITS
-        /// </summary>
-        MtvHits,
-
-        /// <summary>
-        ///     8ch - SPACE SHOWER MUSIC
-        /// </summary>
-        SpaceShowerMusic,
-
-        /// <summary>
-        ///     9ch - ドラマ CHANNEL
+        ///     8ch - ドラマ CHANNEL
         /// </summary>
         DramaChannel,
 
         /// <summary>
-        ///     10ch - Documentary
+        ///     9ch - REALITY SHOW
+        /// </summary>
+        RealityShow,
+
+        /// <summary>
+        ///     10ch - MTV HITS
+        /// </summary>
+        MtvHits,
+
+        /// <summary>
+        ///     11ch - SPACE SHOWER MUSIC
+        /// </summary>
+        SpaceShowerMusic,
+
+        /// <summary>
+        ///     12ch - Documentary
         /// </summary>
         Documentary,
 
         /// <summary>
-        ///     11ch - バラエティ CHANNEL
+        ///     13ch - バラエティ CHANNEL
         /// </summary>
         VarietyChannel,
 
         /// <summary>
-        ///     12ch - ペット
+        ///     14ch - ペット
         /// </summary>
         Pet,
 
         /// <summary>
-        ///     13ch - CLUB CHANNEL
+        ///     15ch - CLUB CHANNEL
         /// </summary>
         ClubChannel,
 
         /// <summary>
-        ///     14ch - WORLD SPORTS
+        ///     16ch - WORLD SPORTS
         /// </summary>
         WorldSports,
 
         /// <summary>
-        ///     15ch - ヨコノリ Surf Snow Skate
-        /// </summary>
-        YokonoriSports,
-
-        /// <summary>
-        ///     16ch - VICE
-        /// </summary>
-        Vice,
-
-        /// <summary>
-        ///     17ch - アニメ24
-        /// </summary>
-        Anime24,
-
-        /// <summary>
-        ///     18ch - 深夜アニメ
-        /// </summary>
-        MidnightAnime,
-
-        /// <summary>
-        ///     19ch - なつかしアニメ
-        /// </summary>
-        OldtimeAnime,
-
-        /// <summary>
-        ///     20ch - 家族アニメ
-        /// </summary>
-        FamilyAnime,
-
-        /// <summary>
-        ///     21ch - 新作アニメ
-        /// </summary>
-        NewAnime,
-
-        /// <summary>
-        ///     22ch - EDGE SPORT HD
+        ///     17ch - EDGE SPORT HD
         /// </summary>
         EdgeSportHd,
 
         /// <summary>
-        ///     23ch - 釣り
+        ///     18ch - VICE
+        /// </summary>
+        Vice,
+
+        /// <summary>
+        ///     19ch - アニメ24
+        /// </summary>
+        Anime24,
+
+        /// <summary>
+        ///     20ch - 深夜アニメ
+        /// </summary>
+        MidnightAnime,
+
+        /// <summary>
+        ///     21ch - なつかしアニメ
+        /// </summary>
+        OldtimeAnime,
+
+        /// <summary>
+        ///     22ch - 家族アニメ
+        /// </summary>
+        FamilyAnime,
+
+        /// <summary>
+        ///     23ch - 新作アニメ
+        /// </summary>
+        NewAnime,
+
+        /// <summary>
+        ///     24ch - ヨコノリ Surf Snow Skate
+        /// </summary>
+        YokonoriSports,
+
+        /// <summary>
+        ///     25ch - 釣り
         /// </summary>
         Fishing,
 
         /// <summary>
-        ///     24ch - 麻雀
+        ///     26ch - 麻雀
         /// </summary>
         Mahjong
     }
