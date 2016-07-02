@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
+using Norma.Eta.Extensions;
 using Norma.Gamma.Models;
 
 using static Norma.Eta.Models.DateTimeHelper;
@@ -30,12 +32,16 @@ namespace Norma.Eta.Models
             set { _cache.ChannelSchedules = value; }
         }
 
+        public ObservableCollection<string> CurrentChannels { get; }
+
         public DateTime LastSyncTime => _cache.SyncDateTime;
 
         public Timetable(AbemaApiHost abemaApiHost)
         {
             _abemaApiHost = abemaApiHost;
             _cache = new TimetableCache();
+            CurrentChannels = new ObservableCollection<string>();
+            Observable.Timer(TimeSpan.Zero, TimeSpanExt.OneSecond).Subscribe(async w => await UpdateCurrentChannels());
             Load();
         }
 
@@ -50,7 +56,7 @@ namespace Norma.Eta.Models
         }
 
         // ↓名前やばい
-        public async Task SyncAsync()
+        private async Task SyncAsync()
         {
             if (!_cache.IsSyncNeeded())
                 return;
@@ -86,18 +92,32 @@ namespace Norma.Eta.Models
             return schedule?.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);
         }
 
-        public ReadOnlyCollection<AbemaChannel> CurrentChannels()
+        private async Task UpdateCurrentChannels()
         {
-            var channels = new List<AbemaChannel>();
-            var anons = ChannelSchedules.Where(w => EqualsWithDates(w.Date, DateTime.Today))
-                                        .Select(w => new {w.Slots, w.ChannelId});
-            foreach (var anon in anons)
+            await SyncAsync();
+            var channelSlots = ChannelSchedules.Where(w => EqualsWithDates(w.Date, DateTime.Today))
+                                               .Select(w => new {w.Slots, w.ChannelId});
+
+            var channels = new List<string>();
+            foreach (var channelSlot in channelSlots)
             {
-                if (!anon.Slots.Any(w => IsRangeOf(w.StartAt, w.EndAt, DateTime.Now)))
+                if (!channelSlot.Slots.Any(w => IsRangeOf(w.StartAt, w.EndAt, DateTime.Now)))
                     continue;
-                channels.Add(AbemaChannelExt.FromUrlString(anon.ChannelId));
+                channels.Add(channelSlot.ChannelId);
             }
-            return new ReadOnlyCollection<AbemaChannel>(channels);
+
+            var temp = CurrentChannels;
+            foreach (var channel in temp)
+            {
+                if (!channels.Contains(channel))
+                    CurrentChannels.Remove(channel);
+            }
+            foreach (var channel in channels.Select((v, i) => new {Value = v, Index = i}))
+            {
+                if (CurrentChannels.Contains(channel.Value))
+                    continue;
+                CurrentChannels.Insert(channel.Index, channel.Value);
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Norma.ViewModels.Controls
         private readonly ShellViewModel _parent;
         private readonly Timetable _timetable;
         public ReadOnlyReactiveCollection<ChannelViewModel> Channnels { get; private set; }
-        private Func<AbemaChannel, Channel> func => v => new Channel(v, _configuration, _timetable);
+        private Func<AbemaChannel, Channel> Func => v => new Channel(v, _configuration, _timetable);
 
         public AbemaTVGuideViewModel(ShellViewModel parent, Configuration configuration, Timetable timetable)
         {
@@ -24,9 +24,9 @@ namespace Norma.ViewModels.Controls
             _configuration = configuration;
             _timetable = timetable;
 
-            var channels = new AbemaChannels(_timetable).AddTo(this);
+            var channels = new AbemaChannels(_timetable);
             Channnels = channels.Channels
-                                .ToReadOnlyReactiveCollection(v => new ChannelViewModel(_parent, func(v)))
+                                .ToReadOnlyReactiveCollection(v => new ChannelViewModel(_parent, Func(v)))
                                 .AddTo(this);
         }
     }
