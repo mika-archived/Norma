@@ -32,13 +32,13 @@ namespace Norma.Models.Browser
                     response = httpClient.GetAsync(request.Url).Result;
                 if (request.Method == "POST")
                 {
-                    var content = request.PostData.Elements.FirstOrDefault()?.GetBody();
+                    var content = request.PostData?.Elements.FirstOrDefault()?.GetBody();
                     var httpContent = new StringContent2(content, Encoding.UTF8, "application/json");
                     response = httpClient.PostAsync(request.Url, httpContent).Result;
                 }
                 if (request.Method == "PUT")
                 {
-                    var content = request.PostData.Elements.FirstOrDefault()?.GetBody();
+                    var content = request.PostData?.Elements.FirstOrDefault()?.GetBody();
                     var httpContent = new StringContent2(content, Encoding.UTF8, "application/json");
                     response = httpClient.PutAsync(request.Url, httpContent).Result;
                 }
@@ -71,12 +71,12 @@ namespace Norma.Models.Browser
 
         private void CapturingRequest(string url, NameValueCollection headers, string body)
         {
-            Debug.WriteLine($"[Chromium]Captureing request {{\"url\": \"{url}\", \"body\", \"{body}\"}}");
+            AppInitializer.NetworkHandler.OnHandlingRequest(new NetworkEventArgs(url, headers, body));
         }
 
         private void CapturingResponse(string url, NameValueCollection headers, string body)
         {
-            Debug.WriteLine($"[Chromium]Captureing response {{\"url\": \"{url}\", \"body\", \"{body}\"}}");
+            AppInitializer.NetworkHandler.OnHandlingResponse(new NetworkEventArgs(url, headers, body));
         }
     }
 }

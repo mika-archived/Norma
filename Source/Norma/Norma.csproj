@@ -227,6 +227,7 @@
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\CommentHost.cs" />
     <Compile Include="Models\Connector.cs" />
+    <Compile Include="Models\INetworkCaptureAware.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
     <Compile Include="Models\Libraries\DesktopToast.cs" />
     <Compile Include="Models\Libraries\EntityFramework.cs" />
@@ -244,6 +245,8 @@
     <Compile Include="Models\Libraries\SQLiteProvider.cs" />
     <Compile Include="Models\Libraries\Unity.cs" />
     <Compile Include="Models\Library.cs" />
+    <Compile Include="Models\NetworkEventArgs.cs" />
+    <Compile Include="Models\NetworkHandler.cs" />
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ProgramHost.cs" />
     <Compile Include="Models\ReleaseType.cs" />

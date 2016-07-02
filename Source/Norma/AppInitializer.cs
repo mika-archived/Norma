@@ -25,6 +25,7 @@ namespace Norma
         public static ConnectOps ConnectOps { get; private set; }
         public static Connector Connector { get; private set; }
         public static Reservation Reservation { get; private set; }
+        public static NetworkHandler NetworkHandler { get; private set; }
 
         /// <summary>
         ///     PreInitialize is called by Application host.
@@ -48,6 +49,7 @@ namespace Norma
             ConnectOps = new ConnectOps();
             Connector = new Connector(ConnectOps);
             Reservation = new Reservation();
+            NetworkHandler = new NetworkHandler();
         }
 
         /// <summary>
