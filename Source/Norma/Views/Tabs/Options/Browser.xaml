@@ -21,9 +21,6 @@
                   Content="{x:Static properties:Resources.HiddenSideControls}"
                   IsChecked="{Binding HiddenSideControls.Value}" />
         <CheckBox Margin="4"
-                  Content="{x:Static properties:Resources.HiddenLeftControl}"
-                  IsChecked="{Binding HiddenLeftControls.Value}" />
-        <CheckBox Margin="4"
                   Content="{x:Static properties:Resources.DisableChangeChannelByMouseWheel}"
                   IsChecked="{Binding DisableChangeChannelByMouseWheel.Value}" />
         <CheckBox Margin="4"
