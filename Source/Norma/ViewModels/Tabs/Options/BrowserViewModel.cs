@@ -14,7 +14,6 @@ namespace Norma.ViewModels.Tabs.Options
         public ReactiveProperty<bool> HiddenHeaderControls { get; private set; }
         public ReactiveProperty<bool> HiddenFooterControls { get; private set; }
         public ReactiveProperty<bool> HiddenSideControls { get; private set; }
-        public ReactiveProperty<bool> HiddenLeftControls { get; private set; }
         public ReactiveProperty<bool> DisableChangeChannelByMouseWheel { get; private set; }
         public ReactiveProperty<bool> ReloadPageOnBroadcastCommercials { get; private set; }
 
@@ -22,7 +21,6 @@ namespace Norma.ViewModels.Tabs.Options
         {
             HiddenHeaderControls = ReactiveProperty.FromObject(bc, w => w.HiddenHeaderControls).AddTo(this);
             HiddenFooterControls = ReactiveProperty.FromObject(bc, w => w.HiddenFooterControls).AddTo(this);
-            HiddenSideControls = ReactiveProperty.FromObject(bc, w => w.HiddenSideControls).AddTo(this);
             HiddenSideControls = ReactiveProperty.FromObject(bc, w => w.HiddenSideControls).AddTo(this);
             DisableChangeChannelByMouseWheel = ReactiveProperty.FromObject(bc, w => w.DisableChangeChannelByMouseWheel)
                                                                .AddTo(this);

@@ -14,9 +14,6 @@ namespace Norma.Eta.Models.Configurations
         public bool HiddenSideControls { get; set; }
 
         [JsonProperty]
-        public bool HiddenLeftControls { get; set; }
-
-        [JsonProperty]
         public bool DisableChangeChannelByMouseWheel { get; set; }
 
         [JsonProperty]
@@ -27,7 +24,6 @@ namespace Norma.Eta.Models.Configurations
             HiddenHeaderControls = true;
             HiddenFooterControls = true;
             HiddenSideControls = true;
-            HiddenLeftControls = true;
             DisableChangeChannelByMouseWheel = true;
             ReloadPageOnBroadcastCommercials = false;
         }
