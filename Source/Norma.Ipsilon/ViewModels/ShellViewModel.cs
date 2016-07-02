@@ -15,6 +15,7 @@ namespace Norma.Ipsilon.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     internal class ShellViewModel : ViewModel
     {
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly Notifier _notifier;
 
         public ShellViewModel(Configuration configuration, Timetable timetable, Reservation reservation)

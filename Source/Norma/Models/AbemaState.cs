@@ -23,7 +23,6 @@ namespace Norma.Models
             _configuration = configuration;
             _timetable = timetable;
             CurrentChannel = configuration.Root.LastViewedChannel;
-            // IsBroadcastCm = true;
         }
 
         public void Start()
@@ -75,19 +74,6 @@ namespace Norma.Models
         {
             get { return _currentChannel; }
             private set { SetProperty(ref _currentChannel, value); }
-        }
-
-        #endregion
-
-        #region IsBroadcastCm
-
-        private bool _isBroadcastCm;
-
-        [Obsolete("2016/05/24 17:10 ~のバグ/仕様変更？で、ちょっとおかしくなる。")]
-        public bool IsBroadcastCm
-        {
-            get { return _isBroadcastCm; }
-            set { SetProperty(ref _isBroadcastCm, value); }
         }
 
         #endregion

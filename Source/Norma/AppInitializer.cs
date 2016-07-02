@@ -59,6 +59,7 @@ namespace Norma
         {
             AbemaApiHost.Initialize();
             Timetable.Sync();
+            Reservation.Cleanup();
             AbemaState.Start();
         }
 

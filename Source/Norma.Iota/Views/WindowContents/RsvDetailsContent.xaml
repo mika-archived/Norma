@@ -32,7 +32,8 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" metro:MetroWindow.IsCaptionBar="True">
+        <Border Grid.Row="0"
+                metro:MetroWindow.IsCaptionBar="True">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -51,9 +52,10 @@
                                      Style="{StaticResource MetroDialogSystemButtonsStyle}" />
             </Grid>
         </Border>
-        <StackPanel Grid.Row="1" Margin="10">
+        <StackPanel Grid.Row="1"
+                    Margin="10">
             <StackPanel.Resources>
-                <!--  なんかうーん  -->
+                <!-- なんかうーん -->
                 <DataTemplate DataType="{x:Type rsvs:RsvProgramViewModel}">
                     <Grid>
                         <Grid.Resources>
@@ -160,7 +162,8 @@
                     </Grid>
                 </DataTemplate>
             </StackPanel.Resources>
-            <TextBlock FontSize="14" Text="{x:Static properties:Resources.RsvConfirm}" />
+            <TextBlock FontSize="14"
+                       Text="{x:Static properties:Resources.RsvConfirm}" />
             <ContentControl Content="{Binding Reservation}" />
         </StackPanel>
         <Grid Grid.Row="2">

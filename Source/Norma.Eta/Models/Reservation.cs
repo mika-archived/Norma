@@ -60,11 +60,6 @@ namespace Norma.Eta.Models
             }
         }
 
-        private void Migrate()
-        {
-            // Not yet
-        }
-
         #region All
 
         /// <summary>

@@ -33,7 +33,8 @@
             <actions:DataContextDisposeAction />
         </i:EventTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding ProgramDetailsRequest, Mode=OneWay}">
-            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True"
+                                            IsModal="True">
                 <actions:MetroPopupWindowAction.WindowContent>
                     <wc:SlotDetailsContent />
                 </actions:MetroPopupWindowAction.WindowContent>
@@ -48,7 +49,8 @@
             </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding DetailReserveRequest, Mode=OneWay}">
-            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True"
+                                            IsModal="True">
                 <actions:MetroPopupWindowAction.WindowContent>
                     <wc:DetailsRsvContent />
                 </actions:MetroPopupWindowAction.WindowContent>
@@ -83,7 +85,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" metro:MetroWindow.IsCaptionBar="True">
+        <Border Grid.Row="0"
+                metro:MetroWindow.IsCaptionBar="True">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -103,12 +106,14 @@
                            Foreground="{DynamicResource ForegroundBrushKey}"
                            Text="Timetable - Norma"
                            TextTrimming="CharacterEllipsis" />
-                <metro:SystemButtons Grid.Column="2" VerticalAlignment="Top" />
+                <metro:SystemButtons Grid.Column="2"
+                                     VerticalAlignment="Top" />
             </Grid>
         </Border>
 
-        <!--  180px * 24  -->
-        <Grid Grid.Row="1" Margin="5,0,0,0">
+        <!-- 180px * 24 -->
+        <Grid Grid.Row="1"
+              Margin="5,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="45" />
                 <RowDefinition Height="60" />
@@ -120,7 +125,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="20" />
             </Grid.ColumnDefinitions>
-            <!--  Date Selector  -->
+            <!-- Date Selector -->
             <Grid Grid.Row="0"
                   Grid.Column="0"
                   Grid.ColumnSpan="3">
@@ -137,7 +142,8 @@
                                           SelectedItem="{Binding SelectedDate,
                                                                  Mode=TwoWay}" />
                 </StackPanel>
-                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Right"
+                            Orientation="Horizontal">
                     <Button Height="30"
                             Margin="5"
                             Command="{Binding ReserveUsingKeywordOrTimeCommand}"
@@ -149,7 +155,7 @@
                 </StackPanel>
 
             </Grid>
-            <!--  Header  -->
+            <!-- Header -->
             <ScrollViewer x:Name="ChannelScrollViewer"
                           Grid.Row="1"
                           Grid.Column="1"
@@ -173,13 +179,14 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
-            <!--  Side  -->
+            <!-- Side -->
             <ScrollViewer x:Name="DateTimeScrollViewer"
                           Grid.Row="2"
                           Grid.Column="0"
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Hidden">
-                <StackPanel Width="20" Orientation="Vertical">
+                <StackPanel Width="20"
+                            Orientation="Vertical">
                     <controls:BorderedTextBlock Text="0" />
                     <controls:BorderedTextBlock Text="1" />
                     <controls:BorderedTextBlock Text="2" />
@@ -214,8 +221,10 @@
                           HorizontalScrollBarVisibility="Visible"
                           VerticalScrollBarVisibility="Visible">
                 <i:Interaction.Behaviors>
-                    <behaviors:ScrollSyncronizingBehavior Orientation="Horizontal" Target="{Binding ElementName=ChannelScrollViewer}" />
-                    <behaviors:ScrollSyncronizingBehavior Orientation="Vertical" Target="{Binding ElementName=DateTimeScrollViewer}" />
+                    <behaviors:ScrollSyncronizingBehavior Orientation="Horizontal"
+                                                          Target="{Binding ElementName=ChannelScrollViewer}" />
+                    <behaviors:ScrollSyncronizingBehavior Orientation="Vertical"
+                                                          Target="{Binding ElementName=DateTimeScrollViewer}" />
                 </i:Interaction.Behaviors>
                 <ItemsControl ItemsSource="{Binding Channels, Mode=OneWay}">
                     <ItemsControl.ItemsPanel>

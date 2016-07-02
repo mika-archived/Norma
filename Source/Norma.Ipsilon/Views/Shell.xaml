@@ -20,9 +20,11 @@
     </i:Interaction.Triggers>
     <tb:TaskbarIcon.ContextMenu>
         <ContextMenu>
-            <MenuItem Command="{Binding OpenTimetableCommand}" Header="{x:Static properties:Resources.OpenTimetable}" />
+            <MenuItem Command="{Binding OpenTimetableCommand}"
+                      Header="{x:Static properties:Resources.OpenTimetable}" />
             <Separator />
-            <MenuItem Command="{Binding ExitCommand}" Header="{x:Static properties:Resources.Exit}" />
+            <MenuItem Command="{Binding ExitCommand}"
+                      Header="{x:Static properties:Resources.Exit}" />
         </ContextMenu>
     </tb:TaskbarIcon.ContextMenu>
 </tb:TaskbarIcon>

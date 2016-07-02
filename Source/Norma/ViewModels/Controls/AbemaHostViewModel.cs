@@ -57,7 +57,7 @@ namespace Norma.ViewModels.Controls
         {
             if (WebBrowser == null)
                 return;
-            _javaScritHost = new JavaScriptHost(WebBrowser, _abemaState, _configuration).AddTo(this);
+            _javaScritHost = new JavaScriptHost(WebBrowser, _configuration).AddTo(this);
             _javaScritHost.Address = Address; // Initialize
         }
 

@@ -17,7 +17,8 @@
              mc:Ignorable="d">
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding ResponseRequest, Mode=OneWay}">
-            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True"
+                                            IsModal="True">
                 <actions:MetroPopupWindowAction.WindowStyle>
                     <Style TargetType="{x:Type metro:MetroWindow}">
                         <Setter Property="ResizeMode" Value="NoResize" />
@@ -32,7 +33,8 @@
             </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding DetailsRsvRequest, Mode=OneWay}">
-            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True"
+                                            IsModal="True">
                 <actions:MetroPopupWindowAction.WindowStyle>
                     <Style TargetType="{x:Type metro:MetroWindow}">
                         <Setter Property="ResizeMode" Value="NoResize" />
@@ -54,7 +56,8 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" metro:MetroWindow.IsCaptionBar="True">
+        <Border Grid.Row="0"
+                metro:MetroWindow.IsCaptionBar="True">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -73,7 +76,8 @@
                                      Style="{StaticResource MetroDialogSystemButtonsStyle}" />
             </Grid>
         </Border>
-        <Grid Grid.Row="1" Margin="5,5,0,5">
+        <Grid Grid.Row="1"
+              Margin="5,5,0,5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="115" />
                 <RowDefinition Height="*" />
@@ -82,7 +86,8 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="0" Grid.Column="0">
+            <StackPanel Grid.Row="0"
+                        Grid.Column="0">
                 <TextBlock FontSize="18"
                            FontWeight="Bold"
                            Text="{Binding Title}"
@@ -102,20 +107,24 @@
                     Grid.ColumnSpan="2"
                     BorderBrush="{DynamicResource BorderBrushKey}"
                     BorderThickness="0,2,0,0">
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
-                    <StackPanel Margin="5" Orientation="Vertical">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Visible">
+                    <StackPanel Margin="5"
+                                Orientation="Vertical">
                         <StackPanel Orientation="Vertical">
                             <TextBlock FontSize="14"
                                        FontWeight="Bold"
                                        Text="{x:Static properties:Resources.ProgramSummary}" />
-                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
+                            <TextBlock Text="{Binding Description}"
+                                       TextWrapping="Wrap" />
                         </StackPanel>
                         <Grid Margin="0,20,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0" Orientation="Vertical">
+                            <StackPanel Grid.Column="0"
+                                        Orientation="Vertical">
                                 <TextBlock FontSize="14"
                                            FontWeight="Bold"
                                            Text="{x:Static properties:Resources.Cast}"
@@ -133,7 +142,8 @@
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
                             </StackPanel>
-                            <StackPanel Grid.Column="1" Orientation="Vertical">
+                            <StackPanel Grid.Column="1"
+                                        Orientation="Vertical">
                                 <TextBlock FontSize="14"
                                            FontWeight="Bold"
                                            Text="{x:Static properties:Resources.Staff}"
@@ -157,7 +167,8 @@
             </Border>
         </Grid>
         <Grid Grid.Row="2">
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <StackPanel HorizontalAlignment="Right"
+                        Orientation="Horizontal">
                 <Button Width="90"
                         Margin="5"
                         Command="{Binding AddReservationCommand}"

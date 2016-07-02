@@ -32,7 +32,8 @@
             <actions:DataContextDisposeAction />
         </i:EventTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding SettingsRequest}">
-            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True"
+                                            IsModal="True">
                 <actions:MetroPopupWindowAction.WindowContent>
                     <wc:SettingsContent />
                 </actions:MetroPopupWindowAction.WindowContent>
@@ -54,7 +55,8 @@
             <RowDefinition Height="23" />
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" metro:MetroWindow.IsCaptionBar="True">
+        <Border Grid.Row="0"
+                metro:MetroWindow.IsCaptionBar="True">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -74,7 +76,8 @@
                            Foreground="{DynamicResource ForegroundBrushKey}"
                            Text="{Binding Title.Value}"
                            TextTrimming="CharacterEllipsis" />
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <StackPanel Grid.Column="2"
+                            Orientation="Horizontal">
                     <metro:CaptionButton Width="40"
                                          Margin="5,0"
                                          VerticalAlignment="Top"
@@ -100,20 +103,25 @@
                             <Style TargetType="{x:Type metro:CaptionButton}">
                                 <Setter Property="Content" Value="&#xE840;" />
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsTopMost.Value}" Value="True">
+                                    <DataTrigger Binding="{Binding IsTopMost.Value}"
+                                                 Value="True">
                                         <Setter Property="Content" Value="&#xE77A;" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </metro:CaptionButton.Style>
                     </metro:CaptionButton>
-                    <metro:SystemButtons Margin="5,0,0,0" VerticalAlignment="Top" />
+                    <metro:SystemButtons Margin="5,0,0,0"
+                                         VerticalAlignment="Top" />
                 </StackPanel>
             </Grid>
         </Border>
-        <controls:AbemaHost Grid.Row="1" DataContext="{Binding HostViewModel}" />
-        <controls:AbemaTVGuide Grid.Row="2" DataContext="{Binding TvGuideViewModel}" />
-        <Grid Grid.Row="3" Background="{DynamicResource AccentBrushKey}">
+        <controls:AbemaHost Grid.Row="1"
+                            DataContext="{Binding HostViewModel}" />
+        <controls:AbemaTVGuide Grid.Row="2"
+                               DataContext="{Binding TvGuideViewModel}" />
+        <Grid Grid.Row="3"
+              Background="{DynamicResource AccentBrushKey}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />

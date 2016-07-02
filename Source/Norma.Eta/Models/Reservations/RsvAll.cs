@@ -1,5 +1,7 @@
 ﻿using System;
 
+// ReSharper disable VirtualMemberCallInConstructor
+
 namespace Norma.Eta.Models.Reservations
 {
     // DB 用
