@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
@@ -23,6 +24,7 @@ namespace Norma.Models.Browser
                     if (header.ToLower() != "content-type")
                         httpClient.DefaultRequestHeaders.Add(header, request.Headers.GetValues(header));
 
+                CapturingRequest(request.Url, request.Headers, request.PostData.Elements.FirstOrDefault()?.GetBody());
                 HttpResponseMessage response = null;
                 if (request.Method == "OPTIONS")
                     response = httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Options, request.Url)).Result;
@@ -55,6 +57,7 @@ namespace Norma.Models.Browser
                     foreach (var value in header.Value)
                         Headers.Set(header.Key, value);
 
+                CapturingResponse(request.Url, Headers, response.Content.ReadAsStringAsync().Result);
                 callback.Continue();
             }
             catch (Exception e)
@@ -65,5 +68,15 @@ namespace Norma.Models.Browser
         }
 
         #endregion
+
+        private void CapturingRequest(string url, NameValueCollection headers, string body)
+        {
+            Debug.WriteLine($"[Chromium]Captureing request {{\"url\": \"{url}\", \"body\", \"{body}\"}}");
+        }
+
+        private void CapturingResponse(string url, NameValueCollection headers, string body)
+        {
+            Debug.WriteLine($"[Chromium]Captureing response {{\"url\": \"{url}\", \"body\", \"{body}\"}}");
+        }
     }
 }

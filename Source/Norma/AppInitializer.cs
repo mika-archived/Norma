@@ -24,6 +24,7 @@ namespace Norma
         public static Timetable Timetable { get; private set; }
         public static ConnectOps ConnectOps { get; private set; }
         public static Connector Connector { get; private set; }
+        public static Reservation Reservation { get; private set; }
 
         /// <summary>
         ///     PreInitialize is called by Application host.
@@ -46,6 +47,7 @@ namespace Norma
             AbemaState = new AbemaState(AbemaApiHost, Configuration, Timetable);
             ConnectOps = new ConnectOps();
             Connector = new Connector(ConnectOps);
+            Reservation = new Reservation();
         }
 
         /// <summary>
