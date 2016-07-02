@@ -187,15 +187,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Behaviors\CaptureHttpRequestBehavior.cs" />
     <Compile Include="Behaviors\HorizontalScrollBehavior.cs" />
     <Compile Include="Behaviors\KeepAspectRatioBehavior.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Models\AbemaChannels.cs" />
+    <Compile Include="Models\Browser\AbemaHttpRequestHandler.cs" />
     <Compile Include="Models\AbemaState.cs" />
     <Compile Include="AppInitializer.cs" />
-    <Compile Include="Models\CefSetting.cs" />
+    <Compile Include="Models\Browser\CefSetting.cs" />
+    <Compile Include="Models\Browser\HttpResourceHandler.cs" />
+    <Compile Include="Models\Browser\HttpResourceHandlerFactory.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\CommentHost.cs" />
     <Compile Include="Models\Connector.cs" />

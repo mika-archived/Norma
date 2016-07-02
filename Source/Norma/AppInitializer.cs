@@ -7,6 +7,7 @@ using MetroRadiance.UI;
 using Norma.Eta;
 using Norma.Eta.Models;
 using Norma.Models;
+using Norma.Models.Browser;
 using Norma.Views;
 
 namespace Norma

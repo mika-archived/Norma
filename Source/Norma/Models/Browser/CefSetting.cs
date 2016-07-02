@@ -4,7 +4,7 @@ using CefSharp;
 
 using Norma.Eta;
 
-namespace Norma.Models
+namespace Norma.Models.Browser
 {
     // CefSharp Settings
     internal static class CefSetting

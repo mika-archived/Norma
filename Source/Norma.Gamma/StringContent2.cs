@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Norma.Gamma
 {
-    internal class StringContent2 : StringContent
+    public class StringContent2 : StringContent
     {
         public StringContent2(string content) : this(content, null, null)
         {
