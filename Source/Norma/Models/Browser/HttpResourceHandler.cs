@@ -24,10 +24,13 @@ namespace Norma.Models.Browser
                     if (header.ToLower() != "content-type")
                         httpClient.DefaultRequestHeaders.Add(header, request.Headers.GetValues(header));
 
-                CapturingRequest(request.Url, request.Headers, request.PostData?.Elements.FirstOrDefault()?.GetBody());
                 HttpResponseMessage response = null;
                 if (request.Method == "OPTIONS")
                     response = httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Options, request.Url)).Result;
+                else
+                    CapturingRequest(request.Url, request.Headers,
+                                     request.PostData?.Elements.FirstOrDefault()?.GetBody());
+
                 if (request.Method == "GET")
                     response = httpClient.GetAsync(request.Url).Result;
                 if (request.Method == "POST")

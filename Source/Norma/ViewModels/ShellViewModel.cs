@@ -29,12 +29,14 @@ namespace Norma.ViewModels
         public ReadOnlyReactiveProperty<string> Title { get; private set; }
         public ReactiveProperty<bool> IsTopMost { get; private set; }
 
-        public ShellViewModel(AbemaState abemaState, Configuration config, Timetable timetable, Connector connector)
+        public ShellViewModel(AbemaState abemaState, Configuration config, Timetable timetable, Connector connector,
+                              Reservation reservation, NetworkHandler networkHandler)
         {
             _configuration = config;
             _timetable = timetable;
 
-            HostViewModel = new AbemaHostViewModel(abemaState, config, connector).AddTo(this);
+            HostViewModel = new AbemaHostViewModel(abemaState, config, connector, reservation, networkHandler)
+                .AddTo(this);
             TvGuideViewModel = new AbemaTVGuideViewModel(this, config, timetable).AddTo(this);
             StatusBar = new AbemaStatusViewModel().AddTo(this);
             SettingsRequest = new InteractionRequest<INotification>();

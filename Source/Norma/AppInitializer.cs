@@ -48,7 +48,7 @@ namespace Norma
             AbemaState = new AbemaState(AbemaApiHost, Configuration, Timetable);
             ConnectOps = new ConnectOps();
             Connector = new Connector(ConnectOps);
-            Reservation = new Reservation();
+            Reservation = new Reservation(Timetable);
             NetworkHandler = new NetworkHandler();
         }
 
