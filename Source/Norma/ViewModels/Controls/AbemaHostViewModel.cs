@@ -20,8 +20,7 @@ namespace Norma.ViewModels.Controls
         private JavaScriptHost _javaScritHost;
 
         public AbemaHostViewModel(AbemaState abemaState, Configuration configuration, Connector connector,
-                                  Reservation reservation,
-                                  NetworkHandler networkHandler)
+                                  Reservation reservation, NetworkHandler networkHandler)
         {
             _abemaState = abemaState;
             _configuration = configuration;
