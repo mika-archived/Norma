@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
@@ -41,8 +42,8 @@ namespace Norma.Eta.Models
             _abemaApiHost = abemaApiHost;
             _cache = new TimetableCache();
             CurrentChannels = new ObservableCollection<string>();
-            Observable.Timer(TimeSpan.Zero, TimeSpanExt.OneSecond).Subscribe(async w => await UpdateCurrentChannels());
             Load();
+            Observable.Timer(TimeSpan.Zero, TimeSpanExt.OneSecond).Subscribe(async w => await UpdateCurrentChannels());
         }
 
         public void Sync()
@@ -94,29 +95,36 @@ namespace Norma.Eta.Models
 
         private async Task UpdateCurrentChannels()
         {
-            await SyncAsync();
-            var channelSlots = ChannelSchedules.Where(w => EqualsWithDates(w.Date, DateTime.Today))
-                                               .Select(w => new {w.Slots, w.ChannelId});
+            try
+            {
+                await SyncAsync();
+                var channelSlots = ChannelSchedules.Where(w => EqualsWithDates(w.Date, DateTime.Today))
+                                                   .Select(w => new {w.Slots, w.ChannelId});
 
-            var channels = new List<string>();
-            foreach (var channelSlot in channelSlots)
-            {
-                if (!channelSlot.Slots.Any(w => IsRangeOf(w.StartAt, w.EndAt, DateTime.Now)))
-                    continue;
-                channels.Add(channelSlot.ChannelId);
-            }
+                var channels = new List<string>();
+                foreach (var channelSlot in channelSlots)
+                {
+                    if (!channelSlot.Slots.Any(w => IsRangeOf(w.StartAt, w.EndAt, DateTime.Now)))
+                        continue;
+                    channels.Add(channelSlot.ChannelId);
+                }
 
-            var temp = CurrentChannels;
-            foreach (var channel in temp)
-            {
-                if (!channels.Contains(channel))
-                    CurrentChannels.Remove(channel);
+                var temp = new List<string>(CurrentChannels);
+                foreach (var channel in temp)
+                {
+                    if (!channels.Contains(channel))
+                        CurrentChannels.Remove(channel);
+                }
+                foreach (var channel in channels.Select((v, i) => new {Value = v, Index = i}))
+                {
+                    if (CurrentChannels.Contains(channel.Value))
+                        continue;
+                    CurrentChannels.Insert(channel.Index, channel.Value);
+                }
             }
-            foreach (var channel in channels.Select((v, i) => new {Value = v, Index = i}))
+            catch (Exception e)
             {
-                if (CurrentChannels.Contains(channel.Value))
-                    continue;
-                CurrentChannels.Insert(channel.Index, channel.Value);
+                Debug.WriteLine(e.Message);
             }
         }
     }

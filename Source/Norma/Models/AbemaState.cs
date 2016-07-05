@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -46,24 +47,32 @@ namespace Norma.Models
 
         private async Task Sync()
         {
-            var schedule = _timetable.ChannelSchedules.First(w => w.ChannelId == CurrentChannel.ToUrlString());
-            var currentSlot = schedule.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);
-            if (currentSlot == null)
+            try
             {
-                CurrentProgram = null;
-                return;
-            }
-            var currentDetail = await _abemaApiHost.CurrentSlot(currentSlot.Id);
-            CurrentSlot = currentDetail?.Id == null ? currentSlot : currentDetail;
-            var perTime = (CurrentSlot.EndAt - CurrentSlot.StartAt).TotalSeconds / CurrentSlot.Programs.Length;
-            var count = 0;
-            while (!(CurrentSlot.StartAt.AddSeconds(perTime * count) <= DateTime.Now &&
-                     DateTime.Now <= CurrentSlot.StartAt.AddSeconds(perTime * ++count))) {}
+                var schedule = _timetable.ChannelSchedules.First(w => w.ChannelId == CurrentChannel.ToUrlString());
+                var currentSlot =
+                    schedule.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);
+                if (currentSlot == null)
+                {
+                    CurrentProgram = null;
+                    return;
+                }
+                var currentDetail = await _abemaApiHost.CurrentSlot(currentSlot.Id);
+                CurrentSlot = currentDetail?.Id == null ? currentSlot : currentDetail;
+                var perTime = (CurrentSlot.EndAt - CurrentSlot.StartAt).TotalSeconds / CurrentSlot.Programs.Length;
+                var count = 0;
+                while (!(CurrentSlot.StartAt.AddSeconds(perTime * count) <= DateTime.Now &&
+                         DateTime.Now <= CurrentSlot.StartAt.AddSeconds(perTime * ++count))) {}
 
-            --count;
-            if (count < 0 || count >= CurrentSlot.Programs.Length)
-                return;
-            CurrentProgram = CurrentSlot.Programs[count];
+                --count;
+                if (count < 0 || count >= CurrentSlot.Programs.Length)
+                    return;
+                CurrentProgram = CurrentSlot.Programs[count];
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
         }
 
         #region CurrentChannel
