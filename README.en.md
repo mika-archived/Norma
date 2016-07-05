@@ -42,6 +42,10 @@ If you want to use latest build, please download [here](https://ci.appveyor.com/
 See [this page](https://github.com/fuyuno/Norma/wiki/How-to-use).
 
 
+# Support
+Tweet with hashtag "[#Norma](https://twitter.com/search?f=tweets&vertical=default&q=%23Norma%20lang%3Aja&src=typd)" or send reply to me.
+
+
 ## References
 This application reference below resources.  
 Very thanks!

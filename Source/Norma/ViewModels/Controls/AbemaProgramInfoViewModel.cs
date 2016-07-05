@@ -35,7 +35,7 @@ namespace Norma.ViewModels.Controls
                                   .Select(w => $"at {w.ToLocaleString()}")
                                   .ToReadOnlyReactiveProperty().AddTo(this);
             Range = abemaState.ObserveProperty(w => w.CurrentSlot)
-                              .Select(w => $"{w.StartAt.ToString("t")} ～ {w.EndAt.ToString("t")}")
+                              .Select(w => $"{w?.StartAt.ToString("t")} ～ {w?.EndAt.ToString("t")}")
                               .ToReadOnlyReactiveProperty().AddTo(this);
             Casts = programHost.Casts.ToReadOnlyReactiveCollection().AddTo(this);
             Crews = programHost.Crews.ToReadOnlyReactiveCollection().AddTo(this);

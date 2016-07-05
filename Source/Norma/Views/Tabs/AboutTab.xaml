@@ -11,7 +11,8 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="FontFamily" Value="Segoe UI" />
@@ -19,9 +20,12 @@
                     <Setter Property="HorizontalAlignment" Value="Center" />
                 </Style>
             </StackPanel.Resources>
-            <TextBlock FontSize="30" Text="{Binding Name}" />
-            <TextBlock FontSize="20" Text="{Binding Version}" />
-            <TextBlock FontSize="14" Text="{Binding Copyright}" />
+            <TextBlock FontSize="30"
+                       Text="{Binding Name}" />
+            <TextBlock FontSize="20"
+                       Text="{Binding Version}" />
+            <TextBlock FontSize="14"
+                       Text="{Binding Copyright}" />
         </StackPanel>
         <StackPanel HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"

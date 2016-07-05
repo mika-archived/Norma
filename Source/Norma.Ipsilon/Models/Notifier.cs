@@ -124,7 +124,7 @@ namespace Norma.Ipsilon.Models
                 {
                     var slots = schedule.Slots.Where(w => keyword.IsRegexMode
                         ? new Regex(keyword.Keyword).IsMatch(w.Title)
-                        : w.Title == keyword.Keyword);
+                        : w.Title.Contains(keyword.Keyword));
                     foreach (var slot in slots)
                     {
                         if (!IsNoticeable(slot.StartAt) || _notifiedSlots.Contains(slot))

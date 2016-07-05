@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
 
 using CefSharp;
 using CefSharp.Wpf;
 
-using Norma.Eta.Extensions;
 using Norma.Eta.Models;
 using Norma.Eta.Properties;
 
@@ -20,27 +17,23 @@ namespace Norma.Models
     //  * Comment related features.
     internal class JavaScriptHost : BindableBase, IDisposable
     {
-        private readonly AbemaState _abemaState;
         private readonly Configuration _configuration;
         private readonly IWpfWebBrowser _wpfWebBrowser;
         // private IDisposable _disposable;
 
         public string Address { get; set; }
 
-        public JavaScriptHost(IWpfWebBrowser wpfWebBrowser, AbemaState abemaState, Configuration configuration)
+        public JavaScriptHost(IWpfWebBrowser wpfWebBrowser, Configuration configuration)
         {
             _wpfWebBrowser = wpfWebBrowser;
-            _abemaState = abemaState;
             _configuration = configuration;
             Address = "";
             _wpfWebBrowser.ConsoleMessage += (sender, e) => Debug.WriteLine("[Chromium]" + e.Message);
-            // _wpfWebBrowser.FrameLoadStart += (sender, e) => _disposable?.Dispose();
             _wpfWebBrowser.FrameLoadEnd += (sender, e) =>
             {
                 if (!Address.StartsWith("https://abema.tv/now-on-air/"))
                     return;
                 Run();
-                Observable.Return(1).Delay(TimeSpanExt.OneSecond).Subscribe(w => RunLater()).Dispose();
             };
         }
 
@@ -64,18 +57,6 @@ namespace Norma.Models
                 HideTvContainerFooter();
             if (_configuration.Root.Browser.HiddenSideControls)
                 HideTvContainerSide();
-        }
-
-        private void RunLater()
-        {
-            // 1秒遅らせている都合上、 null になることがある
-            if (_wpfWebBrowser == null)
-                return;
-
-            // _disposable?.Dispose();
-
-            // var val = _configuration.Root.Operation.SamplingIntervalOfProgramState;
-            // _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => GetIsBroadcastCm());
         }
 
         private void DisableChangeChannelByMouseScroll()
@@ -148,38 +129,6 @@ setTimeout(cs_HideTvContainerSide, 500);
             WrapExecuteScriptAsync(jsCode);
         }
 
-        /*
-        private void GetIsBroadcastCm()
-        {
-            const string jsCode = @"
-(function () {
-  var appContainerHeading = window.document.querySelector('[class^=""style__heading2___""]');
-  if (appContainerHeading == null) {
-    return true;
-  }
-  return false;
-})();
-";
-            var task = WrapEvaluateScriptAsync(jsCode);
-            task.ContinueWith(w =>
-            {
-                if (w.IsFaulted)
-                    return;
-                var response = task.Result;
-                var oldState = _abemaState.IsBroadcastCm;
-                if (!response.Success || bool.Parse(response.Result.ToString()))
-                    _abemaState.IsBroadcastCm = true;
-                else
-                    _abemaState.IsBroadcastCm = false;
-                // ここですべきじゃない気がする
-                if (!_configuration.Root.Browser.ReloadPageOnBroadcastCommercials)
-                    return;
-                if (_abemaState.IsBroadcastCm && oldState != _abemaState.IsBroadcastCm)
-                    _wpfWebBrowser.Reload();
-            }, TaskScheduler.Default);
-        }
-        */
-
         #region Wrap IWpfWebBrowser Js Executor
 
         private void WrapExecuteScriptAsync(string jsCode)
@@ -191,20 +140,6 @@ setTimeout(cs_HideTvContainerSide, 500);
             catch (Exception)
             {
                 // ignored
-            }
-        }
-
-        private Task<JavascriptResponse> WrapEvaluateScriptAsync(string jsCode)
-        {
-            try
-            {
-                return _wpfWebBrowser.EvaluateScriptAsync(jsCode, null);
-            }
-            catch (Exception e)
-            {
-                var completionSource = new TaskCompletionSource<JavascriptResponse>();
-                completionSource.SetException(e);
-                return completionSource.Task;
             }
         }
 

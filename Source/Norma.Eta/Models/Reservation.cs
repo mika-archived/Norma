@@ -12,6 +12,7 @@ namespace Norma.Eta.Models
     {
         private readonly ReservationDbContext _dbContext;
         private readonly object _lockObj = new object();
+        private readonly Timetable _timetable;
 
         public ReadOnlyCollection<RsvAll> Reservations
             => _dbContext.Reservations.Cast<RsvAll>().ToList().AsReadOnly();
@@ -28,8 +29,9 @@ namespace Norma.Eta.Models
             => _dbContext.Reservations.Where(w => w.Type == nameof(RsvKeyword)).ToList()
                          .Select(w => w.Cast<RsvKeyword>()).ToList().AsReadOnly();
 
-        public Reservation()
+        public Reservation(Timetable timetable)
         {
+            _timetable = timetable;
             _dbContext = new ReservationDbContext();
             Init();
         }
@@ -56,11 +58,6 @@ namespace Norma.Eta.Models
                 foreach (var rsv in rsvs)
                     _dbContext.Reservations.Remove(rsv);
             }
-        }
-
-        private void Migrate()
-        {
-            // Not yet
         }
 
         #region All
@@ -185,11 +182,36 @@ namespace Norma.Eta.Models
         /// <param name="slot"></param>
         public void AddReservation(Slot slot)
         {
-            _dbContext.Reservations.Add(RsvAll.Create(new RsvProgram
+            if (slot.StartAt == DateTime.MinValue)
             {
-                ProgramId = slot.Id,
-                StartDate = slot.StartAt
-            }));
+                var startAt = DateTime.MinValue;
+                // from CM
+                foreach (var channelSchedule in _timetable.ChannelSchedules)
+                {
+                    foreach (var s in channelSchedule.Slots)
+                    {
+                        if (s.Id != slot.Id)
+                            continue;
+                        startAt = s.StartAt;
+                        break;
+                    }
+                }
+                if (startAt == DateTime.MinValue)
+                    return;
+                _dbContext.Reservations.Add(RsvAll.Create(new RsvProgram
+                {
+                    ProgramId = slot.Id,
+                    StartDate = startAt
+                }));
+            }
+            else
+            {
+                _dbContext.Reservations.Add(RsvAll.Create(new RsvProgram
+                {
+                    ProgramId = slot.Id,
+                    StartDate = slot.StartAt
+                }));
+            }
             Save();
         }
 

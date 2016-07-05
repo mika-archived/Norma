@@ -8,6 +8,7 @@ namespace Norma.Eta.Database
 {
     public class ReservationDbContext : DbContext
     {
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global
         public DbSet<RsvAll> Reservations { get; set; }
 
         public ReservationDbContext() : base(DatabaseConnectionProvider.GetConnection(), true)

@@ -38,10 +38,17 @@
                                                            Mode=TwoWay}"
                                          RenderOptions.BitmapScalingMode="Linear"
                                          WebBrowser="{Binding WebBrowser,
-                                                              Mode=OneWayToSource}" />
+                                                              Mode=OneWayToSource}">
+                <i:Interaction.Behaviors>
+                    <behaviors:CaptureHttpRequestBehavior />
+                </i:Interaction.Behaviors>
+            </cefSharp:ChromiumWebBrowser>
         </Grid>
-        <local:AbemaComment Grid.Row="0" Grid.Column="1" />
-        <local:AbemaCommentInput Grid.Row="1" Grid.Column="1" />
-        <local:AbemaProgramInfo Grid.Row="2" Grid.Column="1" />
+        <local:AbemaComment Grid.Row="0"
+                            Grid.Column="1" />
+        <local:AbemaCommentInput Grid.Row="1"
+                                 Grid.Column="1" />
+        <local:AbemaProgramInfo Grid.Row="2"
+                                Grid.Column="1" />
     </Grid>
 </UserControl>

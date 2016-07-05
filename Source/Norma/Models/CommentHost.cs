@@ -27,7 +27,7 @@ namespace Norma.Models
         private readonly Configuration _configuration;
         private IDisposable _disposable; // for Comment synchronizer.
 
-        public ObservableCollection<Comment> Comments { get; set; }
+        public ObservableCollection<Comment> Comments { get; }
 
         public CommentHost(AbemaApiHost abemaApiHost, AbemaState abemaState, Configuration configuration)
         {
@@ -38,7 +38,6 @@ namespace Norma.Models
             _abemaState = abemaState;
             _configuration = configuration;
             _compositeDisposable.Add(_abemaState.ObserveProperty(w => w.CurrentSlot).Subscribe(w => ReloadComments()));
-            // _compositeDisposable.Add(_abemaState.Subscribe(nameof(_abemaState.IsBroadcastCm), w => StopFetchComment()));
             ReloadComments();
         }
 
@@ -63,27 +62,6 @@ namespace Norma.Models
             _disposable = Observable.Timer(TimeSpanExt.OneSecond, TimeSpan.FromSeconds(val))
                                     .Subscribe(async w => await FetchComment());
         }
-
-        /*
-        private void StopFetchComment()
-        {
-            if (_abemaState.IsBroadcastCm)
-                _disposable.Dispose();
-            else
-                RetryFetchComment();
-        }
-        */
-
-        /*
-        private void RetryFetchComment()
-        {
-            _disposable?.Dispose();
-
-            var val = _configuration.Root.Operation.ReceptionIntervalOfComments;
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val))
-                                    .Subscribe(async w => await FetchComment());
-        }
-        */
 
         private async Task FetchComment()
         {

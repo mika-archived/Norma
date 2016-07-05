@@ -24,6 +24,8 @@ namespace Norma
             Container.RegisterInstance(AppInitializer.AbemaState, new ContainerControlledLifetimeManager());
             Container.RegisterInstance(AppInitializer.ConnectOps, new ContainerControlledLifetimeManager());
             Container.RegisterInstance(AppInitializer.Connector, new ContainerControlledLifetimeManager());
+            Container.RegisterInstance(AppInitializer.Reservation, new ContainerControlledLifetimeManager());
+            Container.RegisterInstance(AppInitializer.NetworkHandler, new ContainerControlledLifetimeManager());
         }
 
         #endregion

@@ -13,8 +13,9 @@
              d:DesignWidth="300"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
-    <Border BorderBrush="{DynamicResource BorderBrushKey}" BorderThickness="0,1,0,0">
-        <Grid Margin="5" IsEnabled="{Binding IsEnableCommentInput.Value}">
+    <Border BorderBrush="{DynamicResource BorderBrushKey}"
+            BorderThickness="0,1,0,0">
+        <Grid Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="5" />

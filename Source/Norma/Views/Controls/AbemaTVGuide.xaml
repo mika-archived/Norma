@@ -5,10 +5,8 @@
              xmlns:controls="clr-namespace:Norma.ViewModels.Controls"
              xmlns:controls1="clr-namespace:Norma.Views.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
              d:DataContext="{d:DesignInstance controls:AbemaTVGuideViewModel}"
              d:DesignHeight="167.5"
              d:DesignWidth="265"
@@ -20,7 +18,8 @@
                   VirtualizingPanel.VirtualizationMode="Recycling">
         <ItemsControl.Template>
             <ControlTemplate>
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Disabled">
                     <i:Interaction.Behaviors>
                         <behaviors:HorizontalScrollBehavior />
                     </i:Interaction.Behaviors>

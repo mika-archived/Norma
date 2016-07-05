@@ -28,8 +28,9 @@ namespace Norma.Eta.Models
             {
                 try
                 {
-                    var token = _abemaTv.Root.Token(osName => "pc", osVersion => "1.0",
-                                                    osLang => "ja", osTimezone => "Asia/Tokyo");
+                    var token = _abemaTv.Root.Token(osName => "pc", osVersion => "1.0.0",
+                                                    osLang => "ja", osTimezone => "Asia/Tokyo",
+                                                    appVersion => "v1.0.34");
                     Debug.WriteLine($"AccessToken is valid : {token.Token}");
                 }
                 catch
@@ -91,5 +92,8 @@ namespace Norma.Eta.Models
             var firstDayOfNextWeek = DateTime.Today.AddDays(5).ToString("yyyyMMdd");
             return _abemaTv.Root.Media(dateFrom => today, dateTo => firstDayOfNextWeek);
         }
+
+        public async Task<Slot> CurrentSlot(string slotId)
+            => await _abemaTv.Root.SlotDetailAsync(slotId);
     }
 }

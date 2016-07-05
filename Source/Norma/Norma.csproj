@@ -87,6 +87,14 @@
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MetroRadiance, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroRadiance.2.3.0\lib\net46\MetroRadiance.dll</HintPath>
       <Private>True</Private>
@@ -116,8 +124,8 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
@@ -133,20 +141,36 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="ReactiveProperty, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ReactiveProperty.2.7.2\lib\net46\ReactiveProperty.dll</HintPath>
+      <HintPath>..\packages\ReactiveProperty.2.7.4\lib\net46\ReactiveProperty.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ReactiveProperty.DataAnnotations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ReactiveProperty.2.7.2\lib\net46\ReactiveProperty.DataAnnotations.dll</HintPath>
+      <HintPath>..\packages\ReactiveProperty.2.7.4\lib\net46\ReactiveProperty.DataAnnotations.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ReactiveProperty.NET46, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ReactiveProperty.2.7.2\lib\net46\ReactiveProperty.NET46.dll</HintPath>
+      <HintPath>..\packages\ReactiveProperty.2.7.4\lib\net46\ReactiveProperty.NET46.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLite.CodeFirst, Version=1.2.3.15, Culture=neutral, PublicKeyToken=eb96ba0a78d831a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLite.CodeFirst.1.2.3.15\lib\net45\SQLite.CodeFirst.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.102.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.102.0\lib\net46\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.102.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.102.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.102.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.102.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
       <Private>True</Private>
@@ -187,6 +211,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Behaviors\CaptureHttpRequestBehavior.cs" />
     <Compile Include="Behaviors\HorizontalScrollBehavior.cs" />
     <Compile Include="Behaviors\KeepAspectRatioBehavior.cs" />
     <Compile Include="Bootstrapper.cs" />
@@ -195,10 +220,14 @@
     <Compile Include="Models\AbemaChannels.cs" />
     <Compile Include="Models\AbemaState.cs" />
     <Compile Include="AppInitializer.cs" />
-    <Compile Include="Models\CefSetting.cs" />
+    <Compile Include="Models\Browser\CefSetting.cs" />
+    <Compile Include="Models\Browser\ApiResourceHandler.cs" />
+    <Compile Include="Models\Browser\HttpResourceHandlerFactory.cs" />
+    <Compile Include="Models\Browser\VideoResourceHandler.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\CommentHost.cs" />
     <Compile Include="Models\Connector.cs" />
+    <Compile Include="Models\INetworkCaptureAware.cs" />
     <Compile Include="Models\JavaScriptHost.cs" />
     <Compile Include="Models\Libraries\DesktopToast.cs" />
     <Compile Include="Models\Libraries\EntityFramework.cs" />
@@ -216,6 +245,8 @@
     <Compile Include="Models\Libraries\SQLiteProvider.cs" />
     <Compile Include="Models\Libraries\Unity.cs" />
     <Compile Include="Models\Library.cs" />
+    <Compile Include="Models\NetworkEventArgs.cs" />
+    <Compile Include="Models\NetworkHandler.cs" />
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ProgramHost.cs" />
     <Compile Include="Models\ReleaseType.cs" />
@@ -399,9 +430,11 @@
     <Error Condition="!Exists('..\packages\CefSharp.Common.49.0.1\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.49.0.1\build\CefSharp.Common.props'))" />
     <Error Condition="!Exists('..\packages\CefSharp.Common.49.0.1\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.49.0.1\build\CefSharp.Common.targets'))" />
     <Error Condition="!Exists('..\packages\CefSharp.Wpf.49.0.1\build\CefSharp.Wpf.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Wpf.49.0.1\build\CefSharp.Wpf.props'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.102.0\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.102.0\build\net46\System.Data.SQLite.Core.targets'))" />
   </Target>
   <Import Project="..\packages\cef.redist.x86.3.2623.1401\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2623.1401\build\cef.redist.x86.targets')" />
   <Import Project="..\packages\CefSharp.Common.49.0.1\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.49.0.1\build\CefSharp.Common.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.102.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.102.0\build\net46\System.Data.SQLite.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

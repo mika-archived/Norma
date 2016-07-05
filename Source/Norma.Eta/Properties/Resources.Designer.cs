@@ -448,6 +448,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Hide left side control. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string HiddenLeftControl {
+            get {
+                return ResourceManager.GetString("HiddenLeftControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Hide side controls. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string HiddenSideControls {
@@ -628,6 +637,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   New anime に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string NewAnime {
+            get {
+                return ResourceManager.GetString("NewAnime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   No に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string No {
@@ -732,6 +750,15 @@ namespace Norma.Eta.Properties {
         public static string OnegaiRanking {
             get {
                 return ResourceManager.GetString("OnegaiRanking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Open timetable に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string OpenTimetable {
+            get {
+                return ResourceManager.GetString("OpenTimetable", resourceCulture);
             }
         }
         

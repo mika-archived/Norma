@@ -8,6 +8,7 @@ namespace Norma.Eta.Models
     public class EnumWrap<T> where T : struct
 #pragma warning restore CS0659 // 型は Object.Equals(object o) をオーバーライドしますが、Object.GetHashCode() をオーバーライドしません
     {
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global
         public string Display { get; }
 
         public T EnumValue { get; }

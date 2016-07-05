@@ -16,7 +16,8 @@
              mc:Ignorable="d">
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding ResponseRequest, Mode=OneWay}">
-            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True"
+                                            IsModal="True">
                 <actions:MetroPopupWindowAction.WindowStyle>
                     <Style TargetType="{x:Type metro:MetroWindow}">
                         <Setter Property="ResizeMode" Value="NoResize" />
@@ -35,7 +36,8 @@
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
 
-    <Grid Margin="5" IsEnabled="{Binding IsEnabled}">
+    <Grid Margin="5"
+          IsEnabled="{Binding IsEnabled}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="40" />

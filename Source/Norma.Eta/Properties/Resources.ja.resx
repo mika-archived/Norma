@@ -193,13 +193,13 @@
     <value>金曜日</value>
   </data>
   <data name="HiddenFooterControls" xml:space="preserve">
-    <value>フッターコントロールの非表示化</value>
+    <value>フッターコントロールの非表示</value>
   </data>
   <data name="HiddenHeaderControls" xml:space="preserve">
-    <value>ヘッダーコントロールの非表示化</value>
+    <value>ヘッダーコントロールの非表示</value>
   </data>
   <data name="HiddenSideControls" xml:space="preserve">
-    <value>サイドコントロールの非表示化</value>
+    <value>サイドコントロールの非表示</value>
   </data>
   <data name="InputComment" xml:space="preserve">
     <value>コメントを入力</value>
@@ -482,5 +482,14 @@
   </data>
   <data name="EditRsv" xml:space="preserve">
     <value>予約の編集</value>
+  </data>
+  <data name="OpenTimetable" xml:space="preserve">
+    <value>番組表を開く</value>
+  </data>
+  <data name="HiddenLeftControl" xml:space="preserve">
+    <value>左側コントロールの非表示</value>
+  </data>
+  <data name="NewAnime" xml:space="preserve">
+    <value>新作アニメ</value>
   </data>
 </root>

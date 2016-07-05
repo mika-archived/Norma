@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -57,8 +56,6 @@ namespace Norma.Ipsilon.Models
 
         private static string ComposeInteractiveToast(string title, string body, Slot slot)
         {
-            var slotId = slot.DisplayProgramId;
-            var unixtime = ((DateTimeOffset) slot.Programs[0].ProvidedInfo.UpdatedAt).ToUnixTimeSeconds();
             // なぜか、 image タグが反映されない。
             var toastVisual = new ToastVisual
             {
@@ -68,21 +65,7 @@ namespace Norma.Ipsilon.Models
                     {
                         new AdaptiveText {Text = title},
                         new AdaptiveText {Text = body}
-                        /*
-                        new AdaptiveImage
-                        {
-                            Source = $"https://hayabusa.io/abema/programs/{slotId}/thumb001.w280.h158.v{unixtime}.png"
-                        }
-                        */
                     }
-                    /*
-                    AppLogoOverride = new ToastGenericAppLogo
-                    {
-                        //         https://hayabusa.io/abema/programs/25-10wkyfrkuytx_s1_p6  /thumb001.w280.h158.v1454416801.jpg
-                        Source = $"https://hayabusa.io/abema/programs/{slotId}/thumb001.w280.h158.v{unixtime}.png",
-                        AlternateText = "Logo"
-                    }
-                    */
                 }
             };
             var toastAction = new ToastActionsCustom

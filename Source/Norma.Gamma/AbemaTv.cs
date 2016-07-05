@@ -49,27 +49,35 @@ namespace Norma.Gamma
 
         private T Post<T>(string url, IEnumerable<KeyValuePair<string, object>> parameters)
         {
-            Debug.WriteLine("POST:" + url);
-
-            var httpClient = new HttpClient(new AbemaAuthorizationHandler(this));
-            var convedParams = parameters.Select(w => new KeyValuePair<string, object>(
-                                                     w.Key,
-                                                     w.Value is bool
-                                                         ? w.Value.ToString().ToLower()
-                                                         : w.Value?.ToString()))
-                                         .ToList();
-            var settings = new JsonSerializerSettings
+            try
             {
-                NullValueHandling = NullValueHandling.Ignore,
-                Converters = new List<JsonConverter> {new KeyValuePairConverter()}
-            };
-            var content = new StringContent2(JsonConvert.SerializeObject(convedParams, settings), Encoding.UTF8,
-                                             "application/json");
+                Debug.WriteLine("POST:" + url);
 
-            var response = httpClient.PostAsync(url, content).Result;
-            response.EnsureSuccessStatusCode();
-            var responseString = response.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<T>(responseString);
+                var httpClient = new HttpClient(new AbemaAuthorizationHandler(this));
+                var convedParams = parameters.Select(w => new KeyValuePair<string, object>(
+                                                         w.Key,
+                                                         w.Value is bool
+                                                             ? w.Value.ToString().ToLower()
+                                                             : w.Value?.ToString()))
+                                             .ToList();
+                var settings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Converters = new List<JsonConverter> {new KeyValuePairConverter()}
+                };
+                var content = new StringContent2(JsonConvert.SerializeObject(convedParams, settings), Encoding.UTF8,
+                                                 "application/json");
+
+                var response = httpClient.PostAsync(url, content).Result;
+                response.EnsureSuccessStatusCode();
+                var responseString = response.Content.ReadAsStringAsync().Result;
+                return JsonConvert.DeserializeObject<T>(responseString);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            return default(T);
         }
 
         #endregion
@@ -86,27 +94,35 @@ namespace Norma.Gamma
 
         private async Task<T> PostAsync<T>(string url, IEnumerable<KeyValuePair<string, object>> parameters)
         {
-            Debug.WriteLine("POST:" + url);
-
-            var httpClient = new HttpClient(new AbemaAuthorizationHandler(this));
-            var convedParams = parameters.Select(w => new KeyValuePair<string, object>(
-                                                     w.Key,
-                                                     w.Value is bool
-                                                         ? w.Value.ToString().ToLower()
-                                                         : w.Value?.ToString()))
-                                         .ToList();
-            var settings = new JsonSerializerSettings
+            try
             {
-                NullValueHandling = NullValueHandling.Ignore,
-                Converters = new List<JsonConverter> {new KeyValuePairConverter()}
-            };
-            var content = new StringContent2(JsonConvert.SerializeObject(convedParams, settings), Encoding.UTF8,
-                                             "application/json");
+                Debug.WriteLine("POST:" + url);
 
-            var response = await httpClient.PostAsync(url, content).Stay();
-            response.EnsureSuccessStatusCode();
-            var responseString = await response.Content.ReadAsStringAsync().Stay();
-            return JsonConvert.DeserializeObject<T>(responseString);
+                var httpClient = new HttpClient(new AbemaAuthorizationHandler(this));
+                var convedParams = parameters.Select(w => new KeyValuePair<string, object>(
+                                                         w.Key,
+                                                         w.Value is bool
+                                                             ? w.Value.ToString().ToLower()
+                                                             : w.Value?.ToString()))
+                                             .ToList();
+                var settings = new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Converters = new List<JsonConverter> {new KeyValuePairConverter()}
+                };
+                var content = new StringContent2(JsonConvert.SerializeObject(convedParams, settings), Encoding.UTF8,
+                                                 "application/json");
+
+                var response = await httpClient.PostAsync(url, content).Stay();
+                response.EnsureSuccessStatusCode();
+                var responseString = await response.Content.ReadAsStringAsync().Stay();
+                return JsonConvert.DeserializeObject<T>(responseString);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            return default(T);
         }
 
         #endregion
@@ -123,15 +139,23 @@ namespace Norma.Gamma
 
         private T Get<T>(string url, IEnumerable<KeyValuePair<string, object>> parameters)
         {
-            if (parameters != null)
-                url += "?" + string.Join("&", parameters.Select(w => $"{w.Key}={w.Value}"));
-            Debug.WriteLine("GET :" + url);
+            try
+            {
+                if (parameters != null)
+                    url += "?" + string.Join("&", parameters.Select(w => $"{w.Key}={w.Value}"));
+                Debug.WriteLine("GET :" + url);
 
-            var httpClient = new HttpClient(new AbemaAuthorizationHandler(this));
-            var response = httpClient.GetAsync(url).Result;
-            response.EnsureSuccessStatusCode();
-            var responseString = response.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<T>(responseString);
+                var httpClient = new HttpClient(new AbemaAuthorizationHandler(this));
+                var response = httpClient.GetAsync(url).Result;
+                response.EnsureSuccessStatusCode();
+                var responseString = response.Content.ReadAsStringAsync().Result;
+                return JsonConvert.DeserializeObject<T>(responseString);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            return default(T);
         }
 
         #endregion
@@ -148,15 +172,23 @@ namespace Norma.Gamma
 
         private async Task<T> GetAsync<T>(string url, IEnumerable<KeyValuePair<string, object>> parameters)
         {
-            if (parameters != null)
-                url += "?" + string.Join("&", parameters.Select(w => $"{w.Key}={w.Value}"));
-            Debug.WriteLine("GET :" + url);
+            try
+            {
+                if (parameters != null)
+                    url += "?" + string.Join("&", parameters.Select(w => $"{w.Key}={w.Value}"));
+                Debug.WriteLine("GET :" + url);
 
-            var httpClient = new HttpClient(new AbemaAuthorizationHandler(this));
-            var response = await httpClient.GetAsync(url).Stay();
-            response.EnsureSuccessStatusCode();
-            var responseString = await response.Content.ReadAsStringAsync().Stay();
-            return JsonConvert.DeserializeObject<T>(responseString);
+                var httpClient = new HttpClient(new AbemaAuthorizationHandler(this));
+                var response = await httpClient.GetAsync(url).Stay();
+                response.EnsureSuccessStatusCode();
+                var responseString = await response.Content.ReadAsStringAsync().Stay();
+                return JsonConvert.DeserializeObject<T>(responseString);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            return default(T);
         }
 
         #endregion

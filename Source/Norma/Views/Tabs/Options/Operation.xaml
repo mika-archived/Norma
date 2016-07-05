@@ -32,6 +32,7 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="150" />
+            <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
         <!--#region UpdateIntervalOfProgram-->
@@ -46,7 +47,8 @@
                              HorizontalAlignment="Left"
                              VerticalAlignment="Center">
             <metro:PromptTextBox.Text>
-                <Binding Path="UpdateIntervalOfProgram.Value" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="UpdateIntervalOfProgram.Value"
+                         UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <metro:Int32Rule Min="1" />
                     </Binding.ValidationRules>
@@ -67,7 +69,8 @@
                              HorizontalAlignment="Left"
                              VerticalAlignment="Center">
             <metro:PromptTextBox.Text>
-                <Binding Path="UpdateIntervalOfThumbnails.Value" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="UpdateIntervalOfThumbnails.Value"
+                         UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <metro:Int32Rule Min="10" />
                     </Binding.ValidationRules>
@@ -88,7 +91,8 @@
                              HorizontalAlignment="Left"
                              VerticalAlignment="Center">
             <metro:PromptTextBox.Text>
-                <Binding Path="ReceptionIntervalOfComments.Value" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="ReceptionIntervalOfComments.Value"
+                         UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <metro:Int32Rule Min="5" />
                     </Binding.ValidationRules>
@@ -110,7 +114,8 @@
                              VerticalAlignment="Center"
                              IsEnabled="False">
             <metro:PromptTextBox.Text>
-                <Binding Path="SamplingIntervalOfProgramState.Value" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="SamplingIntervalOfProgramState.Value"
+                         UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <metro:Int32Rule Min="1" />
                     </Binding.ValidationRules>
@@ -131,7 +136,8 @@
                              HorizontalAlignment="Left"
                              VerticalAlignment="Center">
             <metro:PromptTextBox.Text>
-                <Binding Path="NumberOfHoldingComments.Value" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="NumberOfHoldingComments.Value"
+                         UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <metro:Int32Rule Min="50" />
                     </Binding.ValidationRules>
@@ -169,7 +175,8 @@
                                  Margin="5"
                                  VerticalAlignment="Center">
                 <metro:PromptTextBox.Text>
-                    <Binding Path="ToastNotificationBeforeMinutes.Value" UpdateSourceTrigger="PropertyChanged">
+                    <Binding Path="ToastNotificationBeforeMinutes.Value"
+                             UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
                             <metro:Int32Rule Min="1" />
                         </Binding.ValidationRules>
@@ -231,7 +238,8 @@
                 </ListView.View>
             </ListView>
             <Grid Grid.Row="1">
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Left"
+                            Orientation="Horizontal">
                     <metro:PromptTextBox Width="150"
                                          Height="25"
                                          VerticalAlignment="Bottom"
@@ -239,7 +247,8 @@
                                                         Mode=TwoWay,
                                                         UpdateSourceTrigger=PropertyChanged}" />
 
-                    <StackPanel Margin="10,0" Orientation="Horizontal">
+                    <StackPanel Margin="10,0"
+                                Orientation="Horizontal">
                         <TextBlock Text="{x:Static properties:Resources.IsRegex}" />
                         <metro:PromptComboBox Height="25"
                                               Margin="5,0,0,0"
@@ -253,7 +262,8 @@
                         </metro:PromptComboBox>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Right"
+                            Orientation="Horizontal">
                     <Button Width="60"
                             Height="25"
                             Margin="5,5,5,0"
@@ -273,5 +283,23 @@
             </Grid>
         </Grid>
         <!--#endregion-->
+        <!--#region PostKey-->
+        <TextBlock Grid.Row="8"
+                   Grid.Column="0"
+                   Text="Video Quality (Experimental) :" />
+        <metro:PromptComboBox Grid.Row="8"
+                              Grid.Column="1"
+                              Width="120"
+                              Height="30"
+                              Margin="5"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              DisplayMemberPath="Display"
+                              IsEditable="False"
+                              ItemsSource="{Binding VideoQualities}"
+                              SelectedValue="{Binding VideoQuality.Value,
+                                                      Mode=TwoWay}" />
+        <!--#endregion-->
+
     </Grid>
 </UserControl>

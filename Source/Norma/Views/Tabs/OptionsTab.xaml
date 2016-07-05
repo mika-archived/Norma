@@ -26,17 +26,22 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
-                <Style x:Key="HeaderTextBlockStyle" TargetType="{x:Type TextBlock}">
+                <Style x:Key="HeaderTextBlockStyle"
+                       TargetType="{x:Type TextBlock}">
                     <Setter Property="FontFamily" Value="Segoe UI" />
                     <Setter Property="FontSize" Value="18" />
                     <Setter Property="FontWeight" Value="Normal" />
                     <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
+                        <DataTrigger Binding="{Binding IsSelected,
+                                                       RelativeSource={RelativeSource AncestorType=TabItem}}"
+                                     Value="True">
                             <Setter Property="FontWeight" Value="Medium" />
                             <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
+                        <DataTrigger Binding="{Binding IsMouseOver,
+                                                       RelativeSource={RelativeSource AncestorType=TabItem}}"
+                                     Value="True">
                             <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
                         </DataTrigger>
                     </Style.Triggers>
@@ -44,25 +49,31 @@
             </TabControl.Resources>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{x:Static properties:Resources.Browser}" />
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
+                               Text="{x:Static properties:Resources.Browser}" />
                 </TabItem.Header>
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
                     <options:Browser DataContext="{Binding BrowserViewModel}" />
                 </ScrollViewer>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{x:Static properties:Resources.Operation}" />
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
+                               Text="{x:Static properties:Resources.Operation}" />
                 </TabItem.Header>
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
                     <options:Operation DataContext="{Binding OperationViewModel}" />
                 </ScrollViewer>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{x:Static properties:Resources.Others}" />
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
+                               Text="{x:Static properties:Resources.Others}" />
                 </TabItem.Header>
-                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
                     <options:Others DataContext="{Binding OthersViewModel}" />
                 </ScrollViewer>
             </TabItem>

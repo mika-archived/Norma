@@ -24,7 +24,8 @@
     </UserControl.Resources>
     <i:Interaction.Triggers>
         <prism:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest, Mode=OneWay}">
-            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True"
+                                            IsModal="True">
                 <actions:MetroPopupWindowAction.WindowStyle>
                     <Style TargetType="{x:Type dialog:DefaultConfirmationMetroWindow}">
                         <Setter Property="ResizeMode" Value="NoResize" />
@@ -36,7 +37,8 @@
             </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding EditRequest}">
-            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True" IsModal="True">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True"
+                                            IsModal="True">
                 <actions:MetroPopupWindowAction.WindowStyle>
                     <Style TargetType="{x:Type metro:MetroWindow}">
                         <Setter Property="ResizeMode" Value="NoResize" />
@@ -57,7 +59,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" metro:MetroWindow.IsCaptionBar="True">
+        <Border Grid.Row="0"
+                metro:MetroWindow.IsCaptionBar="True">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -71,10 +74,12 @@
                            Foreground="{DynamicResource ForegroundBrushKey}"
                            Text="{Binding WindowTitle}"
                            TextTrimming="CharacterEllipsis" />
-                <metro:SystemButtons Grid.Column="1" VerticalAlignment="Top" />
+                <metro:SystemButtons Grid.Column="1"
+                                     VerticalAlignment="Top" />
             </Grid>
         </Border>
-        <Grid Grid.Row="1" Margin="5">
+        <Grid Grid.Row="1"
+              Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="30" />

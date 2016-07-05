@@ -28,17 +28,22 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
-                <Style x:Key="HeaderTextBlockStyle" TargetType="{x:Type TextBlock}">
+                <Style x:Key="HeaderTextBlockStyle"
+                       TargetType="{x:Type TextBlock}">
                     <Setter Property="FontFamily" Value="Segoe UI" />
                     <Setter Property="FontSize" Value="18" />
                     <Setter Property="FontWeight" Value="Normal" />
                     <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
+                        <DataTrigger Binding="{Binding IsSelected,
+                                                       RelativeSource={RelativeSource AncestorType=TabItem}}"
+                                     Value="True">
                             <Setter Property="FontWeight" Value="Medium" />
                             <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=TabItem}}" Value="True">
+                        <DataTrigger Binding="{Binding IsMouseOver,
+                                                       RelativeSource={RelativeSource AncestorType=TabItem}}"
+                                     Value="True">
                             <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
                         </DataTrigger>
                     </Style.Triggers>
@@ -46,25 +51,32 @@
             </TabControl.Resources>
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}" Text="{Binding Name}" />
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
+                               Text="{Binding Name}" />
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
                 <DataTemplate DataType="{x:Type vmroot:LibraryViewModel}">
-                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                        <StackPanel Margin="5" Orientation="Vertical">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="5"
+                                    Orientation="Vertical">
                             <StackPanel.Resources>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
                                 </Style>
                             </StackPanel.Resources>
-                            <TextBlock FontSize="20" Text="{Binding Name}" />
+                            <TextBlock FontSize="20"
+                                       Text="{Binding Name}" />
                             <TextBlock>
-                                <Hyperlink Command="{Binding OpenHyperlinkCommand}" NavigateUri="{Binding Url, Mode=OneWay}">
+                                <Hyperlink Command="{Binding OpenHyperlinkCommand}"
+                                           NavigateUri="{Binding Url,
+                                                                 Mode=OneWay}">
                                     <Run Text="{Binding Url, Mode=OneWay}" />
                                 </Hyperlink>
                             </TextBlock>
-                            <TextBlock Text="{Binding License}" TextWrapping="Wrap" />
+                            <TextBlock Text="{Binding License}"
+                                       TextWrapping="Wrap" />
                         </StackPanel>
                     </ScrollViewer>
                 </DataTemplate>

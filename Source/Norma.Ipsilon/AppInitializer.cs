@@ -50,7 +50,7 @@ namespace Norma.Ipsilon
             var r = NotificationResult.Activated;
             if ((s?.StartsWith("action=")).GetValueOrDefault())
             {
-                var result = s.Substring("action=".Length);
+                var result = s?.Substring("action=".Length);
                 switch (result)
                 {
                     case "TimedOut":

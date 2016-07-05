@@ -20,7 +20,6 @@ namespace Norma.Iota.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     internal class ShellViewModel : ViewModel
     {
-        private readonly Reservation _reservation;
         private readonly Timetable _timetable;
         private int _index; // 日付管理用(0 = 今日, 6 = 一週間後みたいな)
         public ObservableCollection<ChannelCellViewModel> Channels { get; }
@@ -29,10 +28,9 @@ namespace Norma.Iota.ViewModels
         public InteractionRequest<INotification> ReservationListRequest { get; }
         public InteractionRequest<DataPassingNotification> DetailReserveRequest { get; }
 
-        public ShellViewModel(Timetable timetable, Reservation reservation)
+        public ShellViewModel(Timetable timetable)
         {
             _timetable = timetable;
-            _reservation = reservation;
             ProgramDetailsRequest = new InteractionRequest<INotification>();
             ReservationListRequest = new InteractionRequest<INotification>();
             DetailReserveRequest = new InteractionRequest<DataPassingNotification>();

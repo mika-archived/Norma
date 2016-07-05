@@ -7,6 +7,7 @@ using MetroRadiance.UI;
 using Norma.Eta;
 using Norma.Eta.Models;
 using Norma.Models;
+using Norma.Models.Browser;
 using Norma.Views;
 
 namespace Norma
@@ -23,6 +24,8 @@ namespace Norma
         public static Timetable Timetable { get; private set; }
         public static ConnectOps ConnectOps { get; private set; }
         public static Connector Connector { get; private set; }
+        public static Reservation Reservation { get; private set; }
+        public static NetworkHandler NetworkHandler { get; private set; }
 
         /// <summary>
         ///     PreInitialize is called by Application host.
@@ -42,9 +45,11 @@ namespace Norma
             Configuration = new Configuration();
             AbemaApiHost = new AbemaApiHost(Configuration);
             Timetable = new Timetable(AbemaApiHost);
-            AbemaState = new AbemaState(Configuration, Timetable);
+            AbemaState = new AbemaState(AbemaApiHost, Configuration, Timetable);
             ConnectOps = new ConnectOps();
             Connector = new Connector(ConnectOps);
+            Reservation = new Reservation(Timetable);
+            NetworkHandler = new NetworkHandler();
         }
 
         /// <summary>
@@ -54,6 +59,7 @@ namespace Norma
         {
             AbemaApiHost.Initialize();
             Timetable.Sync();
+            Reservation.Cleanup();
             AbemaState.Start();
         }
 
