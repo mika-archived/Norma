@@ -221,8 +221,9 @@
     <Compile Include="Models\AbemaState.cs" />
     <Compile Include="AppInitializer.cs" />
     <Compile Include="Models\Browser\CefSetting.cs" />
-    <Compile Include="Models\Browser\HttpResourceHandler.cs" />
+    <Compile Include="Models\Browser\ApiResourceHandler.cs" />
     <Compile Include="Models\Browser\HttpResourceHandlerFactory.cs" />
+    <Compile Include="Models\Browser\VideoResourceHandler.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\CommentHost.cs" />
     <Compile Include="Models\Connector.cs" />

@@ -30,6 +30,9 @@ namespace Norma.Eta.Models.Configurations
         [JsonProperty]
         public ObservableCollection<MuteKeyword> MuteKeywords { get; set; }
 
+        [JsonProperty]
+        public VideoQuality VideoQuality { get; set; }
+
         public OperationConfig()
         {
             UpdateIntervalOfProgram = 1;
@@ -40,6 +43,7 @@ namespace Norma.Eta.Models.Configurations
             PostKeyType = PostKey.EnterOnly;
             ToastNotificationBeforeMinutes = 5;
             MuteKeywords = new ObservableCollection<MuteKeyword>();
+            VideoQuality = VideoQuality.Auto;
         }
     }
 }
