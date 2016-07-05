@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 
 using Norma.Eta.Database;
@@ -39,7 +40,7 @@ namespace Norma.Eta.Models
         private void Init()
         {
             _dbContext.Reservations.Create();
-            _dbContext.SaveChanges();
+            Save();
         }
 
         private void Save()
@@ -50,13 +51,22 @@ namespace Norma.Eta.Models
             }
         }
 
+        private void SaveWithoutLock()
+        {
+            _dbContext.SaveChanges();
+        }
+
         public void Cleanup()
         {
-            lock (_lockObj)
+            try
             {
                 var rsvs = _dbContext.Reservations.Where(w => !w.IsEnable);
                 foreach (var rsv in rsvs)
                     _dbContext.Reservations.Remove(rsv);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
             }
         }
 
@@ -68,12 +78,9 @@ namespace Norma.Eta.Models
         /// <param name="all"></param>
         public void DeleteReservation(RsvAll all)
         {
-            lock (_lockObj)
-            {
-                var target = _dbContext.Reservations.Single(w => w.Id == all.Id);
-                target.IsEnable = false;
-                Save();
-            }
+            var target = _dbContext.Reservations.Single(w => w.Id == all.Id);
+            target.IsEnable = false;
+            Save();
         }
 
         #endregion
@@ -110,7 +117,7 @@ namespace Norma.Eta.Models
                 target.DayOfWeek = time.DayOfWeek;
                 target.Range = time.Range;
                 target.IsEnable = time.IsEnable;
-                Save();
+                SaveWithoutLock();
             }
         }
 
@@ -158,7 +165,7 @@ namespace Norma.Eta.Models
                 target.Keyword = keyword.Keyword;
                 target.Range = keyword.Range;
                 target.IsEnable = keyword.IsEnable;
-                Save();
+                SaveWithoutLock();
             }
         }
 
@@ -227,7 +234,7 @@ namespace Norma.Eta.Models
                 target.ProgramId = program.ProgramId;
                 target.StartDate = program.StartDate;
                 target.IsEnable = program.IsEnable;
-                Save();
+                SaveWithoutLock();
             }
         }
 
