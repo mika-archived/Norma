@@ -1,19 +1,28 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 
 using CefSharp;
 
+using Norma.Eta.Models;
+using Norma.Eta.Models.Configurations;
 using Norma.Gamma;
 
 namespace Norma.Models.Browser
 {
-    internal class HttpResourceHandler : ResourceHandler
+    // 強制画質変更
+    internal class VideoResourceHandler : ResourceHandler
     {
-        #region Overrides of ResourceHandler
+        private readonly OperationConfig _config;
+        private readonly Regex _pattern = new Regex(@"[0-9]{3,4}");
+
+        public VideoResourceHandler()
+        {
+            _config = AppInitializer.Configuration.Root.Operation;
+        }
 
         public override bool ProcessRequestAsync(IRequest request, ICallback callback)
         {
@@ -24,26 +33,26 @@ namespace Norma.Models.Browser
                     if (header.ToLower() != "content-type")
                         httpClient.DefaultRequestHeaders.Add(header, request.Headers.GetValues(header));
 
+                var url = request.Url;
+                if (_config.VideoQuality != VideoQuality.Auto)
+                    url = _pattern.Replace(url, _config.VideoQuality.ToProgressive(), 1);
                 HttpResponseMessage response = null;
                 if (request.Method == "OPTIONS")
-                    response = httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Options, request.Url)).Result;
-                else
-                    CapturingRequest(request.Url, request.Headers,
-                                     request.PostData?.Elements.FirstOrDefault()?.GetBody());
+                    response = httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Options, url)).Result;
 
                 if (request.Method == "GET")
-                    response = httpClient.GetAsync(request.Url).Result;
+                    response = httpClient.GetAsync(url).Result;
                 if (request.Method == "POST")
                 {
                     var content = request.PostData?.Elements.FirstOrDefault()?.GetBody();
                     var httpContent = new StringContent2(content, Encoding.UTF8, "application/json");
-                    response = httpClient.PostAsync(request.Url, httpContent).Result;
+                    response = httpClient.PostAsync(url, httpContent).Result;
                 }
                 if (request.Method == "PUT")
                 {
                     var content = request.PostData?.Elements.FirstOrDefault()?.GetBody();
                     var httpContent = new StringContent2(content, Encoding.UTF8, "application/json");
-                    response = httpClient.PutAsync(request.Url, httpContent).Result;
+                    response = httpClient.PutAsync(url, httpContent).Result;
                 }
 
                 // 知らん
@@ -60,7 +69,6 @@ namespace Norma.Models.Browser
                     foreach (var value in header.Value)
                         Headers.Set(header.Key, value);
 
-                CapturingResponse(request.Url, Headers, response.Content.ReadAsStringAsync().Result);
                 callback.Continue();
             }
             catch (Exception e)
@@ -68,18 +76,6 @@ namespace Norma.Models.Browser
                 Debug.WriteLine(e.Message);
             }
             return true;
-        }
-
-        #endregion
-
-        private void CapturingRequest(string url, NameValueCollection headers, string body)
-        {
-            AppInitializer.NetworkHandler.OnHandlingRequest(new NetworkEventArgs(url, headers, body));
-        }
-
-        private void CapturingResponse(string url, NameValueCollection headers, string body)
-        {
-            AppInitializer.NetworkHandler.OnHandlingResponse(new NetworkEventArgs(url, headers, body));
         }
     }
 }

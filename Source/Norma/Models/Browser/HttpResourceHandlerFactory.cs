@@ -9,8 +9,12 @@ namespace Norma.Models.Browser
         public IResourceHandler GetResourceHandler(IWebBrowser browserControl, IBrowser browser, IFrame frame,
                                                    IRequest request)
         {
-            // Handling request to "https://api.abema.io"
-            return request.Url.StartsWith("https://api.abema.io") ? new HttpResourceHandler() : null;
+            var url = request.Url;
+            if (url.StartsWith("https://api.abema.io"))
+                return new ApiResourceHandler();
+            if (url.StartsWith("https://media.abema.io"))
+                return new VideoResourceHandler();
+            return null;
         }
 
         public bool HasHandlers => true;

@@ -24,6 +24,10 @@ namespace Norma.ViewModels.Tabs.Options
         public List<EnumWrap<PostKey>> KeyTypes
             => ((PostKey[]) Enum.GetValues(typeof(PostKey))).Select(w => new EnumWrap<PostKey>(w)).ToList();
 
+        public List<EnumWrap<VideoQuality>> VideoQualities
+            => ((VideoQuality[]) Enum.GetValues(typeof(VideoQuality))).Select(w => new EnumWrap<VideoQuality>(w))
+                                                                      .ToList();
+
         public ReactiveProperty<uint> UpdateIntervalOfProgram { get; private set; }
         public ReactiveProperty<uint> UpdateIntervalOfThumbnails { get; private set; }
         public ReactiveProperty<uint> ReceptionIntervalOfComments { get; private set; }
@@ -32,6 +36,7 @@ namespace Norma.ViewModels.Tabs.Options
         public ReactiveProperty<EnumWrap<PostKey>> PostKey { get; private set; }
         public ReactiveProperty<uint> ToastNotificationBeforeMinutes { get; private set; }
         public ObservableCollection<MuteKeyword> MuteKeywords { get; }
+        public ReactiveProperty<EnumWrap<VideoQuality>> VideoQuality { get; private set; }
         public ReactiveProperty<string> Keyword { get; }
         public ReactiveProperty<bool> IsRegex { get; }
         public ReactiveProperty<MuteKeyword> SelectedKeyword { get; }
@@ -49,6 +54,8 @@ namespace Norma.ViewModels.Tabs.Options
                                                   w => w.EnumValue);
             ToastNotificationBeforeMinutes = ReactiveProperty.FromObject(oc, w => w.ToastNotificationBeforeMinutes);
             MuteKeywords = oc.MuteKeywords;
+            VideoQuality = ReactiveProperty.FromObject(oc, w => w.VideoQuality, x => new EnumWrap<VideoQuality>(x),
+                                                       w => w.EnumValue);
             IsRegex = new ReactiveProperty<bool>(false);
             Keyword = new ReactiveProperty<string>("")
                 .SetValidateNotifyError(x => IsRegex.Value ? _rgxValidator.Validate(Keyword.Value) : null);
