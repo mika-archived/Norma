@@ -29,7 +29,8 @@ namespace Norma.Models
         public void Start()
         {
             var val = _configuration.Root.Operation.UpdateIntervalOfProgram;
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
+            _disposable =
+                Observable.Timer(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
         }
 
         ~AbemaState()

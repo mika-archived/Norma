@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
@@ -43,12 +42,11 @@ namespace Norma.Eta.Models
             _cache = new TimetableCache();
             CurrentChannels = new ObservableCollection<string>();
             Load();
-            Observable.Timer(TimeSpan.Zero, TimeSpanExt.OneSecond).Subscribe(async w => await UpdateCurrentChannels());
         }
 
-        public void Sync()
+        public void Sync(bool isForce = false)
         {
-            if (!_cache.IsSyncNeeded())
+            if (!isForce && !_cache.IsSyncNeeded())
                 return;
             var media = _abemaApiHost.MediaOfOneWeek();
             _cache.SyncDateTime = DateTime.Now;
@@ -56,10 +54,15 @@ namespace Norma.Eta.Models
             ChannelSchedules = media.ChannelSchedules;
         }
 
-        // ↓名前やばい
-        private async Task SyncAsync()
+        public void Start()
         {
-            if (!_cache.IsSyncNeeded())
+            Observable.Timer(TimeSpan.Zero, TimeSpanExt.OneSecond).Subscribe(async w => await UpdateCurrentChannels());
+        }
+
+        // ↓名前やばい
+        private async Task SyncAsync(bool isForce = false)
+        {
+            if (!isForce && !_cache.IsSyncNeeded())
                 return;
             var media = await _abemaApiHost.MediaOfOneWeekAsync();
             _cache.SyncDateTime = DateTime.Now;
@@ -124,7 +127,7 @@ namespace Norma.Eta.Models
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.Message);
+                await SyncAsync(true);
             }
         }
     }
