@@ -315,6 +315,7 @@ namespace Norma.Eta.Models
             catch
             {
                 Debug.WriteLine($"WARN: i18n resource key '{identifier}' is not found on resx.");
+                return $"##{identifier}##";
             }
         }
     }
