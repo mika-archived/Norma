@@ -61,7 +61,7 @@ namespace Norma.Eta.Models
         {
             if (!_cache.IsSyncNeeded())
                 return;
-            var media = await _abemaApiHost.MediaOfCurrentAsync();
+            var media = await _abemaApiHost.MediaOfOneWeekAsync();
             _cache.SyncDateTime = DateTime.Now;
             Channels = media.Channels;
             ChannelSchedules = media.ChannelSchedules;

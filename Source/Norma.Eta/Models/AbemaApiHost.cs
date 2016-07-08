@@ -74,23 +74,18 @@ namespace Norma.Eta.Models
             }
         }
 
-        public async Task<Media> MediaOfCurrentAsync()
-        {
-            var today = DateTime.Today.ToString("yyyyMMdd");
-            return await _abemaTv.Root.MediaAsync(dateFrom => today, dateTo => today);
-        }
-
-        public Media MediaOfCurrent()
-        {
-            var today = DateTime.Today.ToString("yyyyMMdd");
-            return _abemaTv.Root.Media(dateFrom => today, dateTo => today);
-        }
-
         public Media MediaOfOneWeek()
         {
             var today = DateTime.Today.ToString("yyyyMMdd");
             var firstDayOfNextWeek = DateTime.Today.AddDays(5).ToString("yyyyMMdd");
             return _abemaTv.Root.Media(dateFrom => today, dateTo => firstDayOfNextWeek);
+        }
+
+        public async Task<Media> MediaOfOneWeekAsync()
+        {
+            var today = DateTime.Today.ToString("yyyyMMdd");
+            var firstDayOfNextWeek = DateTime.Today.AddDays(5).ToString("yyyyMMdd");
+            return await _abemaTv.Root.MediaAsync(dateFrom => today, dateTo => firstDayOfNextWeek);
         }
 
         public async Task<Slot> CurrentSlot(string slotId)
