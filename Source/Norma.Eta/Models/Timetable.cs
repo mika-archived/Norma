@@ -34,6 +34,7 @@ namespace Norma.Eta.Models
         }
 
         public ObservableCollection<string> CurrentChannels { get; }
+        public Channel CurrentChannel { get; }
 
         public DateTime LastSyncTime => _cache.SyncDateTime;
 
@@ -42,6 +43,7 @@ namespace Norma.Eta.Models
             _abemaApiHost = abemaApiHost;
             _cache = new TimetableCache();
             CurrentChannels = new ObservableCollection<string>();
+            CurrentChannel = null;
             Load();
             Observable.Timer(TimeSpan.Zero, TimeSpanExt.OneSecond).Subscribe(async w => await UpdateCurrentChannels());
         }

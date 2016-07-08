@@ -23,7 +23,7 @@ namespace Norma.Models
             _abemaApiHost = abemaApiHost;
             _configuration = configuration;
             _timetable = timetable;
-            CurrentChannel = configuration.Root.LastViewedChannelStr;
+            CurrentChannel = _timetable.Channels.Single(w => w.Id == _configuration.Root.LastViewedChannelStr);
         }
 
         public void Start()
@@ -40,7 +40,9 @@ namespace Norma.Models
         public void OnChannelChanged(string url)
         {
             _disposable.Dispose();
-            _configuration.Root.LastViewedChannelStr = CurrentChannel = AbemaChannelExt.ToIdentifier(url);
+            CurrentChannel = _timetable.Channels?.Single(w => w.Id == AbemaChannelExt.ToIdentifier(url));
+            if (CurrentChannel != null)
+                _configuration.Root.LastViewedChannelStr = CurrentChannel.Id;
             var val = _configuration.Root.Operation.UpdateIntervalOfProgram;
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
         }
@@ -49,7 +51,7 @@ namespace Norma.Models
         {
             try
             {
-                var schedule = _timetable.ChannelSchedules.First(w => w.ChannelId == CurrentChannel);
+                var schedule = _timetable.ChannelSchedules.First(w => w.ChannelId == CurrentChannel.Id);
                 var currentSlot =
                     schedule.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);
                 if (currentSlot == null)
@@ -77,12 +79,12 @@ namespace Norma.Models
 
         #region CurrentChannel
 
-        private string _currentChannel;
+        private Gamma.Models.Channel _currentChannel;
 
-        public string CurrentChannel
+        public Gamma.Models.Channel CurrentChannel
         {
             get { return _currentChannel; }
-            private set { SetProperty(ref _currentChannel, value); }
+            set { SetProperty(ref _currentChannel, value); }
         }
 
         #endregion
