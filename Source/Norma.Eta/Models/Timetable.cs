@@ -41,13 +41,12 @@ namespace Norma.Eta.Models
             _abemaApiHost = abemaApiHost;
             _cache = new TimetableCache();
             CurrentChannels = new ObservableCollection<string>();
-            Observable.Timer(TimeSpan.Zero, TimeSpanExt.OneSecond).Subscribe(async w => await UpdateCurrentChannels());
             Load();
         }
 
-        public void Sync()
+        public void Sync(bool isForce = false)
         {
-            if (!_cache.IsSyncNeeded())
+            if (!isForce && !_cache.IsSyncNeeded())
                 return;
             var media = _abemaApiHost.MediaOfOneWeek();
             _cache.SyncDateTime = DateTime.Now;
@@ -55,12 +54,17 @@ namespace Norma.Eta.Models
             ChannelSchedules = media.ChannelSchedules;
         }
 
-        // ↓名前やばい
-        private async Task SyncAsync()
+        public void Start()
         {
-            if (!_cache.IsSyncNeeded())
+            Observable.Timer(TimeSpan.Zero, TimeSpanExt.OneSecond).Subscribe(async w => await UpdateCurrentChannels());
+        }
+
+        // ↓名前やばい
+        private async Task SyncAsync(bool isForce = false)
+        {
+            if (!isForce && !_cache.IsSyncNeeded())
                 return;
-            var media = await _abemaApiHost.MediaOfCurrentAsync();
+            var media = await _abemaApiHost.MediaOfOneWeekAsync();
             _cache.SyncDateTime = DateTime.Now;
             Channels = media.Channels;
             ChannelSchedules = media.ChannelSchedules;
@@ -94,29 +98,36 @@ namespace Norma.Eta.Models
 
         private async Task UpdateCurrentChannels()
         {
-            await SyncAsync();
-            var channelSlots = ChannelSchedules.Where(w => EqualsWithDates(w.Date, DateTime.Today))
-                                               .Select(w => new {w.Slots, w.ChannelId});
+            try
+            {
+                await SyncAsync();
+                var channelSlots = ChannelSchedules.Where(w => EqualsWithDates(w.Date, DateTime.Today))
+                                                   .Select(w => new {w.Slots, w.ChannelId});
 
-            var channels = new List<string>();
-            foreach (var channelSlot in channelSlots)
-            {
-                if (!channelSlot.Slots.Any(w => IsRangeOf(w.StartAt, w.EndAt, DateTime.Now)))
-                    continue;
-                channels.Add(channelSlot.ChannelId);
-            }
+                var channels = new List<string>();
+                foreach (var channelSlot in channelSlots)
+                {
+                    if (!channelSlot.Slots.Any(w => IsRangeOf(w.StartAt, w.EndAt, DateTime.Now)))
+                        continue;
+                    channels.Add(channelSlot.ChannelId);
+                }
 
-            var temp = CurrentChannels;
-            foreach (var channel in temp)
-            {
-                if (!channels.Contains(channel))
-                    CurrentChannels.Remove(channel);
+                var temp = new List<string>(CurrentChannels);
+                foreach (var channel in temp)
+                {
+                    if (!channels.Contains(channel))
+                        CurrentChannels.Remove(channel);
+                }
+                foreach (var channel in channels.Select((v, i) => new {Value = v, Index = i}))
+                {
+                    if (CurrentChannels.Contains(channel.Value))
+                        continue;
+                    CurrentChannels.Insert(channel.Index, channel.Value);
+                }
             }
-            foreach (var channel in channels.Select((v, i) => new {Value = v, Index = i}))
+            catch (Exception e)
             {
-                if (CurrentChannels.Contains(channel.Value))
-                    continue;
-                CurrentChannels.Insert(channel.Index, channel.Value);
+                await SyncAsync(true);
             }
         }
     }

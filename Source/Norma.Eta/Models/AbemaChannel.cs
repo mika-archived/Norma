@@ -124,7 +124,9 @@ namespace Norma.Eta.Models
         /// <summary>
         ///     26ch - 麻雀
         /// </summary>
-        Mahjong
+        Mahjong,
+
+        SportsLive
     }
 
     public static class AbemaChannelExt
@@ -194,6 +196,9 @@ namespace Norma.Eta.Models
 
                 case AbemaChannel.EdgeSportHd:
                     return "edge-sport";
+
+                case AbemaChannel.SportsLive:
+                    return "world-sports-1";
 
                 // case AbemaChannels.AbemaTvFresh:
                 //    return "abematv-fresh";
@@ -279,6 +284,9 @@ namespace Norma.Eta.Models
 
                 case "mahjong":
                     return AbemaChannel.Mahjong;
+
+                case "world-sports-1":
+                    return AbemaChannel.SportsLive;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(url), url, null);
