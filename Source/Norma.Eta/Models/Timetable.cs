@@ -87,9 +87,9 @@ namespace Norma.Eta.Models
             }
         }
 
-        public Slot CurrentSlot(AbemaChannel channel)
+        public Slot CurrentSlot(string channel)
         {
-            var schedule = ChannelSchedules.FirstOrDefault(w => w.ChannelId == channel.ToUrlString());
+            var schedule = ChannelSchedules.FirstOrDefault(w => w.ChannelId == channel);
             return schedule?.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);
         }
 

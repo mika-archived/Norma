@@ -1,6 +1,5 @@
 ﻿using System.Reactive.Linq;
 
-using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Models;
 
@@ -41,7 +40,7 @@ namespace Norma.ViewModels.TVGuide
         // CallMethodAction
         public void ChannelClick()
         {
-            _parentViewModel.HostViewModel.Address = $"https://abema.tv/now-on-air/{_model.ChannelType.ToUrlString()}";
+            _parentViewModel.HostViewModel.Address = $"https://abema.tv/now-on-air/{_model.ChannelType}";
         }
     }
 }

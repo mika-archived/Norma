@@ -4,6 +4,7 @@ using Norma.Eta.Properties;
 
 namespace Norma.Eta.Models
 {
+    [Obsolete("Removed by 1.5", false)]
     public enum AbemaChannel
     {
         /// <summary>
@@ -208,6 +209,11 @@ namespace Norma.Eta.Models
             }
         }
 
+        public static string ToIdentifier(string url)
+        {
+            return url.Replace("https://abema.tv/now-on-air/", "");
+        }
+
         public static AbemaChannel FromUrlString(string url)
         {
             var str = url.Replace("https://abema.tv/now-on-air/", "");
@@ -295,7 +301,12 @@ namespace Norma.Eta.Models
 
         public static string ToLocaleString(this AbemaChannel obj)
         {
-            return (string) typeof(Resources).GetProperty(obj.ToString()).GetValue(null);
+            return ToLocaleString(obj.ToUrlString());
+        }
+
+        public static string ToLocaleString(string identifier)
+        {
+            return (string) typeof(Resources).GetProperty(identifier).GetValue(null);
         }
     }
 }

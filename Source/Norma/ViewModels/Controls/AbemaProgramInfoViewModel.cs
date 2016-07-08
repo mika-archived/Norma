@@ -32,7 +32,7 @@ namespace Norma.ViewModels.Controls
             Thumbnail1 = programHost.ObserveProperty(w => w.Thumbnail1).ToReadOnlyReactiveProperty().AddTo(this);
             Thumbnail2 = programHost.ObserveProperty(w => w.Thumbnail2).ToReadOnlyReactiveProperty().AddTo(this);
             AtChannel = abemaState.ObserveProperty(w => w.CurrentChannel)
-                                  .Select(w => $"at {w.ToLocaleString()}")
+                                  .Select(w => $"at {AbemaChannelExt.ToLocaleString(w)}")
                                   .ToReadOnlyReactiveProperty().AddTo(this);
             Range = abemaState.ObserveProperty(w => w.CurrentSlot)
                               .Select(w => $"{w?.StartAt.ToString("t")} ～ {w?.EndAt.ToString("t")}")

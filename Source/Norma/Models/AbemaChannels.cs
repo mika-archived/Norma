@@ -10,11 +10,11 @@ namespace Norma.Models
 {
     internal class AbemaChannels : BindableBase
     {
-        public ReadOnlyObservableCollection<AbemaChannel> Channels { get; }
+        public ReadOnlyObservableCollection<string> Channels { get; }
 
         public AbemaChannels(Timetable timetable)
         {
-            Channels = timetable.CurrentChannels.ToReadOnlyReactiveCollection(AbemaChannelExt.FromUrlString);
+            Channels = timetable.CurrentChannels.ToReadOnlyReactiveCollection();
         }
     }
 }
