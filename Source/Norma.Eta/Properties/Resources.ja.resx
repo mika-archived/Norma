@@ -348,70 +348,70 @@
   <data name="InvalidDateTime2" xml:space="preserve">
     <value>日付は現在よりも大きい必要があります。</value>
   </data>
-  <data name="AbemaNews" xml:space="preserve">
+  <data name="abema_news" xml:space="preserve">
     <value>Abema news/</value>
   </data>
-  <data name="AbemaSpecial" xml:space="preserve">
+  <data name="abema_special" xml:space="preserve">
     <value>Abema SPECIAL</value>
   </data>
-  <data name="Anime24" xml:space="preserve">
+  <data name="anime24" xml:space="preserve">
     <value>アニメ24</value>
   </data>
-  <data name="ClubChannel" xml:space="preserve">
+  <data name="club_channel" xml:space="preserve">
     <value>CLUB CHANNEL</value>
   </data>
-  <data name="Documentary" xml:space="preserve">
+  <data name="documentary" xml:space="preserve">
     <value>Documentary</value>
   </data>
-  <data name="DramaChannel" xml:space="preserve">
+  <data name="drama" xml:space="preserve">
     <value>ドラマ CHANNEL</value>
   </data>
-  <data name="EdgeSportHd" xml:space="preserve">
+  <data name="edge_sport" xml:space="preserve">
     <value>EDGE SPORT HD</value>
   </data>
-  <data name="FamilyAnime" xml:space="preserve">
+  <data name="family_anime" xml:space="preserve">
     <value>家族アニメ</value>
   </data>
-  <data name="Fishing" xml:space="preserve">
+  <data name="fishing" xml:space="preserve">
     <value>釣り</value>
   </data>
-  <data name="Mahjong" xml:space="preserve">
+  <data name="mahjong" xml:space="preserve">
     <value>麻雀</value>
   </data>
-  <data name="MidnightAnime" xml:space="preserve">
+  <data name="midnight_anime" xml:space="preserve">
     <value>深夜アニメ</value>
   </data>
-  <data name="MtvHits" xml:space="preserve">
+  <data name="mtv_hits" xml:space="preserve">
     <value>MTV HITS</value>
   </data>
-  <data name="OldtimeAnime" xml:space="preserve">
+  <data name="oldtime_anime" xml:space="preserve">
     <value>なつかしアニメ</value>
   </data>
-  <data name="OnegaiRanking" xml:space="preserve">
+  <data name="onegai_ranking" xml:space="preserve">
     <value>お願いランキング</value>
   </data>
-  <data name="Pet" xml:space="preserve">
+  <data name="pet" xml:space="preserve">
     <value>ペット</value>
   </data>
-  <data name="RealityShow" xml:space="preserve">
+  <data name="reality_show" xml:space="preserve">
     <value>REALITY SHOW</value>
   </data>
-  <data name="SpeceShowerMusic" xml:space="preserve">
+  <data name="space_shower" xml:space="preserve">
     <value>SPACE SHOWER MUSIC</value>
   </data>
-  <data name="SpecialPlus" xml:space="preserve">
+  <data name="special_plus" xml:space="preserve">
     <value>SPECIAL PLUS</value>
   </data>
-  <data name="VarietyChannel" xml:space="preserve">
+  <data name="variety" xml:space="preserve">
     <value>バラエティ CHANNEL</value>
   </data>
-  <data name="Vice" xml:space="preserve">
+  <data name="vice" xml:space="preserve">
     <value>VICE</value>
   </data>
-  <data name="WorldSports" xml:space="preserve">
+  <data name="world_sports" xml:space="preserve">
     <value>WORLD SPORTS</value>
   </data>
-  <data name="YokonoriSports" xml:space="preserve">
+  <data name="yokonori_sports" xml:space="preserve">
     <value>ヨコノリ Surf Snow Skate</value>
   </data>
   <data name="ProgramId" xml:space="preserve">
@@ -465,7 +465,7 @@
   <data name="PleaseSendCrashReportToMe" xml:space="preserve">
     <value>クラッシュレポートを送信してください。</value>
   </data>
-  <data name="SpecialPlus2" xml:space="preserve">
+  <data name="special_plus2" xml:space="preserve">
     <value>SPECIAL PLUS 2</value>
   </data>
   <data name="RsvList" xml:space="preserve">
@@ -489,7 +489,10 @@
   <data name="HiddenLeftControl" xml:space="preserve">
     <value>左側コントロールの非表示</value>
   </data>
-  <data name="NewAnime" xml:space="preserve">
+  <data name="new_anime" xml:space="preserve">
     <value>新作アニメ</value>
+  </data>
+  <data name="world_sports_1" xml:space="preserve">
+    <value>SPORTS LIVE</value>
   </data>
 </root>

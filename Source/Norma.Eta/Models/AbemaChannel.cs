@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 using Norma.Eta.Properties;
 
@@ -306,7 +307,15 @@ namespace Norma.Eta.Models
 
         public static string ToLocaleString(string identifier)
         {
-            return (string) typeof(Resources).GetProperty(identifier).GetValue(null);
+            identifier = identifier.Replace("-", "_");
+            try
+            {
+                return (string) typeof(Resources).GetProperty(identifier).GetValue(null);
+            }
+            catch
+            {
+                Debug.WriteLine($"WARN: i18n resource key '{identifier}' is not found on resx.");
+            }
         }
     }
 }
