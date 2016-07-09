@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 
 using Norma.Eta.Models;
+using Norma.Eta.Models.Reservations;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
 using Norma.Eta.Properties;
@@ -62,7 +63,7 @@ namespace Norma.Iota.ViewModels.WindowContents
             UpdateRsvList();
         }
 
-        private bool CanEditReservation() => SelectedItem.Value != null;
+        private bool CanEditReservation() => SelectedItem.Value != null && SelectedItem.Value.Type != nameof(RsvProgram);
 
         #endregion
 
