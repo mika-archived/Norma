@@ -1,4 +1,6 @@
-﻿using CefSharp;
+﻿using System.Diagnostics;
+
+using CefSharp;
 using CefSharp.Wpf;
 
 using Newtonsoft.Json.Linq;
@@ -34,6 +36,7 @@ namespace Norma.ViewModels.Controls
 
         public void OnRequestHandling(NetworkEventArgs e)
         {
+            Debug.WriteLine("================== RESERVATION BY ABEMA.TV ==================");
             dynamic json = JObject.Parse(e.Contents);
             var id = (string) json.slotReservations[0].slotId;
             _reservation.AddReservation(new Slot {Id = id});

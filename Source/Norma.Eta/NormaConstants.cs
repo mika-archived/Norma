@@ -24,10 +24,6 @@ namespace Norma.Eta
 
         public static string TimetableCacheFile => Path.Combine(AppDirectory, "timetable_cache.json");
 
-        public static string ReserveProgramListFile => Path.Combine(AppDirectory, "reserve_programs.json");
-
-        public static string ReserveProgramLockFile => Path.Combine(AppDirectory, "reserve_programs.lock");
-
         public static string OpsFile => Path.Combine(AppDirectory, "ops.json");
 
         public static string MainFileName => "Norma.exe";
