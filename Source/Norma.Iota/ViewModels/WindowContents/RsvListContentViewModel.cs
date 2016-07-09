@@ -63,7 +63,8 @@ namespace Norma.Iota.ViewModels.WindowContents
             UpdateRsvList();
         }
 
-        private bool CanEditReservation() => SelectedItem.Value != null && SelectedItem.Value.Type != nameof(RsvProgram);
+        private bool CanEditReservation() => SelectedItem.Value != null && SelectedItem.Value.Type != nameof(RsvProgram)
+                                             && SelectedItem.Value.Type != nameof(RsvProgram2);
 
         #endregion
 

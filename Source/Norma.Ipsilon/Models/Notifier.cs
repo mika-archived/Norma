@@ -81,6 +81,7 @@ namespace Norma.Ipsilon.Models
             foreach (var reserve in list)
                 await Notify(reserve);
             await KeywordNotify();
+            await Program2Notify();
         }
 
         private async Task Notify(Reserve reserve)
@@ -135,6 +136,26 @@ namespace Norma.Ipsilon.Models
                         await NotificationManager.ShowNotification(title, body, slot);
                         return;
                     }
+                }
+            }
+        }
+
+        private async Task Program2Notify()
+        {
+            foreach (var program in _reservation.RsvByProgram2.Where(w => w.IsEnable))
+            {
+                foreach (var schedule in _todaySchedules)
+                {
+                    var slot = schedule.Slots.SingleOrDefault(w => w.Id == program.ProgramId);
+                    if (slot == null)
+                        continue;
+                    if (!IsNoticeable(slot.StartAt) || _notifiedSlots.Contains(slot))
+                        continue;
+                    _notifiedSlots.Add(slot);
+                    var title = Resources.NoticeKeywordRsvTitle;
+                    var body = string.Format(Resources.NoticeSlotRsvBody, slot.Title);
+                    await NotificationManager.ShowNotification(title, body, slot);
+                    return;
                 }
             }
         }
