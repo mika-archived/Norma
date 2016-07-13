@@ -74,6 +74,16 @@ namespace Norma.Eta.Models.Reservations
                     IsRegexMode = IsRegexMode
                 };
             }
+            else if (typeof(T) == typeof(RsvProgram2))
+            {
+                reserve = new RsvProgram2
+                {
+                    Id = Id,
+                    IsEnable = IsEnable,
+                    Type = Type,
+                    ProgramId = ProgramId
+                };
+            }
             return (T) reserve;
         }
 
@@ -106,6 +116,11 @@ namespace Norma.Eta.Models.Reservations
                 rsvAll.Range = keyword.Range;
                 rsvAll.Keyword = keyword.Keyword;
                 rsvAll.IsRegexMode = keyword.IsRegexMode;
+            }
+            else if (reserve is RsvProgram2)
+            {
+                var program = (RsvProgram2) reserve;
+                rsvAll.ProgramId = program.ProgramId;
             }
             return rsvAll;
         }

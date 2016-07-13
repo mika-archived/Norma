@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Diagnostics;
 
 using Norma.Eta.Models.Reservations;
 
@@ -13,7 +14,7 @@ namespace Norma.Eta.Database
 
         public ReservationDbContext() : base(DatabaseConnectionProvider.GetConnection(), true)
         {
-
+            Database.Log = str => { Debug.WriteLine(str); };
         }
 
         #region Overrides of DbContext

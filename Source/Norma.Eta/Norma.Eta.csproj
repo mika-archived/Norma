@@ -150,6 +150,7 @@
     <Compile Include="Models\Reservations\RsvAll.cs" />
     <Compile Include="Models\Reservations\RsvKeyword.cs" />
     <Compile Include="Models\Reservations\RsvProgram.cs" />
+    <Compile Include="Models\Reservations\RsvProgram2.cs" />
     <Compile Include="Models\Reservations\RsvTime.cs" />
     <Compile Include="Models\Timetable.cs" />
     <Compile Include="Models\TimetableCache.cs" />

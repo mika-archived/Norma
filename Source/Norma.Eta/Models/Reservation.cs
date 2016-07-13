@@ -30,6 +30,10 @@ namespace Norma.Eta.Models
             => _dbContext.Reservations.Where(w => w.Type == nameof(RsvKeyword)).ToList()
                          .Select(w => w.Cast<RsvKeyword>()).ToList().AsReadOnly();
 
+        public ReadOnlyCollection<RsvProgram2> RsvByProgram2
+            => _dbContext.Reservations.Where(w => w.Type == nameof(RsvProgram2)).ToList()
+                         .Select(w => w.Cast<RsvProgram2>()).ToList().AsReadOnly();
+
         public Reservation(Timetable timetable)
         {
             _timetable = timetable;
@@ -204,12 +208,20 @@ namespace Norma.Eta.Models
                     }
                 }
                 if (startAt == DateTime.MinValue)
-                    return;
-                _dbContext.Reservations.Add(RsvAll.Create(new RsvProgram
                 {
-                    ProgramId = slot.Id,
-                    StartDate = startAt
-                }));
+                    _dbContext.Reservations.Add(RsvAll.Create(new RsvProgram2
+                    {
+                        ProgramId = slot.Id
+                    }));
+                }
+                else
+                {
+                    _dbContext.Reservations.Add(RsvAll.Create(new RsvProgram
+                    {
+                        ProgramId = slot.Id,
+                        StartDate = startAt
+                    }));
+                }
             }
             else
             {
