@@ -45,7 +45,7 @@ namespace Norma.Iota.ViewModels.WindowContents
                 model.Cast?.ForEach(x => Cast.Add(x));
                 model.Staff?.ForEach(x => Staff.Add(x));
                 Thumbnail = $"https://hayabusa.io/abema/programs/{model.Model.DisplayProgramId}/thumb001.w200.h112.jpg";
-                Channel = AbemaChannelExt.FromUrlString(model.Model.ChannelId).ToLocaleString();
+                Channel = AbemaChannelExt.ToLocaleString(model.Model.ChannelId);
                 ((DelegateCommand) AddReservationCommand).RaiseCanExecuteChanged();
             }).AddTo(this);
         }

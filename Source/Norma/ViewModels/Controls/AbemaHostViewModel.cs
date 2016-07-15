@@ -27,7 +27,7 @@ namespace Norma.ViewModels.Controls
             _reservation = reservation;
             connector.RegisterInsance<ChangeChannelOp>(this);
             networkHandler.RegisterInstance(this, e => e.Url.EndsWith("/slotReservations"));
-            Address = $"https://abema.tv/now-on-air/{configuration.Root.LastViewedChannel.ToUrlString()}";
+            Address = $"https://abema.tv/now-on-air/{configuration.Root.LastViewedChannelStr}";
         }
 
         #region Implementation of INetworkCaptureRequestAware
@@ -46,7 +46,7 @@ namespace Norma.ViewModels.Controls
         public void Invoke(IOperation operation)
         {
             var args = operation as ChangeChannelOp;
-            var channel = AbemaChannelExt.FromUrlString(args?.Context.ToString()).ToUrlString();
+            var channel = AbemaChannelExt.ToIdentifier(args?.Context.ToString());
             Address = $"https://abema.tv/now-on-air/{channel}";
         }
 

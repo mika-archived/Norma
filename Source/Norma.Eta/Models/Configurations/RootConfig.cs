@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace Norma.Eta.Models.Configurations
@@ -10,6 +12,7 @@ namespace Norma.Eta.Models.Configurations
 
         [JsonProperty]
         [JsonConverter(typeof(StringEnumConverter))]
+        [Obsolete("1.6", false)]
         public AbemaChannel LastViewedChannel { get; set; }
 
         [JsonProperty]

@@ -5,7 +5,7 @@ using Norma.Eta.Properties;
 
 namespace Norma.Eta.Models
 {
-    [Obsolete("Removed by 1.5", false)]
+    [Obsolete("1.6", false)]
     public enum AbemaChannel
     {
         /// <summary>
@@ -213,96 +213,6 @@ namespace Norma.Eta.Models
         public static string ToIdentifier(string url)
         {
             return url.Replace("https://abema.tv/now-on-air/", "");
-        }
-
-        public static AbemaChannel FromUrlString(string url)
-        {
-            var str = url.Replace("https://abema.tv/now-on-air/", "");
-            switch (str)
-            {
-                case "onegai-ranking":
-                    return AbemaChannel.OnegaiRanking;
-
-                case "abema-news":
-                    return AbemaChannel.AbemaNews;
-
-                case "abema-special":
-                    return AbemaChannel.AbemaSpecial;
-
-                case "special-plus":
-                    return AbemaChannel.SpecialPlus;
-
-                case "special-plus-2":
-                    return AbemaChannel.SpecialPlus2;
-
-                case "reality-show":
-                    return AbemaChannel.RealityShow;
-
-                case "mtv-hits":
-                    return AbemaChannel.MtvHits;
-
-                case "space-shower":
-                    return AbemaChannel.SpaceShowerMusic;
-
-                case "drama":
-                    return AbemaChannel.DramaChannel;
-
-                case "documentary":
-                    return AbemaChannel.Documentary;
-
-                case "variety":
-                    return AbemaChannel.VarietyChannel;
-
-                case "pet":
-                    return AbemaChannel.Pet;
-
-                case "club-channel":
-                    return AbemaChannel.ClubChannel;
-
-                case "world-sports":
-                    return AbemaChannel.WorldSports;
-
-                case "yokonori-sports":
-                    return AbemaChannel.YokonoriSports;
-
-                case "vice":
-                    return AbemaChannel.Vice;
-
-                case "anime24":
-                    return AbemaChannel.Anime24;
-
-                case "midnight-anime":
-                    return AbemaChannel.MidnightAnime;
-
-                case "oldtime-anime":
-                    return AbemaChannel.OldtimeAnime;
-
-                case "family-anime":
-                    return AbemaChannel.FamilyAnime;
-
-                case "new-anime":
-                    return AbemaChannel.NewAnime;
-
-                case "edge-sport":
-                    return AbemaChannel.EdgeSportHd;
-
-                case "fishing":
-                    return AbemaChannel.Fishing;
-
-                case "mahjong":
-                    return AbemaChannel.Mahjong;
-
-                case "world-sports-1":
-                    return AbemaChannel.SportsLive;
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(url), url, null);
-            }
-        }
-
-        public static string ToLocaleString(this AbemaChannel obj)
-        {
-            return ToLocaleString(obj.ToUrlString());
         }
 
         public static string ToLocaleString(string identifier)
