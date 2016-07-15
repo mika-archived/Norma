@@ -13,14 +13,14 @@ namespace Norma.Models
     {
         private readonly IDisposable _disposable;
         private readonly Timetable _timetable;
-        public AbemaChannel ChannelType { get; }
+        public string ChannelType { get; }
         public string LogoUrl { get; private set; }
 
-        public Channel(AbemaChannel channel, Configuration configuration, Timetable timetable)
+        public Channel(string channel, Configuration configuration, Timetable timetable)
         {
             ChannelType = channel;
             _timetable = timetable;
-            LogoUrl = $"https://hayabusa.io/abema/channels/logo/{ChannelType.ToUrlString()}.w120.png";
+            LogoUrl = $"https://hayabusa.io/abema/channels/logo/{ChannelType}.w120.png";
 
             // 1分毎にサムネとか更新
             var val = configuration.Root.Operation.UpdateIntervalOfThumbnails;
@@ -46,12 +46,11 @@ namespace Norma.Models
                 StartAt = currentSlot.StartAt;
                 EndAt = currentSlot.EndAt;
             }
-            var channel = ChannelType.ToUrlString();
             var date = DateTime.Now;
             if (date.Second % 10 != 0)
                 date = date.AddSeconds(-(date.Second % 10)); // サムネイルが10秒に発行されるので、N % 10 == 0秒に修正する
             var time = date.ToString("yyyyMMddHHmmss");
-            ThumbnailUrl = $"https://hayabusa.io/abema/channels/time/{time}/{channel}.w132.h75.png";
+            ThumbnailUrl = $"https://hayabusa.io/abema/channels/time/{time}/{ChannelType}.w132.h75.png";
             StatusInfo.Instance.Text = Resources.ReloadingThumbnail;
         }
 

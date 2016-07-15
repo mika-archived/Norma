@@ -21,7 +21,7 @@ namespace Norma.ViewModels.Controls
         public ReadOnlyReactiveCollection<string> Casts { get; }
         public ReadOnlyReactiveCollection<string> Crews { get; private set; }
 
-        public AbemaProgramInfoViewModel(AbemaState abemaState)
+        public AbemaProgramInfoViewModel(AbemaState abemaState, Timetable timetable)
         {
             var programHost = new ProgramHost(abemaState).AddTo(this);
             Title = programHost.ObserveProperty(w => w.Title).ToReadOnlyReactiveProperty().AddTo(this);
@@ -32,7 +32,7 @@ namespace Norma.ViewModels.Controls
             Thumbnail1 = programHost.ObserveProperty(w => w.Thumbnail1).ToReadOnlyReactiveProperty().AddTo(this);
             Thumbnail2 = programHost.ObserveProperty(w => w.Thumbnail2).ToReadOnlyReactiveProperty().AddTo(this);
             AtChannel = abemaState.ObserveProperty(w => w.CurrentChannel)
-                                  .Select(w => $"at {w.ToLocaleString()}")
+                                  .Select(w => $"at {w.Name.Replace("チャンネル", "")}")
                                   .ToReadOnlyReactiveProperty().AddTo(this);
             Range = abemaState.ObserveProperty(w => w.CurrentSlot)
                               .Select(w => $"{w?.StartAt.ToString("t")} ～ {w?.EndAt.ToString("t")}")

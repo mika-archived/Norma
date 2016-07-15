@@ -33,6 +33,7 @@ namespace Norma.Eta.Models
         }
 
         public ObservableCollection<string> CurrentChannels { get; }
+        public Channel CurrentChannel { get; }
 
         public DateTime LastSyncTime => _cache.SyncDateTime;
 
@@ -41,6 +42,7 @@ namespace Norma.Eta.Models
             _abemaApiHost = abemaApiHost;
             _cache = new TimetableCache();
             CurrentChannels = new ObservableCollection<string>();
+            CurrentChannel = null;
             Load();
         }
 
@@ -90,9 +92,9 @@ namespace Norma.Eta.Models
             }
         }
 
-        public Slot CurrentSlot(AbemaChannel channel)
+        public Slot CurrentSlot(string channel)
         {
-            var schedule = ChannelSchedules.FirstOrDefault(w => w.ChannelId == channel.ToUrlString());
+            var schedule = ChannelSchedules.FirstOrDefault(w => w.ChannelId == channel);
             return schedule?.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);
         }
 

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 
 using Norma.Eta.Properties;
 
 namespace Norma.Eta.Models
 {
+    [Obsolete("Removed by 1.5", false)]
     public enum AbemaChannel
     {
         /// <summary>
@@ -208,6 +210,11 @@ namespace Norma.Eta.Models
             }
         }
 
+        public static string ToIdentifier(string url)
+        {
+            return url.Replace("https://abema.tv/now-on-air/", "");
+        }
+
         public static AbemaChannel FromUrlString(string url)
         {
             var str = url.Replace("https://abema.tv/now-on-air/", "");
@@ -295,7 +302,21 @@ namespace Norma.Eta.Models
 
         public static string ToLocaleString(this AbemaChannel obj)
         {
-            return (string) typeof(Resources).GetProperty(obj.ToString()).GetValue(null);
+            return ToLocaleString(obj.ToUrlString());
+        }
+
+        public static string ToLocaleString(string identifier)
+        {
+            identifier = identifier.Replace("-", "_");
+            try
+            {
+                return (string) typeof(Resources).GetProperty(identifier).GetValue(null);
+            }
+            catch
+            {
+                Debug.WriteLine($"WARN: i18n resource key '{identifier}' is not found on resx.");
+                return $"##{identifier}##";
+            }
         }
     }
 }

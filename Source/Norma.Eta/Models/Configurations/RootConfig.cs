@@ -13,6 +13,9 @@ namespace Norma.Eta.Models.Configurations
         public AbemaChannel LastViewedChannel { get; set; }
 
         [JsonProperty]
+        public string LastViewedChannelStr { get; set; }
+
+        [JsonProperty]
         public BrowserConfig Browser { get; set; }
 
         [JsonProperty]
