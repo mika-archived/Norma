@@ -6,7 +6,8 @@ Norma
 [![license](https://img.shields.io/github/license/fuyuno/norma.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/blob/develop/LICENSE)
 
 "Norma" is unoffcial desktop application for [AbemaTV](https://abema.tv).  
-This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).
+This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).  
+Readme 日本語版は[こちら](README.md).
 
 ## Screenshots
 ![alt](https://cloud.githubusercontent.com/assets/10832834/15974547/f8aa96f8-2f83-11e6-8db1-5025b9f70b60.PNG)  
@@ -44,6 +45,27 @@ See [this page](https://github.com/fuyuno/Norma/wiki/How-to-use).
 
 # Support
 Tweet with hashtag "[#Norma](https://twitter.com/search?f=tweets&vertical=default&q=%23Norma%20lang%3Aja&src=typd)" or send reply to me.
+
+### Support target
+#### Norma
+
+| Version | Status      |
+| ------- | ----------- |
+| 1.4     | Support     |
+| 1.3     | Support     |
+| 1.2     | Unsupported |
+| 1.1     | Unsupported |
+| 1.0     | Unsupported |
+
+
+#### Windows
+
+| OS          | Build        | Status      |
+| ----------- | ------------ | ----------- |
+| Windows 10  | 10586        | Support     |
+| Windows 10  |              | Unsupported |
+| Windows 8.1 | --           | Support     |
+| Windows 7   | --           | Unsupported | 
 
 
 ## References
