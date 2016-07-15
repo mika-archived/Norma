@@ -41,6 +41,7 @@
             <TextBlock Text="{Binding IsSupportNewToast}" />
             <TextBlock Text="{Binding IsSupportToast}" />
             <TextBlock Text="{Binding OsVersion}" />
+            <TextBlock Text="{Binding ChromiumVersion}" />
         </StackPanel>
     </Grid>
 </UserControl>
