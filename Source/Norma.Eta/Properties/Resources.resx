@@ -495,4 +495,10 @@
   <data name="world_sports_1" xml:space="preserve">
     <value>SPORTS LIVE</value>
   </data>
+  <data name="RegToStartup" xml:space="preserve">
+    <value>Register Norma to startup</value>
+  </data>
+  <data name="UnregFromStartup" xml:space="preserve">
+    <value>Unregister Norma from startup</value>
+  </data>
 </root>

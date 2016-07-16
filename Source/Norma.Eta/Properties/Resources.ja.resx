@@ -495,4 +495,10 @@
   <data name="world_sports_1" xml:space="preserve">
     <value>SPORTS LIVE</value>
   </data>
+  <data name="RegToStartup" xml:space="preserve">
+    <value>Norma をスタートアップに登録する</value>
+  </data>
+  <data name="UnregFromStartup" xml:space="preserve">
+    <value>Norma のスタートアップ登録を解除する</value>
+  </data>
 </root>

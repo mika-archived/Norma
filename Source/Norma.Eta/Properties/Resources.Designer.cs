@@ -880,6 +880,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Register Norma to startup に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RegToStartup {
+            get {
+                return ResourceManager.GetString("RegToStartup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Reload browser on broadcast commercials. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ReloadBrowserOnBroadcastCommercials {
@@ -1083,6 +1092,15 @@ namespace Norma.Eta.Properties {
         public static string Type {
             get {
                 return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Unregister Norma from startup に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string UnregFromStartup {
+            get {
+                return ResourceManager.GetString("UnregFromStartup", resourceCulture);
             }
         }
         
