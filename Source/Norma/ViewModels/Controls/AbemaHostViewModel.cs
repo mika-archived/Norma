@@ -1,4 +1,7 @@
-﻿using CefSharp;
+﻿using System;
+using System.Threading;
+
+using CefSharp;
 using CefSharp.Wpf;
 
 using Newtonsoft.Json.Linq;
@@ -47,6 +50,13 @@ namespace Norma.ViewModels.Controls
         {
             var args = operation as ChangeChannelOp;
             var channel = AbemaChannelExt.ToIdentifier(args?.Context.ToString());
+            // うーん？
+            Address = "https://abema.tv";
+            do
+            {
+                Thread.Sleep(TimeSpan.FromMilliseconds(100));
+            }
+            while (_javaScritHost == null);
             Address = $"https://abema.tv/now-on-air/{channel}";
         }
 
