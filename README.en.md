@@ -13,11 +13,12 @@ Readme 日本語版は[こちら](README.md).
 ![alt](https://cloud.githubusercontent.com/assets/10832834/15974547/f8aa96f8-2f83-11e6-8db1-5025b9f70b60.PNG)  
 ![alt](https://cloud.githubusercontent.com/assets/10832834/15974591/37990d5e-2f84-11e6-9a3d-c84a43093e0c.PNG)
 
+
 ## Requirements
 
-* Microsoft .NET Framework 4.6.1
+* Microsoft .NET Framework 4.6+
 * Visual C++ Redistributable Packages for Visual Studio 2013
-* Adobe Flash Player FP 21 for Opera and Chromium - PPAPI
+* Adobe Flash Player FP 21+ for Opera and Chromium - PPAPI
 
 
 ## Installation
