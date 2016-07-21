@@ -76,7 +76,6 @@ namespace Norma.Eta.Models
                     _isRegistered = true;
                 else
                     _isRegistered = false;
-                var names = registry.GetValueNames();
                 return _isRegistered.Value;
             }
             private set { _isRegistered = value; }
