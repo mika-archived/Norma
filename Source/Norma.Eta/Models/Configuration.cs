@@ -52,7 +52,8 @@ namespace Norma.Eta.Models
             if (Root.Internal == null)
                 Root.Internal = new InternalConfig();
 
-            Root.LastViewedChannelStr = Root.LastViewedChannel.ToUrlString();
+            if (string.IsNullOrWhiteSpace(Root.LastViewedChannelStr))
+                Root.LastViewedChannelStr = Root.LastViewedChannel.ToUrlString();
         }
     }
 }

@@ -23,11 +23,11 @@ namespace Norma.Models
             _abemaApiHost = abemaApiHost;
             _configuration = configuration;
             _timetable = timetable;
-            CurrentChannel = _timetable.Channels.Single(w => w.Id == _configuration.Root.LastViewedChannelStr);
         }
 
         public void Start()
         {
+            CurrentChannel = _timetable.Channels.Single(w => w.Id == _configuration.Root.LastViewedChannelStr);
             var val = _configuration.Root.Operation.UpdateIntervalOfProgram;
             _disposable =
                 Observable.Timer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
