@@ -61,9 +61,9 @@ Tweet with hashtag "[#Norma](https://twitter.com/search?f=tweets&vertical=defaul
 
 #### Windows
 
-| OS          | Build        | Status      |
+| OS          | Version      | Status      |
 | ----------- | ------------ | ----------- |
-| Windows 10  | 10586        | Support     |
+| Windows 10  | 1511         | Support     |
 | Windows 10  |              | Unsupported |
 | Windows 8.1 | --           | Support     |
 | Windows 7   | --           | Unsupported | 
