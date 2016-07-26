@@ -60,7 +60,7 @@ function Copy-To($path1, $path2) {
     }
 }
 
-function Process($path, $artifact) {
+function Process($path, $dest) {
     $origin = Get-Location
     try {    
         if (-not (Test-Path -Path $path)) {
@@ -73,10 +73,10 @@ function Process($path, $artifact) {
         # }
         $local = Get-Location
         # Compress-Archive -Path "Release\*" -DestinationPath "Norma.zip"
-        Compress-Archive2 "$local\Release" "$local\$artifact"
-        Write-Host "Output to $local\$artifact"
+        Compress-Archive2 "$local\Release" "$local\$dest"
+        Write-Host "Output to $local\$dest"
     } catch {
-        Write-Host "Error throwed"
+        Write-Host $error[0].exception
     } finally {
         Set-Location $origin
     }
@@ -105,5 +105,5 @@ Copy-To $iota_dir $main_dir
 Copy-Item -Path "Assemblies\$arch\SQLite.Interop.dll" -Destination "$main_dir\SQLite.Interop.dll"
 
 Cleanup $main_dir
-Process $main_dir
+Process $main_dir $artifact
 Push-AppveyorArtifact "$bin_dir\$artifact" -FileName $artifact
