@@ -73,7 +73,8 @@ function Process($path, $artifact) {
         # }
         $local = Get-Location
         # Compress-Archive -Path "Release\*" -DestinationPath "Norma.zip"
-        Compress-Archive2 "$local\Release" "$local\$artifact.zip"
+        Compress-Archive2 "$local\Release" "$local\$artifact"
+        Write-Host "Output to $local\$artifact"
     } catch {
         Write-Host "Error throwed"
     } finally {
@@ -89,7 +90,8 @@ if (Test-Path -Path "Source\Norma\bin\x64\Release") {
     $arch = "x86"
 }
 
-$artifact = "Norma_$arch_$($env:APPVEYOR_BUILD_VERSION).zip"
+$artifact = "Norma_$($arch)_$($env:APPVEYOR_BUILD_VERSION).zip"
+
 $ips_dir = "Source\Norma.Ipsilon\bin\$arch\Release"
 $iota_dir = "Source\Norma.Iota\bin\$arch\Release"
 $main_dir = "Source\Norma\bin\$arch\Release"
