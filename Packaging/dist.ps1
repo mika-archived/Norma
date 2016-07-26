@@ -96,6 +96,7 @@ $ips_dir = "Source\Norma.Ipsilon\bin\$arch\Release"
 $iota_dir = "Source\Norma.Iota\bin\$arch\Release"
 $main_dir = "Source\Norma\bin\$arch\Release"
 $bin_dir = "Source\Norma\bin\$arch"
+$deployment_name = "Norma_$arch.zip"
 
 Cleanup $ips_dir
 Cleanup $iota_dir
@@ -106,4 +107,4 @@ Copy-Item -Path "Assemblies\$arch\SQLite.Interop.dll" -Destination "$main_dir\SQ
 
 Cleanup $main_dir
 Process $main_dir $artifact
-Push-AppveyorArtifact "$bin_dir\$artifact" -FileName $artifact
+Push-AppveyorArtifact "$bin_dir\$artifact" -FileName $artifact -DeploymentName $deployment_name
