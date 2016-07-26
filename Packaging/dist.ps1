@@ -83,16 +83,17 @@ function Process($path, $artifact) {
 
 if (Test-Path -Path "Source\Norma\bin\x64\Release") {
     # x64
-    $arch = "x64";
+    $arch = "x64"
 } else {
     # x86
-    $arch = "x86";
+    $arch = "x86"
 }
 
-$artifact = "Norma_$arch_$($env:APPVEYOR_BUILD_VERSION).zip";
-$ips_dir = "Source\Norma.Ipsilon\bin\$arch\Release";
-$iota_dir = "Source\Norma.Iota\bin\$arch\Release";
-$main_dir = "Source\Norma\bin\$arch\Release";
+$artifact = "Norma_$arch_$($env:APPVEYOR_BUILD_VERSION).zip"
+$ips_dir = "Source\Norma.Ipsilon\bin\$arch\Release"
+$iota_dir = "Source\Norma.Iota\bin\$arch\Release"
+$main_dir = "Source\Norma\bin\$arch\Release"
+$bin_dir = "Source\Norma\bin\$arch"
 
 Cleanup $ips_dir
 Cleanup $iota_dir
@@ -103,3 +104,4 @@ Copy-Item -Path "Assemblies\$arch\SQLite.Interop.dll" -Destination "$main_dir\SQ
 
 Cleanup $main_dir
 Process $main_dir
+Push-AppveyorArtifact "$bin_dir\$artifact" -FileName $artifact
