@@ -57,6 +57,7 @@ namespace Norma.Models
                 HideTvContainerFooter();
             if (_configuration.Root.Browser.HiddenSideControls)
                 HideTvContainerSide();
+            HideTwitterContainer();
         }
 
         private void DisableChangeChannelByMouseScroll()
@@ -126,6 +127,22 @@ function cs_HideTvContainerSide() {
 setTimeout(cs_HideTvContainerSide, 500);
 ";
             StatusInfo.Instance.Text = Resources.HiddenSideControls;
+            WrapExecuteScriptAsync(jsCode);
+        }
+
+        private void HideTwitterContainer()
+        {
+            const string jsCode = @"
+function cs_HideTvContainerSide() {
+  var appContainerSide = window.document.querySelector('[class^=""styles__container___""]');
+  if (appContainerSide == null) {
+    return;
+  }
+  appContainerSide.style.display = 'none';
+};
+setTimeout(cs_HideTvContainerSide, 500);
+";
+            // StatusInfo.Instance.Text = Resources.HiddenSideControls;
             WrapExecuteScriptAsync(jsCode);
         }
 
