@@ -23,6 +23,8 @@ namespace Norma.Models.Browser
             settings.CefCommandLineArgs.Add("disable-gpu", "1");
             settings.CefCommandLineArgs.Add("disable-gpu-compositing", "1");
             settings.CefCommandLineArgs.Add("enable-begin-frame-scheduling", "1");
+            settings.CefCommandLineArgs.Add("enable-webrtc-hw-h264-encoding", "1");
+            settings.CefCommandLineArgs.Add("enable-webrtc-hw-h264-decoding", "1");
 
             Cef.OnContextInitialized = () =>
             {
