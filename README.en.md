@@ -84,8 +84,3 @@ Very thanks!
 3. Commit your changes (`git commit -am "Add new feature"`)
 4. Push to the branch (`git push origin HEAD`)
 5. Open a [Pull Request](https://github.com/fuyuno/Norma/pulls)
-
-
-## Warning
-**If this application has a problem, please contact me.**  
-**I will delete all artifacts, source codes and repository.**
