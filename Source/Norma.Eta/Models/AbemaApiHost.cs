@@ -30,7 +30,7 @@ namespace Norma.Eta.Models
                 {
                     var token = _abemaTv.Root.Token(osName => "pc", osVersion => "1.0.0",
                                                     osLang => "ja", osTimezone => "Asia/Tokyo",
-                                                    appVersion => "v1.0.34");
+                                                    appVersion => "v1.0.41");
                     Debug.WriteLine($"AccessToken is valid : {token.Token}");
                 }
                 catch
