@@ -52,6 +52,7 @@
     <Compile Include="Api\Preload.cs" />
     <Compile Include="Api\RootApi.cs" />
     <Compile Include="Api\Users.cs" />
+    <Compile Include="AppVersionAttribute.cs" />
     <Compile Include="Converters\DateDateTimeConverter.cs" />
     <Compile Include="Converters\KeyValuePairConverter.cs" />
     <Compile Include="Converters\UnixTimeDateTimeConverter.cs" />

@@ -54,7 +54,7 @@ namespace Norma.Models
             if (false)
             {
                 Title = slot.Title;
-                Description = slot.Programs[0].Episode.Overview;
+                Description = slot.DetailHighlight;
                 ProvideCredits(slot.Programs[0].Credit);
                 ProvideThumbnails(slot.Programs[0]);
             }
@@ -63,8 +63,8 @@ namespace Norma.Models
             {
                 // FIX: AbemaTV が、 slot.programs[0].episode.title などを提供しなくなった。
                 //      それ故、 Episode.Name と Episode.Overview が null になる。
-                Title = $"{slot.Title} - {program.Episode.Name} \"Ep.{program.Episode.Sequence}\"";
-                Description = program.Episode.Overview ?? slot.TableHighlight;
+                Title = $"{slot.Title} - Ep.{program.Episode.Sequence}";
+                Description = slot.Content ?? slot.TableHighlight;
                 ProvideCredits(program.Credit);
                 ProvideThumbnails(program);
             }

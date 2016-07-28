@@ -2,6 +2,7 @@
 
 namespace Norma.Gamma.Models
 {
+    [AppVersion("1.0.41")]
     public class Flags
     {
         [JsonProperty("share")]

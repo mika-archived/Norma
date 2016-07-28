@@ -1,7 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+
+using Newtonsoft.Json;
+
+using Norma.Gamma.Converters;
 
 namespace Norma.Gamma.Models
 {
+    [AppVersion("1.0.41")]
     public class Series
     {
         [JsonProperty("id")]
@@ -9,5 +14,9 @@ namespace Norma.Gamma.Models
 
         [JsonProperty("themeColor")]
         public ThemeColor ThemeColor { get; set; }
+
+        [JsonProperty("updatedAt")]
+        [JsonConverter(typeof(UnixTimeDateTimeConverter))]
+        public DateTime UpdatedAt { get; set; }
     }
 }

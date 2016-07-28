@@ -32,7 +32,7 @@ namespace Norma.Iota.Models
 
             if (Model.Programs.Length > 0)
             {
-                DetailHighlight = Model.Programs[0].Episode.Overview;
+                DetailHighlight = Model.DetailHighlight;
                 Cast = Model.Programs[0].Credit.Cast?.ToList();
                 Staff = Model.Programs[0].Credit.Crews?.ToList();
             }

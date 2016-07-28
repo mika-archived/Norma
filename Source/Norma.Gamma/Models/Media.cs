@@ -6,6 +6,7 @@ using Norma.Gamma.Converters;
 
 namespace Norma.Gamma.Models
 {
+    [AppVersion("1.0.41")]
     public class Media
     {
         [JsonProperty("channels")]
