@@ -63,7 +63,7 @@ namespace Norma.Models
             {
                 // FIX: AbemaTV が、 slot.programs[0].episode.title などを提供しなくなった。
                 //      それ故、 Episode.Name と Episode.Overview が null になる。
-                Title = $"{slot.Title} - Ep.{program.Episode.Sequence}";
+                Title = $"{slot.Title} - #{program.Episode.Sequence}";
                 Description = slot.Content ?? slot.TableHighlight;
                 ProvideCredits(program.Credit);
                 ProvideThumbnails(program);
