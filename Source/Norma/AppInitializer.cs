@@ -4,6 +4,7 @@ using System.Windows;
 
 using MetroRadiance.UI;
 
+using Norma.Behaviors;
 using Norma.Eta;
 using Norma.Eta.Models;
 using Norma.Models;
@@ -57,6 +58,8 @@ namespace Norma
         /// </summary>
         public static void Initialize()
         {
+            // どうなん
+            CaptureHttpRequestBehavior.IsEnabledCapture = Configuration.Root.Others.IsEnabledExperimentalFeatures;
             AbemaApiHost.Initialize();
             Timetable.Sync();
             Timetable.Start();

@@ -8,12 +8,15 @@ namespace Norma.Behaviors
 {
     internal class CaptureHttpRequestBehavior : Behavior<ChromiumWebBrowser>
     {
+        public static bool IsEnabledCapture { get; set; }
+
         #region Overrides of Behavior
 
         protected override void OnAttached()
         {
             base.OnAttached();
-            AssociatedObject.ResourceHandlerFactory = new HttpResourceHandlerFactory();
+            if (IsEnabledCapture)
+                AssociatedObject.ResourceHandlerFactory = new HttpResourceHandlerFactory();
         }
 
         #endregion
