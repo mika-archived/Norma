@@ -1,5 +1,7 @@
 ﻿using MetroRadiance.UI;
 
+using Newtonsoft.Json;
+
 using Prism.Mvvm;
 
 using ColorTheme = MetroRadiance.UI.Theme;
@@ -9,9 +11,13 @@ namespace Norma.Eta.Models.Configurations
 {
     public class OthersConfig : BindableBase
     {
+        [JsonProperty]
+        public bool IsEnabledExperimentalFeatures { get; set; }
+
         public OthersConfig()
         {
             Theme = ThemeColor.Dark;
+            IsEnabledExperimentalFeatures = false;
         }
 
         private ColorTheme GetThemeFromSpecifiedColor(ThemeColor color)

@@ -77,6 +77,16 @@
                     <options:Others DataContext="{Binding OthersViewModel}" />
                 </ScrollViewer>
             </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
+                               Text="Experimental" />
+                </TabItem.Header>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
+                    <options:Experimental DataContext="{Binding ExperimentalViewModel}" />
+                </ScrollViewer>
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>

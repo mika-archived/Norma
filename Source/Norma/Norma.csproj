@@ -261,6 +261,7 @@
     <Compile Include="ViewModels\Controls\AbemaStatusViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaHostViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaTVGuideViewModel.cs" />
+    <Compile Include="ViewModels\Tabs\Options\ExperimentalViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\SettingsContentViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\Tabs\LicensesTabViewModel.cs" />
@@ -307,6 +308,9 @@
     </Compile>
     <Compile Include="Views\Tabs\Options\Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\Options\Experimental.xaml.cs">
+      <DependentUpon>Experimental.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tabs\Options\Operation.xaml.cs">
       <DependentUpon>Operation.xaml</DependentUpon>
@@ -390,6 +394,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Tabs\Options\Browser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tabs\Options\Experimental.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
