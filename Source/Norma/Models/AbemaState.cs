@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Threading.Tasks;
 
 using Norma.Eta.Models;
 using Norma.Gamma.Models;
@@ -13,14 +12,12 @@ namespace Norma.Models
 {
     internal class AbemaState : BindableBase
     {
-        private readonly AbemaApiHost _abemaApiHost;
         private readonly Configuration _configuration;
         private readonly Timetable _timetable;
         private IDisposable _disposable;
 
-        public AbemaState(AbemaApiHost abemaApiHost, Configuration configuration, Timetable timetable)
+        public AbemaState(Configuration configuration, Timetable timetable)
         {
-            _abemaApiHost = abemaApiHost;
             _configuration = configuration;
             _timetable = timetable;
         }
@@ -30,7 +27,7 @@ namespace Norma.Models
             CurrentChannel = _timetable.Channels.Single(w => w.Id == _configuration.Root.LastViewedChannelStr);
             var val = _configuration.Root.Operation.UpdateIntervalOfProgram;
             _disposable =
-                Observable.Timer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
+                Observable.Timer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(val)).Subscribe(w => Sync());
         }
 
         ~AbemaState()
@@ -45,10 +42,10 @@ namespace Norma.Models
             if (CurrentChannel != null)
                 _configuration.Root.LastViewedChannelStr = CurrentChannel.Id;
             var val = _configuration.Root.Operation.UpdateIntervalOfProgram;
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(w => Sync());
         }
 
-        private async Task Sync()
+        private void Sync()
         {
             try
             {
@@ -67,8 +64,7 @@ namespace Norma.Models
                     CurrentProgram = null;
                     return;
                 }
-                var currentDetail = await _abemaApiHost.CurrentSlot(currentSlot.Id);
-                CurrentSlot = currentDetail?.Id == null ? currentSlot : currentDetail;
+                CurrentSlot = currentSlot;
                 var perTime = (CurrentSlot.EndAt - CurrentSlot.StartAt).TotalSeconds / CurrentSlot.Programs.Length;
                 var count = 0;
                 while (!(CurrentSlot.StartAt.AddSeconds(perTime * count) <= DateTime.Now &&
