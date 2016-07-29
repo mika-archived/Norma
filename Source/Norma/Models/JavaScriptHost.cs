@@ -133,14 +133,14 @@ setTimeout(cs_HideTvContainerSide, 500);
         private void HideTwitterContainer()
         {
             const string jsCode = @"
-function cs_HideTvContainerSide() {
+function cs_HideTwitterContainer() {
   var appContainerSide = window.document.querySelector('[class^=""styles__container___""]');
   if (appContainerSide == null) {
     return;
   }
-  appContainerSide.style.display = 'none';
+  appContainerSide.style.transform = 'translateX(-20px) translateX(-100%)';
 };
-setTimeout(cs_HideTvContainerSide, 500);
+setTimeout(cs_HideTwitterContainer, 500);
 ";
             // StatusInfo.Instance.Text = Resources.HiddenSideControls;
             WrapExecuteScriptAsync(jsCode);
