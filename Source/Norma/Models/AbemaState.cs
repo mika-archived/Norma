@@ -52,11 +52,18 @@ namespace Norma.Models
         {
             try
             {
-                var schedule = _timetable.ChannelSchedules.First(w => w.ChannelId == CurrentChannel.Id);
+                var schedule = _timetable.ChannelSchedules.FirstOrDefault(w => w.ChannelId == CurrentChannel.Id);
+                if (schedule == null)
+                {
+                    CurrentSlot = null;
+                    CurrentProgram = null;
+                    return;
+                }
                 var currentSlot =
                     schedule.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);
                 if (currentSlot == null)
                 {
+                    CurrentSlot = null;
                     CurrentProgram = null;
                     return;
                 }

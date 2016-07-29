@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
 
 using Microsoft.Practices.ObjectBuilder2;
 
@@ -26,6 +27,7 @@ namespace Norma.Models
 
             _abemaState = abemaState;
             _compositeDisposable.Add(abemaState.ObserveProperty(w => w.CurrentProgram)
+                                               .Where(w => w != null)
                                                .Subscribe(w => FetchProgramInfo()));
             FetchProgramInfo(); // Init
         }
