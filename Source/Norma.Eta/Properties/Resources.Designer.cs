@@ -97,6 +97,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Add to NG list に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string AddToNG {
+            get {
+                return ResourceManager.GetString("AddToNG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Anime24 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string anime24 {
@@ -192,6 +201,15 @@ namespace Norma.Eta.Properties {
         public static string ConfirmDelete {
             get {
                 return ResourceManager.GetString("ConfirmDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Copy comment に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string CopyComment {
+            get {
+                return ResourceManager.GetString("CopyComment", resourceCulture);
             }
         }
         

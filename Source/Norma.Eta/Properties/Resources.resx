@@ -501,4 +501,10 @@
   <data name="UnregFromStartup" xml:space="preserve">
     <value>Unregister Norma from startup</value>
   </data>
+  <data name="AddToNG" xml:space="preserve">
+    <value>Add to NG list</value>
+  </data>
+  <data name="CopyComment" xml:space="preserve">
+    <value>Copy comment</value>
+  </data>
 </root>

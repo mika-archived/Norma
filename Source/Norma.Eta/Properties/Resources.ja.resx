@@ -501,4 +501,10 @@
   <data name="UnregFromStartup" xml:space="preserve">
     <value>Norma のスタートアップ登録を解除する</value>
   </data>
+  <data name="AddToNG" xml:space="preserve">
+    <value>NG リストに追加</value>
+  </data>
+  <data name="CopyComment" xml:space="preserve">
+    <value>コメントをコピー</value>
+  </data>
 </root>

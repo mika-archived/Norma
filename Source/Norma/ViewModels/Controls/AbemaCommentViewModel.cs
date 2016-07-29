@@ -10,10 +10,10 @@ namespace Norma.ViewModels.Controls
     {
         public ReadOnlyReactiveCollection<CommentViewModel> Comments { get; }
 
-        public AbemaCommentViewModel(AbemaApiHost abemaApiHost, AbemaState abemaState, Configuration configuration)
+        public AbemaCommentViewModel(AbemaApiHost abemaApiHost, AbemaState abemaState, Configuration c)
         {
-            var commentHost = new CommentHost(abemaApiHost, abemaState, configuration).AddTo(this);
-            Comments = commentHost.Comments.ToReadOnlyReactiveCollection(w => new CommentViewModel(w)).AddTo(this);
+            var commentHost = new CommentHost(abemaApiHost, abemaState, c).AddTo(this);
+            Comments = commentHost.Comments.ToReadOnlyReactiveCollection(w => new CommentViewModel(w, c)).AddTo(this);
         }
     }
 }
