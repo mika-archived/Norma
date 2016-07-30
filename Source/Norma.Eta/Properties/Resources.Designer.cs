@@ -1195,6 +1195,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Viewing serias reservation に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ViewingSRsv {
+            get {
+                return ResourceManager.GetString("ViewingSRsv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Wednesday に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Wednesday {

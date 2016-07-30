@@ -164,6 +164,31 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         #endregion
 
+        #region AddSeriesReservationCommand
+
+        private ICommand _addSeriesRsvCommand;
+
+        public ICommand AddSeriesRsvCommand
+            => _addSeriesRsvCommand ?? (_addSeriesRsvCommand = new DelegateCommand(AddSeriesRsv, CanAddSeriesRsv));
+
+        private void AddSeriesRsv()
+        {
+            var slot = ((WrapSlot) RawNotification.Model).Model;
+            _rsvs.AddReservation(slot.Programs[0].Series.Id);
+            ((DelegateCommand) AddReservationCommand).RaiseCanExecuteChanged();
+        }
+
+        private bool CanAddSeriesRsv()
+        {
+            if (RawNotification == null)
+                return false;
+            var model = (WrapSlot) RawNotification.Model;
+            return !_rsvs.RsvBySeries.Any(w => w.IsEnable && w.SeriesId == model.Model.Programs[0].Series.Id) &&
+                   model.CanRsv;
+        }
+
+        #endregion
+
         #region AddDetailsReservationCommand
 
         private ICommand _addDetailsRsvCommand;

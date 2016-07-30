@@ -25,6 +25,9 @@ namespace Norma.Eta.Models.Reservations
         // RsvKeyword
         public bool IsRegexMode { get; set; }
 
+        // RsvSeries
+        public string SeriesId { get; set; }
+
         public RsvAll()
         {
             StartDate = DateTime.MinValue;
@@ -33,6 +36,7 @@ namespace Norma.Eta.Models.Reservations
             DayOfWeek = RepetitionType.None;
             Keyword = "";
             IsRegexMode = false;
+            SeriesId = "";
         }
 
         // ReSharper disable PossibleInvalidOperationException
@@ -121,6 +125,11 @@ namespace Norma.Eta.Models.Reservations
             {
                 var program = (RsvProgram2) reserve;
                 rsvAll.ProgramId = program.ProgramId;
+            }
+            else if (reserve is RsvSeries)
+            {
+                var series = (RsvSeries) reserve;
+                rsvAll.SeriesId = series.SeriesId;
             }
             return rsvAll;
         }

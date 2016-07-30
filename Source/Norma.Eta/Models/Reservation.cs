@@ -34,6 +34,10 @@ namespace Norma.Eta.Models
             => _dbContext.Reservations.Where(w => w.Type == nameof(RsvProgram2)).ToList()
                          .Select(w => w.Cast<RsvProgram2>()).ToList().AsReadOnly();
 
+        public ReadOnlyCollection<RsvSeries> RsvBySeries
+            => _dbContext.Reservations.Where(w => w.Type == nameof(RsvSeries)).ToList()
+                         .Select(w => w.Cast<RsvSeries>()).ToList().AsReadOnly();
+
         public Reservation(Timetable timetable)
         {
             _timetable = timetable;
@@ -85,6 +89,47 @@ namespace Norma.Eta.Models
             var target = _dbContext.Reservations.Single(w => w.Id == all.Id);
             target.IsEnable = false;
             Save();
+        }
+
+        #endregion
+
+        #region Series
+
+        /// <summary>
+        ///     シリーズを対象とした視聴予約を追加します。
+        /// </summary>
+        /// <param name="seriesId"></param>
+        public void AddReservation(string seriesId)
+        {
+            _dbContext.Reservations.Add(RsvAll.Create(new RsvSeries
+            {
+                SeriesId = seriesId
+            }));
+            Save();
+        }
+
+        /// <summary>
+        ///     対象の RsvSeries を更新します。
+        /// </summary>
+        /// <param name="series"></param>
+        public void UpdateReservation(RsvSeries series)
+        {
+            lock (_lockObj)
+            {
+                var target = _dbContext.Reservations.Single(w => w.Id == series.Id);
+                target.SeriesId = series.SeriesId;
+                SaveWithoutLock();
+            }
+        }
+
+        /// <summary>
+        ///     対象の RsvSeries を削除します。
+        /// </summary>
+        /// <param name="series"></param>
+        public void DeleteReservation(RsvSeries series)
+        {
+            series.IsEnable = false;
+            UpdateReservation(series);
         }
 
         #endregion

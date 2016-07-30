@@ -319,7 +319,7 @@
     <value>詳細予約</value>
   </data>
   <data name="ViewingRsv" xml:space="preserve">
-    <value>視聴予約</value>
+    <value>単体視聴予約</value>
   </data>
   <data name="Wednesday" xml:space="preserve">
     <value>水曜日</value>
@@ -509,5 +509,8 @@
   </data>
   <data name="InjectCss" xml:space="preserve">
     <value>Norma カスタム CSS を追加しています...</value>
+  </data>
+  <data name="ViewingSRsv" xml:space="preserve">
+    <value>シリーズ視聴予約</value>
   </data>
 </root>

@@ -510,4 +510,7 @@
   <data name="InjectCss" xml:space="preserve">
     <value>Injecting Norma custom CSS...</value>
   </data>
+  <data name="ViewingSRsv" xml:space="preserve">
+    <value>Viewing serias reservation</value>
+  </data>
 </root>
