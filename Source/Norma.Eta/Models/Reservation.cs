@@ -120,7 +120,7 @@ namespace Norma.Eta.Models
             lock (_lockObj)
             {
                 var target = _dbContext.Reservations.Single(w => w.Id == series.Id);
-                // target.SeriesId = series.SeriesId;
+                target.SeriesId = series.SeriesId;
                 SaveWithoutLock();
             }
         }
