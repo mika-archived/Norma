@@ -67,8 +67,11 @@ namespace Norma.Models
                     CurrentProgram = null;
                     return;
                 }
-                var currentDetail = await _abemaApiHost.CurrentSlot(currentSlot.Id);
-                CurrentSlot = currentDetail?.Id == null ? currentSlot : currentDetail;
+                if (CurrentSlot?.Id != currentSlot.Id)
+                {
+                    var currentDetail = await _abemaApiHost.CurrentSlot(currentSlot.Id);
+                    CurrentSlot = currentDetail?.Id == null ? currentSlot : currentDetail;
+                }
                 var perTime = (CurrentSlot.EndAt - CurrentSlot.StartAt).TotalSeconds / CurrentSlot.Programs.Length;
                 var count = 0;
                 while (!(CurrentSlot.StartAt.AddSeconds(perTime * count) <= DateTime.Now &&
