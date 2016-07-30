@@ -28,7 +28,7 @@
                 </ContextMenu>
             </ListView.Resources>
             <ListView.ItemContainerStyle>
-                <Style BasedOn="{StaticResource MetroStyleListViewItem}"
+                <Style BasedOn="{StaticResource SelectHighlightListViewItem}"
                        TargetType="ListViewItem">
                     <Setter Property="ContextMenu" Value="{StaticResource ListViewItemContextMenu}" />
                 </Style>
