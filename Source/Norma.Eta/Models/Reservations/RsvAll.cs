@@ -36,7 +36,7 @@ namespace Norma.Eta.Models.Reservations
             DayOfWeek = RepetitionType.None;
             Keyword = "";
             IsRegexMode = false;
-            SeriesId = "";
+            // SeriesId = "";
         }
 
         // ReSharper disable PossibleInvalidOperationException
@@ -129,7 +129,7 @@ namespace Norma.Eta.Models.Reservations
             else if (reserve is RsvSeries)
             {
                 var series = (RsvSeries) reserve;
-                rsvAll.SeriesId = series.SeriesId;
+                // rsvAll.SeriesId = series.SeriesId;
             }
             return rsvAll;
         }

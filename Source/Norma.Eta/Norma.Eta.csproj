@@ -128,6 +128,12 @@
     <Compile Include="Database\ReservationDbContext.cs" />
     <Compile Include="Extensions\CollectionExt.cs" />
     <Compile Include="Extensions\TimeSpanExt.cs" />
+    <Compile Include="Migrations\201607301326000_CreateMigrationHistoryTable.cs" />
+    <Compile Include="Migrations\201607301326001_InsertDefaultMigrationHistory.cs" />
+    <Compile Include="Migrations\201607301326002_AddRsvAllSeriesId.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\IMigration.cs" />
+    <Compile Include="Models\MigrationHistory.cs" />
     <Compile Include="Models\AbemaApiHost.cs" />
     <Compile Include="Models\AbemaChannel.cs" />
     <Compile Include="Models\AppStartup.cs" />
@@ -181,6 +187,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="SQLite\SqliteMigrationSqlGenerator.cs" />
     <Compile Include="Validations\DateTimeValidator.cs" />
     <Compile Include="Validations\IValidator.cs" />
     <Compile Include="Validations\RegexValidator.cs" />
