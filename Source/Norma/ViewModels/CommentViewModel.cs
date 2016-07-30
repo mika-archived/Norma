@@ -33,7 +33,11 @@ namespace Norma.ViewModels
             => _addToNgCommentCommand ?? (_addToNgCommentCommand = new DelegateCommand(AddToNgComment));
 
         private void AddToNgComment()
-            => _configuration.Root.Operation.MuteKeywords.Add(new MuteKeyword {IsRegex = false, Keyword = Message});
+            => _configuration.Root.Operation.MuteKeywords.Add(new MuteKeyword
+            {
+                IsRegex = true,
+                Keyword = $"^{Message}$"
+            });
 
         #endregion
 
