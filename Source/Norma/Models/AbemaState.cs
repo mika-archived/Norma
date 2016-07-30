@@ -72,6 +72,7 @@ namespace Norma.Models
                     var currentDetail = await _abemaApiHost.CurrentSlot(currentSlot.Id);
                     CurrentSlot = currentDetail?.Id == null ? currentSlot : currentDetail;
                 }
+                // ReSharper disable once PossibleNullReferenceException
                 var perTime = (CurrentSlot.EndAt - CurrentSlot.StartAt).TotalSeconds / CurrentSlot.Programs.Length;
                 var count = 0;
                 while (!(CurrentSlot.StartAt.AddSeconds(perTime * count) <= DateTime.Now &&

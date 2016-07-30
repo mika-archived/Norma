@@ -67,7 +67,6 @@ namespace Norma.ViewModels.Controls
             if (WebBrowser == null)
                 return;
             _javaScritHost = new JavaScriptHost(WebBrowser, _configuration).AddTo(this);
-            _javaScritHost.Address = Address; // Initialize
         }
 
         #region Overrides of ViewModel
@@ -109,7 +108,6 @@ namespace Norma.ViewModels.Controls
             {
                 if (!SetProperty(ref _address, value) || _javaScritHost == null)
                     return;
-                _javaScritHost.Address = value;
                 _abemaState.OnChannelChanged(value);
             }
         }

@@ -507,4 +507,7 @@
   <data name="CopyComment" xml:space="preserve">
     <value>コメントをコピー</value>
   </data>
+  <data name="InjectCss" xml:space="preserve">
+    <value>Norma カスタム CSS を追加しています...</value>
+  </data>
 </root>

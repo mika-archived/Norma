@@ -493,6 +493,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Injecting Norma custom CSS... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string InjectCss {
+            get {
+                return ResourceManager.GetString("InjectCss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Input comment に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string InputComment {

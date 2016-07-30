@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Norma", "Norma\Norma.csproj", "{B82381F5-A5A1-42FF-990E-E8EC03C06583}"
 EndProject
@@ -27,6 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Assemblies", "Assemblies", 
 	ProjectSection(SolutionItems) = preProject
 		..\Assemblies\DesktopToast.dll = ..\Assemblies\DesktopToast.dll
 		..\Assemblies\DesktopToast.xml = ..\Assemblies\DesktopToast.xml
+		..\Assemblies\Vannatech.CoreAudio.dll = ..\Assemblies\Vannatech.CoreAudio.dll
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packaging", "Packaging", "{EE6CA734-2AD7-41DA-8730-60C992094B09}"
@@ -35,8 +36,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packaging", "Packaging", "{
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{E7853467-6D72-4565-B479-4D68B07F365E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Norma.Delta", "Norma.Delta\Norma.Delta.csproj", "{210958B7-2C71-46EC-A256-18264CAFA6F7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "x64", "x64", "{C970333A-C0F5-4C0F-97B7-5522FF1DF0B0}"
 	ProjectSection(SolutionItems) = preProject
@@ -151,18 +150,6 @@ Global
 		{EBE2DF20-507C-4071-846B-88E7C3A459E8}.Release|x64.Build.0 = Release|Any CPU
 		{EBE2DF20-507C-4071-846B-88E7C3A459E8}.Release|x86.ActiveCfg = Release|Any CPU
 		{EBE2DF20-507C-4071-846B-88E7C3A459E8}.Release|x86.Build.0 = Release|Any CPU
-		{210958B7-2C71-46EC-A256-18264CAFA6F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{210958B7-2C71-46EC-A256-18264CAFA6F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{210958B7-2C71-46EC-A256-18264CAFA6F7}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{210958B7-2C71-46EC-A256-18264CAFA6F7}.Debug|x64.Build.0 = Debug|Any CPU
-		{210958B7-2C71-46EC-A256-18264CAFA6F7}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{210958B7-2C71-46EC-A256-18264CAFA6F7}.Debug|x86.Build.0 = Debug|Any CPU
-		{210958B7-2C71-46EC-A256-18264CAFA6F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{210958B7-2C71-46EC-A256-18264CAFA6F7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{210958B7-2C71-46EC-A256-18264CAFA6F7}.Release|x64.ActiveCfg = Release|Any CPU
-		{210958B7-2C71-46EC-A256-18264CAFA6F7}.Release|x64.Build.0 = Release|Any CPU
-		{210958B7-2C71-46EC-A256-18264CAFA6F7}.Release|x86.ActiveCfg = Release|Any CPU
-		{210958B7-2C71-46EC-A256-18264CAFA6F7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,8 +6,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Norma.ViewModels.Tabs.Options"
              d:DataContext="{d:DesignInstance vm:ExperimentalViewModel}"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
              mc:Ignorable="d">
     <Grid Margin="10">
         <Grid.Resources>
@@ -30,6 +28,7 @@
         <CheckBox Grid.Row="0"
                   Grid.Column="0"
                   Grid.ColumnSpan="2"
+                  VerticalAlignment="Center"
                   Content="Enable experimental features"
                   IsChecked="{Binding IsEnabledExperimentalFeatures.Value}" />
         <!--#endregion-->

@@ -6,8 +6,6 @@
              xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
              xmlns:vm="clr-namespace:Norma.ViewModels.Tabs.Options"
              d:DataContext="{d:DesignInstance vm:OthersViewModel}"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
              mc:Ignorable="d">
     <Grid Margin="10">
         <Grid.Resources>
