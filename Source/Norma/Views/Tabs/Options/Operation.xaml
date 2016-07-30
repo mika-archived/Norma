@@ -218,7 +218,7 @@
                             </GridViewColumn.Header>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Keyword}" />
+                                    <TextBlock Text="{Binding DisplayKeyword}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

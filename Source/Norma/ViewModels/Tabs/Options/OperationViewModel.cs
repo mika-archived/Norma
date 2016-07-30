@@ -80,7 +80,8 @@ namespace Norma.ViewModels.Tabs.Options
             if (_isEditMode)
             {
                 _operationConfig.MuteKeywords.RemoveAt(_editIndex);
-                _operationConfig.MuteKeywords.Insert(_editIndex, new MuteKeyword(Keyword.Value, IsRegex.Value));
+                _operationConfig.MuteKeywords.Insert(_editIndex,
+                                                     new MuteKeyword(Keyword.Value.Replace("\\n", "\n"), IsRegex.Value));
                 _isEditMode = false;
             }
             else
@@ -103,7 +104,7 @@ namespace Norma.ViewModels.Tabs.Options
 
         private void EditMuteKeyword()
         {
-            Keyword.Value = SelectedKeyword.Value.Keyword;
+            Keyword.Value = SelectedKeyword.Value.DisplayKeyword;
             IsRegex.Value = SelectedKeyword.Value.IsRegex;
             _isEditMode = true;
             _editIndex = SelectedIndex.Value;

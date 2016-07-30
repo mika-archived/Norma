@@ -1,10 +1,15 @@
-﻿namespace Norma.Eta.Models
+﻿using Newtonsoft.Json;
+
+namespace Norma.Eta.Models
 {
     public class MuteKeyword
     {
         public bool IsRegex { get; set; }
 
         public string Keyword { get; set; }
+
+        [JsonIgnore]
+        public string DisplayKeyword => Keyword.Replace("\n", "\\n");
 
         //
         public MuteKeyword() {}
