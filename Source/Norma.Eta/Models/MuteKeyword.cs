@@ -14,5 +14,18 @@
             Keyword = keyword;
             IsRegex = isRegex;
         }
+
+        #region Overrides of Object
+
+#pragma warning disable 659
+
+        public override bool Equals(object obj)
+#pragma warning restore 659
+        {
+            var item = obj as MuteKeyword;
+            return IsRegex == item?.IsRegex && Keyword == item.Keyword;
+        }
+
+        #endregion
     }
 }
