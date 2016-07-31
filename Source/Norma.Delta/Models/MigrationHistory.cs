@@ -2,6 +2,6 @@
 {
     internal class MigrationHistory
     {
-        public string MigrationId { get; set; }
+        public string MigrationHistoryId { get; set; }
     }
 }

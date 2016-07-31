@@ -2,10 +2,8 @@
 {
     public class Thumbnail
     {
-        public int Id { get; set; }
+        public int ThumbnailId { get; set; }
 
         public string Path { get; set; }
-
-        public virtual Episode Episode { get; set; }
     }
 }

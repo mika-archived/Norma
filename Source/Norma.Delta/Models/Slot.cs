@@ -5,7 +5,7 @@ namespace Norma.Delta.Models
 {
     public class Slot
     {
-        public string Id { get; set; }
+        public string SlotId { get; set; }
 
         public string Title { get; set; }
 
@@ -23,14 +23,8 @@ namespace Norma.Delta.Models
 
         public bool IsLast { get; set; }
 
-        public Channel Channel { get; set; }
+        public virtual Channel Channel { get; set; }
 
         public virtual ICollection<Episode> Episodes { get; set; }
-
-        public Slot()
-        {
-            // ReSharper disable once VirtualMemberCallInConstructor
-            Episodes = new List<Episode>();
-        }
     }
 }

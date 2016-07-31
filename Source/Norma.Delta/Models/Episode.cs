@@ -7,7 +7,7 @@ namespace Norma.Delta.Models
     /// </summary>
     public class Episode
     {
-        public string Id { get; set; }
+        public string EpisodeId { get; set; }
 
         public int Sequence { get; set; }
 
@@ -22,15 +22,5 @@ namespace Norma.Delta.Models
         public virtual Series Series { get; set; }
 
         public virtual ICollection<Slot> Slots { get; set; }
-
-        public Episode()
-        {
-            // ReSharper disable  VirtualMemberCallInConstructor
-            Casts = new List<Cast>();
-            Crews = new List<Crew>();
-            Copyrights = new List<Copyright>();
-            Thumbnails = new List<Thumbnail>();
-            Slots = new List<Slot>();
-        }
     }
 }

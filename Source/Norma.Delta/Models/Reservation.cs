@@ -2,7 +2,7 @@
 {
     public class Reservation
     {
-        public int Id { get; set; }
+        public int ReservationId { get; set; }
 
         public bool IsEnabled { get; set; }
 

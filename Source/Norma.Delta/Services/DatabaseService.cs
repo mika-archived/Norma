@@ -34,25 +34,26 @@ namespace Norma.Delta.Services
 
         public void Initialize()
         {
+            _dbContext.MigrationHistories.Create();
+            _dbContext.Episodes.Create();
+            _dbContext.Channels.Create();
+            _dbContext.Slots.Create();
+            _dbContext.Series.Create();
             _dbContext.Reservations.Create();
             _dbContext.KeywordReservations.Create();
             _dbContext.TimeReservations.Create();
             _dbContext.SeriesReservations.Create();
             _dbContext.SlotReservations.Create();
-            _dbContext.Slots.Create();
-            _dbContext.Series.Create();
-            _dbContext.Episodes.Create();
-            _dbContext.Channels.Create();
-            _dbContext.MigrationHistories.Create();
             _dbContext.SaveChanges();
         }
 
         public void Migration()
         {
-            var lastMigration = _dbContext.MigrationHistories.OrderByDescending(w => w.MigrationId).FirstOrDefault();
+            var lastMigration =
+                _dbContext.MigrationHistories.OrderByDescending(w => w.MigrationHistoryId).FirstOrDefault();
             var migrationTargets = lastMigration == null
                 ? _migrations
-                : _migrations.SkipWhile(w => w.MigrationId != lastMigration.MigrationId).Skip(1);
+                : _migrations.SkipWhile(w => w.MigrationId != lastMigration.MigrationHistoryId).Skip(1);
             var migrations = migrationTargets as IMigration[] ?? migrationTargets.ToArray();
             if (!migrations.Any())
                 return;
@@ -60,7 +61,7 @@ namespace Norma.Delta.Services
             foreach (var migration in migrations)
             {
                 _dbContext.Database.ExecuteSqlCommand(migration.UpSql().Replace(Environment.NewLine, ""));
-                _dbContext.MigrationHistories.Add(new MigrationHistory {MigrationId = migration.MigrationId});
+                _dbContext.MigrationHistories.Add(new MigrationHistory {MigrationHistoryId = migration.MigrationId});
             }
             _dbContext.SaveChanges();
         }
