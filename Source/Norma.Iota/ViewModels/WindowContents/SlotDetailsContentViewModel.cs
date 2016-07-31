@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 
+using Norma.Delta.Services;
 using Norma.Eta.Models.Enums;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
@@ -15,15 +16,15 @@ namespace Norma.Iota.ViewModels.WindowContents
     // ReSharper disable once ClassNeverInstantiated.Global
     internal class SlotDetailsContentViewModel : InteractionViewModel<DataPassingNotification>
     {
-        private readonly Reservation _rsvs;
+        private readonly ReservationService _reservationService;
         public InteractionRequest<DataPassingNotification> ResponseRequest { get; }
         public InteractionRequest<DataPassingNotification> DetailsRsvRequest { get; }
         public ObservableCollection<string> Cast { get; }
         public ObservableCollection<string> Staff { get; }
 
-        public SlotDetailsContentViewModel(Reservation reservation)
+        public SlotDetailsContentViewModel(ReservationService reservationService)
         {
-            _rsvs = reservation;
+            _reservationService = reservationService;
             ResponseRequest = new InteractionRequest<DataPassingNotification>();
             DetailsRsvRequest = new InteractionRequest<DataPassingNotification>();
             Cast = new ObservableCollection<string>();

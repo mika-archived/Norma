@@ -62,16 +62,6 @@ namespace Norma.Iota.ViewModels
             IsLoading = false;
         }
 
-        #region Overrides of ViewModel
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            _timetable.Save();
-        }
-
-        #endregion
-
         #region SelectedDate
 
         private string _selectedDate;

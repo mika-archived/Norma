@@ -16,7 +16,7 @@ namespace Norma.Ipsilon
 {
     internal static class AppInitializer
     {
-        public static AbemaApiHost AbemaApiHost { get; private set; }
+        public static AbemaApiClient AbemaApiHost { get; private set; }
         public static Configuration Configuration { get; private set; }
         public static Timetable Timetable { get; private set; }
         public static ConnectOps ConnectOps { get; private set; }
@@ -24,7 +24,7 @@ namespace Norma.Ipsilon
         public static void PreInitialize()
         {
             Configuration = new Configuration();
-            AbemaApiHost = new AbemaApiHost(Configuration);
+            AbemaApiHost = new AbemaApiClient(Configuration);
             Timetable = new Timetable(AbemaApiHost);
             ConnectOps = new ConnectOps();
         }

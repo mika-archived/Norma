@@ -6,6 +6,9 @@ using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+using Microsoft.Practices.ServiceLocation;
+
+using Norma.Delta.Services;
 using Norma.Eta.Extensions;
 using Norma.Eta.Models;
 using Norma.Eta.Properties;
@@ -19,22 +22,16 @@ namespace Norma.Ipsilon.Models
     {
         private readonly CompositeDisposable _compositeDisposable;
         private readonly Configuration _configuration;
-        private readonly List<Slot> _notifiedSlots;
-        private readonly List<RsvTime> _notifiedTimes;
-        private readonly Reservation _reservation;
-        private readonly Timetable _timetable;
+        private readonly DatabaseService _databaseService;
 
         private DateTime _lastSyncTime;
         private List<ChannelSchedule> _todaySchedules;
 
-        public Notifier(Configuration configuration, Timetable timetable, Reservation reservation)
+        public Notifier()
         {
-            _configuration = configuration;
-            _timetable = timetable;
-            _reservation = reservation;
+            _configuration = ServiceLocator.Current.GetInstance<Configuration>();
+            _databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
             _compositeDisposable = new CompositeDisposable();
-            _notifiedSlots = new List<Slot>();
-            _notifiedTimes = new List<RsvTime>();
             SyncSchedule();
         }
 

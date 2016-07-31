@@ -2,7 +2,7 @@
 
 using Microsoft.Practices.Unity;
 
-using Norma.Eta.Models;
+using Norma.Delta.Services;
 using Norma.Ipsilon.Views;
 
 using Prism.Unity;
@@ -19,11 +19,12 @@ namespace Norma.Ipsilon
 
             AppInitializer.Initialize();
 
+            Container.RegisterType<DatabaseService>(new ContainerControlledLifetimeManager());
+
             Container.RegisterInstance(AppInitializer.Configuration, new ContainerControlledLifetimeManager());
             Container.RegisterInstance(AppInitializer.AbemaApiHost, new ContainerControlledLifetimeManager());
             Container.RegisterInstance(AppInitializer.Timetable, new ContainerControlledLifetimeManager());
             Container.RegisterInstance(AppInitializer.ConnectOps, new ContainerControlledLifetimeManager());
-            Container.RegisterType(typeof(Reservation), new ContainerControlledLifetimeManager());
         }
 
         protected override DependencyObject CreateShell() => Container.Resolve<Shell>();
