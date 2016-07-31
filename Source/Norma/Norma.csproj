@@ -221,14 +221,13 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
-    <Compile Include="Models\AbemaChannels.cs" />
     <Compile Include="Models\AbemaState.cs" />
     <Compile Include="AppInitializer.cs" />
     <Compile Include="Models\Browser\CefSetting.cs" />
     <Compile Include="Models\Browser\ApiResourceHandler.cs" />
     <Compile Include="Models\Browser\HttpResourceHandlerFactory.cs" />
     <Compile Include="Models\Browser\VideoResourceHandler.cs" />
-    <Compile Include="Models\Channel.cs" />
+    <Compile Include="Models\AbemaChannel.cs" />
     <Compile Include="Models\CommentHost.cs" />
     <Compile Include="Models\Connector.cs" />
     <Compile Include="Models\INetworkCaptureAware.cs" />
@@ -254,7 +253,6 @@
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ProgramHost.cs" />
     <Compile Include="Models\ReleaseType.cs" />
-    <Compile Include="Models\StatusInfo.cs" />
     <Compile Include="ViewModels\Controls\AbemaCommentInputViewModel.cs" />
     <Compile Include="ViewModels\LibraryViewModel.cs" />
     <Compile Include="ViewModels\StartupScreenViewModel.cs" />

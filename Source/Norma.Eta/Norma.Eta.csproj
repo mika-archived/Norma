@@ -125,8 +125,9 @@
     <Compile Include="Controls\WindowSettingsExt.cs" />
     <Compile Include="Converters\YesNoToBooleanConverter.cs" />
     <Compile Include="Extensions\CollectionExt.cs" />
+    <Compile Include="Extensions\EnumExt.cs" />
     <Compile Include="Extensions\TimeSpanExt.cs" />
-    <Compile Include="Models\AbemaApiHost.cs" />
+    <Compile Include="Models\AbemaApiClient.cs" />
     <Compile Include="Models\Enums\AbemaChannel.cs" />
     <Compile Include="Models\AppStartup.cs" />
     <Compile Include="Models\Configuration.cs" />
@@ -144,9 +145,6 @@
     <Compile Include="Models\Operations\IOperation.cs" />
     <Compile Include="Models\Operations\IOperationRequestAware.cs" />
     <Compile Include="Models\Enums\PostKey.cs" />
-    <Compile Include="Models\Enums\RepetitionType.cs" />
-    <Compile Include="Models\Timetable.cs" />
-    <Compile Include="Models\TimetableCache.cs" />
     <Compile Include="Models\Enums\VideoQuality.cs" />
     <Compile Include="Mvvm\IDisposableExtension.cs" />
     <Compile Include="Mvvm\InteractionViewModel.cs" />
@@ -172,7 +170,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Services\StatusService.cs" />
-    <Compile Include="SQLite\SqliteMigrationSqlGenerator.cs" />
     <Compile Include="Validations\DateTimeValidator.cs" />
     <Compile Include="Validations\IValidator.cs" />
     <Compile Include="Validations\RegexValidator.cs" />
@@ -193,6 +190,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Norma.Delta\Norma.Delta.csproj">
+      <Project>{60dfb1ab-7891-4a93-83ec-1aaacb0c861b}</Project>
+      <Name>Norma.Delta</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Norma.Gamma\Norma.Gamma.csproj">
       <Project>{3548e32a-9374-45a5-9d37-8bde1520b055}</Project>
       <Name>Norma.Gamma</Name>
