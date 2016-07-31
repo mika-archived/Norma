@@ -21,6 +21,7 @@ namespace Norma.Delta.Services
         public DbSet<TimeReservation> TimeReservations => _dbContext.TimeReservations;
         public DbSet<SeriesReservation> SeriesReservations => _dbContext.SeriesReservations;
         public DbSet<SlotReservation> SlotReservations => _dbContext.SlotReservations;
+        public DbSet<SlotReservation2> SlotReservations2 => _dbContext.SlotReservations2;
         public DbSet<Slot> Slots => _dbContext.Slots;
         public DbSet<Series> Series => _dbContext.Series;
         public DbSet<Episode> Episodes => _dbContext.Episodes;

@@ -2,7 +2,7 @@
 
 namespace Norma.Delta.Models.Enums
 {
-    public enum RepetitionType
+    public enum Repetition
     {
         /// <summary>
         ///     繰り返しなし
@@ -62,39 +62,39 @@ namespace Norma.Delta.Models.Enums
 
     public static class RepetitionTypeExt
     {
-        public static bool IsMatch(this RepetitionType obj, DateTime date)
+        public static bool IsMatch(this Repetition obj, DateTime date)
         {
             switch (obj)
             {
-                case RepetitionType.None:
-                case RepetitionType.Everyday:
+                case Repetition.None:
+                case Repetition.Everyday:
                     return true;
 
-                case RepetitionType.Monday:
+                case Repetition.Monday:
                     return date.DayOfWeek == DayOfWeek.Monday;
 
-                case RepetitionType.Tuesday:
+                case Repetition.Tuesday:
                     return date.DayOfWeek == DayOfWeek.Tuesday;
 
-                case RepetitionType.Wednesday:
+                case Repetition.Wednesday:
                     return date.DayOfWeek == DayOfWeek.Wednesday;
 
-                case RepetitionType.Thursday:
+                case Repetition.Thursday:
                     return date.DayOfWeek == DayOfWeek.Thursday;
 
-                case RepetitionType.Friday:
+                case Repetition.Friday:
                     return date.DayOfWeek == DayOfWeek.Friday;
 
-                case RepetitionType.Saturday:
+                case Repetition.Saturday:
                     return date.DayOfWeek == DayOfWeek.Saturday;
 
-                case RepetitionType.Sunday:
+                case Repetition.Sunday:
                     return date.DayOfWeek == DayOfWeek.Sunday;
 
-                case RepetitionType.MonToFri:
+                case Repetition.MonToFri:
                     return 1 <= (int) date.DayOfWeek && (int) date.DayOfWeek <= 5;
 
-                case RepetitionType.MonToSat:
+                case Repetition.MonToSat:
                     return 1 <= (int) date.DayOfWeek && (int) date.DayOfWeek <= 6;
 
                 default:

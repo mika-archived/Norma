@@ -15,5 +15,13 @@
         public virtual SeriesReservation SeriesReservation { get; set; }
 
         public virtual SlotReservation SlotReservation { get; set; }
+
+        public virtual SlotReservation2 SlotReservation2 { get; set; }
+
+        public void Merge(Reservation reservation)
+        {
+            IsEnabled = reservation.IsEnabled;
+            Range = reservation.Range;
+        }
     }
 }

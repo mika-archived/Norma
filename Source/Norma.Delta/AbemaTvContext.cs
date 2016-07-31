@@ -19,6 +19,8 @@ namespace Norma.Delta
 
         public DbSet<SlotReservation> SlotReservations { get; set; }
 
+        public DbSet<SlotReservation2> SlotReservations2 { get; set; }
+
         public DbSet<Slot> Slots { get; set; }
 
         public DbSet<Series> Series { get; set; }
