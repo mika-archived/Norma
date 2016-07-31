@@ -7,12 +7,12 @@ using Norma.Gamma.Models;
 
 namespace Norma.Eta.Models
 {
-    public class AbemaApiHost
+    public class AbemaApiClient
     {
         private readonly AbemaTv _abemaTv;
         private readonly Configuration _configuration;
 
-        public AbemaApiHost(Configuration configuration)
+        public AbemaApiClient(Configuration configuration)
         {
             _configuration = configuration;
             _abemaTv = string.IsNullOrWhiteSpace(_configuration.Root.AccessToken)
