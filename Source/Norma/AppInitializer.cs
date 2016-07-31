@@ -4,10 +4,11 @@ using System.Windows;
 
 using MetroRadiance.UI;
 
-using Norma.Behaviors;
+using Microsoft.Practices.ServiceLocation;
+
+using Norma.Delta.Services;
 using Norma.Eta;
-using Norma.Eta.Models;
-using Norma.Models;
+using Norma.Eta.Services;
 using Norma.Models.Browser;
 using Norma.Views;
 
@@ -19,14 +20,7 @@ namespace Norma
     internal static class AppInitializer
     {
         private static StartupScreen _startupScreen;
-        public static AbemaApiHost AbemaApiHost { get; private set; }
-        public static AbemaState AbemaState { get; private set; }
-        public static Configuration Configuration { get; private set; }
-        public static Timetable Timetable { get; private set; }
-        public static ConnectOps ConnectOps { get; private set; }
-        public static Connector Connector { get; private set; }
-        public static Reservation Reservation { get; private set; }
-        public static NetworkHandler NetworkHandler { get; private set; }
+        private static StatusService _statusService;
 
         /// <summary>
         ///     PreInitialize is called by Application host.
@@ -42,15 +36,6 @@ namespace Norma
 
             CefSetting.Init();
             ThemeService.Current.Register(application, Theme.Dark, Accent.Blue);
-
-            Configuration = new Configuration();
-            AbemaApiHost = new AbemaApiHost(Configuration);
-            Timetable = new Timetable(AbemaApiHost);
-            AbemaState = new AbemaState(AbemaApiHost, Configuration, Timetable);
-            ConnectOps = new ConnectOps();
-            Connector = new Connector(ConnectOps);
-            Reservation = new Reservation(Timetable);
-            NetworkHandler = new NetworkHandler();
         }
 
         /// <summary>
@@ -58,13 +43,12 @@ namespace Norma
         /// </summary>
         public static void Initialize()
         {
-            // どうなん
-            CaptureHttpRequestBehavior.IsEnabledCapture = Configuration.Root.Others.IsEnabledExperimentalFeatures;
-            AbemaApiHost.Initialize();
-            Timetable.Sync();
-            Timetable.Start();
-            Reservation.Cleanup();
-            AbemaState.Start();
+            _statusService = ServiceLocator.Current.GetInstance<StatusService>();
+
+            _statusService.UpdateStatus("データベースの更新をしています...");
+            var databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
+            databaseService.Initialize();
+            databaseService.Migration();
         }
 
         /// <summary>

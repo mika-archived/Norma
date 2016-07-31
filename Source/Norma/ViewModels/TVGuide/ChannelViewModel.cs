@@ -10,8 +10,8 @@ namespace Norma.ViewModels.TVGuide
 {
     internal class ChannelViewModel : ViewModel
     {
-        private readonly Channel _model;
-        private readonly ShellViewModel _parentViewModel;
+        private readonly AbemaState _abemaState;
+        private readonly AbemaChannel _model;
 
         public string LogoUrl => _model.LogoUrl;
         public ReadOnlyReactiveProperty<string> Title { get; private set; }
@@ -19,9 +19,9 @@ namespace Norma.ViewModels.TVGuide
         public ReadOnlyReactiveProperty<string> EndTime { get; private set; }
         public ReadOnlyReactiveProperty<string> ThumbnailUrl { get; private set; }
 
-        public ChannelViewModel(ShellViewModel parentViewModel, Channel channel)
+        public ChannelViewModel(AbemaState abemaState, AbemaChannel channel)
         {
-            _parentViewModel = parentViewModel;
+            _abemaState = abemaState;
             _model = channel;
             Title = _model.ObserveProperty(w => w.Title)
                           .ToReadOnlyReactiveProperty()
@@ -38,9 +38,6 @@ namespace Norma.ViewModels.TVGuide
         }
 
         // CallMethodAction
-        public void ChannelClick()
-        {
-            _parentViewModel.HostViewModel.Address = $"https://abema.tv/now-on-air/{_model.ChannelType}";
-        }
+        public void ChannelClick() => _abemaState.CurrentChannel = _model.Channel;
     }
 }

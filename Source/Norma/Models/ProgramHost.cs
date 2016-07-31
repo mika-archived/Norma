@@ -26,7 +26,7 @@ namespace Norma.Models
             _compositeDisposable = new CompositeDisposable();
 
             _abemaState = abemaState;
-            _compositeDisposable.Add(abemaState.ObserveProperty(w => w.CurrentProgram)
+            _compositeDisposable.Add(abemaState.ObserveProperty(w => w.CurrentEpisode)
                                                .Where(w => w != null)
                                                .Subscribe(w => FetchProgramInfo()));
             FetchProgramInfo(); // Init
@@ -45,7 +45,7 @@ namespace Norma.Models
         {
             StatusInfo.Instance.Text = Resources.FetchingProgramInformation;
             var slot = _abemaState.CurrentSlot;
-            var program = _abemaState.CurrentProgram;
+            var program = _abemaState.CurrentEpisode;
             if (slot == null)
             {
                 Title = "";

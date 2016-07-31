@@ -2,6 +2,10 @@
 
 using Microsoft.Practices.Unity;
 
+using Norma.Delta.Services;
+using Norma.Eta.Models;
+using Norma.Eta.Services;
+using Norma.Models;
 using Norma.Views;
 
 using Prism.Unity;
@@ -16,16 +20,15 @@ namespace Norma
         {
             base.ConfigureContainer();
 
-            AppInitializer.Initialize();
+            Container.RegisterType<StatusService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<DatabaseService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ReservationService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<TimetableService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<Configuration>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<AbemaApiClient>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<NetworkHandler>(new ContainerControlledLifetimeManager());
 
-            Container.RegisterInstance(AppInitializer.Configuration, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance(AppInitializer.AbemaApiHost, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance(AppInitializer.Timetable, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance(AppInitializer.AbemaState, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance(AppInitializer.ConnectOps, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance(AppInitializer.Connector, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance(AppInitializer.Reservation, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance(AppInitializer.NetworkHandler, new ContainerControlledLifetimeManager());
+            AppInitializer.Initialize();
         }
 
         #endregion

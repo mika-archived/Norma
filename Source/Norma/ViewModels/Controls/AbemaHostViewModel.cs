@@ -4,13 +4,15 @@ using System.Threading;
 using CefSharp;
 using CefSharp.Wpf;
 
+using Microsoft.Practices.ServiceLocation;
+
 using Newtonsoft.Json.Linq;
 
+using Norma.Delta.Services;
 using Norma.Eta.Models;
 using Norma.Eta.Models.Enums;
 using Norma.Eta.Models.Operations;
 using Norma.Eta.Mvvm;
-using Norma.Gamma.Models;
 using Norma.Models;
 
 namespace Norma.ViewModels.Controls
@@ -19,19 +21,21 @@ namespace Norma.ViewModels.Controls
     internal class AbemaHostViewModel : ViewModel, IOperationRequestAware, INetworkCaptureRequestAware
     {
         private readonly AbemaState _abemaState;
-        private readonly Configuration _configuration;
-        private readonly Reservation _reservation;
+        private readonly ReservationService _reservationService;
         private JavaScriptHost _javaScritHost;
 
-        public AbemaHostViewModel(AbemaState abemaState, Configuration configuration, Connector connector,
-                                  Reservation reservation, NetworkHandler networkHandler)
+        public AbemaHostViewModel()
         {
-            _abemaState = abemaState;
-            _configuration = configuration;
-            _reservation = reservation;
+            _abemaState = ServiceLocator.Current.GetInstance<AbemaState>();
+            _reservationService = ServiceLocator.Current.GetInstance<ReservationService>();
+
+            var connector = ServiceLocator.Current.GetInstance<Connector>();
             connector.RegisterInsance<ChangeChannelOp>(this);
+
+            var configuration = ServiceLocator.Current.GetInstance<Configuration>();
+            var networkHandler = ServiceLocator.Current.GetInstance<NetworkHandler>();
             networkHandler.RegisterInstance(this, e => e.Url.EndsWith("/slotReservations"));
-            Address = $"https://abema.tv/now-on-air/{_configuration.Root.LastViewedChannelStr}";
+            Address = $"https://abema.tv/now-on-air/{configuration.Root.LastViewedChannelStr}";
         }
 
         #region Implementation of INetworkCaptureRequestAware
@@ -40,7 +44,7 @@ namespace Norma.ViewModels.Controls
         {
             dynamic json = JObject.Parse(e.Contents);
             var id = (string) json.slotReservations[0].slotId;
-            _reservation.AddReservation(new Slot {Id = id});
+            _reservationService.InsertSlotReservation2(id);
         }
 
         #endregion
@@ -67,7 +71,7 @@ namespace Norma.ViewModels.Controls
         {
             if (WebBrowser == null)
                 return;
-            _javaScritHost = new JavaScriptHost(WebBrowser, _configuration).AddTo(this);
+            _javaScritHost = new JavaScriptHost(WebBrowser);
         }
 
         #region Overrides of ViewModel

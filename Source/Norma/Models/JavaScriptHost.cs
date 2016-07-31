@@ -4,8 +4,11 @@ using System.Diagnostics;
 using CefSharp;
 using CefSharp.Wpf;
 
+using Microsoft.Practices.ServiceLocation;
+
 using Norma.Eta.Models;
 using Norma.Eta.Properties;
+using Norma.Eta.Services;
 
 using Prism.Mvvm;
 
@@ -15,16 +18,17 @@ namespace Norma.Models
     // Not support features are:
     //  * CM related features.
     //  * Comment related features.
-    internal class JavaScriptHost : BindableBase, IDisposable
+    internal class JavaScriptHost : BindableBase
     {
         private readonly Configuration _configuration;
+        private readonly StatusService _statusService;
         private readonly IWpfWebBrowser _wpfWebBrowser;
-        // private IDisposable _disposable;
 
-        public JavaScriptHost(IWpfWebBrowser wpfWebBrowser, Configuration configuration)
+        public JavaScriptHost(IWpfWebBrowser wpfWebBrowser)
         {
             _wpfWebBrowser = wpfWebBrowser;
-            _configuration = configuration;
+            _configuration = ServiceLocator.Current.GetInstance<Configuration>();
+            _statusService = ServiceLocator.Current.GetInstance<StatusService>();
             _wpfWebBrowser.ConsoleMessage += (sender, e) => Debug.WriteLine("[Chromium]" + e.Message);
             _wpfWebBrowser.FrameLoadEnd += (sender, e) =>
             {
@@ -33,15 +37,6 @@ namespace Norma.Models
                 Run();
             };
         }
-
-        #region Implementation of IDisposable
-
-        public void Dispose()
-        {
-            // _disposable?.Dispose();
-        }
-
-        #endregion
 
         private void Run()
         {
@@ -88,7 +83,7 @@ if (shouldExecute) {
   }, true);
 }
 ";
-            StatusInfo.Instance.Text = Resources.DisableChangeChannelByMouseWheel;
+            _statusService.UpdateStatus(Resources.DisableChangeChannelByMouseWheel);
             WrapExecuteScriptAsync(jsCode);
         }
 
@@ -101,7 +96,7 @@ if (shouldExecute) {
   }, true);
 }
 ";
-            StatusInfo.Instance.Text = Resources.DisableContextMenu;
+            _statusService.UpdateStatus(Resources.DisableContextMenu);
             WrapExecuteScriptAsync(jsCode);
         }
 
@@ -128,7 +123,7 @@ if (shouldExecute) {{
   }};
   setTimeout(injectNormaCustomCss, 500);
 }}";
-            StatusInfo.Instance.Text = Resources.InjectCss;
+            _statusService.UpdateStatus(Resources.InjectCss);
             WrapExecuteScriptAsync(jsCode);
         }
 

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
+using Norma.Delta.Models;
+using Norma.Delta.Services;
 using Norma.Eta.Models;
 using Norma.Eta.Models.Enums;
-using Norma.Gamma.Models;
 
 using Prism.Mvvm;
 
@@ -14,21 +15,21 @@ namespace Norma.Models
 {
     internal class AbemaState : BindableBase
     {
-        private readonly AbemaApiHost _abemaApiHost;
+        private readonly AbemaApiClient _abemaApiHost;
         private readonly Configuration _configuration;
-        private readonly Timetable _timetable;
+        private readonly TimetableService _timetableService;
         private IDisposable _disposable;
 
-        public AbemaState(AbemaApiHost abemaApiHost, Configuration configuration, Timetable timetable)
+        public AbemaState(AbemaApiClient abemaApiHost, Configuration configuration, TimetableService timetableService)
         {
             _abemaApiHost = abemaApiHost;
             _configuration = configuration;
-            _timetable = timetable;
+            _timetableService = timetableService;
         }
 
         public void Start()
         {
-            CurrentChannel = _timetable.Channels.Single(w => w.Id == _configuration.Root.LastViewedChannelStr);
+            CurrentChannel = _timetableService.Channels.Single(w => w.Id == _configuration.Root.LastViewedChannelStr);
             var val = _configuration.Root.Operation.UpdateIntervalOfProgram;
             _disposable =
                 Observable.Timer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
@@ -57,7 +58,7 @@ namespace Norma.Models
                 if (schedule == null)
                 {
                     CurrentSlot = null;
-                    CurrentProgram = null;
+                    CurrentEpisode = null;
                     return;
                 }
                 var currentSlot =
@@ -65,7 +66,7 @@ namespace Norma.Models
                 if (currentSlot == null)
                 {
                     CurrentSlot = null;
-                    CurrentProgram = null;
+                    CurrentEpisode = null;
                     return;
                 }
                 if (CurrentSlot?.Id != currentSlot.Id)
@@ -82,7 +83,7 @@ namespace Norma.Models
                 --count;
                 if (count < 0 || count >= CurrentSlot.Programs.Length)
                     return;
-                CurrentProgram = CurrentSlot.Programs[count];
+                CurrentEpisode = CurrentSlot.Programs[count];
             }
             catch (Exception e)
             {
@@ -92,9 +93,9 @@ namespace Norma.Models
 
         #region CurrentChannel
 
-        private Gamma.Models.Channel _currentChannel;
+        private Channel _currentChannel;
 
-        public Gamma.Models.Channel CurrentChannel
+        public Channel CurrentChannel
         {
             get { return _currentChannel; }
             set { SetProperty(ref _currentChannel, value); }
@@ -114,14 +115,14 @@ namespace Norma.Models
 
         #endregion
 
-        #region CurrentProgram
+        #region CurrentEpisode
 
-        private Program _currentProgram;
+        private Episode _currentEpisode;
 
-        public Program CurrentProgram
+        public Episode CurrentEpisode
         {
-            get { return _currentProgram; }
-            private set { SetProperty(ref _currentProgram, value); }
+            get { return _currentEpisode; }
+            private set { SetProperty(ref _currentEpisode, value); }
         }
 
         #endregion

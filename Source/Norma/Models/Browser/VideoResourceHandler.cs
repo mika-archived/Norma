@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 
 using CefSharp;
 
+using Microsoft.Practices.ServiceLocation;
+
 using Norma.Eta.Models;
 using Norma.Eta.Models.Configurations;
 using Norma.Eta.Models.Enums;
@@ -22,7 +24,7 @@ namespace Norma.Models.Browser
 
         public VideoResourceHandler()
         {
-            _config = AppInitializer.Configuration.Root.Operation;
+            _config = ServiceLocator.Current.GetInstance<Configuration>().Root.Operation;
         }
 
         public override bool ProcessRequestAsync(IRequest request, ICallback callback)

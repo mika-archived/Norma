@@ -22,22 +22,17 @@ namespace Norma.ViewModels
     internal class ShellViewModel : ViewModel
     {
         private readonly Configuration _configuration;
-        private readonly Timetable _timetable;
         public AbemaHostViewModel HostViewModel { get; }
-        public AbemaTVGuideViewModel TvGuideViewModel { get; }
         public InteractionRequest<INotification> SettingsRequest { get; }
         public ReadOnlyReactiveProperty<string> Title { get; private set; }
         public ReactiveProperty<bool> IsTopMost { get; private set; }
 
-        public ShellViewModel(AbemaState abemaState, Configuration config, Timetable timetable, Connector connector,
+        public ShellViewModel(AbemaState abemaState, Configuration config, Connector connector,
                               Reservation reservation, NetworkHandler networkHandler)
         {
             _configuration = config;
-            _timetable = timetable;
 
-            HostViewModel = new AbemaHostViewModel(abemaState, config, connector, reservation, networkHandler)
-                .AddTo(this);
-            TvGuideViewModel = new AbemaTVGuideViewModel(this, config, timetable).AddTo(this);
+            HostViewModel = new AbemaHostViewModel().AddTo(this);
             SettingsRequest = new InteractionRequest<INotification>();
 
             Title = abemaState.ObserveProperty(w => w.CurrentSlot)
@@ -53,7 +48,6 @@ namespace Norma.ViewModels
         {
             base.Dispose();
             // ?
-            _timetable.Save();
             _configuration.Save();
         }
 

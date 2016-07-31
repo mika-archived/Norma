@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Norma.Eta.Extensions;
 using Norma.Eta.Models;
 using Norma.Eta.Properties;
+using Norma.Eta.Services;
 using Norma.Gamma.Models;
 
 using Prism.Mvvm;
@@ -21,15 +22,17 @@ namespace Norma.Models
 {
     internal class CommentHost : BindableBase, IDisposable
     {
-        private readonly AbemaApiHost _abemaApiHost;
+        private readonly AbemaApiClient _abemaApiHost;
         private readonly AbemaState _abemaState;
         private readonly CompositeDisposable _compositeDisposable;
         private readonly Configuration _configuration;
+        private readonly StatusService _statusService;
         private IDisposable _disposable; // for Comment synchronizer.
 
         public ObservableCollection<Comment> Comments { get; }
 
-        public CommentHost(AbemaApiHost abemaApiHost, AbemaState abemaState, Configuration configuration)
+        public CommentHost(AbemaApiClient abemaApiHost, AbemaState abemaState, Configuration configuration,
+                           StatusService statusService)
         {
             Comments = new ObservableCollection<Comment>();
             _compositeDisposable = new CompositeDisposable();
@@ -37,6 +40,7 @@ namespace Norma.Models
             _abemaApiHost = abemaApiHost;
             _abemaState = abemaState;
             _configuration = configuration;
+            _statusService = statusService;
             _compositeDisposable.Add(_abemaState.ObserveProperty(w => w.CurrentSlot).Subscribe(w => ReloadComments()));
             ReloadComments();
         }
@@ -65,13 +69,13 @@ namespace Norma.Models
 
         private async Task FetchComment()
         {
-            StatusInfo.Instance.Text = Resources.FetchingComments;
+            _statusService.UpdateStatus(Resources.FetchingComments);
             var holdingComments = _configuration.Root.Operation.NumberOfHoldingComments;
             var comments = await _abemaApiHost.Comments(_abemaState.CurrentSlot.Id);
             if (comments?.CommentList == null)
             {
                 if (comments != null)
-                    StatusInfo.Instance.Text = Resources.FetchedComment0;
+                    _statusService.UpdateStatus(Resources.FetchedComment0);
                 return;
             }
             foreach (var comment in comments.CommentList.OrderBy(w => w.CreatedAtMs))
@@ -83,7 +87,7 @@ namespace Norma.Models
                         Comments.RemoveAt((int) i);
                 Comments.Insert(0, comment);
             }
-            StatusInfo.Instance.Text = Resources.FetchedComments;
+            _statusService.UpdateStatus(Resources.FetchedComments);
         }
 
         private bool IsMuteTarget(Comment comment)

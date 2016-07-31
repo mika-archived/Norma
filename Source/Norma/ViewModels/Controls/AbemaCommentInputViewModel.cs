@@ -14,12 +14,12 @@ namespace Norma.ViewModels.Controls
 {
     internal class AbemaCommentInputViewModel : ViewModel
     {
-        private readonly AbemaApiHost _abemaApiHost;
+        private readonly AbemaApiClient _abemaApiHost;
         private readonly AbemaState _abemaState;
         private readonly Configuration _configuration;
         public ReactiveProperty<string> Comment { get; }
 
-        public AbemaCommentInputViewModel(AbemaApiHost abemaApiHost, AbemaState abemaState, Configuration configuration)
+        public AbemaCommentInputViewModel(AbemaApiClient abemaApiHost, AbemaState abemaState, Configuration configuration)
         {
             _abemaApiHost = abemaApiHost;
             _abemaState = abemaState;
