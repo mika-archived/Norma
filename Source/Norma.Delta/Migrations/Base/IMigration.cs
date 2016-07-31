@@ -1,4 +1,4 @@
-﻿namespace Norma.Eta.Migrations
+﻿namespace Norma.Delta.Migrations.Base
 {
     internal interface IMigration
     {

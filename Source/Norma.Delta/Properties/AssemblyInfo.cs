@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
 [assembly: AssemblyTitle("Norma.Delta")]
-[assembly: AssemblyDescription("Core Audio APIs Interfaces")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("kokoiroworks")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Norma.Delta")]
-[assembly: AssemblyCopyright("Copyright © 2016 Mikazuki")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // このプロジェクトが COM に公開される場合、次の GUID が typelib の ID になります
-[assembly: Guid("210958b7-2c71-46ec-a256-18264cafa6f7")]
+[assembly: Guid("60dfb1ab-7891-4a93-83ec-1aaacb0c861b")]
 
 // アセンブリのバージョン情報は次の 4 つの値で構成されています:
 //

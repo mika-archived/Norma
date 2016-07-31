@@ -81,6 +81,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iota", "iota", "{32F215CC-7
 		..\Resources\iota\app.ico = ..\Resources\iota\app.ico
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Norma.Delta", "Norma.Delta\Norma.Delta.csproj", "{60DFB1AB-7891-4A93-83EC-1AAACB0C861B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,6 +153,18 @@ Global
 		{EBE2DF20-507C-4071-846B-88E7C3A459E8}.Release|x64.Build.0 = Release|Any CPU
 		{EBE2DF20-507C-4071-846B-88E7C3A459E8}.Release|x86.ActiveCfg = Release|Any CPU
 		{EBE2DF20-507C-4071-846B-88E7C3A459E8}.Release|x86.Build.0 = Release|Any CPU
+		{60DFB1AB-7891-4A93-83EC-1AAACB0C861B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60DFB1AB-7891-4A93-83EC-1AAACB0C861B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60DFB1AB-7891-4A93-83EC-1AAACB0C861B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{60DFB1AB-7891-4A93-83EC-1AAACB0C861B}.Debug|x64.Build.0 = Debug|Any CPU
+		{60DFB1AB-7891-4A93-83EC-1AAACB0C861B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{60DFB1AB-7891-4A93-83EC-1AAACB0C861B}.Debug|x86.Build.0 = Debug|Any CPU
+		{60DFB1AB-7891-4A93-83EC-1AAACB0C861B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60DFB1AB-7891-4A93-83EC-1AAACB0C861B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60DFB1AB-7891-4A93-83EC-1AAACB0C861B}.Release|x64.ActiveCfg = Release|Any CPU
+		{60DFB1AB-7891-4A93-83EC-1AAACB0C861B}.Release|x64.Build.0 = Release|Any CPU
+		{60DFB1AB-7891-4A93-83EC-1AAACB0C861B}.Release|x86.ActiveCfg = Release|Any CPU
+		{60DFB1AB-7891-4A93-83EC-1AAACB0C861B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,12 +1,10 @@
 using System.Data.Entity.Migrations;
 
-using Norma.Eta.Database;
+using Norma.Delta.SQLite;
 
-using SQLite.CodeFirst;
-
-namespace Norma.Eta.Migrations
+namespace Norma.Delta.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<ReservationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<AbemaTvContext>
     {
         public Configuration()
         {
@@ -14,7 +12,7 @@ namespace Norma.Eta.Migrations
             SetSqlGenerator("System.Data.SQLite.EF6", new SqliteMigrationSqlGenerator());
         }
 
-        protected override void Seed(ReservationDbContext context)
+        protected override void Seed(AbemaTvContext context)
         {
             //  This method will be called after migrating to the latest version.
 
