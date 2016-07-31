@@ -419,6 +419,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Norma.Delta\Norma.Delta.csproj">
+      <Project>{60dfb1ab-7891-4a93-83ec-1aaacb0c861b}</Project>
+      <Name>Norma.Delta</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Norma.Eta\Norma.Eta.csproj">
       <Project>{ebe2df20-507c-4071-846b-88e7c3a459e8}</Project>
       <Name>Norma.Eta</Name>
@@ -430,6 +434,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="app.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

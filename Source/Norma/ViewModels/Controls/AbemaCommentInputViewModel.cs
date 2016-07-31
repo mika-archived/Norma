@@ -2,6 +2,7 @@
 using System.Windows.Input;
 
 using Norma.Eta.Models;
+using Norma.Eta.Models.Enums;
 using Norma.Eta.Mvvm;
 using Norma.Models;
 

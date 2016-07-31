@@ -2,7 +2,7 @@
 
 using Norma.Eta.Properties;
 
-namespace Norma.Eta.Models.Reservations
+namespace Norma.Eta.Models.Enums
 {
     public enum RepetitionType
     {

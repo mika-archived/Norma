@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Norma.Eta.Models;
+using Norma.Eta.Models.Enums;
 using Norma.Eta.Mvvm;
 
 using Reactive.Bindings;

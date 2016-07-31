@@ -7,12 +7,21 @@ using System.Text;
 
 using CefSharp;
 
+using Microsoft.Practices.ServiceLocation;
+
 using Norma.Gamma;
 
 namespace Norma.Models.Browser
 {
     internal class ApiResourceHandler : ResourceHandler
     {
+        private readonly NetworkHandler _networkHandler;
+
+        public ApiResourceHandler()
+        {
+            _networkHandler = ServiceLocator.Current.GetInstance<NetworkHandler>();
+        }
+
         #region Overrides of ResourceHandler
 
         public override bool ProcessRequestAsync(IRequest request, ICallback callback)
@@ -73,13 +82,9 @@ namespace Norma.Models.Browser
         #endregion
 
         private void CapturingRequest(string url, NameValueCollection headers, string body)
-        {
-            AppInitializer.NetworkHandler.OnHandlingRequest(new NetworkEventArgs(url, headers, body));
-        }
+            => _networkHandler.OnHandlingRequest(new NetworkEventArgs(url, headers, body));
 
         private void CapturingResponse(string url, NameValueCollection headers, string body)
-        {
-            AppInitializer.NetworkHandler.OnHandlingResponse(new NetworkEventArgs(url, headers, body));
-        }
+            => _networkHandler.OnHandlingResponse(new NetworkEventArgs(url, headers, body));
     }
 }

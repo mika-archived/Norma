@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 using Norma.Eta.Properties;
 
-namespace Norma.Eta.Models
+namespace Norma.Eta.Models.Enums
 {
     [Obsolete("1.6", false)]
     public enum AbemaChannel

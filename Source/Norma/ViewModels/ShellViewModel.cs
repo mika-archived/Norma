@@ -3,6 +3,7 @@ using System.IO;
 using System.Reactive.Linq;
 using System.Windows.Input;
 
+using Norma.Delta.Models;
 using Norma.Eta;
 using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
@@ -24,7 +25,6 @@ namespace Norma.ViewModels
         private readonly Timetable _timetable;
         public AbemaHostViewModel HostViewModel { get; }
         public AbemaTVGuideViewModel TvGuideViewModel { get; }
-        public AbemaStatusViewModel StatusBar { get; }
         public InteractionRequest<INotification> SettingsRequest { get; }
         public ReadOnlyReactiveProperty<string> Title { get; private set; }
         public ReactiveProperty<bool> IsTopMost { get; private set; }
@@ -38,7 +38,6 @@ namespace Norma.ViewModels
             HostViewModel = new AbemaHostViewModel(abemaState, config, connector, reservation, networkHandler)
                 .AddTo(this);
             TvGuideViewModel = new AbemaTVGuideViewModel(this, config, timetable).AddTo(this);
-            StatusBar = new AbemaStatusViewModel().AddTo(this);
             SettingsRequest = new InteractionRequest<INotification>();
 
             Title = abemaState.ObserveProperty(w => w.CurrentSlot)

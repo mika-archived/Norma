@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 using Norma.Eta.Properties;
 
-namespace Norma.Eta.Models
+namespace Norma.Eta.Models.Enums
 {
     public enum PostKey
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Norma.Eta.Models
+namespace Norma.Eta.Models.Enums
 {
     public enum VideoQuality
     {

@@ -5,6 +5,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 using Norma.Eta.Models;
+using Norma.Eta.Models.Enums;
 using Norma.Gamma.Models;
 
 using Prism.Mvvm;

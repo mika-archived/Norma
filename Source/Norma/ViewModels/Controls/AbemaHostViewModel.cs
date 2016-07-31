@@ -7,6 +7,7 @@ using CefSharp.Wpf;
 using Newtonsoft.Json.Linq;
 
 using Norma.Eta.Models;
+using Norma.Eta.Models.Enums;
 using Norma.Eta.Models.Operations;
 using Norma.Eta.Mvvm;
 using Norma.Gamma.Models;

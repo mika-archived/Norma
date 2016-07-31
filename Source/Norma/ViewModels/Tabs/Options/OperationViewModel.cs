@@ -5,6 +5,7 @@ using System.Linq;
 
 using Norma.Eta.Models;
 using Norma.Eta.Models.Configurations;
+using Norma.Eta.Models.Enums;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Validations;
 
