@@ -1,6 +1,5 @@
 ﻿using System.Reactive.Linq;
 
-using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Models;
 
@@ -21,7 +20,7 @@ namespace Norma.ViewModels.Controls
         public ReadOnlyReactiveCollection<string> Casts { get; }
         public ReadOnlyReactiveCollection<string> Crews { get; private set; }
 
-        public AbemaProgramInfoViewModel(AbemaState abemaState, Timetable timetable)
+        public AbemaProgramInfoViewModel(AbemaState abemaState)
         {
             var programHost = new ProgramHost(abemaState).AddTo(this);
             Title = programHost.ObserveProperty(w => w.Title).ToReadOnlyReactiveProperty().AddTo(this);

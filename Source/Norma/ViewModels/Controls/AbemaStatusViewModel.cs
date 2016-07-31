@@ -1,5 +1,5 @@
 ﻿using Norma.Eta.Mvvm;
-using Norma.Models;
+using Norma.Eta.Services;
 
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -10,10 +10,9 @@ namespace Norma.ViewModels.Controls
     {
         public ReadOnlyReactiveProperty<string> Text { get; }
 
-        public AbemaStatusViewModel()
+        public AbemaStatusViewModel(StatusService statusService)
         {
-            // ??
-            Text = StatusInfo.Instance.ObserveProperty(w => w.Text).ToReadOnlyReactiveProperty().AddTo(this);
+            Text = statusService.ObserveProperty(w => w.Status).ToReadOnlyReactiveProperty().AddTo(this);
         }
     }
 }

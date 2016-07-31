@@ -41,6 +41,12 @@
                        FontSize="16"
                        Text="{Binding Version}" />
         </StackPanel>
+        <TextBlock Margin="10,10,10,25"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Bottom"
+                   Text="{Binding Text}"
+                   TextTrimming="CharacterEllipsis"
+                   TextWrapping="NoWrap" />
         <TextBlock Margin="5"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Bottom"

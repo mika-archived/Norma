@@ -13,7 +13,7 @@ namespace Norma.ViewModels.Controls
         public AbemaCommentViewModel(AbemaApiHost abemaApiHost, AbemaState abemaState, Configuration c)
         {
             var commentHost = new CommentHost(abemaApiHost, abemaState, c).AddTo(this);
-            Comments = commentHost.Comments.ToReadOnlyReactiveCollection(w => new CommentViewModel(w, c)).AddTo(this);
+            Comments = commentHost.Comments.ToReadOnlyReactiveCollection(w => new CommentViewModel(w)).AddTo(this);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
+using Microsoft.Practices.ServiceLocation;
+
 using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Gamma.Models;
@@ -18,10 +20,10 @@ namespace Norma.ViewModels
 
         public string CreatedAt => _comment.CreatedAtMs.ToString("HH:mm:ss");
 
-        public CommentViewModel(Comment comment, Configuration configuration)
+        public CommentViewModel(Comment comment)
         {
             _comment = comment;
-            _configuration = configuration;
+            _configuration = ServiceLocator.Current.GetInstance<Configuration>();
         }
 
         #region AddToNgComment
