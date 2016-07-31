@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading;
 
 using CefSharp;
@@ -32,8 +33,10 @@ namespace Norma.ViewModels.Controls
             _reservationService = reservationService;
             _timetableService = timetableService;
 
-            _abemaState.ObserveProperty(w => w.CurrentChannel).SubscribeOnUIDispatcher()
-                       .Subscribe(w => Address = $"https://abema.tv/now-on-air/{w.Id}");
+            _abemaState.ObserveProperty(w => w.CurrentChannel)
+                       .Where(w => w != null)
+                       .SubscribeOnUIDispatcher()
+                       .Subscribe(w => Address = $"https://abema.tv/now-on-air/{w.ChannelId}");
 
             connector.RegisterInsance<ChangeChannelOp>(this);
             networkHandler.RegisterInstance(this, e => e.Url.EndsWith("/slotReservations"));
@@ -62,7 +65,7 @@ namespace Norma.ViewModels.Controls
                 Thread.Sleep(TimeSpan.FromMilliseconds(100));
             }
             while (_javaScritHost == null);
-            _abemaState.CurrentChannel = _timetableService.Channels.Single(w => w.Id == channel);
+            _abemaState.CurrentChannel = _timetableService.Channels.Single(w => w.ChannelId == channel);
         }
 
         #endregion

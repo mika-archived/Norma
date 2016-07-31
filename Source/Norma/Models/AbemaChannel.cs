@@ -28,7 +28,7 @@ namespace Norma.Models
             Channel = channel;
             _statusService = ServiceLocator.Current.GetInstance<StatusService>();
             _timetableService = ServiceLocator.Current.GetInstance<TimetableService>();
-            LogoUrl = $"https://hayabusa.io/abema/channels/logo/{Channel.Id}.w120.png";
+            LogoUrl = $"https://hayabusa.io/abema/channels/logo/{Channel.ChannelId}.w120.png";
 
             // 1分毎にサムネとか更新
             var configuration = ServiceLocator.Current.GetInstance<Configuration>();
@@ -48,7 +48,7 @@ namespace Norma.Models
 
         private void UpdateChannelInfo()
         {
-            var currentSlot = _timetableService.CurrentSlots.SingleOrDefault(w => w.Channel.Id == Channel.Id);
+            var currentSlot = _timetableService.CurrentSlots.SingleOrDefault(w => w.Channel.ChannelId == Channel.ChannelId);
             if (currentSlot != null)
             {
                 Title = currentSlot.Title;
@@ -59,7 +59,7 @@ namespace Norma.Models
             if (date.Second % 10 != 0)
                 date = date.AddSeconds(-(date.Second % 10)); // サムネイルが10秒単位で発行されるので、N % 10 == 0秒に修正する
             var time = date.ToString("yyyyMMddHHmmss");
-            ThumbnailUrl = $"https://hayabusa.io/abema/channels/time/{time}/{Channel.Id}.w132.h75.png";
+            ThumbnailUrl = $"https://hayabusa.io/abema/channels/time/{time}/{Channel.ChannelId}.w132.h75.png";
             _statusService.UpdateStatus(Resources.ReloadingThumbnail);
         }
 

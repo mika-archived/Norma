@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 
+using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 
 using Norma.Delta.Services;
@@ -12,7 +15,7 @@ using Prism.Unity;
 
 namespace Norma
 {
-    internal class Bootstrapper : UnityBootstrapper
+    internal class Bootstrapper : UnityBootstrapper, IServiceLocator
     {
         #region Overrides of UnityBootstrapper
 
@@ -27,15 +30,19 @@ namespace Norma
             Container.RegisterType<Configuration>(new ContainerControlledLifetimeManager());
             Container.RegisterType<AbemaApiClient>(new ContainerControlledLifetimeManager());
             Container.RegisterType<NetworkHandler>(new ContainerControlledLifetimeManager());
-
-            AppInitializer.Initialize();
         }
+
+        protected override void ConfigureServiceLocator() => ServiceLocator.SetLocatorProvider(() => this);
 
         #endregion
 
         #region Overrides of Bootstrapper
 
-        protected override DependencyObject CreateShell() => Container.Resolve<Shell>();
+        protected override DependencyObject CreateShell()
+        {
+            AppInitializer.Initialize();
+            return Container.Resolve<Shell>();
+        }
 
         protected override void InitializeShell()
         {
@@ -44,6 +51,27 @@ namespace Norma
             Application.Current.MainWindow = (Window) Shell;
             Application.Current.MainWindow.Show();
         }
+
+        #endregion
+
+        // -------------------
+        // あまりよくなさそう。
+
+        #region Implementation of IServiceLocator
+
+        public object GetService(Type serviceType) => Container.Resolve(serviceType);
+
+        public object GetInstance(Type serviceType) => Container.Resolve(serviceType);
+
+        public object GetInstance(Type serviceType, string key) => Container.Resolve(serviceType, key);
+
+        public IEnumerable<object> GetAllInstances(Type serviceType) => Container.ResolveAll(serviceType);
+
+        public TService GetInstance<TService>() => Container.Resolve<TService>();
+
+        public TService GetInstance<TService>(string key) => Container.Resolve<TService>(key);
+
+        public IEnumerable<TService> GetAllInstances<TService>() => Container.ResolveAll<TService>();
 
         #endregion
     }

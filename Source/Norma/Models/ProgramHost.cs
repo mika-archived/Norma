@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 
 using Microsoft.Practices.ObjectBuilder2;
 
+using Norma.Delta.Models;
 using Norma.Eta.Properties;
-using Norma.Gamma.Models;
+using Norma.Eta.Services;
 
 using Prism.Mvvm;
 
@@ -18,14 +20,20 @@ namespace Norma.Models
     {
         private readonly AbemaState _abemaState;
         private readonly CompositeDisposable _compositeDisposable;
+        private readonly StatusService _statusService;
 
-        public ProgramHost(AbemaState abemaState)
+        public ObservableCollection<string> Casts { get; }
+
+        public ObservableCollection<string> Crews { get; }
+
+        public ProgramHost(AbemaState abemaState, StatusService statusService)
         {
             Casts = new ObservableCollection<string>();
             Crews = new ObservableCollection<string>();
             _compositeDisposable = new CompositeDisposable();
 
             _abemaState = abemaState;
+            _statusService = statusService;
             _compositeDisposable.Add(abemaState.ObserveProperty(w => w.CurrentEpisode)
                                                .Where(w => w != null)
                                                .Subscribe(w => FetchProgramInfo()));
@@ -43,74 +51,46 @@ namespace Norma.Models
 
         private void FetchProgramInfo()
         {
-            StatusInfo.Instance.Text = Resources.FetchingProgramInformation;
+            _statusService.UpdateStatus(Resources.FetchingProgramInformation);
             var slot = _abemaState.CurrentSlot;
-            var program = _abemaState.CurrentEpisode;
+            var episode = _abemaState.CurrentEpisode;
+
+            Casts.Clear();
+            Crews.Clear();
+
             if (slot == null)
             {
                 Title = "";
+                Description = "";
                 return;
             }
-            // ReSharper disable HeuristicUnreachableCode
-#pragma warning disable 162
-            if (false)
-            {
-                Title = slot.Title;
-                Description = slot.DetailHighlight;
-                ProvideCredits(slot.Programs[0].Credit);
-                ProvideThumbnails(slot.Programs[0]);
-            }
-            // ReSharper disable once RedundantIfElseBlock
-            else
-            {
-                // FIX: AbemaTV が、 slot.programs[0].episode.title などを提供しなくなった。
-                //      それ故、 Episode.Name と Episode.Overview が null になる。
-                Title = $"{slot.Title} - #{program.Episode.Sequence}";
-                Description = slot.Content ?? slot.TableHighlight;
-                ProvideCredits(program.Credit);
-                ProvideThumbnails(program);
-            }
-            StatusInfo.Instance.Text = Resources.FetchedProgramInformation;
+
+            Title = $"{slot.Title} - #{episode.Sequence}";
+            Description = slot.Description;
+            episode.Casts.ForEach(w => Casts.Add(w.Name));
+            episode.Crews.ForEach(w => Crews.Add(w.Name));
+            HasCasts = Casts.Count > 0;
+            HasCrews = Crews.Count > 0;
+
+            ProvideThumbnails(episode);
+
+            _statusService.UpdateStatus(Resources.FetchedProgramInformation);
         }
 
-        private void ProvideCredits(Credit credit)
+        private void ProvideThumbnails(Episode episode)
         {
-            Casts.Clear();
-            if (credit.Cast?.Length > 0)
-            {
-                credit.Cast?.ForEach(w => Casts.Add(w));
-                HasCasts = true;
-            }
-            else
-                HasCasts = false;
-
-            Crews.Clear();
-            if (credit.Crews?.Length > 0)
-            {
-                credit.Crews?.ForEach(w => Crews.Add(w));
-                HasCrews = true;
-            }
-            else
-                HasCrews = false;
-        }
-
-        private void ProvideThumbnails(Program program)
-        {
-            var scenes = program.ProvidedInfo.SceneThumbImgs;
+            var scenes = episode.Thumbnails;
 
             // Init
-            if (scenes?.Length > 0)
+            if (scenes.Count > 0)
             {
-                Thumbnail1 = $"https://hayabusa.io/abema/programs/{program.Id}/{scenes[0]}.w135.png";
-                Thumbnail2 = scenes.Length >= 2
-                    ? $"https://hayabusa.io/abema/programs/{program.Id}/{scenes[1]}.w135.png"
+                Thumbnail1 = $"https://hayabusa.io/abema/programs/{episode.EpisodeId}/{scenes.Skip(0).First()}.w135.png";
+                Thumbnail2 = scenes.Count >= 2
+                    ? $"https://hayabusa.io/abema/programs/{episode.EpisodeId}/{scenes.Skip(1).First()}.w135.png"
                     : "";
-                return;
             }
-            Thumbnail2 = "";
-            Thumbnail1 = !string.IsNullOrWhiteSpace(program.ProvidedInfo.ThumbImg)
-                ? $"https://hayabusa.io/abema/programs/{program.Id}/{program.ProvidedInfo.ThumbImg}.w135.png"
-                : "";
+            else
+                Thumbnail1 = Thumbnail2 = "";
         }
 
         #region Title
@@ -160,10 +140,6 @@ namespace Norma.Models
         }
 
         #endregion
-
-        public ObservableCollection<string> Casts { get; }
-
-        public ObservableCollection<string> Crews { get; }
 
         #region HasCasts
 

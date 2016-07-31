@@ -71,7 +71,7 @@ namespace Norma.Models
         {
             _statusService.UpdateStatus(Resources.FetchingComments);
             var holdingComments = _configuration.Root.Operation.NumberOfHoldingComments;
-            var comments = await _abemaApiHost.Comments(_abemaState.CurrentSlot.Id);
+            var comments = await _abemaApiHost.Comments(_abemaState.CurrentSlot.SlotId);
             if (comments?.CommentList == null)
             {
                 if (comments != null)

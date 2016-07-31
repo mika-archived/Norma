@@ -28,9 +28,6 @@ namespace Norma
         /// <param name="application"></param>
         public static void PreInitialize(Application application)
         {
-            _startupScreen = new StartupScreen();
-            _startupScreen.Show();
-
             if (!Directory.Exists(NormaConstants.CrashReportsDir))
                 Directory.CreateDirectory(NormaConstants.CrashReportsDir);
 
@@ -43,11 +40,15 @@ namespace Norma
         /// </summary>
         public static void Initialize()
         {
+            _startupScreen = new StartupScreen();
+            _startupScreen.Show();
+
             _statusService = ServiceLocator.Current.GetInstance<StatusService>();
 
-            _statusService.UpdateStatus("データベースの更新をしています...");
+            _statusService.UpdateStatus("データベースを初期化しています");
             var databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
             databaseService.Initialize();
+            _statusService.UpdateStatus("データベースを更新しています");
             databaseService.Migration();
         }
 

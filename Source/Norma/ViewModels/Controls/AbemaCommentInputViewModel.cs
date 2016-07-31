@@ -19,7 +19,8 @@ namespace Norma.ViewModels.Controls
         private readonly Configuration _configuration;
         public ReactiveProperty<string> Comment { get; }
 
-        public AbemaCommentInputViewModel(AbemaApiClient abemaApiHost, AbemaState abemaState, Configuration configuration)
+        public AbemaCommentInputViewModel(AbemaApiClient abemaApiHost, AbemaState abemaState,
+                                          Configuration configuration)
         {
             _abemaApiHost = abemaApiHost;
             _abemaState = abemaState;
@@ -37,7 +38,7 @@ namespace Norma.ViewModels.Controls
 
         private async void Send()
         {
-            await _abemaApiHost.Comment(_abemaState.CurrentSlot.Id, Comment.Value);
+            await _abemaApiHost.Comment(_abemaState.CurrentSlot.SlotId, Comment.Value);
             Comment.Value = "";
         }
 

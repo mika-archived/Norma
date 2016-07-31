@@ -1,5 +1,6 @@
-﻿using Microsoft.Practices.ServiceLocation;
+﻿using System;
 
+using Norma.Delta.Models;
 using Norma.Delta.Services;
 using Norma.Eta.Mvvm;
 using Norma.Models;
@@ -12,16 +13,16 @@ namespace Norma.ViewModels.Controls
     // ReSharper disable once InconsistentNaming
     internal class AbemaTVGuideViewModel : ViewModel
     {
+        private readonly AbemaState _abemaState;
         public ReadOnlyReactiveCollection<ChannelViewModel> Channnels { get; private set; }
 
-        public AbemaTVGuideViewModel()
+        private Func<Channel, ChannelViewModel> Func => w => new ChannelViewModel(_abemaState, new AbemaChannel(w));
+
+        public AbemaTVGuideViewModel(AbemaState abemaState, TimetableService timetableService)
         {
-            var timetableService = ServiceLocator.Current.GetInstance<TimetableService>();
+            _abemaState = abemaState;
             Channnels = timetableService.CurrentSlots
-                                        .ToReadOnlyReactiveCollection(
-                                                                      v =>
-                                                                          new ChannelViewModel(
-                                                                          new AbemaChannel(v.Channel.Id)))
+                                        .ToReadOnlyReactiveCollection(w => Func(w.Channel))
                                         .AddTo(this);
         }
     }

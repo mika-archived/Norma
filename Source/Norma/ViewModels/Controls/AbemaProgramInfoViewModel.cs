@@ -1,6 +1,7 @@
 ﻿using System.Reactive.Linq;
 
 using Norma.Eta.Mvvm;
+using Norma.Eta.Services;
 using Norma.Models;
 
 using Reactive.Bindings;
@@ -20,9 +21,9 @@ namespace Norma.ViewModels.Controls
         public ReadOnlyReactiveCollection<string> Casts { get; }
         public ReadOnlyReactiveCollection<string> Crews { get; private set; }
 
-        public AbemaProgramInfoViewModel(AbemaState abemaState)
+        public AbemaProgramInfoViewModel(AbemaState abemaState, StatusService statusService)
         {
-            var programHost = new ProgramHost(abemaState).AddTo(this);
+            var programHost = new ProgramHost(abemaState, statusService).AddTo(this);
             Title = programHost.ObserveProperty(w => w.Title).ToReadOnlyReactiveProperty().AddTo(this);
             Description = programHost.ObserveProperty(w => w.Description).ToReadOnlyReactiveProperty().AddTo(this);
             HasInfo = programHost.ObserveProperty(w => w.Title)
@@ -31,10 +32,12 @@ namespace Norma.ViewModels.Controls
             Thumbnail1 = programHost.ObserveProperty(w => w.Thumbnail1).ToReadOnlyReactiveProperty().AddTo(this);
             Thumbnail2 = programHost.ObserveProperty(w => w.Thumbnail2).ToReadOnlyReactiveProperty().AddTo(this);
             AtChannel = abemaState.ObserveProperty(w => w.CurrentChannel)
+                                  .Where(w => w != null)
                                   .Select(w => $"at {w.Name.Replace("チャンネル", "")}")
                                   .ToReadOnlyReactiveProperty().AddTo(this);
             Range = abemaState.ObserveProperty(w => w.CurrentSlot)
-                              .Select(w => $"{w?.StartAt.ToString("t")} ～ {w?.EndAt.ToString("t")}")
+                              .Where(w => w != null)
+                              .Select(w => $"{w.StartAt.ToString("t")} ～ {w.EndAt.ToString("t")}")
                               .ToReadOnlyReactiveProperty().AddTo(this);
             Casts = programHost.Casts.ToReadOnlyReactiveCollection().AddTo(this);
             Crews = programHost.Crews.ToReadOnlyReactiveCollection().AddTo(this);
