@@ -3,6 +3,8 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+using Norma.Eta.Models.Enums;
+
 namespace Norma.Eta.Models.Configurations
 {
     public class RootConfig

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 using Norma.Eta.Extensions;
 using Norma.Eta.Models.Configurations;
+using Norma.Eta.Models.Enums;
 
 namespace Norma.Eta.Models
 {

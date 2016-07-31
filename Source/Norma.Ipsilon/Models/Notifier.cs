@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 using Norma.Eta.Extensions;
 using Norma.Eta.Models;
-using Norma.Eta.Models.Reservations;
 using Norma.Eta.Properties;
 using Norma.Gamma.Models;
 

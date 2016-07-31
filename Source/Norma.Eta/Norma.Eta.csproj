@@ -124,18 +124,10 @@
     <Compile Include="Actions\WindowCloseAction.cs" />
     <Compile Include="Controls\WindowSettingsExt.cs" />
     <Compile Include="Converters\YesNoToBooleanConverter.cs" />
-    <Compile Include="Database\DatabaseConnectionProvider.cs" />
-    <Compile Include="Database\ReservationDbContext.cs" />
     <Compile Include="Extensions\CollectionExt.cs" />
     <Compile Include="Extensions\TimeSpanExt.cs" />
-    <Compile Include="Migrations\201607301326000_CreateMigrationHistoryTable.cs" />
-    <Compile Include="Migrations\201607301326001_InsertDefaultMigrationHistory.cs" />
-    <Compile Include="Migrations\201607301326002_AddRsvAllSeriesId.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Migrations\IMigration.cs" />
-    <Compile Include="Models\MigrationHistory.cs" />
     <Compile Include="Models\AbemaApiHost.cs" />
-    <Compile Include="Models\AbemaChannel.cs" />
+    <Compile Include="Models\Enums\AbemaChannel.cs" />
     <Compile Include="Models\AppStartup.cs" />
     <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\Configurations\BrowserConfig.cs" />
@@ -151,19 +143,11 @@
     <Compile Include="Models\Operations\ChangeChannelOp.cs" />
     <Compile Include="Models\Operations\IOperation.cs" />
     <Compile Include="Models\Operations\IOperationRequestAware.cs" />
-    <Compile Include="Models\PostKey.cs" />
-    <Compile Include="Models\Reservation.cs" />
-    <Compile Include="Models\Reservations\RepetitionType.cs" />
-    <Compile Include="Models\Reservations\Reserve.cs" />
-    <Compile Include="Models\Reservations\RsvAll.cs" />
-    <Compile Include="Models\Reservations\RsvKeyword.cs" />
-    <Compile Include="Models\Reservations\RsvProgram.cs" />
-    <Compile Include="Models\Reservations\RsvProgram2.cs" />
-    <Compile Include="Models\Reservations\RsvSeries.cs" />
-    <Compile Include="Models\Reservations\RsvTime.cs" />
+    <Compile Include="Models\Enums\PostKey.cs" />
+    <Compile Include="Models\Enums\RepetitionType.cs" />
     <Compile Include="Models\Timetable.cs" />
     <Compile Include="Models\TimetableCache.cs" />
-    <Compile Include="Models\VideoQuality.cs" />
+    <Compile Include="Models\Enums\VideoQuality.cs" />
     <Compile Include="Mvvm\IDisposableExtension.cs" />
     <Compile Include="Mvvm\InteractionViewModel.cs" />
     <Compile Include="Mvvm\ViewModel.cs" />
@@ -187,6 +171,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Services\StatusService.cs" />
     <Compile Include="SQLite\SqliteMigrationSqlGenerator.cs" />
     <Compile Include="Validations\DateTimeValidator.cs" />
     <Compile Include="Validations\IValidator.cs" />

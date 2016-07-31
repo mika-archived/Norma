@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 
-using Norma.Eta.Models;
-using Norma.Eta.Models.Reservations;
+using Norma.Delta.Services;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
 using Norma.Eta.Properties;
@@ -19,7 +17,7 @@ namespace Norma.Iota.ViewModels.WindowContents
 {
     internal class RsvListContentViewModel : InteractionViewModel<DataPassingNotification>
     {
-        private readonly Reservation _reservation;
+        private readonly DatabaseService _databaseService;
         public string WindowTitle => Resources.RsvList;
 
         public ObservableCollection<RsvAllViewModel> Reservations { get; }
@@ -27,9 +25,9 @@ namespace Norma.Iota.ViewModels.WindowContents
         public InteractionRequest<Confirmation> ConfirmationRequest { get; }
         public InteractionRequest<DataPassingNotification> EditRequest { get; }
 
-        public RsvListContentViewModel(Reservation reservation)
+        public RsvListContentViewModel(DatabaseService databaseService)
         {
-            _reservation = reservation;
+            _databaseService = databaseService;
             Reservations = new ObservableCollection<RsvAllViewModel>();
             SelectedItem = new ReactiveProperty<RsvAllViewModel>();
             ConfirmationRequest = new InteractionRequest<Confirmation>();

@@ -1,6 +1,4 @@
-﻿using Norma.Eta.Models.Reservations;
-
-namespace Norma.Iota.ViewModels.Reservations
+﻿namespace Norma.Iota.ViewModels.Reservations
 {
     internal class RsvKeywordViewModel : ReservationViewModel
     {
@@ -12,7 +10,6 @@ namespace Norma.Iota.ViewModels.Reservations
 
         public RsvKeywordViewModel(RsvKeyword reserve) : base(reserve)
         {
-
         }
     }
 }

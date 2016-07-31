@@ -2,6 +2,8 @@
 
 using Newtonsoft.Json;
 
+using Norma.Eta.Models.Enums;
+
 namespace Norma.Eta.Models.Configurations
 {
     public class OperationConfig

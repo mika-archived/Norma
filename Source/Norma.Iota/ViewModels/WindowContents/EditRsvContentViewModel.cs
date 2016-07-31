@@ -1,7 +1,6 @@
 ﻿using System;
 
 using Norma.Eta.Models;
-using Norma.Eta.Models.Reservations;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
 using Norma.Eta.Properties;
