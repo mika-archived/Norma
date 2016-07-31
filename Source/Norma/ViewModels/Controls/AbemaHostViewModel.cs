@@ -1,19 +1,19 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 
 using CefSharp;
 using CefSharp.Wpf;
 
-using Microsoft.Practices.ServiceLocation;
-
 using Newtonsoft.Json.Linq;
 
 using Norma.Delta.Services;
-using Norma.Eta.Models;
 using Norma.Eta.Models.Enums;
 using Norma.Eta.Models.Operations;
 using Norma.Eta.Mvvm;
 using Norma.Models;
+
+using Reactive.Bindings.Extensions;
 
 namespace Norma.ViewModels.Controls
 {
@@ -22,20 +22,22 @@ namespace Norma.ViewModels.Controls
     {
         private readonly AbemaState _abemaState;
         private readonly ReservationService _reservationService;
+        private readonly TimetableService _timetableService;
         private JavaScriptHost _javaScritHost;
 
-        public AbemaHostViewModel()
+        public AbemaHostViewModel(AbemaState abemaState, Connector connector, NetworkHandler networkHandler,
+                                  ReservationService reservationService, TimetableService timetableService)
         {
-            _abemaState = ServiceLocator.Current.GetInstance<AbemaState>();
-            _reservationService = ServiceLocator.Current.GetInstance<ReservationService>();
+            _abemaState = abemaState;
+            _reservationService = reservationService;
+            _timetableService = timetableService;
 
-            var connector = ServiceLocator.Current.GetInstance<Connector>();
+            _abemaState.ObserveProperty(w => w.CurrentChannel).SubscribeOnUIDispatcher()
+                       .Subscribe(w => Address = $"https://abema.tv/now-on-air/{w.Id}");
+
             connector.RegisterInsance<ChangeChannelOp>(this);
-
-            var configuration = ServiceLocator.Current.GetInstance<Configuration>();
-            var networkHandler = ServiceLocator.Current.GetInstance<NetworkHandler>();
             networkHandler.RegisterInstance(this, e => e.Url.EndsWith("/slotReservations"));
-            Address = $"https://abema.tv/now-on-air/{configuration.Root.LastViewedChannelStr}";
+            Address = "https://abema.tv/";
         }
 
         #region Implementation of INetworkCaptureRequestAware
@@ -55,14 +57,12 @@ namespace Norma.ViewModels.Controls
         {
             var args = operation as ChangeChannelOp;
             var channel = AbemaChannelExt.ToIdentifier(args?.Context.ToString());
-            // うーん？
-            Address = "https://abema.tv";
             do
             {
                 Thread.Sleep(TimeSpan.FromMilliseconds(100));
             }
             while (_javaScritHost == null);
-            Address = $"https://abema.tv/now-on-air/{channel}";
+            _abemaState.CurrentChannel = _timetableService.Channels.Single(w => w.Id == channel);
         }
 
         #endregion
@@ -109,12 +109,7 @@ namespace Norma.ViewModels.Controls
         public string Address
         {
             get { return _address; }
-            set
-            {
-                if (!SetProperty(ref _address, value) || _javaScritHost == null)
-                    return;
-                _abemaState.OnChannelChanged(value);
-            }
+            set { SetProperty(ref _address, value); }
         }
 
         #endregion

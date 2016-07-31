@@ -8,7 +8,6 @@ using Norma.Eta;
 using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Models;
-using Norma.ViewModels.Controls;
 
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
@@ -22,7 +21,6 @@ namespace Norma.ViewModels
     internal class ShellViewModel : ViewModel
     {
         private readonly Configuration _configuration;
-        public AbemaHostViewModel HostViewModel { get; }
         public InteractionRequest<INotification> SettingsRequest { get; }
         public ReadOnlyReactiveProperty<string> Title { get; private set; }
         public ReactiveProperty<bool> IsTopMost { get; private set; }
@@ -31,8 +29,6 @@ namespace Norma.ViewModels
                               Reservation reservation, NetworkHandler networkHandler)
         {
             _configuration = config;
-
-            HostViewModel = new AbemaHostViewModel().AddTo(this);
             SettingsRequest = new InteractionRequest<INotification>();
 
             Title = abemaState.ObserveProperty(w => w.CurrentSlot)
