@@ -1,8 +1,6 @@
 ﻿using System;
 
-using Norma.Eta.Properties;
-
-namespace Norma.Eta.Models.Enums
+namespace Norma.Delta.Models.Enums
 {
     public enum RepetitionType
     {
@@ -64,11 +62,6 @@ namespace Norma.Eta.Models.Enums
 
     public static class RepetitionTypeExt
     {
-        public static string ToLocaleString(this RepetitionType obj)
-        {
-            return (string) typeof(Resources).GetProperty(obj.ToString()).GetValue(null);
-        }
-
         public static bool IsMatch(this RepetitionType obj, DateTime date)
         {
             switch (obj)
@@ -103,8 +96,10 @@ namespace Norma.Eta.Models.Enums
 
                 case RepetitionType.MonToSat:
                     return 1 <= (int) date.DayOfWeek && (int) date.DayOfWeek <= 6;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(obj), obj, null);
             }
-            return false;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Norma.Eta.Models.Enums;
+using Norma.Delta.Models.Enums;
 
 namespace Norma.Delta.Models
 {

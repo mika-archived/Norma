@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
 
-using Norma.Eta.Properties;
-
 namespace Norma.Eta.Models.Enums
 {
     public enum PostKey
@@ -43,11 +41,6 @@ namespace Norma.Eta.Models.Enums
                 default:
                     throw new ArgumentOutOfRangeException(nameof(keyType), keyType, null);
             }
-        }
-
-        public static string ToLocaleString(this PostKey obj)
-        {
-            return (string) typeof(Resources).GetProperty(obj.ToString()).GetValue(null);
         }
     }
 }

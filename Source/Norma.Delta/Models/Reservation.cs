@@ -1,6 +1,4 @@
-﻿using Norma.Eta.Models;
-
-namespace Norma.Delta.Models
+﻿namespace Norma.Delta.Models
 {
     public class Reservation
     {

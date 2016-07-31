@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Reflection;
+
+using Norma.Eta.Extensions;
 
 namespace Norma.Eta.Models
 {
@@ -17,9 +18,7 @@ namespace Norma.Eta.Models
         {
             if (!typeof(T).IsEnum)
                 throw new NotSupportedException($"{nameof(EnumWrap<T>)} does not support {value.GetType()}");
-            var type = Type.GetType($"{value.GetType().FullName}Ext");
-            var method = type?.GetMethod("ToLocaleString", BindingFlags.Public | BindingFlags.Static);
-            Display = (string) method?.Invoke(null, new object[] {value});
+            Display = (value as Enum)?.ToLocaleString();
             EnumValue = value;
         }
 

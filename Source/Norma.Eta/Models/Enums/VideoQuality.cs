@@ -42,32 +42,5 @@ namespace Norma.Eta.Models.Enums
                     throw new ArgumentOutOfRangeException(nameof(quality), quality, null);
             }
         }
-
-        public static string ToLocaleString(this VideoQuality quality)
-        {
-            switch (quality)
-            {
-                case VideoQuality.Lowest:
-                    return "Lowest";
-
-                case VideoQuality.Lower:
-                    return "Lower";
-
-                case VideoQuality.Medium:
-                    return "Medium";
-
-                case VideoQuality.Higher:
-                    return "Higer";
-
-                case VideoQuality.Highest:
-                    return "Highest";
-
-                case VideoQuality.Auto:
-                    return "Auto";
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(quality), quality, null);
-            }
-        }
     }
 }

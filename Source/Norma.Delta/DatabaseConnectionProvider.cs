@@ -1,8 +1,6 @@
 ﻿using System.Data.Common;
 using System.IO;
 
-using Norma.Eta;
-
 namespace Norma.Delta
 {
     internal static class DatabaseConnectionProvider
