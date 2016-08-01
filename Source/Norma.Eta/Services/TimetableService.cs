@@ -24,7 +24,6 @@ namespace Norma.Eta.Services
     public class TimetableService
     {
         private readonly AbemaApiClient _abemaApiClient;
-        private readonly ObservableCollection<Slot> _currentSlotsInternal;
         private readonly DatabaseService _databaseService;
 
         private readonly List<IFilter> _filters = new List<IFilter>
@@ -43,7 +42,7 @@ namespace Norma.Eta.Services
         {
             _abemaApiClient = abemaApiClient;
             _databaseService = databaseService;
-            _currentSlotsInternal = new ObservableCollection<Slot>();
+            _currentSlotInternal = new ObservableCollection<Slot>();
         }
 
         public void Initialize()
@@ -51,38 +50,77 @@ namespace Norma.Eta.Services
             using (var connection = _databaseService.Connect())
             {
                 var lastSyncTimeStr = connection.Metadata.Single(w => w.Key == Metadata.LastSyncTimeKey);
-                if (EqualsWithDates(DateTime.Today, DateTime.Parse(lastSyncTimeStr.Value)))
-                    return;
+                if (!EqualsWithDates(DateTime.Today, DateTime.Parse(lastSyncTimeStr.Value)))
+                {
+                    var timetable = _abemaApiClient.MediaOfDays(6);
 
-                var timetable = _abemaApiClient.MediaOfDays(6);
+                    // チャンネル ~ 200ms
+                    UpdateChannels(connection, timetable);
 
-                // チャンネル ~ 200ms
-                UpdateChannels(connection, timetable);
+                    // クレジット ~ 900ms
+                    UpdateCredits(connection, timetable.ChannelSchedules);
 
-                // クレジット ~ 900ms
-                UpdateCredits(connection, timetable.ChannelSchedules);
+                    // シリーズ ~ 200ms
+                    UpdateSeries(connection, timetable.ChannelSchedules);
 
-                // シリーズ ~ 200ms
-                UpdateSeries(connection, timetable.ChannelSchedules);
+                    // 番組単位 ~ 3000ms (ﾂﾗｲ)
+                    UpdateEpisodes(connection, timetable.ChannelSchedules);
 
-                // 番組単位 ~ 3000ms (ﾂﾗｲ)
-                UpdateEpisodes(connection, timetable.ChannelSchedules);
+                    // 放送単位 ~ 1000ms
+                    UpdateSlots(connection, timetable.ChannelSchedules);
 
-                // 放送単位 ~ 1000ms
-                UpdateSlots(connection, timetable.ChannelSchedules);
-
-                lastSyncTimeStr.Value = DateTime.Now.ToString("G");
-                connection.DetectChanges();
-                connection.SaveChanges();
+                    lastSyncTimeStr.Value = DateTime.Now.ToString("G");
+                    connection.DetectChanges();
+                    connection.SaveChanges();
+                }
             }
-
             Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(async w => await UpdateAsync());
         }
 
         private async Task UpdateAsync()
         {
+            List<Slot> slots;
+            using (var connection = _databaseService.Connect())
+            {
+                var lastSyncTime = connection.Metadata.Single(w => w.Key == Metadata.LastSyncTimeKey);
+                if (!EqualsWithDates(DateTime.Today, DateTime.Parse(lastSyncTime.Value)))
+                    // TODO: 更新処理
+                    return;
+                slots = connection.Slots.AsNoTracking().Where(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt)
+                                  .Include(w => w.Channel)
+                                  .OrderBy(w => w.Channel.Order)
+                                  .ToList();
+            }
 
+            // 削除
+            foreach (var slot in _currentSlotInternal.ToArray())
+            {
+                if (slots.Any(w => w.SlotId == slot.SlotId))
+                    continue;
+                _currentSlotInternal.Remove(slot);
+            }
+            // 追加
+            foreach (var slot in slots)
+            {
+                if (_currentSlotInternal.Any(w => w.SlotId == slot.SlotId))
+                    continue;
+                if (_currentSlotInternal.Count <= slot.Channel.Order)
+                    _currentSlotInternal.Add(slot);
+                else
+                    _currentSlotInternal.Insert(slot.Channel.Order, slot);
+            }
         }
+
+        #region CurrentSlots
+
+        private readonly ObservableCollection<Slot> _currentSlotInternal;
+
+        private ReadOnlyObservableCollection<Slot> _currentSlots;
+
+        public ReadOnlyObservableCollection<Slot> CurrentSlots
+            => _currentSlots ?? (_currentSlots = new ReadOnlyObservableCollection<Slot>(_currentSlotInternal));
+
+        #endregion
 
         #region JSON data to SQL flatten data
 
@@ -184,15 +222,6 @@ namespace Norma.Eta.Services
         }
 
         private string Filter(string str) => _filters.Aggregate(str, (current, filter) => filter.Call(current));
-
-        #endregion
-
-        #region CurrentSlots
-
-        private ReadOnlyObservableCollection<Slot> _currentSlots;
-
-        public ReadOnlyObservableCollection<Slot> CurrentSlots
-            => _currentSlots ?? (_currentSlots = new ReadOnlyObservableCollection<Slot>(_currentSlotsInternal));
 
         #endregion
     }
