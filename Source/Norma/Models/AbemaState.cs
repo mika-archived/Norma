@@ -13,6 +13,7 @@ using Prism.Mvvm;
 
 namespace Norma.Models
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     internal class AbemaState : BindableBase
     {
         private readonly AbemaApiClient _abemaApiHost;
@@ -30,8 +31,8 @@ namespace Norma.Models
             _timetableService = timetableService;
             var interval = TimeSpan.FromSeconds(configuration.Root.Operation.UpdateIntervalOfProgram);
 
-            //CurrentChannel =
-            //    _timetableService.Channels.Single(w => w.ChannelId == _configuration.Root.LastViewedChannelStr);
+            using (var connector = databaseService.Connect())
+                CurrentChannel = connector.Channels.Single(w => w.ChannelId == _configuration.Root.LastViewedChannelStr);
             _disposable = Observable.Timer(TimeSpan.FromSeconds(1), interval).Subscribe(async w => await Sync());
         }
 

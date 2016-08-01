@@ -29,6 +29,7 @@ namespace Norma
             Container.RegisterType<TimetableService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<Configuration>(new ContainerControlledLifetimeManager());
             Container.RegisterType<AbemaApiClient>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<AbemaState>(new ContainerControlledLifetimeManager());
             Container.RegisterType<NetworkHandler>(new ContainerControlledLifetimeManager());
         }
 
