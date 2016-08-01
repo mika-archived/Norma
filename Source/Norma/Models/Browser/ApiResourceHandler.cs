@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 using CefSharp;
 
@@ -24,59 +25,91 @@ namespace Norma.Models.Browser
 
         #region Overrides of ResourceHandler
 
-        public override bool ProcessRequestAsync(IRequest request, ICallback callback)
+        public override bool ProcessRequestAsync(IRequest taskRequest, ICallback callback)
         {
-            try
+            var headers = taskRequest.Headers;
+            var url = taskRequest.Url;
+            var method = taskRequest.Method;
+            var postData = taskRequest.PostData;
+            Task.Run(() =>
             {
-                var httpClient = new HttpClient();
-                foreach (var header in request.Headers.AllKeys)
-                    if (header.ToLower() != "content-type")
-                        httpClient.DefaultRequestHeaders.Add(header, request.Headers.GetValues(header));
-
-                HttpResponseMessage response = null;
-                if (request.Method == "OPTIONS")
-                    response = httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Options, request.Url)).Result;
-                else
-                    CapturingRequest(request.Url, request.Headers,
-                                     request.PostData?.Elements.FirstOrDefault()?.GetBody());
-
-                if (request.Method == "GET")
-                    response = httpClient.GetAsync(request.Url).Result;
-                if (request.Method == "POST")
+                using (callback)
                 {
-                    var content = request.PostData?.Elements.FirstOrDefault()?.GetBody();
-                    var httpContent = new StringContent2(content, Encoding.UTF8, "application/json");
-                    response = httpClient.PostAsync(request.Url, httpContent).Result;
+                    try
+                    {
+                        var httpClient = new HttpClient();
+                        foreach (var header in headers.AllKeys)
+                            if (header.ToLower() != "content-type")
+                                httpClient.DefaultRequestHeaders.Add(header, headers.GetValues(header));
+
+                        HttpResponseMessage response = null;
+                        if (method == "OPTIONS")
+                        {
+                            // CORS のやつだし、テンプレでいいでしょ
+                            StatusCode = 200;
+                            MimeType = "text/plain";
+                            Stream = null;
+                            Headers.Set("Content-Length", "0");
+                            Headers.Set("Content-Type", "text/plain; charset=utf-8");
+                            Headers.Set("Access-Control-Allow-Headers", "Accept, Accept-Encoding, Content-Type, Authorization");
+                            Headers.Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+                            Headers.Set("Access-Control-Allow-Origin", "https://abema.tv");
+                            Headers.Set("Access-Control-Max-Age", "86400");
+                            Headers.Set("Vary", "Origin");
+                            Headers.Set("Alt-Svc", "clear");
+                            Headers.Set("Date", DateTime.Now.ToString("R"));
+                            Headers.Set("Via", "1.1 google");
+                            callback.Continue();
+                            return;
+                        }
+                        else
+                            CapturingRequest(url, headers,
+                                             postData?.Elements.FirstOrDefault()?.GetBody());
+
+                        if (method == "GET")
+                            response = httpClient.GetAsync(url).Result;
+                        if (method == "POST")
+                        {
+                            var content = postData?.Elements.FirstOrDefault()?.GetBody();
+                            var httpContent = new StringContent2(content, Encoding.UTF8, "application/json");
+                            response = httpClient.PostAsync(url, httpContent).Result;
+                        }
+                        if (method == "PUT")
+                        {
+                            var content = postData?.Elements.FirstOrDefault()?.GetBody();
+                            var httpContent = new StringContent2(content, Encoding.UTF8, "application/json");
+                            response = httpClient.PutAsync(url, httpContent).Result;
+                        }
+
+                        Debug.WriteLine($"APICALL: {url}");
+                        // 知らん
+                        if (response == null)
+                            throw new NotSupportedException();
+
+                        StatusCode = response.StatusCode.GetHashCode();
+                        MimeType = response.Content.Headers.ContentType.MediaType;
+                        Stream = response.Content.ReadAsStreamAsync().Result;
+                        foreach (var header in response.Content.Headers)
+                            foreach (var value in header.Value)
+                                Headers.Set(header.Key, value);
+                        foreach (var header in response.Headers)
+                            foreach (var value in header.Value)
+                                Headers.Set(header.Key, value);
+
+                        CapturingResponse(url, Headers, response.Content.ReadAsStringAsync().Result);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e.Message);
+                    }
+                    finally
+                    {
+                        if (!callback.IsDisposed)
+                            callback.Continue();
+                    }
                 }
-                if (request.Method == "PUT")
-                {
-                    var content = request.PostData?.Elements.FirstOrDefault()?.GetBody();
-                    var httpContent = new StringContent2(content, Encoding.UTF8, "application/json");
-                    response = httpClient.PutAsync(request.Url, httpContent).Result;
-                }
+            });
 
-                Debug.WriteLine($"APICALL: {request.Url}");
-                // 知らん
-                if (response == null)
-                    throw new NotSupportedException();
-
-                StatusCode = response.StatusCode.GetHashCode();
-                MimeType = response.Content.Headers.ContentType.MediaType;
-                Stream = response.Content.ReadAsStreamAsync().Result;
-                foreach (var header in response.Content.Headers)
-                    foreach (var value in header.Value)
-                        Headers.Set(header.Key, value);
-                foreach (var header in response.Headers)
-                    foreach (var value in header.Value)
-                        Headers.Set(header.Key, value);
-
-                CapturingResponse(request.Url, Headers, response.Content.ReadAsStringAsync().Result);
-                callback.Continue();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message);
-            }
             return true;
         }
 
