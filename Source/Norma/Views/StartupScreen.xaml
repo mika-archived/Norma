@@ -40,10 +40,6 @@
             <TextBlock HorizontalAlignment="Center"
                        FontSize="16"
                        Text="{Binding Version}" />
-            <TextBlock HorizontalAlignment="Center"
-                       Text="{Binding Text.Value}"
-                       TextTrimming="CharacterEllipsis"
-                       TextWrapping="NoWrap" />
         </StackPanel>
         <TextBlock Margin="5"
                    HorizontalAlignment="Left"

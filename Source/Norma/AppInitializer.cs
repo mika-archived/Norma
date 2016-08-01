@@ -8,6 +8,7 @@ using Microsoft.Practices.ServiceLocation;
 
 using Norma.Delta.Services;
 using Norma.Eta;
+using Norma.Eta.Models;
 using Norma.Eta.Services;
 using Norma.Models.Browser;
 using Norma.Views;
@@ -20,7 +21,6 @@ namespace Norma
     internal static class AppInitializer
     {
         private static StartupScreen _startupScreen;
-        private static StatusService _statusService;
 
         /// <summary>
         ///     PreInitialize is called by Application host.
@@ -43,13 +43,18 @@ namespace Norma
             _startupScreen = new StartupScreen();
             _startupScreen.Show();
 
-            _statusService = ServiceLocator.Current.GetInstance<StatusService>();
-
-            _statusService.UpdateStatus("データベースを初期化しています");
             var databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
-            databaseService.Initialize();
-            _statusService.UpdateStatus("データベースを更新しています");
-            databaseService.Migration();
+            using (var connection = databaseService.Connect())
+            {
+                connection.Initialize();
+                connection.Migration();
+            }
+
+            var abemaApiClient = ServiceLocator.Current.GetInstance<AbemaApiClient>();
+            abemaApiClient.Initialize();
+
+            var timetableService = ServiceLocator.Current.GetInstance<TimetableService>();
+            timetableService.Initialize();
         }
 
         /// <summary>

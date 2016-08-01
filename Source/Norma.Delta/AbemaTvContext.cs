@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using System.Diagnostics;
 
 using Norma.Delta.Models;
 
@@ -27,13 +26,27 @@ namespace Norma.Delta
 
         public DbSet<Episode> Episodes { get; set; }
 
+        public DbSet<Cast> Casts { get; set; }
+
+        public DbSet<Copyright> Copyrights { get; set; }
+
+        public DbSet<Crew> Crews { get; set; }
+
         public DbSet<Channel> Channels { get; set; }
 
         public DbSet<MigrationHistory> MigrationHistories { get; set; }
 
+        public DbSet<Metadata> Metadata { get; set; }
+
         public AbemaTvContext() : base(DatabaseConnectionProvider.GetConnection(), true)
         {
-            Database.Log = log => Debug.WriteLine(log);
+            // Database.Log = log => Debug.WriteLine(log);
+            Configuration.AutoDetectChangesEnabled = false;
+        }
+
+        public void DetectChanges()
+        {
+            ChangeTracker.DetectChanges();
         }
 
         #region Overrides of DbContext

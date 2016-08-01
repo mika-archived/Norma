@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Norma.Delta.Models
 {
@@ -22,5 +23,14 @@ namespace Norma.Delta.Models
         public virtual Series Series { get; set; }
 
         public virtual ICollection<Slot> Slots { get; set; }
+
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+        public Episode()
+        {
+            Casts = new List<Cast>();
+            Crews = new List<Crew>();
+            Copyrights = new List<Copyright>();
+            Thumbnails = new List<Thumbnail>();
+        }
     }
 }

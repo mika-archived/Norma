@@ -19,7 +19,7 @@ namespace Norma.Ipsilon
 
             AppInitializer.Initialize();
 
-            Container.RegisterType<DatabaseService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<DbConnection>(new ContainerControlledLifetimeManager());
 
             Container.RegisterInstance(AppInitializer.Configuration, new ContainerControlledLifetimeManager());
             Container.RegisterInstance(AppInitializer.AbemaApiHost, new ContainerControlledLifetimeManager());

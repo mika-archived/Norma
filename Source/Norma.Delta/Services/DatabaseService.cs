@@ -1,107 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-
-using Norma.Delta.Extensions;
-using Norma.Delta.Migrations.Base;
-using Norma.Delta.Models;
+﻿using System.Threading;
 
 namespace Norma.Delta.Services
 {
+    // Unity Container で管理されるので、単一インスタンス
     public class DatabaseService
     {
-        private readonly AbemaTvContext _dbContext;
-        private readonly object _lockObj = new object();
+        private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
 
-        private readonly List<IMigration> _migrations = new List<IMigration>();
-
-        public DbSet<Reservation> Reservations => _dbContext.Reservations;
-        public DbSet<KeywordReservation> KeywordReservations => _dbContext.KeywordReservations;
-        public DbSet<TimeReservation> TimeReservations => _dbContext.TimeReservations;
-        public DbSet<SeriesReservation> SeriesReservations => _dbContext.SeriesReservations;
-        public DbSet<SlotReservation> SlotReservations => _dbContext.SlotReservations;
-        public DbSet<SlotReservation2> SlotReservations2 => _dbContext.SlotReservations2;
-        public DbSet<Slot> Slots => _dbContext.Slots;
-        public DbSet<Series> Series => _dbContext.Series;
-        public DbSet<Episode> Episodes => _dbContext.Episodes;
-        public DbSet<Channel> Channels => _dbContext.Channels;
-
-        public DatabaseService()
+        // DbContext 複数や、長時間使い回しは良くないので、使う時に Connect
+        // 使い終わったら Disconnect
+        // using(var connection = databaseService.Connect())
+        //     Work
+        // で良いと思う
+        public DbConnection Connect()
         {
-            _dbContext = new AbemaTvContext();
+            _semaphoreSlim.Wait();
+            return new DbConnection(this);
         }
 
-        public void Initialize()
+        public void Disconnect()
         {
-            _dbContext.MigrationHistories.Create();
-            _dbContext.Episodes.Create();
-            _dbContext.Channels.Create();
-            _dbContext.Slots.Create();
-            _dbContext.Series.Create();
-            _dbContext.Reservations.Create();
-            _dbContext.KeywordReservations.Create();
-            _dbContext.TimeReservations.Create();
-            _dbContext.SeriesReservations.Create();
-            _dbContext.SlotReservations.Create();
-            _dbContext.SaveChanges();
-        }
-
-        public void Migration()
-        {
-            var lastMigration =
-                _dbContext.MigrationHistories.OrderByDescending(w => w.MigrationHistoryId).FirstOrDefault();
-            var migrationTargets = lastMigration == null
-                ? _migrations
-                : _migrations.SkipWhile(w => w.MigrationId != lastMigration.MigrationHistoryId).Skip(1);
-            var migrations = migrationTargets as IMigration[] ?? migrationTargets.ToArray();
-            if (!migrations.Any())
-                return;
-
-            foreach (var migration in migrations)
-            {
-                _dbContext.Database.ExecuteSqlCommand(migration.UpSql().Replace(Environment.NewLine, ""));
-                _dbContext.MigrationHistories.Add(new MigrationHistory {MigrationHistoryId = migration.MigrationId});
-            }
-            _dbContext.SaveChanges();
-        }
-
-        public void Cleanup()
-        {
-            // 無効化されているもの
-            foreach (var reservations in _dbContext.Reservations.Where(w => !w.IsEnabled))
-            {
-                _dbContext.Reservations.Remove(reservations);
-                _dbContext.KeywordReservations.RemoveIfExists(reservations.KeywordReservation);
-                _dbContext.TimeReservations.RemoveIfExists(reservations.TimeReservation);
-                _dbContext.SeriesReservations.RemoveIfExists(reservations.SeriesReservation);
-                _dbContext.SlotReservations.RemoveIfExists(reservations.SlotReservation);
-            }
-
-            // 放送済み
-            foreach (var slot in _dbContext.Slots.Where(w => w.StartAt <= DateTime.Now))
-            {
-                _dbContext.Slots.Remove(slot);
-                foreach (var episode in slot.Episodes)
-                    _dbContext.Episodes.Remove(episode);
-            }
-
-            _dbContext.SaveChanges();
-        }
-
-        public void FullCleanup()
-        {
-            Cleanup();
-
-            // 参照されていない番組
-            foreach (var episode in _dbContext.Episodes.Where(w => !w.Slots.Any()))
-                _dbContext.Episodes.Remove(episode);
-        }
-
-        public void SaveChanges()
-        {
-            lock (_lockObj)
-                _dbContext.SaveChanges();
+            _semaphoreSlim.Release();
         }
     }
 }

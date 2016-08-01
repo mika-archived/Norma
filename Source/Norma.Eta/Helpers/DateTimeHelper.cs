@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Norma.Eta.Models
+namespace Norma.Eta.Helpers
 {
     public static class DateTimeHelper
     {

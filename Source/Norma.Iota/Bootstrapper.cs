@@ -20,7 +20,7 @@ namespace Norma.Iota
             base.ConfigureContainer();
 
             Container.RegisterType<StatusService>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<DatabaseService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<DbConnection>(new ContainerControlledLifetimeManager());
             Container.RegisterType<Configuration>(new ContainerControlledLifetimeManager());
             Container.RegisterType<AbemaApiClient>(new ContainerControlledLifetimeManager());
         }

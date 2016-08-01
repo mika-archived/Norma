@@ -1,8 +1,8 @@
 ﻿using System;
 
 using Norma.Delta.Models;
-using Norma.Delta.Services;
 using Norma.Eta.Mvvm;
+using Norma.Eta.Services;
 using Norma.Models;
 using Norma.ViewModels.TVGuide;
 

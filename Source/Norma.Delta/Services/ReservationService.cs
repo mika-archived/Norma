@@ -12,9 +12,9 @@ namespace Norma.Delta.Services
     /// </summary>
     public class ReservationService
     {
-        private readonly DatabaseService _databaseService;
+        private readonly DbConnection _databaseService;
 
-        public ReservationService(DatabaseService databaseService)
+        public ReservationService(DbConnection databaseService)
         {
             _databaseService = databaseService;
         }
@@ -43,14 +43,11 @@ namespace Norma.Delta.Services
 
         public void UpdateTimeReservation(TimeReservation timeReservation)
         {
-            var rsv =
-                _databaseService.Reservations.SingleOrDefault(
-                                                              w =>
-                                                                  w.ReservationId ==
-                                                                  timeReservation.Reservation.ReservationId);
+            var rsv = _databaseService.Reservations.SingleOrDefault(w => w.ReservationId == timeReservation.Reservation.ReservationId);
             if (rsv == null)
                 throw new InvalidOperationException();
             rsv.TimeReservation.Merge(timeReservation);
+            _databaseService.DetechChanges();
             _databaseService.SaveChanges();
         }
 
@@ -89,13 +86,10 @@ namespace Norma.Delta.Services
 
         public void UpdateKeywordReservation(KeywordReservation keywordReservation)
         {
-            var rsv =
-                _databaseService.Reservations.SingleOrDefault(
-                                                              w =>
-                                                                  w.ReservationId ==
-                                                                  keywordReservation.Reservation.ReservationId);
+            var rsv = _databaseService.Reservations.SingleOrDefault(w => w.ReservationId == keywordReservation.Reservation.ReservationId);
             if (rsv == null)
                 throw new InvalidOperationException();
+            _databaseService.DetechChanges();
             rsv.KeywordReservation.Merge(keywordReservation);
             _databaseService.SaveChanges();
         }
@@ -135,15 +129,12 @@ namespace Norma.Delta.Services
 
         public void UpdateSeriesReservation(SeriesReservation seriesReservation)
         {
-            var rsv =
-                _databaseService.Reservations.SingleOrDefault(
-                                                              w =>
-                                                                  w.ReservationId ==
-                                                                  seriesReservation.Reservation.ReservationId);
+            var rsv = _databaseService.Reservations.SingleOrDefault(w => w.ReservationId == seriesReservation.Reservation.ReservationId);
             if (rsv == null)
                 throw new InvalidOperationException();
 
             rsv.SeriesReservation.Merge(seriesReservation);
+            _databaseService.DetechChanges();
             _databaseService.SaveChanges();
         }
 
@@ -181,14 +172,11 @@ namespace Norma.Delta.Services
 
         public void UpdateSlotReservation(SlotReservation slotReservation)
         {
-            var rsv =
-                _databaseService.Reservations.SingleOrDefault(
-                                                              w =>
-                                                                  w.ReservationId ==
-                                                                  slotReservation.Reservation.ReservationId);
+            var rsv = _databaseService.Reservations.SingleOrDefault(w => w.ReservationId == slotReservation.Reservation.ReservationId);
             if (rsv == null)
                 throw new InvalidOperationException();
             rsv.SlotReservation.Merge(slotReservation);
+            _databaseService.DetechChanges();
             _databaseService.SaveChanges();
         }
 
@@ -227,13 +215,11 @@ namespace Norma.Delta.Services
         public void UpdateSlotReservation2(SlotReservation2 slotReservation2)
         {
             var rsv =
-                _databaseService.Reservations.SingleOrDefault(
-                                                              w =>
-                                                                  w.ReservationId ==
-                                                                  slotReservation2.Reservation.ReservationId);
+                _databaseService.Reservations.SingleOrDefault(w => w.ReservationId == slotReservation2.Reservation.ReservationId);
             if (rsv == null)
                 throw new InvalidOperationException();
             rsv.SlotReservation2.Merge(slotReservation2);
+            _databaseService.DetechChanges();
             _databaseService.SaveChanges();
         }
 

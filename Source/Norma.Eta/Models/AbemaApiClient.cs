@@ -74,10 +74,10 @@ namespace Norma.Eta.Models
             }
         }
 
-        public Media MediaOfOneWeek()
+        public Media MediaOfDays(int days)
         {
             var today = DateTime.Today.ToString("yyyyMMdd");
-            var firstDayOfNextWeek = DateTime.Today.AddDays(5).ToString("yyyyMMdd");
+            var firstDayOfNextWeek = DateTime.Today.AddDays(days - 1).ToString("yyyyMMdd");
             return _abemaTv.Root.Media(dateFrom => today, dateTo => firstDayOfNextWeek);
         }
 

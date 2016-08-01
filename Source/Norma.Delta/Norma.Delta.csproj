@@ -80,6 +80,7 @@
     <Compile Include="Models\Enums\Repetition.cs" />
     <Compile Include="Models\KeywordReservation.cs" />
     <Compile Include="Models\Episode.cs" />
+    <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\MigrationHistory.cs" />
     <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\Series.cs" />
@@ -92,8 +93,8 @@
     <Compile Include="NormaConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DatabaseService.cs" />
+    <Compile Include="Services\DbConnection.cs" />
     <Compile Include="Services\ReservationService.cs" />
-    <Compile Include="Services\TimetableService.cs" />
     <Compile Include="SQLite\SqliteMigrationSqlGenerator.cs" />
   </ItemGroup>
   <ItemGroup>

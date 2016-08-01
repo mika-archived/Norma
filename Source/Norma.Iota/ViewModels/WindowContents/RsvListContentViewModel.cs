@@ -17,7 +17,7 @@ namespace Norma.Iota.ViewModels.WindowContents
 {
     internal class RsvListContentViewModel : InteractionViewModel<DataPassingNotification>
     {
-        private readonly DatabaseService _databaseService;
+        private readonly DbConnection _databaseService;
         public string WindowTitle => Resources.RsvList;
 
         public ObservableCollection<RsvAllViewModel> Reservations { get; }
@@ -25,7 +25,7 @@ namespace Norma.Iota.ViewModels.WindowContents
         public InteractionRequest<Confirmation> ConfirmationRequest { get; }
         public InteractionRequest<DataPassingNotification> EditRequest { get; }
 
-        public RsvListContentViewModel(DatabaseService databaseService)
+        public RsvListContentViewModel(DbConnection databaseService)
         {
             _databaseService = databaseService;
             Reservations = new ObservableCollection<RsvAllViewModel>();

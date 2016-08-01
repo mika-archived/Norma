@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Norma.Delta.Models
 {
@@ -26,5 +27,11 @@ namespace Norma.Delta.Models
         public virtual Channel Channel { get; set; }
 
         public virtual ICollection<Episode> Episodes { get; set; }
+
+        [SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
+        public Slot()
+        {
+            Episodes = new List<Episode>();
+        }
     }
 }

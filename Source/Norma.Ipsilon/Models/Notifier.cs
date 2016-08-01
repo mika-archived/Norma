@@ -14,7 +14,7 @@ using Norma.Eta.Models;
 using Norma.Eta.Properties;
 using Norma.Gamma.Models;
 
-using static Norma.Eta.Models.DateTimeHelper;
+using static Norma.Eta.Helpers.DateTimeHelper;
 
 namespace Norma.Ipsilon.Models
 {
@@ -22,7 +22,7 @@ namespace Norma.Ipsilon.Models
     {
         private readonly CompositeDisposable _compositeDisposable;
         private readonly Configuration _configuration;
-        private readonly DatabaseService _databaseService;
+        private readonly DbConnection _databaseService;
 
         private DateTime _lastSyncTime;
         private List<ChannelSchedule> _todaySchedules;
@@ -30,7 +30,7 @@ namespace Norma.Ipsilon.Models
         public Notifier()
         {
             _configuration = ServiceLocator.Current.GetInstance<Configuration>();
-            _databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
+            _databaseService = ServiceLocator.Current.GetInstance<DbConnection>();
             _compositeDisposable = new CompositeDisposable();
             SyncSchedule();
         }

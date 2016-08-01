@@ -22,16 +22,16 @@ namespace Norma.ViewModels.Controls
     internal class AbemaHostViewModel : ViewModel, IOperationRequestAware, INetworkCaptureRequestAware
     {
         private readonly AbemaState _abemaState;
+        private readonly DatabaseService _databaseService;
         private readonly ReservationService _reservationService;
-        private readonly TimetableService _timetableService;
         private JavaScriptHost _javaScritHost;
 
-        public AbemaHostViewModel(AbemaState abemaState, Connector connector, NetworkHandler networkHandler,
-                                  ReservationService reservationService, TimetableService timetableService)
+        public AbemaHostViewModel(AbemaState abemaState, Connector connector, DatabaseService databaseService,
+                                  NetworkHandler networkHandler, ReservationService reservationService)
         {
             _abemaState = abemaState;
+            _databaseService = databaseService;
             _reservationService = reservationService;
-            _timetableService = timetableService;
 
             _abemaState.ObserveProperty(w => w.CurrentChannel)
                        .Where(w => w != null)
@@ -65,7 +65,8 @@ namespace Norma.ViewModels.Controls
                 Thread.Sleep(TimeSpan.FromMilliseconds(100));
             }
             while (_javaScritHost == null);
-            _abemaState.CurrentChannel = _timetableService.Channels.Single(w => w.ChannelId == channel);
+            using (var connection = _databaseService.Connect())
+                _abemaState.CurrentChannel = connection.Channels.AsNoTracking().Single(w => w.ChannelId == channel);
         }
 
         #endregion

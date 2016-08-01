@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Norma.Delta.Models;
 using Norma.Delta.Services;
 using Norma.Eta.Models;
+using Norma.Eta.Services;
 
 using Prism.Mvvm;
 
@@ -16,18 +17,21 @@ namespace Norma.Models
     {
         private readonly AbemaApiClient _abemaApiHost;
         private readonly Configuration _configuration;
+        private readonly DatabaseService _databaseService;
         private readonly IDisposable _disposable;
         private readonly TimetableService _timetableService;
 
-        public AbemaState(AbemaApiClient abemaApiHost, Configuration configuration, TimetableService timetableService)
+        public AbemaState(AbemaApiClient abemaApiHost, Configuration configuration, DatabaseService databaseService,
+                          TimetableService timetableService)
         {
             _abemaApiHost = abemaApiHost;
             _configuration = configuration;
+            _databaseService = databaseService;
             _timetableService = timetableService;
             var interval = TimeSpan.FromSeconds(configuration.Root.Operation.UpdateIntervalOfProgram);
 
-            CurrentChannel =
-                _timetableService.Channels.Single(w => w.ChannelId == _configuration.Root.LastViewedChannelStr);
+            //CurrentChannel =
+            //    _timetableService.Channels.Single(w => w.ChannelId == _configuration.Root.LastViewedChannelStr);
             _disposable = Observable.Timer(TimeSpan.FromSeconds(1), interval).Subscribe(async w => await Sync());
         }
 
@@ -40,11 +44,16 @@ namespace Norma.Models
         {
             try
             {
-                // First もなにも、1つしか無いはず。
-                // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault
-                var currentSlot = _timetableService.Slots.Where(w => w.Channel.ChannelId == CurrentChannel.ChannelId)
-                                                   .Where(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt)
-                                                   .FirstOrDefault();
+                Slot currentSlot;
+                using (var connection = _databaseService.Connect())
+                {
+                    // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault
+                    // First もなにも、1つしか無いはず。
+                    currentSlot = connection.Slots.AsNoTracking()
+                                            .Where(w => w.Channel.ChannelId == CurrentChannel.ChannelId)
+                                            .Where(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt)
+                                            .FirstOrDefault();
+                }
                 if (currentSlot == null)
                 {
                     CurrentSlot = null;

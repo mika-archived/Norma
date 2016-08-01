@@ -9,8 +9,9 @@ namespace Norma.Delta.Models
 
         public string Name { get; set; }
 
-        [Index(IsUnique = true)]
-        public int OrderIndex { get; set; }
+        //[Index(IsUnique = true)]
+        [Column("OrderIndex")]
+        public int Order { get; set; }
 
         public virtual ICollection<Slot> Slots { get; set; }
     }
