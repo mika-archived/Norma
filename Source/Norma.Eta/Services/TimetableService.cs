@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -49,34 +48,32 @@ namespace Norma.Eta.Services
 
         public void Initialize()
         {
-            using (var dbConnection = _databaseService.Connect())
+            using (var connection = _databaseService.Connect())
             {
-                var lastSyncTimeStr = dbConnection.Metadata.SingleOrDefault(w => w.Key == Metadata.LastSyncTimeKey);
-                var lastSyncTime = DateTime.MinValue;
-                if (!string.IsNullOrWhiteSpace(lastSyncTimeStr?.Value))
-                    lastSyncTime = DateTime.Parse(lastSyncTimeStr.Value);
-
-                if (EqualsWithDates(DateTime.Today, lastSyncTime))
+                var lastSyncTimeStr = connection.Metadata.Single(w => w.Key == Metadata.LastSyncTimeKey);
+                if (EqualsWithDates(DateTime.Today, DateTime.Parse(lastSyncTimeStr.Value)))
                     return;
 
-                // 1日分
                 var timetable = _abemaApiClient.MediaOfDays(6);
-                Debug.WriteLine(timetable);
 
                 // チャンネル ~ 200ms
-                UpdateChannels(dbConnection, timetable);
+                UpdateChannels(connection, timetable);
 
                 // クレジット ~ 900ms
-                UpdateCredits(dbConnection, timetable.ChannelSchedules);
+                UpdateCredits(connection, timetable.ChannelSchedules);
 
                 // シリーズ ~ 200ms
-                UpdateSeries(dbConnection, timetable.ChannelSchedules);
+                UpdateSeries(connection, timetable.ChannelSchedules);
 
                 // 番組単位 ~ 3000ms (ﾂﾗｲ)
-                UpdateEpisodes(dbConnection, timetable.ChannelSchedules);
+                UpdateEpisodes(connection, timetable.ChannelSchedules);
 
-                // 放送単位
-                UpdateSlots(timetable.ChannelSchedules);
+                // 放送単位 ~ 1000ms
+                UpdateSlots(connection, timetable.ChannelSchedules);
+
+                lastSyncTimeStr.Value = DateTime.Now.ToString("G");
+                connection.DetectChanges();
+                connection.SaveChanges();
             }
 
             Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(async w => await UpdateAsync());
@@ -89,14 +86,14 @@ namespace Norma.Eta.Services
 
         #region JSON data to SQL flatten data
 
-        private void UpdateChannels(DbConnection dbConnection, Media timetable)
+        private void UpdateChannels(DbConnection connection, Media timetable)
         {
             foreach (var channel in timetable.Channels)
-                dbConnection.Channels.AddIfNotExists(channel.ConvertToChannel(), w => w.ChannelId == channel.Id);
-            dbConnection.SaveChanges();
+                connection.Channels.AddIfNotExists(channel.ConvertToChannel(), w => w.ChannelId == channel.Id);
+            connection.SaveChanges();
         }
 
-        private void UpdateCredits(DbConnection dbConnection, IEnumerable<ChannelSchedule> schedules)
+        private void UpdateCredits(DbConnection connection, IEnumerable<ChannelSchedule> schedules)
         {
             // ここは ~ 200ms で終わるのに
             var programs = schedules.SelectMany(w => w.Slots).SelectMany(w => w.Programs).Select(w => w.Credit).ToList();
@@ -109,44 +106,42 @@ namespace Norma.Eta.Services
                                      .ToList();
 
             // 先に SELECT しておくことで、 casts 回 EXISTS が走るのを防ぐ
-            var castList = dbConnection.Casts.ToList();
-            casts.ForEach(w => castList.AddIfNotExists(dbConnection.Casts, new Cast {Name = w}, v => v.Name == w));
+            var castList = connection.Casts.ToList();
+            casts.ForEach(w => castList.AddIfNotExists(connection.Casts, new Cast {Name = w}, v => v.Name == w));
 
-            var crewList = dbConnection.Crews.ToList();
-            crews.ForEach(w => crewList.AddIfNotExists(dbConnection.Crews, new Crew {Name = w}, v => v.Name == w));
+            var crewList = connection.Crews.ToList();
+            crews.ForEach(w => crewList.AddIfNotExists(connection.Crews, new Crew {Name = w}, v => v.Name == w));
 
-            var copyrightList = dbConnection.Copyrights.ToList();
-            copyrights.ForEach(w => copyrightList.AddIfNotExists(dbConnection.Copyrights, new Copyright {Name = w}, v => v.Name == w));
-            dbConnection.SaveChanges();
+            var copyrightList = connection.Copyrights.ToList();
+            copyrights.ForEach(w => copyrightList.AddIfNotExists(connection.Copyrights, new Copyright {Name = w}, v => v.Name == w));
+            connection.SaveChanges();
         }
 
-        private void UpdateSeries(DbConnection dbConnection, ChannelSchedule[] schedules)
+        private void UpdateSeries(DbConnection connection, ChannelSchedule[] schedules)
         {
             var seriesIds = schedules.SelectMany(w => w.Slots).SelectMany(w => w.Programs).Select(w => w.Series.Id).Distinct().ToList();
 
             // 先に SELECT
-            var list = dbConnection.Series.ToList();
-            seriesIds.ForEach(w => list.AddIfNotExists(dbConnection.Series, new Series {SeriesId = w}, v => v.SeriesId == w));
-            dbConnection.SaveChanges();
+            var list = connection.Series.ToList();
+            seriesIds.ForEach(w => list.AddIfNotExists(connection.Series, new Series {SeriesId = w}, v => v.SeriesId == w));
+            connection.SaveChanges();
         }
 
-        private void UpdateEpisodes(DbConnection dbConnection, ChannelSchedule[] schedules)
+        private void UpdateEpisodes(DbConnection connection, ChannelSchedule[] schedules)
         {
             var rawEpisodes = schedules.SelectMany(w => w.Slots).SelectMany(w => w.Programs).Distinct().ToList();
 
             var episodes = new List<Episode>();
             // 先に SELECT しておく
-            var episodeList = dbConnection.Episodes.ToList();
-            var castList = dbConnection.Casts.ToList();
-            var copyRightList = dbConnection.Copyrights.ToList();
-            var crewList = dbConnection.Crews.ToList();
-            var seriesList = dbConnection.Series.ToList();
+            var episodeList = connection.Episodes.ToList();
+            var castList = connection.Casts.ToList();
+            var copyRightList = connection.Copyrights.ToList();
+            var crewList = connection.Crews.ToList();
+            var seriesList = connection.Series.ToList();
 
             foreach (var rawEpisode in rawEpisodes)
             {
                 var episode = rawEpisode.ConvertToEpisode();
-
-                // キャスト
                 if (rawEpisode.Credit.Cast != null)
                     foreach (var cast in rawEpisode.Credit.Cast.Select(Filter))
                         episode.Casts.Add(castList.Single(w => w.Name == cast));
@@ -161,15 +156,31 @@ namespace Norma.Eta.Services
                 episode.Series = seriesList.SingleOrDefault(w => w.SeriesId == rawEpisode.Series.Id);
                 episodes.Add(episode);
             }
-            episodes = episodes.ToList();
-
-            episodes.ForEach(w => episodeList.AddIfNotExists(dbConnection.Episodes, w, v => v.EpisodeId == w.EpisodeId));
-            dbConnection.SaveChanges();
+            episodes.ForEach(w => episodeList.AddIfNotExists(connection.Episodes, w, v => v.EpisodeId == w.EpisodeId));
+            connection.SaveChanges();
         }
 
-        private void UpdateSlots(ChannelSchedule[] schedules)
+        private void UpdateSlots(DbConnection connection, ChannelSchedule[] schedules)
         {
+            var slots = new List<Slot>();
+            var channelList = connection.Channels.ToList();
+            var episodeList = connection.Episodes.ToList();
+            var slotList = connection.Slots.ToList();
 
+            foreach (var schedule in schedules)
+            {
+                var channel = channelList.Single(w => w.ChannelId == schedule.ChannelId);
+                foreach (var rawSlot in schedule.Slots)
+                {
+                    var slot = rawSlot.ConvertToSlot();
+                    slot.Channel = channel;
+                    foreach (var program in rawSlot.Programs)
+                        slot.Episodes.Add(episodeList.Single(w => w.EpisodeId == program.Id));
+                    slots.Add(slot);
+                }
+            }
+            slots.ForEach(w => slotList.AddIfNotExists(connection.Slots, w, v => v.SlotId == w.SlotId));
+            connection.SaveChanges();
         }
 
         private string Filter(string str) => _filters.Aggregate(str, (current, filter) => filter.Call(current));

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 
 using Norma.Delta.Models;
@@ -12,56 +11,58 @@ namespace Norma.Delta.Services
     /// </summary>
     public class ReservationService
     {
-        private readonly DbConnection _databaseService;
+        private readonly DatabaseService _databaseService;
 
-        public ReservationService(DbConnection databaseService)
+        public ReservationService(DatabaseService databaseService)
         {
             _databaseService = databaseService;
         }
 
         #region Time
 
-        public DbQuery<TimeReservation> TimeReservations => _databaseService.TimeReservations.AsNoTracking();
-
         public void InsertTimeReservaion(DateTime startAt, Repetition repetition, DateRange range = null)
         {
             if (range == null)
                 range = DateRange.Unspecified;
 
-            _databaseService.TimeReservations.Add(new TimeReservation
+            using (var connection = _databaseService.Connect())
             {
-                Reservation = new Reservation
+                connection.TimeReservations.Add(new TimeReservation
                 {
-                    IsEnabled = true,
-                    Range = range
-                },
-                StartAt = startAt,
-                Repetition = repetition
-            });
-            _databaseService.SaveChanges();
+                    Reservation = new Reservation
+                    {
+                        IsEnabled = true,
+                        Range = range
+                    },
+                    StartAt = startAt,
+                    Repetition = repetition
+                });
+                connection.SaveChanges();
+            }
         }
 
         public void UpdateTimeReservation(TimeReservation timeReservation)
         {
-            var rsv = _databaseService.Reservations.SingleOrDefault(w => w.ReservationId == timeReservation.Reservation.ReservationId);
-            if (rsv == null)
-                throw new InvalidOperationException();
-            rsv.TimeReservation.Merge(timeReservation);
-            _databaseService.DetechChanges();
-            _databaseService.SaveChanges();
+            using (var connection = _databaseService.Connect())
+            {
+                var rsv = connection.Reservations.SingleOrDefault(w => w.ReservationId == timeReservation.Reservation.ReservationId);
+                if (rsv == null)
+                    throw new InvalidOperationException();
+                rsv.TimeReservation.Merge(timeReservation);
+                connection.DetectChanges();
+                connection.SaveChanges();
+            }
         }
 
         public void DeleteTimeReservation(TimeReservation timeReservation)
         {
             timeReservation.Reservation.IsEnabled = false;
-            _databaseService.SaveChanges();
+            UpdateTimeReservation(timeReservation);
         }
 
         #endregion
 
         #region Keyword
-
-        public DbQuery<KeywordReservation> KeywordReservations => _databaseService.KeywordReservations.AsNoTracking();
 
         public void InsertKeywordReservation(string keyword, bool isRegex, DateRange range = null)
         {
@@ -71,40 +72,44 @@ namespace Norma.Delta.Services
             if (range == null)
                 range = DateRange.Unspecified;
 
-            _databaseService.KeywordReservations.Add(new KeywordReservation
+            using (var connection = _databaseService.Connect())
             {
-                Reservation = new Reservation
+                connection.KeywordReservations.Add(new KeywordReservation
                 {
-                    IsEnabled = true,
-                    Range = range
-                },
-                Keyword = keyword,
-                IsRegex = isRegex
-            });
-            _databaseService.SaveChanges();
+                    Reservation = new Reservation
+                    {
+                        IsEnabled = true,
+                        Range = range
+                    },
+                    Keyword = keyword,
+                    IsRegex = isRegex
+                });
+                connection.SaveChanges();
+            }
         }
 
         public void UpdateKeywordReservation(KeywordReservation keywordReservation)
         {
-            var rsv = _databaseService.Reservations.SingleOrDefault(w => w.ReservationId == keywordReservation.Reservation.ReservationId);
-            if (rsv == null)
-                throw new InvalidOperationException();
-            _databaseService.DetechChanges();
-            rsv.KeywordReservation.Merge(keywordReservation);
-            _databaseService.SaveChanges();
+            using (var connection = _databaseService.Connect())
+            {
+                var rsv = connection.Reservations.SingleOrDefault(w => w.ReservationId == keywordReservation.Reservation.ReservationId);
+                if (rsv == null)
+                    throw new InvalidOperationException();
+                connection.DetectChanges();
+                rsv.KeywordReservation.Merge(keywordReservation);
+                connection.SaveChanges();
+            }
         }
 
         public void DeleteKeywordReservation(KeywordReservation keywordReservation)
         {
             keywordReservation.Reservation.IsEnabled = false;
-            _databaseService.SaveChanges();
+            UpdateKeywordReservation(keywordReservation);
         }
 
         #endregion
 
         #region Series
-
-        public DbQuery<SeriesReservation> SeriesReservations => _databaseService.SeriesReservations.AsNoTracking();
 
         public void InsertSeriesReservation(Series series, DateRange range = null)
         {
@@ -114,41 +119,44 @@ namespace Norma.Delta.Services
             if (range == null)
                 range = DateRange.Unspecified;
 
-            _databaseService.SeriesReservations.Add(new SeriesReservation
+            using (var connection = _databaseService.Connect())
             {
-                Reservation = new Reservation
+                connection.SeriesReservations.Add(new SeriesReservation
                 {
-                    IsEnabled = true,
-                    Range = range
-                },
-                Series = series
-            });
-
-            _databaseService.SaveChanges();
+                    Reservation = new Reservation
+                    {
+                        IsEnabled = true,
+                        Range = range
+                    },
+                    Series = series
+                });
+                connection.SaveChanges();
+            }
         }
 
         public void UpdateSeriesReservation(SeriesReservation seriesReservation)
         {
-            var rsv = _databaseService.Reservations.SingleOrDefault(w => w.ReservationId == seriesReservation.Reservation.ReservationId);
-            if (rsv == null)
-                throw new InvalidOperationException();
+            using (var connection = _databaseService.Connect())
+            {
+                var rsv = connection.Reservations.SingleOrDefault(w => w.ReservationId == seriesReservation.Reservation.ReservationId);
+                if (rsv == null)
+                    throw new InvalidOperationException();
 
-            rsv.SeriesReservation.Merge(seriesReservation);
-            _databaseService.DetechChanges();
-            _databaseService.SaveChanges();
+                rsv.SeriesReservation.Merge(seriesReservation);
+                connection.DetectChanges();
+                connection.SaveChanges();
+            }
         }
 
         public void DeleteSeriesReservation(SeriesReservation seriesReservation)
         {
             seriesReservation.Reservation.IsEnabled = false;
-            _databaseService.SaveChanges();
+            UpdateSeriesReservation(seriesReservation);
         }
 
         #endregion
 
         #region Slot
-
-        public DbQuery<SlotReservation> SlotReservations => _databaseService.SlotReservations.AsNoTracking();
 
         public void InsertSlotReservation(Slot slot, DateRange range = null)
         {
@@ -158,39 +166,43 @@ namespace Norma.Delta.Services
             if (range == null)
                 range = DateRange.Unspecified;
 
-            _databaseService.SlotReservations.Add(new SlotReservation
+            using (var connection = _databaseService.Connect())
             {
-                Reservation = new Reservation
+                connection.SlotReservations.Add(new SlotReservation
                 {
-                    IsEnabled = true,
-                    Range = range
-                },
-                Slot = slot
-            });
-            _databaseService.SaveChanges();
+                    Reservation = new Reservation
+                    {
+                        IsEnabled = true,
+                        Range = range
+                    },
+                    Slot = slot
+                });
+                connection.SaveChanges();
+            }
         }
 
         public void UpdateSlotReservation(SlotReservation slotReservation)
         {
-            var rsv = _databaseService.Reservations.SingleOrDefault(w => w.ReservationId == slotReservation.Reservation.ReservationId);
-            if (rsv == null)
-                throw new InvalidOperationException();
-            rsv.SlotReservation.Merge(slotReservation);
-            _databaseService.DetechChanges();
-            _databaseService.SaveChanges();
+            using (var connection = _databaseService.Connect())
+            {
+                var rsv = connection.Reservations.SingleOrDefault(w => w.ReservationId == slotReservation.Reservation.ReservationId);
+                if (rsv == null)
+                    throw new InvalidOperationException();
+                rsv.SlotReservation.Merge(slotReservation);
+                connection.DetectChanges();
+                connection.SaveChanges();
+            }
         }
 
         public void DeleteSlotReservation(SlotReservation slotReservation)
         {
             slotReservation.Reservation.IsEnabled = false;
-            _databaseService.SaveChanges();
+            UpdateSlotReservation(slotReservation);
         }
 
         #endregion
 
         #region Slot2
-
-        public DbQuery<SlotReservation2> SlotReservations2 => _databaseService.SlotReservations2.AsNoTracking();
 
         public void InsertSlotReservation2(string slotId, DateRange range = null)
         {
@@ -200,33 +212,38 @@ namespace Norma.Delta.Services
             if (range == null)
                 range = DateRange.Unspecified;
 
-            _databaseService.SlotReservations2.Add(new SlotReservation2
+            using (var connection = _databaseService.Connect())
             {
-                Reservation = new Reservation
+                connection.SlotReservations2.Add(new SlotReservation2
                 {
-                    IsEnabled = true,
-                    Range = range
-                },
-                SlotId = slotId
-            });
-            _databaseService.SaveChanges();
+                    Reservation = new Reservation
+                    {
+                        IsEnabled = true,
+                        Range = range
+                    },
+                    SlotId = slotId
+                });
+                connection.SaveChanges();
+            }
         }
 
         public void UpdateSlotReservation2(SlotReservation2 slotReservation2)
         {
-            var rsv =
-                _databaseService.Reservations.SingleOrDefault(w => w.ReservationId == slotReservation2.Reservation.ReservationId);
-            if (rsv == null)
-                throw new InvalidOperationException();
-            rsv.SlotReservation2.Merge(slotReservation2);
-            _databaseService.DetechChanges();
-            _databaseService.SaveChanges();
+            using (var connection = _databaseService.Connect())
+            {
+                var rsv = connection.Reservations.SingleOrDefault(w => w.ReservationId == slotReservation2.Reservation.ReservationId);
+                if (rsv == null)
+                    throw new InvalidOperationException();
+                rsv.SlotReservation2.Merge(slotReservation2);
+                connection.DetectChanges();
+                connection.SaveChanges();
+            }
         }
 
         public void DeleteSlotReservation2(SlotReservation2 slotReservation2)
         {
             slotReservation2.Reservation.IsEnabled = false;
-            _databaseService.SaveChanges();
+            UpdateSlotReservation2(slotReservation2);
         }
 
         #endregion

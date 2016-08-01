@@ -62,6 +62,7 @@ namespace Norma.Delta.Services
                 _dbContext.TimeReservations.Create();
                 _dbContext.SeriesReservations.Create();
                 _dbContext.SlotReservations.Create();
+                InitializeData();
                 _dbContext.SaveChanges();
             }
         }
@@ -131,10 +132,16 @@ namespace Norma.Delta.Services
                 _dbContext.SaveChanges();
         }
 
-        public void DetechChanges()
+        public void DetectChanges()
         {
             lock (_lockObj)
                 _dbContext.DetectChanges();
+        }
+
+        private void InitializeData()
+        {
+            if (!Metadata.Any(w => w.Key == Models.Metadata.LastSyncTimeKey))
+                Metadata.Add(new Metadata {Key = Models.Metadata.LastSyncTimeKey, Value = DateTime.MinValue.ToString("G")});
         }
     }
 }
