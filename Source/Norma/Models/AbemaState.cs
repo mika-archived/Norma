@@ -48,11 +48,12 @@ namespace Norma.Models
                 Slot currentSlot;
                 using (var connection = _databaseService.Connect())
                 {
+                    var datetime = DateTime.Now;
                     // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault
                     // First もなにも、1つしか無いはず。
                     currentSlot = connection.Slots.AsNoTracking()
                                             .Where(w => w.Channel.ChannelId == CurrentChannel.ChannelId)
-                                            .Where(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt)
+                                            .Where(w => w.StartAt <= datetime && datetime <= w.EndAt)
                                             .FirstOrDefault();
                 }
                 if (currentSlot == null)

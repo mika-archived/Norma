@@ -55,6 +55,7 @@ namespace Norma.Models.Browser
                     response = httpClient.PutAsync(request.Url, httpContent).Result;
                 }
 
+                Debug.WriteLine($"APICALL: {request.Url}");
                 // 知らん
                 if (response == null)
                     throw new NotSupportedException();

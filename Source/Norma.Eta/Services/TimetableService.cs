@@ -86,7 +86,10 @@ namespace Norma.Eta.Services
                 if (!EqualsWithDates(DateTime.Today, DateTime.Parse(lastSyncTime.Value)))
                     // TODO: 更新処理
                     return;
-                slots = connection.Slots.AsNoTracking().Where(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt)
+                var datetime = DateTime.Now;
+                slots = connection.Slots.AsNoTracking()
+                                  .Where(w => w.StartAt <= datetime)
+                                  .Where(w => datetime <= w.EndAt)
                                   .Include(w => w.Channel)
                                   .OrderBy(w => w.Channel.Order)
                                   .ToList();
@@ -100,14 +103,11 @@ namespace Norma.Eta.Services
                 _currentSlotInternal.Remove(slot);
             }
             // 追加
-            foreach (var slot in slots)
+            foreach (var items in slots.Select((w, i) => new {Slot = w, Index = i}))
             {
-                if (_currentSlotInternal.Any(w => w.SlotId == slot.SlotId))
+                if (_currentSlotInternal.Any(w => w.SlotId == items.Slot.SlotId))
                     continue;
-                if (_currentSlotInternal.Count <= slot.Channel.Order)
-                    _currentSlotInternal.Add(slot);
-                else
-                    _currentSlotInternal.Insert(slot.Channel.Order, slot);
+                _currentSlotInternal.Insert(items.Index, items.Slot);
             }
         }
 
