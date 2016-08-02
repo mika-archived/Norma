@@ -51,6 +51,11 @@ namespace Norma.Delta
             ChangeTracker.DetectChanges();
         }
 
+        public void TurnOffLazyLoading()
+        {
+            Configuration.ProxyCreationEnabled = false;
+        }
+
         #region Overrides of DbContext
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

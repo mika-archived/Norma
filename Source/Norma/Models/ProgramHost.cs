@@ -84,9 +84,9 @@ namespace Norma.Models
             // Init
             if (scenes.Count > 0)
             {
-                Thumbnail1 = $"https://hayabusa.io/abema/programs/{episode.EpisodeId}/{scenes.Skip(0).First()}.w135.png";
+                Thumbnail1 = $"https://hayabusa.io/abema/programs/{episode.EpisodeId}/{scenes.Skip(0).First().Path}.w135.png";
                 Thumbnail2 = scenes.Count >= 2
-                    ? $"https://hayabusa.io/abema/programs/{episode.EpisodeId}/{scenes.Skip(1).First()}.w135.png"
+                    ? $"https://hayabusa.io/abema/programs/{episode.EpisodeId}/{scenes.Skip(1).First().Path}.w135.png"
                     : "";
             }
             else

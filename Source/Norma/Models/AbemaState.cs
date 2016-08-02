@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
@@ -49,11 +50,14 @@ namespace Norma.Models
                 using (var connection = _databaseService.Connect())
                 {
                     var datetime = DateTime.Now;
+
+                    // このクエリだけ Lazy Loading を Off にしておく(SQLite だと Include 連結できない)
+                    connection.TurnOffLazyLoading();
                     // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault
-                    // First もなにも、1つしか無いはず。
                     currentSlot = connection.Slots.AsNoTracking()
                                             .Where(w => w.Channel.ChannelId == CurrentChannel.ChannelId)
                                             .Where(w => w.StartAt <= datetime && datetime <= w.EndAt)
+                                            .Include(w => w.Episodes)
                                             .FirstOrDefault();
                 }
                 if (currentSlot == null)
@@ -65,10 +69,28 @@ namespace Norma.Models
 
                 if (CurrentSlot?.SlotId != currentSlot.SlotId)
                 {
-                    CurrentSlot = currentSlot;
-                    //var currentDetail = await _abemaApiHost.CurrentSlot(currentSlot.SlotId);
-                    //CurrentSlot = currentDetail?.Id == null ? currentSlot : currentDetail;
+                    var currentDetail = await _abemaApiHost.CurrentSlot(currentSlot.SlotId);
+                    if (currentSlot.Episodes.Count != currentDetail.Programs.Length)
+                    {
+                        CurrentSlot = currentSlot;
+                        // DB の更新
+                        // using (var connection = _databaseService.Connect()) {}
+                    }
+                    else
+                    {
+                        var episode = currentSlot.Episodes.First();
+                        using (var connection = _databaseService.Connect())
+                        {
+                            var dbEpisode = connection.Episodes.Single(w => w.EpisodeId == episode.EpisodeId);
+                            episode.Casts = dbEpisode.Casts.ToList();
+                            episode.Crews = dbEpisode.Crews.ToList();
+                            episode.Thumbnails = dbEpisode.Thumbnails.ToList();
+                        }
+                        CurrentSlot = currentSlot;
+                        CurrentEpisode = episode;
+                    }
                 }
+                // データの更新と、取得
                 // ReSharper disable once PossibleNullReferenceException
                 var episodes = CurrentSlot.Episodes.Count;
                 var perTime = (CurrentSlot.EndAt - CurrentSlot.StartAt).TotalSeconds / episodes;

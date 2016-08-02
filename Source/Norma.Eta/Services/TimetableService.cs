@@ -82,7 +82,7 @@ namespace Norma.Eta.Services
             List<Slot> slots;
             using (var connection = _databaseService.Connect())
             {
-                var lastSyncTime = connection.Metadata.Single(w => w.Key == Metadata.LastSyncTimeKey);
+                var lastSyncTime = connection.Metadata.AsNoTracking().Single(w => w.Key == Metadata.LastSyncTimeKey);
                 if (!EqualsWithDates(DateTime.Today, DateTime.Parse(lastSyncTime.Value)))
                     // TODO: 更新処理
                     return;

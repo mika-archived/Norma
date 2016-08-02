@@ -7,7 +7,7 @@ using ApiModel = Norma.Gamma.Models;
 
 namespace Norma.Eta.Helpers
 {
-    internal static class ApiModelToFlatModelHelper
+    public static class ApiModelToFlatModelHelper
     {
         public static Channel ConvertToChannel(this ApiModel.Channel channel)
         {

@@ -138,6 +138,12 @@ namespace Norma.Delta.Services
                 _dbContext.DetectChanges();
         }
 
+        public void TurnOffLazyLoading()
+        {
+            lock (_lockObj)
+                _dbContext.TurnOffLazyLoading();
+        }
+
         private void InitializeData()
         {
             if (!Metadata.Any(w => w.Key == Models.Metadata.LastSyncTimeKey))
