@@ -159,6 +159,8 @@ namespace Norma.Models
                 episodes.ForEach(w => connection.Slots.Single(v => v.SlotId == slot.SlotId).Episodes.Add(w));
                 connection.DetectChanges();
                 connection.SaveChanges();
+
+                episodes.ForEach(w => slot.Episodes.Add(w));
             }
         }
 

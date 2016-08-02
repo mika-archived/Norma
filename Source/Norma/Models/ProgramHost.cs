@@ -65,7 +65,7 @@ namespace Norma.Models
                 return;
             }
 
-            Title = $"{slot.Title} - #{episode.Sequence}";
+            Title = slot.Episodes.Count == 1 ? slot.Title : $"{slot.Title} - #{episode.Sequence}";
             Description = slot.Description;
             episode.Casts.ForEach(w => Casts.Add(w.Name));
             episode.Crews.ForEach(w => Crews.Add(w.Name));
