@@ -1,6 +1,6 @@
 ﻿namespace Norma.Eta.Filters
 {
-    internal class SpaceFilter : IFilter
+    public class SpaceFilter : IFilter
     {
         #region Implementation of IFilter
 

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Norma.Eta.Filters
 {
-    internal class EmptyFilter : IFilter
+    public class EmptyFilter : IFilter
     {
         private readonly List<string> _emptyWords = new List<string>
         {

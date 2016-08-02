@@ -3,7 +3,7 @@
     /// <summary>
     ///     名前の正規化
     /// </summary>
-    internal interface IFilter
+    public interface IFilter
     {
         string Call(string str);
     }

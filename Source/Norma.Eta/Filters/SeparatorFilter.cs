@@ -1,6 +1,6 @@
 ﻿namespace Norma.Eta.Filters
 {
-    internal class SeparatorFilter : IFilter
+    public class SeparatorFilter : IFilter
     {
         #region Implementation of IFilter
 

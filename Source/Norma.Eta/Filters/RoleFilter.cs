@@ -2,7 +2,7 @@
 
 namespace Norma.Eta.Filters
 {
-    internal class RoleFilter : IFilter
+    public class RoleFilter : IFilter
     {
         private readonly Regex _regex = new Regex("【.*?】", RegexOptions.Compiled);
 

@@ -1,6 +1,6 @@
 ﻿namespace Norma.Eta.Filters
 {
-    internal class CopyrightFilter : IFilter
+    public class CopyrightFilter : IFilter
     {
         #region Implementation of IFilter
 

@@ -2,7 +2,7 @@
 
 namespace Norma.Eta.Filters
 {
-    internal class InvalidBracesFilter : IFilter
+    public class InvalidBracesFilter : IFilter
     {
         private readonly Regex _regex = new Regex(@"\(.*?\)", RegexOptions.Compiled);
 

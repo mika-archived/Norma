@@ -1,16 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
-using Norma.Delta.Models;
 using Norma.Delta.Services;
+using Norma.Eta.Extensions;
+using Norma.Eta.Filters;
+using Norma.Eta.Helpers;
 using Norma.Eta.Models;
 using Norma.Eta.Services;
+using Norma.Gamma.Models;
 
 using Prism.Mvvm;
+
+using Channel = Norma.Delta.Models.Channel;
+using Episode = Norma.Delta.Models.Episode;
+using Slot = Norma.Delta.Models.Slot;
 
 namespace Norma.Models
 {
@@ -21,6 +29,19 @@ namespace Norma.Models
         private readonly Configuration _configuration;
         private readonly DatabaseService _databaseService;
         private readonly IDisposable _disposable;
+
+        private readonly List<IFilter> _filters = new List<IFilter>
+        {
+            new MBToSBFilter(),
+            new CopyrightFilter(),
+            new RoleFilter(),
+            new InvalidBracesFilter(),
+            new BracesFilter(),
+            new SpaceFilter(),
+            new EmptyFilter(),
+            new SeparatorFilter()
+        };
+
         private readonly TimetableService _timetableService;
 
         public AbemaState(AbemaApiClient abemaApiHost, Configuration configuration, DatabaseService databaseService,
@@ -72,25 +93,23 @@ namespace Norma.Models
                     var currentDetail = await _abemaApiHost.CurrentSlot(currentSlot.SlotId);
                     if (currentSlot.Episodes.Count != currentDetail.Programs.Length)
                     {
+                        // Ep.2 ~ を更新
+                        UpdateEpisode(currentSlot, currentDetail.Programs);
                         CurrentSlot = currentSlot;
-                        // DB の更新
-                        // using (var connection = _databaseService.Connect()) {}
                     }
-                    else
+                    // キャスト情報などを更新
+                    using (var connection = _databaseService.Connect())
                     {
-                        var episode = currentSlot.Episodes.First();
-                        using (var connection = _databaseService.Connect())
+                        foreach (var episode in currentSlot.Episodes)
                         {
                             var dbEpisode = connection.Episodes.Single(w => w.EpisodeId == episode.EpisodeId);
                             episode.Casts = dbEpisode.Casts.ToList();
                             episode.Crews = dbEpisode.Crews.ToList();
                             episode.Thumbnails = dbEpisode.Thumbnails.ToList();
                         }
-                        CurrentSlot = currentSlot;
-                        CurrentEpisode = episode;
                     }
+                    CurrentSlot = currentSlot;
                 }
-                // データの更新と、取得
                 // ReSharper disable once PossibleNullReferenceException
                 var episodes = CurrentSlot.Episodes.Count;
                 var perTime = (CurrentSlot.EndAt - CurrentSlot.StartAt).TotalSeconds / episodes;
@@ -108,6 +127,42 @@ namespace Norma.Models
                 Debug.WriteLine(e.Message);
             }
         }
+
+        private void UpdateEpisode(Slot slot, Program[] programs)
+        {
+            using (var connection = _databaseService.Connect())
+            {
+                var episodes = new List<Episode>();
+                var episodeList = connection.Episodes.ToList();
+                var castList = connection.Casts.ToList();
+                var copyRightList = connection.Copyrights.ToList();
+                var crewList = connection.Crews.ToList();
+                var seriesList = connection.Series.ToList();
+                foreach (var rawEpisode in programs.Skip(1))
+                {
+                    var episode = rawEpisode.ConvertToEpisode();
+                    if (rawEpisode.Credit.Cast != null)
+                        foreach (var cast in rawEpisode.Credit.Cast.Select(Filter))
+                            episode.Casts.Add(castList.Single(w => w.Name == cast));
+                    if (rawEpisode.Credit.Copyrights != null)
+                        foreach (var copyright in rawEpisode.Credit.Copyrights.Select(Filter))
+                            episode.Copyrights.Add(copyRightList.Single(w => w.Name == copyright));
+                    if (rawEpisode.Credit.Crews != null)
+                        foreach (var crew in rawEpisode.Credit.Crews.Select(Filter))
+                            episode.Crews.Add(crewList.Single(w => w.Name == crew));
+                    foreach (var thumbnail in rawEpisode.ProvidedInfo.ConvertToThumbnail())
+                        episode.Thumbnails.Add(thumbnail);
+                    episode.Series = seriesList.SingleOrDefault(w => w.SeriesId == rawEpisode.Series.Id);
+                    episodes.Add(episode);
+                }
+                episodes.ForEach(w => episodeList.AddIfNotExists(connection.Episodes, w, v => v.EpisodeId == w.EpisodeId));
+                episodes.ForEach(w => connection.Slots.Single(v => v.SlotId == slot.SlotId).Episodes.Add(w));
+                connection.DetectChanges();
+                connection.SaveChanges();
+            }
+        }
+
+        private string Filter(string str) => _filters.Aggregate(str, (current, filter) => filter.Call(current));
 
         #region CurrentChannel
 

@@ -5,7 +5,7 @@ using Microsoft.VisualBasic;
 namespace Norma.Eta.Filters
 {
     // ReSharper disable once InconsistentNaming
-    internal class MBToSBFilter : IFilter
+    public class MBToSBFilter : IFilter
     {
         private readonly Regex _regex = new Regex(@"[\uFF01-\uFF5E]+", RegexOptions.Compiled);
 

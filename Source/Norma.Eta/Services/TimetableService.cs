@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using Norma.Delta.Models;
 using Norma.Delta.Services;
+using Norma.Eta.Extensions;
 using Norma.Eta.Filters;
 using Norma.Eta.Models;
 using Norma.Gamma.Models;
@@ -224,28 +225,5 @@ namespace Norma.Eta.Services
         private string Filter(string str) => _filters.Aggregate(str, (current, filter) => filter.Call(current));
 
         #endregion
-    }
-
-    internal static class DbExt
-    {
-        public static void AddIfNotExists<T>(this DbSet<T> obj, T item, Func<T, bool> condition)
-            where T : class
-        {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
-            if (obj.Any(condition.Invoke))
-                return;
-            obj.Add(item);
-        }
-
-        public static void AddIfNotExists<T>(this IEnumerable<T> obj, DbSet<T> db, T item, Func<T, bool> condition)
-            where T : class
-        {
-            if (item == null)
-                throw new ArgumentNullException(nameof(item));
-            if (obj.Any(condition.Invoke))
-                return;
-            db.Add(item);
-        }
     }
 }
