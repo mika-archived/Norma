@@ -30,7 +30,7 @@ namespace Norma.Models.Browser
             var headers = taskRequest.Headers;
             var url = taskRequest.Url;
             var method = taskRequest.Method;
-            var postData = taskRequest.PostData;
+            var postData = taskRequest.PostData?.Elements.FirstOrDefault()?.GetBody();
             Task.Run(() =>
             {
                 using (callback)
@@ -63,21 +63,18 @@ namespace Norma.Models.Browser
                             return;
                         }
                         else
-                            CapturingRequest(url, headers,
-                                             postData?.Elements.FirstOrDefault()?.GetBody());
+                            CapturingRequest(url, headers, postData);
 
                         if (method == "GET")
                             response = httpClient.GetAsync(url).Result;
                         if (method == "POST")
                         {
-                            var content = postData?.Elements.FirstOrDefault()?.GetBody();
-                            var httpContent = new StringContent2(content, Encoding.UTF8, "application/json");
+                            var httpContent = new StringContent2(postData, Encoding.UTF8, "application/json");
                             response = httpClient.PostAsync(url, httpContent).Result;
                         }
                         if (method == "PUT")
                         {
-                            var content = postData?.Elements.FirstOrDefault()?.GetBody();
-                            var httpContent = new StringContent2(content, Encoding.UTF8, "application/json");
+                            var httpContent = new StringContent2(postData, Encoding.UTF8, "application/json");
                             response = httpClient.PutAsync(url, httpContent).Result;
                         }
 
