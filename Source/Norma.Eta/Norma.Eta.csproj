@@ -138,6 +138,7 @@
     <Compile Include="Filters\SeparatorFilter.cs" />
     <Compile Include="Filters\SpaceFilter.cs" />
     <Compile Include="Helpers\ApiModelToFlatModelHelper.cs" />
+    <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Models\AbemaApiClient.cs" />
     <Compile Include="Models\Enums\AbemaChannel.cs" />
     <Compile Include="Models\AppStartup.cs" />

@@ -23,7 +23,7 @@ using Slot = Norma.Delta.Models.Slot;
 namespace Norma.Models
 {
     // ReSharper disable once ClassNeverInstantiated.Global
-    internal class AbemaState : BindableBase
+    internal class AbemaState : BindableBase, INetworkCaptureRequestAware
     {
         private readonly AbemaApiClient _abemaApiHost;
         private readonly Configuration _configuration;
@@ -43,9 +43,10 @@ namespace Norma.Models
         };
 
         private readonly TimetableService _timetableService;
+        private string _slotId = "";
 
         public AbemaState(AbemaApiClient abemaApiHost, Configuration configuration, DatabaseService databaseService,
-                          TimetableService timetableService)
+                          NetworkHandler networkHandler, TimetableService timetableService)
         {
             _abemaApiHost = abemaApiHost;
             _configuration = configuration;
@@ -55,15 +56,29 @@ namespace Norma.Models
 
             using (var connector = databaseService.Connect())
                 CurrentChannel = connector.Channels.Single(w => w.ChannelId == _configuration.Root.LastViewedChannelStr);
-            _disposable = Observable.Timer(TimeSpan.FromSeconds(1), interval).Subscribe(async w => await Sync());
+            _disposable = Observable.Timer(TimeSpan.Zero, interval).Subscribe(w => SyncEpisode());
+            networkHandler.RegisterInstance(this, w => w.Url.StartsWith("https://api.abema.io/v1/slotAudience?"));
         }
+
+        #region Implementation of INetworkCaptureRequestAware
+
+        public void OnRequestHandling(NetworkEventArgs e)
+        {
+            var slotId = UrlHelper.ParseQuery(e.Url)["slotId"];
+            if (_slotId == slotId)
+                return;
+            _slotId = slotId;
+            Observable.Return(0).Subscribe(async w => await SyncProgram());
+        }
+
+        #endregion
 
         ~AbemaState()
         {
             _disposable.Dispose();
         }
 
-        private async Task Sync()
+        private async Task SyncProgram()
         {
             try
             {
@@ -110,22 +125,27 @@ namespace Norma.Models
                     }
                     CurrentSlot = currentSlot;
                 }
-                // ReSharper disable once PossibleNullReferenceException
-                var episodes = CurrentSlot.Episodes.Count;
-                var perTime = (CurrentSlot.EndAt - CurrentSlot.StartAt).TotalSeconds / episodes;
-                var count = 0;
-                while (!(CurrentSlot.StartAt.AddSeconds(perTime * count) <= DateTime.Now &&
-                         DateTime.Now <= CurrentSlot.StartAt.AddSeconds(perTime * ++count))) {}
-
-                --count;
-                if (count < 0 || count >= episodes)
-                    return;
-                CurrentEpisode = CurrentSlot.Episodes.Skip(count).First();
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
             }
+        }
+
+        private void SyncEpisode()
+        {
+            if (CurrentSlot == null)
+                return;
+            var episodes = CurrentSlot.Episodes.Count;
+            var perTime = (CurrentSlot.EndAt - CurrentSlot.StartAt).TotalSeconds / episodes;
+            var count = 0;
+            while (!(CurrentSlot.StartAt.AddSeconds(perTime * count) <= DateTime.Now &&
+                     DateTime.Now <= CurrentSlot.StartAt.AddSeconds(perTime * ++count))) {}
+
+            --count;
+            if (count < 0 || count >= episodes)
+                return;
+            CurrentEpisode = CurrentSlot.Episodes.Skip(count).First();
         }
 
         private void UpdateEpisode(Slot slot, Program[] programs)

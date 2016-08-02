@@ -23,6 +23,7 @@ namespace Norma
         {
             base.ConfigureContainer();
 
+            Container.RegisterType<NetworkHandler>(new ContainerControlledLifetimeManager());
             Container.RegisterType<StatusService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<DatabaseService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ReservationService>(new ContainerControlledLifetimeManager());
@@ -30,7 +31,6 @@ namespace Norma
             Container.RegisterType<Configuration>(new ContainerControlledLifetimeManager());
             Container.RegisterType<AbemaApiClient>(new ContainerControlledLifetimeManager());
             Container.RegisterType<AbemaState>(new ContainerControlledLifetimeManager());
-            Container.RegisterType<NetworkHandler>(new ContainerControlledLifetimeManager());
         }
 
         protected override void ConfigureServiceLocator() => ServiceLocator.SetLocatorProvider(() => this);
