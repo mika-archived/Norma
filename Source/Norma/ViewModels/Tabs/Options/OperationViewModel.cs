@@ -25,7 +25,6 @@ namespace Norma.ViewModels.Tabs.Options
         public List<EnumWrap<PostKey>> KeyTypes
             => ((PostKey[]) Enum.GetValues(typeof(PostKey))).Select(w => new EnumWrap<PostKey>(w)).ToList();
 
-        public ReactiveProperty<uint> UpdateIntervalOfProgram { get; private set; }
         public ReactiveProperty<uint> UpdateIntervalOfThumbnails { get; private set; }
         public ReactiveProperty<uint> ReceptionIntervalOfComments { get; private set; }
         public ReactiveProperty<uint> SamplingIntervalOfProgramState { get; private set; }
@@ -41,7 +40,6 @@ namespace Norma.ViewModels.Tabs.Options
         public OperationViewModel(OperationConfig oc)
         {
             _operationConfig = oc;
-            UpdateIntervalOfProgram = ReactiveProperty.FromObject(oc, w => w.UpdateIntervalOfProgram);
             UpdateIntervalOfThumbnails = ReactiveProperty.FromObject(oc, w => w.UpdateIntervalOfThumbnails);
             ReceptionIntervalOfComments = ReactiveProperty.FromObject(oc, w => w.ReceptionIntervalOfComments);
             SamplingIntervalOfProgramState = ReactiveProperty.FromObject(oc, w => w.SamplingIntervalOfProgramState);

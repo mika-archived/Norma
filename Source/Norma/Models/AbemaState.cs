@@ -52,11 +52,9 @@ namespace Norma.Models
             _configuration = configuration;
             _databaseService = databaseService;
             _timetableService = timetableService;
-            var interval = TimeSpan.FromSeconds(configuration.Root.Operation.UpdateIntervalOfProgram);
-
             using (var connector = databaseService.Connect())
                 CurrentChannel = connector.Channels.Single(w => w.ChannelId == _configuration.Root.LastViewedChannelStr);
-            _disposable = Observable.Timer(TimeSpan.Zero, interval).Subscribe(w => SyncEpisode());
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(w => SyncEpisode());
             networkHandler.RegisterInstance(this, w => w.Url.StartsWith("https://api.abema.io/v1/slotAudience?"));
         }
 
@@ -179,6 +177,7 @@ namespace Norma.Models
 
                 episodes.ForEach(w => slot.Episodes.Add(w));
             }
+            SyncEpisode();
         }
 
         private string Filter(string str) => _filters.Aggregate(str, (current, filter) => filter.Call(current));

@@ -9,9 +9,6 @@ namespace Norma.Eta.Models.Configurations
     public class OperationConfig
     {
         [JsonProperty]
-        public uint UpdateIntervalOfProgram { get; set; }
-
-        [JsonProperty]
         public uint UpdateIntervalOfThumbnails { get; set; }
 
         [JsonProperty]
@@ -37,7 +34,6 @@ namespace Norma.Eta.Models.Configurations
 
         public OperationConfig()
         {
-            UpdateIntervalOfProgram = 1;
             UpdateIntervalOfThumbnails = 30;
             ReceptionIntervalOfComments = 10;
             SamplingIntervalOfProgramState = 1;
