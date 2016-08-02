@@ -85,14 +85,11 @@ namespace Norma.Models
                 Slot currentSlot;
                 using (var connection = _databaseService.Connect())
                 {
-                    var datetime = DateTime.Now;
-
                     // このクエリだけ Lazy Loading を Off にしておく(SQLite だと Include 連結できない)
                     connection.TurnOffLazyLoading();
                     // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault
                     currentSlot = connection.Slots.AsNoTracking()
-                                            .Where(w => w.Channel.ChannelId == CurrentChannel.ChannelId)
-                                            .Where(w => w.StartAt <= datetime && datetime <= w.EndAt)
+                                            .Where(w => w.SlotId == _slotId)
                                             .Include(w => w.Episodes)
                                             .FirstOrDefault();
                 }
