@@ -5,7 +5,6 @@ using System.Reactive.Linq;
 using Microsoft.Practices.ServiceLocation;
 
 using Norma.Delta.Models;
-using Norma.Delta.Services;
 using Norma.Eta.Extensions;
 using Norma.Eta.Models;
 using Norma.Eta.Properties;

@@ -218,6 +218,7 @@
                     <metro:PromptTextBox Width="150"
                                          Height="25"
                                          VerticalAlignment="Bottom"
+                                         Prompt=""
                                          Text="{Binding Keyword.Value,
                                                         Mode=TwoWay,
                                                         UpdateSourceTrigger=PropertyChanged}" />

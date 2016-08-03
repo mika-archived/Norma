@@ -69,8 +69,6 @@ namespace Norma.Models
             Description = slot.Description;
             episode.Casts.ForEach(w => Casts.Add(w.Name));
             episode.Crews.ForEach(w => Crews.Add(w.Name));
-            HasCasts = Casts.Count > 0;
-            HasCrews = Crews.Count > 0;
 
             ProvideThumbnails(episode);
 
@@ -100,7 +98,7 @@ namespace Norma.Models
         public string Title
         {
             get { return _title; }
-            set { SetProperty(ref _title, value); }
+            private set { SetProperty(ref _title, value); }
         }
 
         #endregion
@@ -112,7 +110,7 @@ namespace Norma.Models
         public string Description
         {
             get { return _description; }
-            set { SetProperty(ref _description, value); }
+            private set { SetProperty(ref _description, value); }
         }
 
         #endregion
@@ -124,7 +122,7 @@ namespace Norma.Models
         public string Thumbnail1
         {
             get { return _thumbnail1; }
-            set { SetProperty(ref _thumbnail1, value); }
+            private set { SetProperty(ref _thumbnail1, value); }
         }
 
         #endregion
@@ -136,31 +134,7 @@ namespace Norma.Models
         public string Thumbnail2
         {
             get { return _thumbnail2; }
-            set { SetProperty(ref _thumbnail2, value); }
-        }
-
-        #endregion
-
-        #region HasCasts
-
-        private bool _hasCasts;
-
-        public bool HasCasts
-        {
-            get { return _hasCasts; }
-            set { SetProperty(ref _hasCasts, value); }
-        }
-
-        #endregion
-
-        #region HasCrews
-
-        private bool _hasCrews;
-
-        public bool HasCrews
-        {
-            get { return _hasCrews; }
-            set { SetProperty(ref _hasCrews, value); }
+            private set { SetProperty(ref _thumbnail2, value); }
         }
 
         #endregion
