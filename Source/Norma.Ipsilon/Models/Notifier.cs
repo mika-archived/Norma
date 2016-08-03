@@ -19,18 +19,17 @@ namespace Norma.Ipsilon.Models
     internal class Notifier : IDisposable
     {
         private readonly CompositeDisposable _compositeDisposable;
-        private readonly Configuration _configuration;
         private readonly DatabaseService _databaseService;
         private readonly int _pretime;
         private readonly List<Slot> _slot;
 
         public Notifier()
         {
-            _configuration = ServiceLocator.Current.GetInstance<Configuration>();
+            var configuration = ServiceLocator.Current.GetInstance<Configuration>();
             _databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
             _compositeDisposable = new CompositeDisposable();
             _slot = new List<Slot>();
-            _pretime = (int) _configuration.Root.Operation.ToastNotificationBeforeMinutes;
+            _pretime = (int) configuration.Root.Operation.ToastNotificationBeforeMinutes;
         }
 
         #region Implementation of IDisposable
@@ -88,7 +87,6 @@ namespace Norma.Ipsilon.Models
 #if DEBUG
             stopwatch.Stop();
             Debug.WriteLine(stopwatch.Elapsed.ToString());
-            Debug.WriteLine("");
 #endif
             // TODO: Notification
         }
