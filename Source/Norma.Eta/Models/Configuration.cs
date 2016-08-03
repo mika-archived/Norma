@@ -54,9 +54,6 @@ namespace Norma.Eta.Models
             if (Root.Internal == null)
                 Root.Internal = new InternalConfig();
 
-            if (string.IsNullOrWhiteSpace(Root.LastViewedChannelStr))
-                Root.LastViewedChannelStr = Root.LastViewedChannel.ToUrlString();
-
             // Version 1.5
             if (Root.Operation.VideoQuality != VideoQuality.Auto)
                 Root.Others.IsEnabledExperimentalFeatures = true;
