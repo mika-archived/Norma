@@ -43,8 +43,8 @@ namespace Norma.Iota.ViewModels.WindowContents
                 Description = model.DetailHighlight;
                 model.Cast?.ForEach(x => Cast.Add(x));
                 model.Staff?.ForEach(x => Staff.Add(x));
-                Thumbnail = $"https://hayabusa.io/abema/programs/{model.Model.DisplayProgramId}/thumb001.w200.h112.jpg";
-                Channel = AbemaChannelExt.ToLocaleString(model.Model.ChannelId);
+                Thumbnail = $"https://hayabusa.io/abema/programs/{model.Model.Channel.ChannelId}/thumb001.w200.h112.jpg";
+                Channel = AbemaChannelExt.ToLocaleString(model.Model.Channel.ChannelId);
                 ((DelegateCommand) AddReservationCommand).RaiseCanExecuteChanged();
             }).AddTo(this);
         }
@@ -142,6 +142,7 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         private void AddReservation()
         {
+            /*
             _rsvs.AddReservation(((WrapSlot) RawNotification.Model).Model);
 
             var slot = ((WrapSlot) RawNotification.Model).Model;
@@ -150,15 +151,19 @@ namespace Norma.Iota.ViewModels.WindowContents
                 Model = new RsvProgram {ProgramId = slot.Id, StartDate = slot.StartAt}
             });
             ((DelegateCommand) AddReservationCommand).RaiseCanExecuteChanged();
+            */
         }
 
         private bool CanAddRsv()
         {
             if (RawNotification == null)
                 return false;
+            /*
             var model = (WrapSlot) RawNotification.Model;
             return !_rsvs.RsvsByProgram.Any(w => w.IsEnable && w.ProgramId == model.Model.Id) &&
                    model.CanRsv;
+            */
+            return false;
         }
 
         #endregion
@@ -173,17 +178,18 @@ namespace Norma.Iota.ViewModels.WindowContents
         private void AddSeriesRsv()
         {
             var slot = ((WrapSlot) RawNotification.Model).Model;
-            _rsvs.AddReservation(slot.Programs[0].Series.Id);
-            ((DelegateCommand) AddReservationCommand).RaiseCanExecuteChanged();
+            //_rsvs.AddReservation(slot.Programs[0].Series.Id);
+            //((DelegateCommand) AddReservationCommand).RaiseCanExecuteChanged();
         }
 
         private bool CanAddSeriesRsv()
         {
             if (RawNotification == null)
                 return false;
-            var model = (WrapSlot) RawNotification.Model;
-            return !_rsvs.RsvBySeries.Any(w => w.IsEnable && w.SeriesId == model.Model.Programs[0].Series.Id) &&
-                   model.CanRsv;
+            return false;
+            //var model = (WrapSlot) RawNotification.Model;
+            //return !_rsvs.RsvBySeries.Any(w => w.IsEnable && w.SeriesId == model.Model.Programs[0].Series.Id) &&
+            //       model.CanRsv;
         }
 
         #endregion

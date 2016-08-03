@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Windows.Input;
 
-using Norma.Eta.Models;
+using Norma.Delta.Services;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
 using Norma.Eta.Validations;
-using Norma.Iota.Models;
 
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
@@ -19,10 +18,10 @@ namespace Norma.Iota.ViewModels.Controls
     {
         private readonly DateTimeValidator _dValidator = new DateTimeValidator();
         private readonly bool _isUpdate;
+        private readonly ReservationService _reservationService;
         private readonly RegexValidator _rgxValidator = new RegexValidator();
-        private readonly Reservation _rsv;
         private readonly StringRequiredValidator _srValidator = new StringRequiredValidator();
-        private RsvKeyword _model;
+        //private RsvKeyword _model;
 
         public InteractionRequest<Notification> WindowCloseRequest { get; }
         public InteractionRequest<DataPassingNotification> ResponseRequest { get; }
@@ -34,9 +33,9 @@ namespace Norma.Iota.ViewModels.Controls
 
         public ReactiveCommand AddKeywordRsvCommand { get; }
 
-        public KeywordRsvControlViewModel(Reservation reservation, bool isUpdate = true)
+        public KeywordRsvControlViewModel(ReservationService reservation, bool isUpdate = true)
         {
-            _rsv = reservation;
+            _reservationService = reservation;
             _isUpdate = isUpdate;
             WindowCloseRequest = new InteractionRequest<Notification>();
             ResponseRequest = new InteractionRequest<DataPassingNotification>();
@@ -54,6 +53,7 @@ namespace Norma.Iota.ViewModels.Controls
             AddKeywordRsvCommand.Subscribe(w => AddKeywordRsv()).AddTo(this);
             ViewModelHelper.Subscribe(this, w => w.Notification, w =>
             {
+                /*
                 var model = RawNotification.Model;
                 if (model is WrapSlot)
                     Keyword.Value = ((WrapSlot) model).Model.Title;
@@ -67,11 +67,13 @@ namespace Norma.Iota.ViewModels.Controls
                     _model = rk;
                 }
                 IsEnabled = true;
+                */
             });
         }
 
         private void AddKeywordRsv()
         {
+            /*
             IsEnabled = false;
             if (!_isUpdate)
                 _rsv.AddReservation(Keyword.Value, IsRegex.Value,
@@ -92,6 +94,7 @@ namespace Norma.Iota.ViewModels.Controls
                     Range = new DateRange {Finish = _dValidator.Convert(ExpiredAt.Value)}
                 }
             }, callback => WindowCloseRequest.Raise(null));
+            */
         }
 
         #region IsEnabled

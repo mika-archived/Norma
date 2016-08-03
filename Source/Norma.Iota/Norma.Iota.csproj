@@ -203,11 +203,6 @@
     <Compile Include="ViewModels\Controls\KeywordRsvControlViewModel.cs" />
     <Compile Include="ViewModels\Controls\ProgramCellViewModel.cs" />
     <Compile Include="ViewModels\Controls\TimeRsvControlViewModel.cs" />
-    <Compile Include="ViewModels\Reservations\ReservationViewModel.cs" />
-    <Compile Include="ViewModels\Reservations\RsvAllViewModel.cs" />
-    <Compile Include="ViewModels\Reservations\RsvKeywordViewModel.cs" />
-    <Compile Include="ViewModels\Reservations\RsvProgramViewModel.cs" />
-    <Compile Include="ViewModels\Reservations\RsvTimeViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\DetailsRsvContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\EditRsvContentViewModel.cs" />

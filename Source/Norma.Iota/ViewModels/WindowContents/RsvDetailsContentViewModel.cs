@@ -1,10 +1,8 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
 using Norma.Eta.Properties;
-using Norma.Iota.ViewModels.Reservations;
 
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
@@ -22,6 +20,7 @@ namespace Norma.Iota.ViewModels.WindowContents
             WindowCloseRequest = new InteractionRequest<Notification>();
             ViewModelHelper.Subscribe(this, w => w.Notification, w =>
             {
+                /*
                 var model = RawNotification.Model as Reserve;
                 if (model == null)
                     return;
@@ -33,8 +32,11 @@ namespace Norma.Iota.ViewModels.WindowContents
                     Reservation = new RsvKeywordViewModel(model as RsvKeyword);
                 else
                     throw new NotSupportedException();
+                    */
             }).AddTo(this);
         }
+
+        /*
 
         #region Reservation
 
@@ -47,6 +49,8 @@ namespace Norma.Iota.ViewModels.WindowContents
         }
 
         #endregion
+
+        */
 
         #region OkCommand
 

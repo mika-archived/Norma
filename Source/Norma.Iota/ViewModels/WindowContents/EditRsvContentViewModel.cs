@@ -1,10 +1,7 @@
-﻿using System;
-
-using Norma.Eta.Models;
+﻿using Norma.Delta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
 using Norma.Eta.Properties;
-using Norma.Iota.ViewModels.Controls;
 
 namespace Norma.Iota.ViewModels.WindowContents
 {
@@ -14,6 +11,7 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         public EditRsvContentViewModel(Reservation rsv)
         {
+            /*
             ViewModelHelper.Subscribe(this, w => w.Notification, w =>
             {
                 var model = RawNotification.Model as RsvAll;
@@ -38,6 +36,7 @@ namespace Norma.Iota.ViewModels.WindowContents
                     throw new NotSupportedException();
                 TargetViewModel = vm;
             });
+            */
         }
 
         #region TargetViewModel

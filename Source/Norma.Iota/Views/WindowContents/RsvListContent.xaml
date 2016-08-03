@@ -9,7 +9,6 @@
              xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
-             xmlns:rsvVm="clr-namespace:Norma.Iota.ViewModels.Reservations"
              xmlns:vm="clr-namespace:Norma.Iota.ViewModels.WindowContents"
              xmlns:wc="clr-namespace:Norma.Iota.Views.WindowContents"
              d:DataContext="{d:DesignInstance vm:RsvListContentViewModel}"
@@ -98,71 +97,36 @@
                             <GridViewColumn.Header>
                                 <TextBlock Text="{x:Static properties:Resources.StartAt}" />
                             </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate DataType="{x:Type rsvVm:RsvAllViewModel}">
-                                    <TextBlock Text="{Binding StartAt}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="110">
                             <GridViewColumn.Header>
                                 <TextBlock Text="{x:Static properties:Resources.ProgramId}" />
                             </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate DataType="{x:Type rsvVm:RsvAllViewModel}">
-                                    <TextBlock Text="{Binding ProgramId}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="110">
                             <GridViewColumn.Header>
                                 <TextBlock Text="{x:Static properties:Resources.ExpiredAt}" />
                             </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate DataType="{x:Type rsvVm:RsvAllViewModel}">
-                                    <TextBlock Text="{Binding ExpiredAt}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="100">
                             <GridViewColumn.Header>
                                 <TextBlock Text="{x:Static properties:Resources.RepeatInterval}" />
                             </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate DataType="{x:Type rsvVm:RsvAllViewModel}">
-                                    <TextBlock Text="{Binding DayOfWeek}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="300">
                             <GridViewColumn.Header>
                                 <TextBlock Text="{x:Static properties:Resources.Keyword}" />
                             </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate DataType="{x:Type rsvVm:RsvAllViewModel}">
-                                    <TextBlock Text="{Binding Keyword}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="80">
                             <GridViewColumn.Header>
                                 <TextBlock Text="{x:Static properties:Resources.IsRegex}" />
                             </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate DataType="{x:Type rsvVm:RsvAllViewModel}">
-                                    <TextBlock Text="{Binding IsRegexMode, Converter={StaticResource YesNoToBooleanConverter}}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="100">
                             <GridViewColumn.Header>
                                 <TextBlock Text="{x:Static properties:Resources.Type}" />
                             </GridViewColumn.Header>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate DataType="{x:Type rsvVm:RsvAllViewModel}">
-                                    <TextBlock Text="{Binding Type}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>

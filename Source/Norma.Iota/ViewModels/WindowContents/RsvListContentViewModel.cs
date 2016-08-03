@@ -1,51 +1,50 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 using Norma.Delta.Services;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
 using Norma.Eta.Properties;
-using Norma.Iota.ViewModels.Reservations;
 
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
-
-using Reactive.Bindings;
 
 namespace Norma.Iota.ViewModels.WindowContents
 {
     internal class RsvListContentViewModel : InteractionViewModel<DataPassingNotification>
     {
-        private readonly DbConnection _databaseService;
+        private readonly DatabaseService _databaseService;
         public string WindowTitle => Resources.RsvList;
 
-        public ObservableCollection<RsvAllViewModel> Reservations { get; }
-        public ReactiveProperty<RsvAllViewModel> SelectedItem { get; }
+        //public ObservableCollection<RsvAllViewModel> Reservations { get; }
+        //public ReactiveProperty<RsvAllViewModel> SelectedItem { get; }
         public InteractionRequest<Confirmation> ConfirmationRequest { get; }
+
         public InteractionRequest<DataPassingNotification> EditRequest { get; }
 
-        public RsvListContentViewModel(DbConnection databaseService)
+        public RsvListContentViewModel(DatabaseService databaseService)
         {
             _databaseService = databaseService;
-            Reservations = new ObservableCollection<RsvAllViewModel>();
-            SelectedItem = new ReactiveProperty<RsvAllViewModel>();
+            //Reservations = new ObservableCollection<RsvAllViewModel>();
+            //SelectedItem = new ReactiveProperty<RsvAllViewModel>();
             ConfirmationRequest = new InteractionRequest<Confirmation>();
             EditRequest = new InteractionRequest<DataPassingNotification>();
+            /*
             SelectedItem.Subscribe(w =>
             {
                 ((DelegateCommand) EditReservationCommand).RaiseCanExecuteChanged();
                 ((DelegateCommand) DeleteReservationCommand).RaiseCanExecuteChanged();
             }).AddTo(this);
-
+            */
             ViewModelHelper.Subscribe(this, w => w.Notification, w => UpdateRsvList());
         }
 
         private void UpdateRsvList()
         {
-            Reservations.Clear();
+            //Reservations.Clear();
+            /*
             foreach (var rsv in _reservation.Reservations.Where(x => x.IsEnable))
                 Reservations.Add(new RsvAllViewModel(rsv));
+            */
         }
 
         #region EditReservationCommand
@@ -57,12 +56,13 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         private async void EditReservation()
         {
-            await EditRequest.RaiseAsync(new DataPassingNotification {Model = SelectedItem.Value.Model});
-            UpdateRsvList();
+            //await EditRequest.RaiseAsync(new DataPassingNotification {Model = SelectedItem.Value.Model});
+            //UpdateRsvList();
         }
 
-        private bool CanEditReservation() => SelectedItem.Value != null && SelectedItem.Value.Type != nameof(RsvProgram)
-                                             && SelectedItem.Value.Type != nameof(RsvProgram2);
+        private bool CanEditReservation() => false; //SelectedItem.Value != null && SelectedItem.Value.Type != nameof(RsvProgram)
+
+        //&& SelectedItem.Value.Type != nameof(RsvProgram2);
 
         #endregion
 
@@ -83,11 +83,11 @@ namespace Norma.Iota.ViewModels.WindowContents
             });
             if (!result.Confirmed)
                 return;
-            _reservation.DeleteReservation(SelectedItem.Value.Model);
+            //_reservation.DeleteReservation(SelectedItem.Value.Model);
             UpdateRsvList();
         }
 
-        private bool CanDeleteReservation() => SelectedItem.Value != null;
+        private bool CanDeleteReservation() => false; //SelectedItem.Value != null;
 
         #endregion
     }

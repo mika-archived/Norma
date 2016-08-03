@@ -12,7 +12,7 @@ namespace Norma.Iota.ViewModels.Controls
 
         public string Title => Model.Model.Title;
         public string StartAt => Model.StartAt.ToString("HH:mm");
-        public string Description => Model.Model.TableHighlight;
+        public string Description => Model.Model.Highlight;
         public int Height { get; private set; }
         public int Top { get; private set; }
 

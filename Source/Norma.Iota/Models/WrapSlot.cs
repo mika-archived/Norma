@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
-using Norma.Gamma.Models;
+using Norma.Delta.Models;
 
 namespace Norma.Iota.Models
 {
@@ -30,23 +29,14 @@ namespace Norma.Iota.Models
                 ? new DateTime(date.Year, date.Month, date.Day, 23, 59, 59)
                 : Model.EndAt;
 
-            if (Model.Programs.Length > 0)
-            {
-                DetailHighlight = Model.DetailHighlight;
-                Cast = Model.Programs[0].Credit.Cast?.ToList();
-                Staff = Model.Programs[0].Credit.Crews?.ToList();
-            }
+            Cast = new List<string>();
+            Staff = new List<string>();
+            if (!string.IsNullOrWhiteSpace(Model.HighlightDetail))
+                DetailHighlight = Model.HighlightDetail;
+            else if (!string.IsNullOrWhiteSpace(Model.Highlight))
+                DetailHighlight = Model.Highlight;
             else
-            {
-                Cast = new List<string>();
-                Staff = new List<string>();
-                if (!string.IsNullOrWhiteSpace(Model.DetailHighlight))
-                    DetailHighlight = Model.DetailHighlight;
-                else if (!string.IsNullOrWhiteSpace(Model.Highlight))
-                    DetailHighlight = Model.Highlight;
-                else
-                    DetailHighlight = Model.TableHighlight;
-            }
+                DetailHighlight = "";
             CanRsv = StartAt > DateTime.Now.AddMinutes(5);
         }
     }

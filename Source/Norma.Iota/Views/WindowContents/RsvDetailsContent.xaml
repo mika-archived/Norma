@@ -8,7 +8,6 @@
              xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
-             xmlns:rsvs="clr-namespace:Norma.Iota.ViewModels.Reservations"
              xmlns:vm="clr-namespace:Norma.Iota.ViewModels.WindowContents"
              d:DataContext="{d:DesignInstance vm:RsvDetailsContentViewModel}"
              d:DesignHeight="300"
@@ -56,111 +55,6 @@
                     Margin="10">
             <StackPanel.Resources>
                 <!-- なんかうーん -->
-                <DataTemplate DataType="{x:Type rsvs:RsvProgramViewModel}">
-                    <Grid>
-                        <Grid.Resources>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="FontSize" Value="12" />
-                                <Setter Property="Margin" Value="10,0,0,0" />
-                            </Style>
-                        </Grid.Resources>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="0"
-                                   Text="{x:Static properties:Resources.StartAt}" />
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="1"
-                                   Text="{Binding StartAt}" />
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="0"
-                                   Text="{x:Static properties:Resources.ProgramId}" />
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="1"
-                                   Text="{Binding ProgramId}" />
-                    </Grid>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type rsvs:RsvTimeViewModel}">
-                    <Grid>
-                        <Grid.Resources>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="FontSize" Value="12" />
-                                <Setter Property="Margin" Value="10,0,0,0" />
-                            </Style>
-                        </Grid.Resources>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="0"
-                                   Text="{x:Static properties:Resources.StartAt}" />
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="1"
-                                   Text="{Binding StartTime}" />
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="0"
-                                   Text="{x:Static properties:Resources.RepeatInterval}" />
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="1"
-                                   Text="{Binding RepetitionType}" />
-                        <TextBlock Grid.Row="2"
-                                   Grid.Column="0"
-                                   Text="{x:Static properties:Resources.ExpiredAt}" />
-                        <TextBlock Grid.Row="2"
-                                   Grid.Column="1"
-                                   Text="{Binding EndAt}" />
-                    </Grid>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type rsvs:RsvKeywordViewModel}">
-                    <Grid>
-                        <Grid.Resources>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="FontSize" Value="12" />
-                                <Setter Property="Margin" Value="10,0,0,0" />
-                            </Style>
-                        </Grid.Resources>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="0"
-                                   Text="{x:Static properties:Resources.Keyword}" />
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="1"
-                                   Text="{Binding Keyword}"
-                                   TextTrimming="CharacterEllipsis" />
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="0"
-                                   Text="{x:Static properties:Resources.IsRegex}" />
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="1"
-                                   Text="{Binding IsRegexMode}" />
-                        <TextBlock Grid.Row="2"
-                                   Grid.Column="0"
-                                   Text="{x:Static properties:Resources.ExpiredAt}" />
-                        <TextBlock Grid.Row="2"
-                                   Grid.Column="1"
-                                   Text="{Binding EndAt}" />
-                    </Grid>
-                </DataTemplate>
             </StackPanel.Resources>
             <TextBlock FontSize="14"
                        Text="{x:Static properties:Resources.RsvConfirm}" />

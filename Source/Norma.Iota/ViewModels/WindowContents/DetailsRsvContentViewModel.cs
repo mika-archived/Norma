@@ -1,7 +1,6 @@
-﻿using Norma.Eta.Models;
+﻿using Norma.Delta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
-using Norma.Eta.Properties;
 using Norma.Iota.ViewModels.Controls;
 
 namespace Norma.Iota.ViewModels.WindowContents
@@ -14,6 +13,7 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         public DetailsRsvContentViewModel(Reservation reservation)
         {
+            /*
             TimeRsvControlViewModel = new TimeRsvControlViewModel(reservation, false);
             KeywordRsvControlViewModel = new KeywordRsvControlViewModel(reservation, false);
             ViewModelHelper.Subscribe(this, w => w.Notification, w =>
@@ -22,6 +22,7 @@ namespace Norma.Iota.ViewModels.WindowContents
                 TimeRsvControlViewModel.Notification = RawNotification;
                 KeywordRsvControlViewModel.Notification = RawNotification;
             }).AddTo(this);
+            */
         }
 
         #region WindowTitle

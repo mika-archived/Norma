@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 
+using Norma.Delta.Models.Enums;
+using Norma.Delta.Services;
 using Norma.Eta.Models;
-using Norma.Eta.Models.Enums;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
 using Norma.Eta.Validations;
-using Norma.Iota.Models;
 
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
@@ -23,12 +23,12 @@ namespace Norma.Iota.ViewModels.Controls
         private readonly DateTimeValidator _dtValidator = new DateTimeValidator(true);
         private readonly DateTimeValidator _dValidator = new DateTimeValidator();
         private readonly bool _isUpdate;
-        private readonly Reservation _rsv;
-        private RsvTime _model;
+        private readonly ReservationService _reservationService;
+        // private RsvTime _model;
 
-        public List<EnumWrap<RepetitionType>> RepetitionTypes
-            => ((RepetitionType[]) Enum.GetValues(typeof(RepetitionType))).Select(w => new EnumWrap<RepetitionType>(w))
-                                                                          .ToList();
+        public List<EnumWrap<Repetition>> RepetitionTypes
+            => ((Repetition[]) Enum.GetValues(typeof(Repetition))).Select(w => new EnumWrap<Repetition>(w))
+                                                                  .ToList();
 
         public InteractionRequest<Notification> WindowCloseRequest { get; }
         public InteractionRequest<DataPassingNotification> ResponseRequest { get; }
@@ -37,13 +37,13 @@ namespace Norma.Iota.ViewModels.Controls
 
         public ReactiveProperty<string> ExpiredAt { get; }
 
-        public ReactiveProperty<EnumWrap<RepetitionType>> Repetition { get; }
+        public ReactiveProperty<EnumWrap<Repetition>> Repetition { get; }
 
         public ReactiveCommand AddTimeRsvCommand { get; }
 
-        public TimeRsvControlViewModel(Reservation reservation, bool isUpdate = true)
+        public TimeRsvControlViewModel(ReservationService reservationService, bool isUpdate = true)
         {
-            _rsv = reservation;
+            _reservationService = reservationService;
             _isUpdate = isUpdate;
             WindowCloseRequest = new InteractionRequest<Notification>();
             ResponseRequest = new InteractionRequest<DataPassingNotification>();
@@ -51,8 +51,8 @@ namespace Norma.Iota.ViewModels.Controls
                 .SetValidateNotifyError(w => _dtValidator.Validate(w)).AddTo(this);
             ExpiredAt = new ReactiveProperty<string>(DateTime.MaxValue.ToString("d"))
                 .SetValidateNotifyError(w => _dValidator.Validate(w)).AddTo(this);
-            var defValue = new EnumWrap<RepetitionType>(RepetitionType.None);
-            Repetition = new ReactiveProperty<EnumWrap<RepetitionType>>(defValue).AddTo(this);
+            var defValue = new EnumWrap<Repetition>(Delta.Models.Enums.Repetition.None);
+            Repetition = new ReactiveProperty<EnumWrap<Repetition>>(defValue).AddTo(this);
             AddTimeRsvCommand = new[]
             {
                 StartAt.ObserveHasErrors,
@@ -61,6 +61,7 @@ namespace Norma.Iota.ViewModels.Controls
             AddTimeRsvCommand.Subscribe(w => AddTimeRsv()).AddTo(this);
             ViewModelHelper.Subscribe(this, w => w.Notification, w =>
             {
+                /*
                 var model = RawNotification.Model;
                 if (model is WrapSlot)
                     StartAt.Value = ((WrapSlot) model).StartAt.ToString("g");
@@ -74,11 +75,13 @@ namespace Norma.Iota.ViewModels.Controls
                     _model = rt;
                 }
                 IsEnabled = true;
+                */
             });
         }
 
         private void AddTimeRsv()
         {
+            /*
             IsEnabled = false;
             if (!_isUpdate)
                 _rsv.AddReservation(_dtValidator.Convert(StartAt.Value), Repetition.Value.EnumValue,
@@ -98,6 +101,7 @@ namespace Norma.Iota.ViewModels.Controls
                     Range = new DateRange {Finish = _dValidator.Convert(ExpiredAt.Value)}
                 }
             }, callback => WindowCloseRequest.Raise(null));
+            */
         }
 
         #region IsEnabled

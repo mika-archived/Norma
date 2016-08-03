@@ -6,8 +6,9 @@ using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Input;
 
+using Norma.Delta.Models;
+using Norma.Delta.Services;
 using Norma.Eta.Extensions;
-using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
 using Norma.Iota.ViewModels.Controls;
@@ -20,7 +21,7 @@ namespace Norma.Iota.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     internal class ShellViewModel : ViewModel
     {
-        private readonly Timetable _timetable;
+        private readonly DatabaseService _databaseService;
         private int _index; // 日付管理用(0 = 今日, 6 = 一週間後みたいな)
         public ObservableCollection<ChannelCellViewModel> Channels { get; }
         public List<string> AvailableDates { get; }
@@ -28,34 +29,50 @@ namespace Norma.Iota.ViewModels
         public InteractionRequest<INotification> ReservationListRequest { get; }
         public InteractionRequest<DataPassingNotification> DetailReserveRequest { get; }
 
-        public ShellViewModel(Timetable timetable)
+        public ShellViewModel(DatabaseService databaseService)
         {
-            _timetable = timetable;
+            _databaseService = databaseService;
             ProgramDetailsRequest = new InteractionRequest<INotification>();
             ReservationListRequest = new InteractionRequest<INotification>();
             DetailReserveRequest = new InteractionRequest<DataPassingNotification>();
-            _index = (DateTime.Now - timetable.LastSyncTime).Days;
-            AvailableDates = new List<string>();
-            Channels = new ObservableCollection<ChannelCellViewModel>();
-            for (var i = 0; i < 6; i++)
-                AvailableDates.Add(timetable.LastSyncTime.AddDays(i).ToString("MM/dd"));
 
-            SelectedDate = AvailableDates[0];
+            // TODO: Move to Model
+            using (var connection = _databaseService.Connect())
+            {
+                var lastSyncTime = DateTime.Parse(connection.Metadata.Single(w => w.Key == Metadata.LastSyncTimeKey).Value);
+                _index = (DateTime.Now - lastSyncTime).Days;
+                AvailableDates = new List<string>();
+                Channels = new ObservableCollection<ChannelCellViewModel>();
+                for (var i = 0; i < 6; i++)
+                    AvailableDates.Add(lastSyncTime.AddDays(i).ToString("MM/dd"));
+
+                SelectedDate = AvailableDates[0];
+            }
+            //UpdateChannels();
         }
 
+        // TODO: Move to Model
         private void UpdateChannels()
         {
+            IsLoading = false;
             Application.Current.Dispatcher.Invoke(() =>
             {
                 Channels.Clear();
                 CompositeDisposable.Dispose();
             });
             var list = new List<ChannelCellViewModel>();
-            foreach (var channel in _timetable.Channels)
+            using (var connection = _databaseService.Connect())
             {
-                var slots = _timetable.ChannelSchedules.Where(w => w.ChannelId == channel.Id).ElementAt(_index);
-                var vm = new ChannelCellViewModel(channel, slots.Slots, slots.Date).AddTo(this);
-                list.Add(vm);
+                var channels = connection.Channels.ToList();
+                foreach (var channel in channels)
+                {
+                    var targetDate = DateTime.Parse(AvailableDates[_index]);
+                    var targetMaxDate = targetDate.AddHours(23).AddMinutes(59).AddSeconds(59);
+                    var slots = connection.Slots.Where(w => w.Channel.ChannelId == channel.ChannelId)
+                                          .Where(w => w.StartAt >= targetDate && w.StartAt <= targetMaxDate).ToList();
+                    var vm = new ChannelCellViewModel(channel, slots, targetDate).AddTo(this);
+                    list.Add(vm);
+                }
             }
             foreach (var vm in list)
                 Application.Current.Dispatcher.Invoke(() => Channels.Add(vm));
