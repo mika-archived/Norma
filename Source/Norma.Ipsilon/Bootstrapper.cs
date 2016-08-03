@@ -22,8 +22,6 @@ namespace Norma.Ipsilon
         {
             base.ConfigureContainer();
 
-            AppInitializer.Initialize();
-
             Container.RegisterType<DatabaseService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<ReservationService>(new ContainerControlledLifetimeManager());
             Container.RegisterType<TimetableService>(new ContainerControlledLifetimeManager());
@@ -32,7 +30,13 @@ namespace Norma.Ipsilon
             Container.RegisterType<ConnectOps>(new ContainerControlledLifetimeManager());
         }
 
-        protected override DependencyObject CreateShell() => Container.Resolve<Shell>();
+        protected override DependencyObject CreateShell()
+        {
+            AppInitializer.Initialize();
+            return Container.Resolve<Shell>();
+        }
+
+        protected override void ConfigureServiceLocator() => ServiceLocator.SetLocatorProvider(() => this);
 
         protected override void InitializeShell() => AppInitializer.PostInitialize();
 
