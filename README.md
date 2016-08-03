@@ -52,8 +52,9 @@ Twitter ハッシュタグ [#Norma](https://twitter.com/search?f=tweets&vertical
 
 | Version | Status      |
 | ------- | ----------- |
+| 2.0     | Support     |
 | 1.4     | Support     |
-| 1.3     | Support     |
+| 1.3     | Unsupported |
 | 1.2     | Unsupported |
 | 1.1     | Unsupported |
 | 1.0     | Unsupported |
@@ -63,7 +64,8 @@ Twitter ハッシュタグ [#Norma](https://twitter.com/search?f=tweets&vertical
 
 | OS          | Version      | Status      |
 | ----------- | ------------ | ----------- |
-| Windows 10  | 1511         | Support     |
+| Windows 10  | 1607         | Support     |
+| Windows 10  | 1511         | Unsupported |
 | Windows 10  |              | Unsupported |
 | Windows 8.1 | --           | Support     |
 | Windows 7   | --           | Unsupported | 
