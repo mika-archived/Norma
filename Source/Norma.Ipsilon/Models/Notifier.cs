@@ -22,7 +22,7 @@ namespace Norma.Ipsilon.Models
     {
         private readonly CompositeDisposable _compositeDisposable;
         private readonly Configuration _configuration;
-        private readonly DbConnection _databaseService;
+        private readonly DatabaseService _databaseService;
 
         private DateTime _lastSyncTime;
         private List<ChannelSchedule> _todaySchedules;
@@ -30,7 +30,7 @@ namespace Norma.Ipsilon.Models
         public Notifier()
         {
             _configuration = ServiceLocator.Current.GetInstance<Configuration>();
-            _databaseService = ServiceLocator.Current.GetInstance<DbConnection>();
+            _databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
             _compositeDisposable = new CompositeDisposable();
             SyncSchedule();
         }
@@ -45,12 +45,6 @@ namespace Norma.Ipsilon.Models
         {
             _compositeDisposable.Add(Observable.Timer(TimeSpan.FromSeconds(5), TimeSpanExt.OneSecond)
                                                .Subscribe(async w => await Check()));
-            _compositeDisposable.Add(Observable.Timer(TimeSpan.Zero, TimeSpan.FromHours(1))
-                                               .Subscribe(w =>
-                                               {
-                                                   _notifiedSlots.Clear();
-                                                   _notifiedTimes.Clear();
-                                               }));
         }
 
         private async Task Check()
