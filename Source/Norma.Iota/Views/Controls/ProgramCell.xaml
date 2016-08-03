@@ -6,7 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:vm="clr-namespace:Norma.Iota.ViewModels.Controls"
-             d:DataContext="{d:DesignInstance vm:ProgramCellViewModel}"
+             d:DataContext="{d:DesignInstance vm:EpisodeCellViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">

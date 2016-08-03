@@ -197,11 +197,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behaviors\ScrollSyncronizingBehavior.cs" />
-    <Compile Include="Models\Orientation.cs" />
+    <Compile Include="Models\ChannelTable.cs" />
+    <Compile Include="Models\DayTable.cs" />
+    <Compile Include="Models\Enums\Orientation.cs" />
     <Compile Include="Models\WrapSlot.cs" />
     <Compile Include="ViewModels\Controls\ChannelCellViewModel.cs" />
     <Compile Include="ViewModels\Controls\KeywordRsvControlViewModel.cs" />
-    <Compile Include="ViewModels\Controls\ProgramCellViewModel.cs" />
+    <Compile Include="ViewModels\Controls\EpisodeCellViewModel.cs" />
     <Compile Include="ViewModels\Controls\TimeRsvControlViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\DetailsRsvContentViewModel.cs" />

@@ -6,7 +6,7 @@ using Norma.Iota.Models;
 
 namespace Norma.Iota.ViewModels.Controls
 {
-    internal class ProgramCellViewModel : ViewModel
+    internal class EpisodeCellViewModel : ViewModel
     {
         public WrapSlot Model { get; }
 
@@ -16,7 +16,7 @@ namespace Norma.Iota.ViewModels.Controls
         public int Height { get; private set; }
         public int Top { get; private set; }
 
-        public ProgramCellViewModel(WrapSlot program)
+        public EpisodeCellViewModel(WrapSlot program)
         {
             Model = program;
             var span = Model.EndAt - Model.StartAt;

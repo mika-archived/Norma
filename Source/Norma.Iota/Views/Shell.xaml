@@ -139,7 +139,7 @@
                                           VerticalAlignment="Center"
                                           IsEditable="False"
                                           ItemsSource="{Binding AvailableDates}"
-                                          SelectedItem="{Binding SelectedDate,
+                                          SelectedItem="{Binding SelectedDate.Value,
                                                                  Mode=TwoWay}" />
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Right"
