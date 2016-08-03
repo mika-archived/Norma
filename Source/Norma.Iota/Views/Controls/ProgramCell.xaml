@@ -32,7 +32,7 @@
                 <TextBlock FontWeight="Bold"
                            Text="{Binding Title}"
                            TextWrapping="Wrap" />
-                <TextBlock Text="{Binding Description}"
+                <TextBlock Text="{Binding Highlight}"
                            TextTrimming="CharacterEllipsis"
                            TextWrapping="Wrap" />
             </StackPanel>

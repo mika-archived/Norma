@@ -2,7 +2,6 @@
 using System.Windows.Input;
 
 using Norma.Delta.Services;
-using Norma.Eta.Models.Enums;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
 using Norma.Eta.Properties;
@@ -36,15 +35,16 @@ namespace Norma.Iota.ViewModels.WindowContents
                 Staff.Clear();
                 if (model == null)
                     return;
-                WindowTitle = $"{model.Model.Title} - {Resources.ProgramDetails} - Norma";
-                Title = model.Model.Title;
-                Date = model.StartAt.ToString("MM/DD");
-                Time = $"{model.Model.StartAt.ToString("MM/dd HH:mm")} ～ {model.Model.EndAt.ToString("MM/dd HH:mm")}";
-                Description = model.DetailHighlight;
-                model.Cast?.ForEach(x => Cast.Add(x));
-                model.Staff?.ForEach(x => Staff.Add(x));
-                Thumbnail = $"https://hayabusa.io/abema/programs/{model.Model.Channel.ChannelId}/thumb001.w200.h112.jpg";
-                Channel = AbemaChannelExt.ToLocaleString(model.Model.Channel.ChannelId);
+                model.RequestDetails();
+                WindowTitle = $"{model.Title} - {Resources.ProgramDetails} - Norma";
+                Title = model.Title;
+                Date = model.FixedStartAt.ToString("MM/DD");
+                Time = $"{model.StartAt.ToString("MM/dd HH:mm")} ～ {model.EndAt.ToString("MM/dd HH:mm")}";
+                Description = model.Description;
+                model.Casts.ForEach(x => Cast.Add(x));
+                model.Crews.ForEach(x => Staff.Add(x));
+                Thumbnail = $"https://hayabusa.io/abema/programs/{model.ProgramId}/thumb001.w200.h112.jpg";
+                Channel = model.Channel.Name;
                 ((DelegateCommand) AddReservationCommand).RaiseCanExecuteChanged();
             }).AddTo(this);
         }
@@ -177,7 +177,7 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         private void AddSeriesRsv()
         {
-            var slot = ((WrapSlot) RawNotification.Model).Model;
+            // var slot = ((WrapSlot) RawNotification.Model).Model;
             //_rsvs.AddReservation(slot.Programs[0].Series.Id);
             //((DelegateCommand) AddReservationCommand).RaiseCanExecuteChanged();
         }
