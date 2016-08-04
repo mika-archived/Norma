@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Norma.Iota.Views.WindowContents.RsvListContent"
+﻿<UserControl x:Class="Norma.Iota.Views.WindowContents.ReservationListContent"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:actions="clr-namespace:Norma.Eta.Actions;assembly=Norma.Eta"
@@ -9,9 +9,10 @@
              xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
+             xmlns:rvm="clr-namespace:Norma.Iota.ViewModels"
              xmlns:vm="clr-namespace:Norma.Iota.ViewModels.WindowContents"
              xmlns:wc="clr-namespace:Norma.Iota.Views.WindowContents"
-             d:DataContext="{d:DesignInstance vm:RsvListContentViewModel}"
+             d:DataContext="{d:DesignInstance vm:ReservationListContentViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
              prism:ViewModelLocator.AutoWireViewModel="True"
@@ -93,40 +94,29 @@
                       SelectedItem="{Binding SelectedItem.Value}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Width="110">
-                            <GridViewColumn.Header>
-                                <TextBlock Text="{x:Static properties:Resources.StartAt}" />
-                            </GridViewColumn.Header>
+                        <GridViewColumn Width="60"
+                                        Header="タイプ">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type rvm:ReservationItemViewModel}">
+                                    <TextBlock Text="{Binding Type}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>                        
+                        <GridViewColumn Width="200"
+                                        Header="タイトル">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type rvm:ReservationItemViewModel}">
+                                    <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="110">
-                            <GridViewColumn.Header>
-                                <TextBlock Text="{x:Static properties:Resources.ProgramId}" />
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn Width="110">
-                            <GridViewColumn.Header>
-                                <TextBlock Text="{x:Static properties:Resources.ExpiredAt}" />
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn Width="100">
-                            <GridViewColumn.Header>
-                                <TextBlock Text="{x:Static properties:Resources.RepeatInterval}" />
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn Width="300">
-                            <GridViewColumn.Header>
-                                <TextBlock Text="{x:Static properties:Resources.Keyword}" />
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn Width="80">
-                            <GridViewColumn.Header>
-                                <TextBlock Text="{x:Static properties:Resources.IsRegex}" />
-                            </GridViewColumn.Header>
-                        </GridViewColumn>
-                        <GridViewColumn Width="100">
-                            <GridViewColumn.Header>
-                                <TextBlock Text="{x:Static properties:Resources.Type}" />
-                            </GridViewColumn.Header>
+                        <GridViewColumn Width="110"
+                                        Header="開始時間">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type rvm:ReservationItemViewModel}">
+                                    <TextBlock Text="{Binding StartAt}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>

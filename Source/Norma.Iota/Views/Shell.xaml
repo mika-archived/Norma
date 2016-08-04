@@ -67,7 +67,7 @@
         <prism:InteractionRequestTrigger SourceObject="{Binding ReservationListRequest, Mode=OneWay}">
             <actions:MetroPopupWindowAction>
                 <actions:MetroPopupWindowAction.WindowContent>
-                    <wc:RsvListContent />
+                    <wc:ReservationListContent />
                 </actions:MetroPopupWindowAction.WindowContent>
                 <actions:MetroPopupWindowAction.WindowStyle>
                     <Style TargetType="{x:Type metro:MetroWindow}">

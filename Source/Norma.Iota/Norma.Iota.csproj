@@ -200,17 +200,19 @@
     <Compile Include="Models\ChannelTable.cs" />
     <Compile Include="Models\DayTable.cs" />
     <Compile Include="Models\Enums\Orientation.cs" />
+    <Compile Include="Models\ReservationItem.cs" />
     <Compile Include="Models\WrapSeries.cs" />
     <Compile Include="Models\WrapSlot.cs" />
     <Compile Include="ViewModels\Controls\ChannelCellViewModel.cs" />
     <Compile Include="ViewModels\Controls\KeywordRsvControlViewModel.cs" />
     <Compile Include="ViewModels\Controls\EpisodeCellViewModel.cs" />
     <Compile Include="ViewModels\Controls\TimeRsvControlViewModel.cs" />
+    <Compile Include="ViewModels\ReservationItemViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\DetailsRsvContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\EditRsvContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\ReservationResultContentViewModel.cs" />
-    <Compile Include="ViewModels\WindowContents\RsvListContentViewModel.cs" />
+    <Compile Include="ViewModels\WindowContents\ReservationListContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\SlotDetailsContentViewModel.cs" />
     <Compile Include="Views\Controls\BorderedTextBlock.xaml.cs">
       <DependentUpon>BorderedTextBlock.xaml</DependentUpon>
@@ -239,8 +241,8 @@
     <Compile Include="Views\WindowContents\ReservationResultContent.xaml.cs">
       <DependentUpon>ReservationResultContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowContents\RsvListContent.xaml.cs">
-      <DependentUpon>RsvListContent.xaml</DependentUpon>
+    <Compile Include="Views\WindowContents\ReservationListContent.xaml.cs">
+      <DependentUpon>ReservationListContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowContents\SlotDetailsContent.xaml.cs">
       <DependentUpon>SlotDetailsContent.xaml</DependentUpon>
@@ -286,7 +288,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WindowContents\RsvListContent.xaml">
+    <Page Include="Views\WindowContents\ReservationListContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
