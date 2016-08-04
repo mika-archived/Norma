@@ -31,13 +31,11 @@ namespace Norma.Iota.ViewModels
         public ReactiveProperty<string> SelectedDate { get; }
         public InteractionRequest<INotification> ProgramDetailsRequest { get; }
         public InteractionRequest<INotification> ReservationListRequest { get; }
-        public InteractionRequest<DataPassingNotification> DetailReserveRequest { get; }
 
         public ShellViewModel(DatabaseService databaseService)
         {
             ProgramDetailsRequest = new InteractionRequest<INotification>();
             ReservationListRequest = new InteractionRequest<INotification>();
-            DetailReserveRequest = new InteractionRequest<DataPassingNotification>();
             SelectedDate = new ReactiveProperty<string>();
             SelectedDate.Where(w => !string.IsNullOrWhiteSpace(w)).ObserveOn(TaskPoolScheduler.Default).Subscribe(w => UpdateChannels());
             _disposables = new List<IDisposable>();
@@ -71,17 +69,6 @@ namespace Norma.Iota.ViewModels
             get { return _isLoading; }
             set { SetProperty(ref _isLoading, value); }
         }
-
-        #endregion
-
-        #region ReserveUsingKeywordOrTimeCommand
-
-        private ICommand _rsvUsingKwdOrTimeCommand;
-
-        public ICommand ReserveUsingKeywordOrTimeCommand
-            => _rsvUsingKwdOrTimeCommand ?? (_rsvUsingKwdOrTimeCommand = new DelegateCommand(ReserveUsingKwdOrTime));
-
-        private void ReserveUsingKwdOrTime() => DetailReserveRequest.Raise(new DataPassingNotification());
 
         #endregion
 

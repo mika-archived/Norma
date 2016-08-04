@@ -18,7 +18,6 @@ namespace Norma.Iota.ViewModels.WindowContents
         private WrapSlot _model;
         private bool[] _reserved;
         public InteractionRequest<DataPassingNotification> ResponseRequest { get; }
-        public InteractionRequest<DataPassingNotification> DetailsRsvRequest { get; }
         public ObservableCollection<string> Cast { get; }
         public ObservableCollection<string> Staff { get; }
 
@@ -26,7 +25,6 @@ namespace Norma.Iota.ViewModels.WindowContents
         {
             _reservationService = reservationService;
             ResponseRequest = new InteractionRequest<DataPassingNotification>();
-            DetailsRsvRequest = new InteractionRequest<DataPassingNotification>();
             Cast = new ObservableCollection<string>();
             Staff = new ObservableCollection<string>();
             _reserved = new[] {false, false};

@@ -48,22 +48,6 @@
                 </actions:MetroPopupWindowAction.WindowStyle>
             </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
-        <prism:InteractionRequestTrigger SourceObject="{Binding DetailReserveRequest, Mode=OneWay}">
-            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True"
-                                            IsModal="True">
-                <actions:MetroPopupWindowAction.WindowContent>
-                    <wc:DetailsRsvContent />
-                </actions:MetroPopupWindowAction.WindowContent>
-                <actions:MetroPopupWindowAction.WindowStyle>
-                    <Style TargetType="{x:Type metro:MetroWindow}">
-                        <Setter Property="ResizeMode" Value="NoResize" />
-                        <Setter Property="ShowInTaskbar" Value="False" />
-                        <Setter Property="Height" Value="225" />
-                        <Setter Property="Width" Value="300" />
-                    </Style>
-                </actions:MetroPopupWindowAction.WindowStyle>
-            </actions:MetroPopupWindowAction>
-        </prism:InteractionRequestTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding ReservationListRequest, Mode=OneWay}">
             <actions:MetroPopupWindowAction>
                 <actions:MetroPopupWindowAction.WindowContent>
@@ -144,11 +128,8 @@
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Right"
                             Orientation="Horizontal">
-                    <Button Height="30"
-                            Margin="5"
-                            Command="{Binding ReserveUsingKeywordOrTimeCommand}"
-                            Content="{x:Static properties:Resources.RsvCondition}" />
-                    <Button Height="30"
+                    <Button Width="120"
+                            Height="30"
                             Margin="5"
                             Command="{Binding OpenRsvListCommand}"
                             Content="{x:Static properties:Resources.RsvList}" />

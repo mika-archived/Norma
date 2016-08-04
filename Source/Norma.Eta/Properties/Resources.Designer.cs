@@ -133,6 +133,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   データ取得に失敗しました に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string BlankSlot {
+            get {
+                return ResourceManager.GetString("BlankSlot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   ブラウザー に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Browser {
@@ -183,6 +192,15 @@ namespace Norma.Eta.Properties {
         public static string Comment {
             get {
                 return ResourceManager.GetString("Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   条件 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Condition {
+            get {
+                return ResourceManager.GetString("Condition", resourceCulture);
             }
         }
         
@@ -817,6 +835,24 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   部分一致 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string PartialMatching {
+            get {
+                return ResourceManager.GetString("PartialMatching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   完全一致 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string PerfectMatching {
+            get {
+                return ResourceManager.GetString("PerfectMatching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   ペット に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string pet {
@@ -844,11 +880,29 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   後方一致 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Postfix {
+            get {
+                return ResourceManager.GetString("Postfix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   投稿ショートカットキー : に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string PostKey {
             get {
                 return ResourceManager.GetString("PostKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   前方一致 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Prefix {
+            get {
+                return ResourceManager.GetString("Prefix", resourceCulture);
             }
         }
         
@@ -903,6 +957,24 @@ namespace Norma.Eta.Properties {
         public static string ReceptionIntervalOfComments {
             get {
                 return ResourceManager.GetString("ReceptionIntervalOfComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   正規表現モード に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RegexMode {
+            get {
+                return ResourceManager.GetString("RegexMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   登録 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Register {
+            get {
+                return ResourceManager.GetString("Register", resourceCulture);
             }
         }
         
@@ -1015,6 +1087,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   シリーズ に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Series {
+            get {
+                return ResourceManager.GetString("Series", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   シリーズ予約 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SeriesReservation {
@@ -1038,6 +1119,15 @@ namespace Norma.Eta.Properties {
         public static string ShiftEnter {
             get {
                 return ResourceManager.GetString("ShiftEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   単体 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Slot {
+            get {
+                return ResourceManager.GetString("Slot", resourceCulture);
             }
         }
         
@@ -1128,6 +1218,15 @@ namespace Norma.Eta.Properties {
         public static string Time {
             get {
                 return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   タイトル・キーワード に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string TitleKeyword {
+            get {
+                return ResourceManager.GetString("TitleKeyword", resourceCulture);
             }
         }
         

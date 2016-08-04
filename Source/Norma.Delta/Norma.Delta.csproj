@@ -77,6 +77,7 @@
     <Compile Include="Models\Copyright.cs" />
     <Compile Include="Models\Crew.cs" />
     <Compile Include="Models\DateRange.cs" />
+    <Compile Include="Models\Enums\Condition.cs" />
     <Compile Include="Models\Enums\Repetition.cs" />
     <Compile Include="Models\KeywordReservation.cs" />
     <Compile Include="Models\Episode.cs" />

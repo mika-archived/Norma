@@ -9,6 +9,7 @@ namespace Norma.Iota.ViewModels
         public string Type => _reservationItem.Type;
         public string Title => _reservationItem.Title ?? "-";
         public string StartAt => _reservationItem.StartAt?.ToString("g") ?? "-";
+        public string Condition => _reservationItem.Condition;
 
         public ReservationItemViewModel(ReservationItem reservationItem)
         {

@@ -516,4 +516,37 @@
   <data name="SlotReservationResult" xml:space="preserve">
     <value>『{0}』 を予約しました。</value>
   </data>
+  <data name="BlankSlot" xml:space="preserve">
+    <value>データ取得に失敗しました</value>
+  </data>
+  <data name="PartialMatching" xml:space="preserve">
+    <value>部分一致</value>
+  </data>
+  <data name="PerfectMatching" xml:space="preserve">
+    <value>完全一致</value>
+  </data>
+  <data name="Postfix" xml:space="preserve">
+    <value>後方一致</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value>前方一致</value>
+  </data>
+  <data name="RegexMode" xml:space="preserve">
+    <value>正規表現モード</value>
+  </data>
+  <data name="Series" xml:space="preserve">
+    <value>シリーズ</value>
+  </data>
+  <data name="Slot" xml:space="preserve">
+    <value>単体</value>
+  </data>
+  <data name="Condition" xml:space="preserve">
+    <value>条件</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>登録</value>
+  </data>
+  <data name="TitleKeyword" xml:space="preserve">
+    <value>タイトル・キーワード</value>
+  </data>
 </root>

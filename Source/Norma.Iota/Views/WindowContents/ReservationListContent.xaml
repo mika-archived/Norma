@@ -11,7 +11,6 @@
              xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
              xmlns:rvm="clr-namespace:Norma.Iota.ViewModels"
              xmlns:vm="clr-namespace:Norma.Iota.ViewModels.WindowContents"
-             xmlns:wc="clr-namespace:Norma.Iota.Views.WindowContents"
              d:DataContext="{d:DesignInstance vm:ReservationListContentViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
@@ -36,24 +35,7 @@
                 </actions:MetroPopupWindowAction.WindowStyle>
             </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
-        <prism:InteractionRequestTrigger SourceObject="{Binding EditRequest}">
-            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True"
-                                            IsModal="True">
-                <actions:MetroPopupWindowAction.WindowStyle>
-                    <Style TargetType="{x:Type metro:MetroWindow}">
-                        <Setter Property="ResizeMode" Value="NoResize" />
-                        <Setter Property="ShowInTaskbar" Value="False" />
-                        <Setter Property="MaxHeight" Value="180" />
-                        <Setter Property="Width" Value="300" />
-                    </Style>
-                </actions:MetroPopupWindowAction.WindowStyle>
-                <actions:MetroPopupWindowAction.WindowContent>
-                    <wc:EditRsvContent />
-                </actions:MetroPopupWindowAction.WindowContent>
-            </actions:MetroPopupWindowAction>
-        </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -91,11 +73,12 @@
                       ItemContainerStyle="{DynamicResource SelectHighlightListViewItem}"
                       ItemsSource="{Binding Reservations}"
                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
                       SelectedItem="{Binding SelectedItem.Value}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="60"
-                                        Header="タイプ">
+                                        Header="{x:Static properties:Resources.Type}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type rvm:ReservationItemViewModel}">
                                     <TextBlock Text="{Binding Type}" />
@@ -103,7 +86,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="250"
-                                        Header="タイトル・キーワード">
+                                        Header="{x:Static properties:Resources.TitleKeyword}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type rvm:ReservationItemViewModel}">
                                     <TextBlock Text="{Binding Title}"
@@ -112,10 +95,18 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="110"
-                                        Header="開始時間">
+                                        Header="{x:Static properties:Resources.StartAt}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type rvm:ReservationItemViewModel}">
                                     <TextBlock Text="{Binding StartAt}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="110"
+                                        Header="{x:Static properties:Resources.Condition}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type rvm:ReservationItemViewModel}">
+                                    <TextBlock Text="{Binding Condition}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
