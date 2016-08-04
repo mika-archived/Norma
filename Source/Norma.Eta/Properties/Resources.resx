@@ -549,4 +549,7 @@
   <data name="TitleKeyword" xml:space="preserve">
     <value>タイトル・キーワード</value>
   </data>
+  <data name="ConditionalReservation" xml:space="preserve">
+    <value>条件予約</value>
+  </data>
 </root>

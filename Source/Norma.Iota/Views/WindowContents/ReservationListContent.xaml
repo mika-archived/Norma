@@ -11,6 +11,7 @@
              xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
              xmlns:rvm="clr-namespace:Norma.Iota.ViewModels"
              xmlns:vm="clr-namespace:Norma.Iota.ViewModels.WindowContents"
+             xmlns:wc="clr-namespace:Norma.Iota.Views.WindowContents"
              d:DataContext="{d:DesignInstance vm:ReservationListContentViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
@@ -31,6 +32,21 @@
                         <Setter Property="ShowInTaskbar" Value="False" />
                         <Setter Property="MaxHeight" Value="120" />
                         <Setter Property="Width" Value="300" />
+                    </Style>
+                </actions:MetroPopupWindowAction.WindowStyle>
+            </actions:MetroPopupWindowAction>
+        </prism:InteractionRequestTrigger>
+        <prism:InteractionRequestTrigger SourceObject="{Binding ConditionalReservationRequest, Mode=OneWay}">
+            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True"
+                                            IsModal="True">
+                <actions:MetroPopupWindowAction.WindowContent>
+                    <wc:ConditionalReservationContent />
+                </actions:MetroPopupWindowAction.WindowContent>
+                <actions:MetroPopupWindowAction.WindowStyle>
+                    <Style TargetType="{x:Type metro:MetroWindow}">
+                        <Setter Property="ShowInTaskbar" Value="False" />
+                        <Setter Property="Height" Value="450" />
+                        <Setter Property="Width" Value="600" />
                     </Style>
                 </actions:MetroPopupWindowAction.WindowStyle>
             </actions:MetroPopupWindowAction>
@@ -117,6 +133,9 @@
                 <StackPanel HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             Orientation="Horizontal">
+                    <Button Width="80"
+                            Height="25"
+                            Content="{x:Static properties:Resources.Register}" />
                     <Button Width="80"
                             Height="25"
                             Command="{Binding EditReservationCommand}"

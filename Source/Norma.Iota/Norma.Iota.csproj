@@ -204,11 +204,10 @@
     <Compile Include="Models\WrapSeries.cs" />
     <Compile Include="Models\WrapSlot.cs" />
     <Compile Include="ViewModels\Controls\ChannelCellViewModel.cs" />
-    <Compile Include="ViewModels\Controls\KeywordRsvControlViewModel.cs" />
     <Compile Include="ViewModels\Controls\EpisodeCellViewModel.cs" />
-    <Compile Include="ViewModels\Controls\TimeRsvControlViewModel.cs" />
     <Compile Include="ViewModels\ReservationItemViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="ViewModels\WindowContents\ConditionalReservationContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\ReservationResultContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\ReservationListContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\SlotDetailsContentViewModel.cs" />
@@ -218,17 +217,14 @@
     <Compile Include="Views\Controls\ChannelCell.xaml.cs">
       <DependentUpon>ChannelCell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\KeywordRsvControl.xaml.cs">
-      <DependentUpon>KeywordRsvControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Controls\ProgramCell.xaml.cs">
       <DependentUpon>ProgramCell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\TimeRsvControl.xaml.cs">
-      <DependentUpon>TimeRsvControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowContents\ConditionalReservationContent.xaml.cs">
+      <DependentUpon>ConditionalReservationContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowContents\ReservationResultContent.xaml.cs">
       <DependentUpon>ReservationResultContent.xaml</DependentUpon>
@@ -252,19 +248,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\KeywordRsvControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Controls\ProgramCell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\TimeRsvControl.xaml">
+    <Page Include="Views\Shell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Shell.xaml">
+    <Page Include="Views\WindowContents\ConditionalReservationContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

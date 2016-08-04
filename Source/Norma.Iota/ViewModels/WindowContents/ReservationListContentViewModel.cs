@@ -29,6 +29,7 @@ namespace Norma.Iota.ViewModels.WindowContents
         public InteractionRequest<Confirmation> ConfirmationRequest { get; }
 
         public InteractionRequest<DataPassingNotification> EditRequest { get; }
+        public InteractionRequest<DataPassingNotification> ConditionalReservationRequest { get; }
 
         public ReservationListContentViewModel(DatabaseService databaseService)
         {
@@ -36,6 +37,7 @@ namespace Norma.Iota.ViewModels.WindowContents
             Reservations = new ObservableCollection<ReservationItemViewModel>();
             SelectedItem = new ReactiveProperty<ReservationItemViewModel>();
             ConfirmationRequest = new InteractionRequest<Confirmation>();
+            ConditionalReservationRequest = new InteractionRequest<DataPassingNotification>();
             EditRequest = new InteractionRequest<DataPassingNotification>();
             SelectedItem.Subscribe(w =>
             {

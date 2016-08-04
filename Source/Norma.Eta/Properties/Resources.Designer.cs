@@ -205,6 +205,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   条件予約 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConditionalReservation {
+            get {
+                return ResourceManager.GetString("ConditionalReservation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   確認 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Confirmation {

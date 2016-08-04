@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Norma.Iota.Views.Controls
+namespace Norma.Iota.Views.WindowContents
 {
     /// <summary>
-    /// KeywordRsvControl.xaml の相互作用ロジック
+    /// ConditionalReservationContent.xaml の相互作用ロジック
     /// </summary>
-    public partial class KeywordRsvControl : UserControl
+    public partial class ConditionalReservationContent : UserControl
     {
-        public KeywordRsvControl()
+        public ConditionalReservationContent()
         {
             InitializeComponent();
         }
