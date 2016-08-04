@@ -128,7 +128,7 @@ namespace Norma.Delta.Services
                         IsEnabled = true,
                         Range = range
                     },
-                    Series = series
+                    Series = connection.Series.Single(w => w.SeriesId == series.SeriesId)
                 });
                 connection.SaveChanges();
             }
@@ -175,7 +175,7 @@ namespace Norma.Delta.Services
                         IsEnabled = true,
                         Range = range
                     },
-                    Slot = slot
+                    Slot = connection.Slots.Single(w => w.SlotId == slot.SlotId)
                 });
                 connection.SaveChanges();
             }

@@ -27,7 +27,7 @@
                     </Style>
                 </actions:MetroPopupWindowAction.WindowStyle>
                 <actions:MetroPopupWindowAction.WindowContent>
-                    <wc:RsvDetailsContent />
+                    <wc:ReservationResultContent />
                 </actions:MetroPopupWindowAction.WindowContent>
             </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>

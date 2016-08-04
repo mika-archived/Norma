@@ -13,18 +13,22 @@ namespace Norma.Iota.Models
     {
         private readonly Slot _model;
 
-        public string ProgramId { get; private set; }
         public string Title => _model.Title;
         public DateTime StartAt => _model.StartAt;
         public DateTime EndAt => _model.EndAt;
         public DateTime FixedStartAt { get; }
         public DateTime FixedEndAt { get; }
-        public bool CanReservation { get; }
-        public Channel Channel { get; private set; }
         public string Highlight => string.IsNullOrWhiteSpace(_model.Highlight) ? _model.HighlightDetail : _model.Highlight;
         public string Description => _model.Description;
+
+        public bool CanSlotReservation { get; private set; }
+        public bool CanSeriesReservation { get; private set; }
+        public Channel Channel { get; private set; }
         public List<string> Casts { get; }
         public List<string> Crews { get; }
+        public Slot Slot { get; private set; }
+        public Series Series { get; private set; }
+        public string ProgramId { get; private set; }
 
         public WrapSlot(Slot slot, DateTime date)
         {
@@ -35,7 +39,7 @@ namespace Norma.Iota.Models
                 : _model.EndAt;
             Casts = new List<string>();
             Crews = new List<string>();
-            CanReservation = FixedStartAt > DateTime.Now.AddMinutes(5);
+            CanSlotReservation = FixedStartAt > DateTime.Now.AddMinutes(5);
         }
 
         public void RequestDetails()
@@ -43,11 +47,16 @@ namespace Norma.Iota.Models
             var databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
             using (var connection = databaseService.Connect())
             {
-                var slot = connection.Slots.AsNoTracking().Single(w => w.SlotId == _model.SlotId);
-                slot.Episodes.First().Casts.ToList().ForEach(w => Casts.Add(w.Name));
-                slot.Episodes.First().Crews.ToList().ForEach(w => Crews.Add(w.Name));
-                ProgramId = slot.Episodes.First().EpisodeId;
-                Channel = slot.Channel;
+                Slot = connection.Slots.Single(w => w.SlotId == _model.SlotId);
+                var firstEpisode = Slot.Episodes.First();
+                firstEpisode.Casts.ToList().ForEach(w => Casts.Add(w.Name));
+                firstEpisode.Crews.ToList().ForEach(w => Crews.Add(w.Name));
+                ProgramId = firstEpisode.EpisodeId;
+                Channel = Slot.Channel;
+                Series = firstEpisode.Series;
+                if (CanSlotReservation)
+                    CanSlotReservation = !connection.SlotReservations.Any(w => w.Slot.SlotId == _model.SlotId);
+                CanSeriesReservation = !connection.SeriesReservations.Any(w => w.Series.SeriesId == Series.SeriesId);
             }
         }
     }

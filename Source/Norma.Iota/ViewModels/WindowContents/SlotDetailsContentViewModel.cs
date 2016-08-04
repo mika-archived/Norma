@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 using Norma.Delta.Services;
 using Norma.Eta.Mvvm;
@@ -16,6 +15,8 @@ namespace Norma.Iota.ViewModels.WindowContents
     internal class SlotDetailsContentViewModel : InteractionViewModel<DataPassingNotification>
     {
         private readonly ReservationService _reservationService;
+        private WrapSlot _model;
+        private bool[] _reserved;
         public InteractionRequest<DataPassingNotification> ResponseRequest { get; }
         public InteractionRequest<DataPassingNotification> DetailsRsvRequest { get; }
         public ObservableCollection<string> Cast { get; }
@@ -28,24 +29,27 @@ namespace Norma.Iota.ViewModels.WindowContents
             DetailsRsvRequest = new InteractionRequest<DataPassingNotification>();
             Cast = new ObservableCollection<string>();
             Staff = new ObservableCollection<string>();
+            _reserved = new[] {false, false};
             ViewModelHelper.Subscribe(this, w => w.Notification, w =>
             {
-                var model = RawNotification.Model as WrapSlot;
+                _model = RawNotification.Model as WrapSlot;
+                if (_model == null)
+                    return;
+                _reserved = new[] {false, false};
                 Cast.Clear();
                 Staff.Clear();
-                if (model == null)
-                    return;
-                model.RequestDetails();
-                WindowTitle = $"{model.Title} - {Resources.ProgramDetails} - Norma";
-                Title = model.Title;
-                Date = model.FixedStartAt.ToString("MM/DD");
-                Time = $"{model.StartAt.ToString("MM/dd HH:mm")} ～ {model.EndAt.ToString("MM/dd HH:mm")}";
-                Description = model.Description;
-                model.Casts.ForEach(x => Cast.Add(x));
-                model.Crews.ForEach(x => Staff.Add(x));
-                Thumbnail = $"https://hayabusa.io/abema/programs/{model.ProgramId}/thumb001.w200.h112.jpg";
-                Channel = model.Channel.Name;
-                ((DelegateCommand) AddReservationCommand).RaiseCanExecuteChanged();
+                _model.RequestDetails();
+                WindowTitle = $"{_model.Title} - {Resources.ProgramDetails} - Norma";
+                Title = _model.Title;
+                Date = _model.FixedStartAt.ToString("MM/DD");
+                Time = $"{_model.StartAt.ToString("MM/dd HH:mm")} ～ {_model.EndAt.ToString("MM/dd HH:mm")}";
+                Description = _model.Description;
+                _model.Casts.ForEach(x => Cast.Add(x));
+                _model.Crews.ForEach(x => Staff.Add(x));
+                Thumbnail = $"https://hayabusa.io/abema/programs/{_model.ProgramId}/thumb001.w200.h112.jpg";
+                Channel = _model.Channel.Name;
+                RegisterSlotReservationCommand.RaiseCanExecuteChanged();
+                RegisterSeriesReservationCommand.RaiseCanExecuteChanged();
             }).AddTo(this);
         }
 
@@ -133,76 +137,43 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         #endregion
 
-        #region AddNormalReservationCommand
+        #region RegisterSlotReservationCommand
 
-        private ICommand _addReservationCommand;
+        private DelegateCommand _registerSlotReservationCommand;
 
-        public ICommand AddReservationCommand
-            => _addReservationCommand ?? (_addReservationCommand = new DelegateCommand(AddReservation, CanAddRsv));
+        public DelegateCommand RegisterSlotReservationCommand
+            => _registerSlotReservationCommand ??
+               (_registerSlotReservationCommand = new DelegateCommand(RegisterSlotReservation, CanRegisterSlotReservation));
 
-        private void AddReservation()
+        private void RegisterSlotReservation()
         {
-            /*
-            _rsvs.AddReservation(((WrapSlot) RawNotification.Model).Model);
-
-            var slot = ((WrapSlot) RawNotification.Model).Model;
-            ResponseRequest.Raise(new DataPassingNotification
-            {
-                Model = new RsvProgram {ProgramId = slot.Id, StartDate = slot.StartAt}
-            });
-            ((DelegateCommand) AddReservationCommand).RaiseCanExecuteChanged();
-            */
+            _reservationService.InsertSlotReservation(_model.Slot);
+            _reserved[0] = true;
+            ResponseRequest.Raise(new DataPassingNotification {Model = _model.Slot});
+            RegisterSlotReservationCommand.RaiseCanExecuteChanged();
         }
 
-        private bool CanAddRsv()
-        {
-            if (RawNotification == null)
-                return false;
-            /*
-            var model = (WrapSlot) RawNotification.Model;
-            return !_rsvs.RsvsByProgram.Any(w => w.IsEnable && w.ProgramId == model.Model.Id) &&
-                   model.CanRsv;
-            */
-            return false;
-        }
+        private bool CanRegisterSlotReservation() => (_model?.CanSlotReservation ?? false) && !_reserved[0];
 
         #endregion
 
-        #region AddSeriesReservationCommand
+        #region RegisterSeriesReservationCommand
 
-        private ICommand _addSeriesRsvCommand;
+        private DelegateCommand _registerSeriesReservationCommand;
 
-        public ICommand AddSeriesRsvCommand
-            => _addSeriesRsvCommand ?? (_addSeriesRsvCommand = new DelegateCommand(AddSeriesRsv, CanAddSeriesRsv));
+        public DelegateCommand RegisterSeriesReservationCommand
+            => _registerSeriesReservationCommand ??
+               (_registerSeriesReservationCommand = new DelegateCommand(RegisterSeriesReservation, CanRegisterSeriesReservation));
 
-        private void AddSeriesRsv()
+        private void RegisterSeriesReservation()
         {
-            // var slot = ((WrapSlot) RawNotification.Model).Model;
-            //_rsvs.AddReservation(slot.Programs[0].Series.Id);
-            //((DelegateCommand) AddReservationCommand).RaiseCanExecuteChanged();
+            _reservationService.InsertSeriesReservation(_model.Series);
+            _reserved[1] = true;
+            ResponseRequest.Raise(new DataPassingNotification {Model = _model.Series});
+            RegisterSeriesReservationCommand.RaiseCanExecuteChanged();
         }
 
-        private bool CanAddSeriesRsv()
-        {
-            if (RawNotification == null)
-                return false;
-            return false;
-            //var model = (WrapSlot) RawNotification.Model;
-            //return !_rsvs.RsvBySeries.Any(w => w.IsEnable && w.SeriesId == model.Model.Programs[0].Series.Id) &&
-            //       model.CanRsv;
-        }
-
-        #endregion
-
-        #region AddDetailsReservationCommand
-
-        private ICommand _addDetailsRsvCommand;
-
-        public ICommand AddDetailsRsvCommand
-            => _addDetailsRsvCommand ?? (_addDetailsRsvCommand = new DelegateCommand(AddDetailsRsv));
-
-        private void AddDetailsRsv()
-            => DetailsRsvRequest.Raise(new DataPassingNotification {Model = RawNotification.Model});
+        private bool CanRegisterSeriesReservation() => (_model?.CanSeriesReservation ?? false) && !_reserved[1];
 
         #endregion
     }

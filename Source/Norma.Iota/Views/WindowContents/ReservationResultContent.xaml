@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Norma.Iota.Views.WindowContents.RsvDetailsContent"
+﻿<UserControl x:Class="Norma.Iota.Views.WindowContents.ReservationResultContent"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:actions="clr-namespace:Norma.Eta.Actions;assembly=Norma.Eta"
@@ -9,7 +9,7 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
              xmlns:vm="clr-namespace:Norma.Iota.ViewModels.WindowContents"
-             d:DataContext="{d:DesignInstance vm:RsvDetailsContentViewModel}"
+             d:DataContext="{d:DesignInstance vm:ReservationResultContentViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
              prism:ViewModelLocator.AutoWireViewModel="True"
@@ -58,7 +58,7 @@
             </StackPanel.Resources>
             <TextBlock FontSize="14"
                        Text="{x:Static properties:Resources.RsvConfirm}" />
-            <ContentControl Content="{Binding Reservation}" />
+            <TextBlock Text="{Binding Message}" />
         </StackPanel>
         <Grid Grid.Row="2">
             <Button Width="90"

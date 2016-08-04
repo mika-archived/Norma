@@ -871,7 +871,7 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
-        ///   番組がいよう に類似しているローカライズされた文字列を検索します。
+        ///   番組概要 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ProgramSummary {
             get {
@@ -1015,11 +1015,47 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   シリーズ予約 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SeriesReservation {
+            get {
+                return ResourceManager.GetString("SeriesReservation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   シリーズ ID 『{0}』を予約しました。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SeriesReservationResult {
+            get {
+                return ResourceManager.GetString("SeriesReservationResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Shift + Enter に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ShiftEnter {
             get {
                 return ResourceManager.GetString("ShiftEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   単体予約 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SlotReservation {
+            get {
+                return ResourceManager.GetString("SlotReservation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   『{0}』 を予約しました。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SlotReservationResult {
+            get {
+                return ResourceManager.GetString("SlotReservationResult", resourceCulture);
             }
         }
         
@@ -1173,33 +1209,6 @@ namespace Norma.Eta.Properties {
         public static string View {
             get {
                 return ResourceManager.GetString("View", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   視聴予約 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string ViewingDRsv {
-            get {
-                return ResourceManager.GetString("ViewingDRsv", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   単体視聴予約 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string ViewingRsv {
-            get {
-                return ResourceManager.GetString("ViewingRsv", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   シリーズ視聴予約 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string ViewingSRsv {
-            get {
-                return ResourceManager.GetString("ViewingSRsv", resourceCulture);
             }
         }
         

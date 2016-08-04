@@ -11,8 +11,6 @@
              xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
              xmlns:vm="clr-namespace:Norma.Iota.ViewModels.WindowContents"
              d:DataContext="{d:DesignInstance vm:SlotDetailsContentViewModel}"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
     <i:Interaction.Triggers>
@@ -28,7 +26,7 @@
                     </Style>
                 </actions:MetroPopupWindowAction.WindowStyle>
                 <actions:MetroPopupWindowAction.WindowContent>
-                    <local:RsvDetailsContent />
+                    <local:ReservationResultContent />
                 </actions:MetroPopupWindowAction.WindowContent>
             </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
@@ -171,16 +169,12 @@
                         Orientation="Horizontal">
                 <Button Width="120"
                         Margin="5"
-                        Command="{Binding AddReservationCommand}"
-                        Content="{x:Static properties:Resources.ViewingRsv}" />
+                        Command="{Binding RegisterSlotReservationCommand}"
+                        Content="{x:Static properties:Resources.SlotReservation}" />
                 <Button Width="120"
                         Margin="5"
-                        Command="{Binding AddSeriesRsvCommand}"
-                        Content="{x:Static properties:Resources.ViewingSRsv}" />
-                <Button Width="90"
-                        Margin="5"
-                        Command="{Binding AddDetailsRsvCommand}"
-                        Content="{x:Static properties:Resources.ViewingDRsv}" />
+                        Command="{Binding RegisterSeriesReservationCommand}"
+                        Content="{x:Static properties:Resources.SeriesReservation}" />
             </StackPanel>
         </Grid>
     </Grid>

@@ -262,7 +262,7 @@
     <value>番組詳細</value>
   </data>
   <data name="ProgramSummary" xml:space="preserve">
-    <value>番組がいよう</value>
+    <value>番組概要</value>
   </data>
   <data name="Ready" xml:space="preserve">
     <value>準備完了</value>
@@ -315,11 +315,8 @@
   <data name="UpdateInteralOfThumbnail" xml:space="preserve">
     <value>サムネイルの更新間隔 :</value>
   </data>
-  <data name="ViewingDRsv" xml:space="preserve">
-    <value>視聴予約</value>
-  </data>
-  <data name="ViewingRsv" xml:space="preserve">
-    <value>単体視聴予約</value>
+  <data name="SlotReservation" xml:space="preserve">
+    <value>単体予約</value>
   </data>
   <data name="Wednesday" xml:space="preserve">
     <value>水曜日</value>
@@ -510,7 +507,13 @@
   <data name="InjectCss" xml:space="preserve">
     <value>カスタム CSS を追加しています...</value>
   </data>
-  <data name="ViewingSRsv" xml:space="preserve">
-    <value>シリーズ視聴予約</value>
+  <data name="SeriesReservation" xml:space="preserve">
+    <value>シリーズ予約</value>
+  </data>
+  <data name="SeriesReservationResult" xml:space="preserve">
+    <value>シリーズ ID 『{0}』を予約しました。</value>
+  </data>
+  <data name="SlotReservationResult" xml:space="preserve">
+    <value>『{0}』 を予約しました。</value>
   </data>
 </root>

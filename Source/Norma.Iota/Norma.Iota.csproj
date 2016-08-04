@@ -208,7 +208,7 @@
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\DetailsRsvContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\EditRsvContentViewModel.cs" />
-    <Compile Include="ViewModels\WindowContents\RsvDetailsContentViewModel.cs" />
+    <Compile Include="ViewModels\WindowContents\ReservationResultContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\RsvListContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\SlotDetailsContentViewModel.cs" />
     <Compile Include="Views\Controls\BorderedTextBlock.xaml.cs">
@@ -235,8 +235,8 @@
     <Compile Include="Views\WindowContents\EditRsvContent.xaml.cs">
       <DependentUpon>EditRsvContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowContents\RsvDetailsContent.xaml.cs">
-      <DependentUpon>RsvDetailsContent.xaml</DependentUpon>
+    <Compile Include="Views\WindowContents\ReservationResultContent.xaml.cs">
+      <DependentUpon>ReservationResultContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowContents\RsvListContent.xaml.cs">
       <DependentUpon>RsvListContent.xaml</DependentUpon>
@@ -281,7 +281,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WindowContents\RsvDetailsContent.xaml">
+    <Page Include="Views\WindowContents\ReservationResultContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -147,7 +147,7 @@
                     <Button Height="30"
                             Margin="5"
                             Command="{Binding ReserveUsingKeywordOrTimeCommand}"
-                            Content="{x:Static properties:Resources.RsvUsingKwdOrTime}" />
+                            Content="{x:Static properties:Resources.RsvCondition}" />
                     <Button Height="30"
                             Margin="5"
                             Command="{Binding OpenRsvListCommand}"
@@ -213,7 +213,6 @@
                     <controls:BorderedTextBlock Text="23" />
                 </StackPanel>
             </ScrollViewer>
-
             <ScrollViewer Grid.Row="2"
                           Grid.RowSpan="2"
                           Grid.Column="1"
