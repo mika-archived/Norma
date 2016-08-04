@@ -101,12 +101,13 @@
                                     <TextBlock Text="{Binding Type}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
-                        </GridViewColumn>                        
-                        <GridViewColumn Width="200"
-                                        Header="タイトル">
+                        </GridViewColumn>
+                        <GridViewColumn Width="250"
+                                        Header="タイトル・キーワード">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate DataType="{x:Type rvm:ReservationItemViewModel}">
-                                    <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Text="{Binding Title}"
+                                               TextTrimming="CharacterEllipsis" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
