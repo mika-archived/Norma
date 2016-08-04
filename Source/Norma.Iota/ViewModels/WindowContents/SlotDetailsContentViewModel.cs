@@ -169,7 +169,7 @@ namespace Norma.Iota.ViewModels.WindowContents
         {
             _reservationService.InsertSeriesReservation(_model.Series);
             _reserved[1] = true;
-            ResponseRequest.Raise(new DataPassingNotification {Model = _model.Series});
+            ResponseRequest.Raise(new DataPassingNotification {Model = new WrapSeries(_model.Series)});
             RegisterSeriesReservationCommand.RaiseCanExecuteChanged();
         }
 

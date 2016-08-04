@@ -4,6 +4,7 @@ using Norma.Delta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
 using Norma.Eta.Properties;
+using Norma.Iota.Models;
 
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
@@ -24,8 +25,8 @@ namespace Norma.Iota.ViewModels.WindowContents
                 var model = RawNotification.Model;
                 if (model is Slot) // 単体予約
                     Message = string.Format(Resources.SlotReservationResult, ((Slot) model).Title);
-                else if (model is Series) // シリーズ予約
-                    Message = string.Format(Resources.SeriesReservationResult, ((Series) model).SeriesId);
+                else if (model is WrapSeries) // シリーズ予約
+                    Message = string.Format(Resources.SeriesReservationResult, ((WrapSeries) model).SeriesName);
             }).AddTo(this);
         }
 

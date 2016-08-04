@@ -200,6 +200,7 @@
     <Compile Include="Models\ChannelTable.cs" />
     <Compile Include="Models\DayTable.cs" />
     <Compile Include="Models\Enums\Orientation.cs" />
+    <Compile Include="Models\WrapSeries.cs" />
     <Compile Include="Models\WrapSlot.cs" />
     <Compile Include="ViewModels\Controls\ChannelCellViewModel.cs" />
     <Compile Include="ViewModels\Controls\KeywordRsvControlViewModel.cs" />

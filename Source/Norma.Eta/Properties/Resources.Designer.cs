@@ -1024,7 +1024,7 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
-        ///   シリーズ ID 『{0}』を予約しました。 に類似しているローカライズされた文字列を検索します。
+        ///    『{0}』シリーズを予約しました。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string SeriesReservationResult {
             get {

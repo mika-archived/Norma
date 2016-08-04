@@ -511,7 +511,7 @@
     <value>シリーズ予約</value>
   </data>
   <data name="SeriesReservationResult" xml:space="preserve">
-    <value>シリーズ ID 『{0}』を予約しました。</value>
+    <value> 『{0}』シリーズを予約しました。</value>
   </data>
   <data name="SlotReservationResult" xml:space="preserve">
     <value>『{0}』 を予約しました。</value>
