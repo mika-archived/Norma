@@ -943,6 +943,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   クエリ に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Query {
+            get {
+                return ResourceManager.GetString("Query", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   準備完了 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Ready {

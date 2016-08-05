@@ -62,6 +62,21 @@ namespace Norma.Iota.ViewModels.WindowContents
                 Reservations.Add(new ReservationItemViewModel(new ReservationItem(reservation)));
         }
 
+        #region RegisterReservationCommand
+
+        private ICommand _registerReservationCommand;
+
+        public ICommand RegisterReservationCommand
+            => _registerReservationCommand ?? (_registerReservationCommand = new DelegateCommand(RegisterReservation));
+
+        private void RegisterReservation()
+        {
+            ConditionalReservationRequest.Raise(new DataPassingNotification {Title = Resources.Register});
+            UpdateRsvList();
+        }
+
+        #endregion
+
         #region EditReservationCommand
 
         private ICommand _editRsvCommand;

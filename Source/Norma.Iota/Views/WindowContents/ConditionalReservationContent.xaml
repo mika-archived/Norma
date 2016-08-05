@@ -8,8 +8,6 @@
              xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
              xmlns:vm="clr-namespace:Norma.Iota.ViewModels.WindowContents"
              d:DataContext="{d:DesignInstance vm:ConditionalReservationContentViewModel}"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
     <Grid>
@@ -37,5 +35,30 @@
                                      Style="{StaticResource MetroDialogSystemButtonsStyle}" />
             </Grid>
         </Border>
+        <TabControl Grid.Row="1"
+                    Background="{DynamicResource BackgroundBrushKey}"
+                    BorderThickness="0">
+            <TabControl.Resources>
+                <Style BasedOn="{StaticResource FlatStyleTabItem}"
+                       TargetType="TabItem" />
+                <Style BasedOn="{StaticResource HorizontalFlatStyleTabTextBlock}"
+                       TargetType="TextBlock" />
+            </TabControl.Resources>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="{x:Static properties:Resources.Keyword}" />
+                </TabItem.Header>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="{x:Static properties:Resources.Time}" />
+                </TabItem.Header>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="{x:Static properties:Resources.Query}" />
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

@@ -22,7 +22,8 @@ namespace Norma.Iota.Models
         public string Type { get; private set; }
         public string Title { get; private set; }
         public DateTime? StartAt { get; private set; }
-        public string Condition { get; set; }
+        public string Condition { get; private set; }
+        public bool IsEditable { get; private set; }
 
         private ReservationItem()
         {
@@ -32,8 +33,11 @@ namespace Norma.Iota.Models
             _slotReservation2 = null;
             _timeReservation = null;
             _databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
-            StartAt = null;
+            Type = "";
             Title = null;
+            StartAt = null;
+            Condition = "";
+            IsEditable = false;
         }
 
         public ReservationItem(Reservation reservation) : this()
@@ -72,6 +76,7 @@ namespace Norma.Iota.Models
             Type = Resources.Keyword;
             Title = $"{_keywordReservation.Keyword} {(_keywordReservation.IsRegex ? $"({Resources.RegexMode})" : "")}".Trim();
             Condition = Resources.PartialMatching;
+            IsEditable = true;
         }
 
         private void AttachSeriesReservation()
@@ -107,6 +112,7 @@ namespace Norma.Iota.Models
             Type = Resources.Time;
             StartAt = _timeReservation.StartAt;
             Condition = _timeReservation.Repetition.ToLocaleString();
+            IsEditable = true;
         }
     }
 }

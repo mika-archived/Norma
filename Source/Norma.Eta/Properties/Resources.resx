@@ -552,4 +552,7 @@
   <data name="ConditionalReservation" xml:space="preserve">
     <value>条件予約</value>
   </data>
+  <data name="Query" xml:space="preserve">
+    <value>クエリ</value>
+  </data>
 </root>

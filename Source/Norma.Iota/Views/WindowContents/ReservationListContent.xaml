@@ -135,6 +135,7 @@
                             Orientation="Horizontal">
                     <Button Width="80"
                             Height="25"
+                            Command="{Binding RegisterReservationCommand}"
                             Content="{x:Static properties:Resources.Register}" />
                     <Button Width="80"
                             Height="25"
