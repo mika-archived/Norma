@@ -15,6 +15,11 @@ namespace Norma.Iota.ViewModels.WindowContents
         public ConditionalReservationContentViewModel()
         {
             WindowCloseRequest = new InteractionRequest<Notification>();
+            WindowCloseRequest.Raised += (sender, e) =>
+            {
+                KeywordReservationContentViewModel.Dispose();
+                TimeReservationContentViewModel.Dispose();
+            };
             ViewModelHelper.Subscribe(this, w => w.Notification, w => Reset());
         }
 
@@ -22,6 +27,7 @@ namespace Norma.Iota.ViewModels.WindowContents
         {
             // (ヽ´ω`)...
             KeywordReservationContentViewModel = new KeywordReservationContentViewModel(this);
+            TimeReservationContentViewModel = new TimeReservationContentViewModel(this);
         }
 
         #region KeywordReservationContentViewModel
@@ -32,6 +38,18 @@ namespace Norma.Iota.ViewModels.WindowContents
         {
             get { return _keywordReservationContentViewModel; }
             set { SetProperty(ref _keywordReservationContentViewModel, value); }
+        }
+
+        #endregion
+
+        #region TimeReservationContentViewModel
+
+        private TimeReservationContentViewModel _timeReservationContentViewModel;
+
+        public TimeReservationContentViewModel TimeReservationContentViewModel
+        {
+            get { return _timeReservationContentViewModel; }
+            set { SetProperty(ref _timeReservationContentViewModel, value); }
         }
 
         #endregion

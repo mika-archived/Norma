@@ -62,6 +62,7 @@
                 <TabItem.Header>
                     <TextBlock Text="{x:Static properties:Resources.Time}" />
                 </TabItem.Header>
+                <contents:TimeReservationContent DataContext="{Binding TimeReservationContentViewModel}" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>

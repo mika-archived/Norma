@@ -204,6 +204,7 @@
     <Compile Include="Models\WrapSeries.cs" />
     <Compile Include="Models\WrapSlot.cs" />
     <Compile Include="ViewModels\Contents\KeywordReservationContentViewModel.cs" />
+    <Compile Include="ViewModels\Contents\TimeReservationContentViewModel.cs" />
     <Compile Include="ViewModels\Controls\ChannelCellViewModel.cs" />
     <Compile Include="ViewModels\Controls\EpisodeCellViewModel.cs" />
     <Compile Include="ViewModels\ReservationItemViewModel.cs" />
@@ -214,6 +215,9 @@
     <Compile Include="ViewModels\WindowContents\SlotDetailsContentViewModel.cs" />
     <Compile Include="Views\Contents\KeywordReservationContent.xaml.cs">
       <DependentUpon>KeywordReservationContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Contents\TimeReservationContent.xaml.cs">
+      <DependentUpon>TimeReservationContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\BorderedTextBlock.xaml.cs">
       <DependentUpon>BorderedTextBlock.xaml</DependentUpon>
@@ -245,6 +249,10 @@
     </Compile>
     <Compile Include="Bootstrapper.cs" />
     <Page Include="Views\Contents\KeywordReservationContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Contents\TimeReservationContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

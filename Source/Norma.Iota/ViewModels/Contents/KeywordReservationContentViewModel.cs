@@ -17,24 +17,22 @@ namespace Norma.Iota.ViewModels.Contents
         private readonly ReservationService _reservationService;
         private readonly RegexValidator _rgxValidator = new RegexValidator();
         private readonly StringRequiredValidator _srValidator = new StringRequiredValidator();
-        private readonly ConditionalReservationContentViewModel _viewModel;
         public ReactiveProperty<string> Keyword { get; }
         public ReactiveProperty<bool> IsRegexMode { get; }
         public ReactiveCommand RegisterCommand { get; }
 
         public KeywordReservationContentViewModel(ConditionalReservationContentViewModel viewModel)
         {
-            _viewModel = viewModel;
             _reservationService = ServiceLocator.Current.GetInstance<ReservationService>();
-            Keyword = new ReactiveProperty<string>();
-            IsRegexMode = new ReactiveProperty<bool>();
-            Keyword.SetValidateNotifyError(w => IsRegexMode.Value ? _rgxValidator.Validate(w) : _srValidator.Validate(w));
-            RegisterCommand = Keyword.ObserveHasErrors.Select(w => !w).ToReactiveCommand();
+            Keyword = new ReactiveProperty<string>().AddTo(this);
+            IsRegexMode = new ReactiveProperty<bool>().AddTo(this);
+            Keyword.SetValidateNotifyError(w => IsRegexMode.Value ? _rgxValidator.Validate(w) : _srValidator.Validate(w)).AddTo(this);
+            RegisterCommand = Keyword.ObserveHasErrors.Select(w => !w).ToReactiveCommand().AddTo(this);
             RegisterCommand.Subscribe(w =>
             {
                 _reservationService.InsertKeywordReservation(Keyword.Value, IsRegexMode.Value);
                 viewModel.WindowCloseRequest.Raise(null);
-            });
+            }).AddTo(this);
         }
     }
 }

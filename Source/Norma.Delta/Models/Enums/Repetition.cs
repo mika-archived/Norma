@@ -60,7 +60,7 @@ namespace Norma.Delta.Models.Enums
         MonToSat
     }
 
-    public static class RepetitionTypeExt
+    public static class RepetitionExt
     {
         public static bool IsMatch(this Repetition obj, DateTime date)
         {
