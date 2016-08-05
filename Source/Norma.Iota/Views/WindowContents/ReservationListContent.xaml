@@ -45,8 +45,8 @@
                 <actions:MetroPopupWindowAction.WindowStyle>
                     <Style TargetType="{x:Type metro:MetroWindow}">
                         <Setter Property="ShowInTaskbar" Value="False" />
-                        <Setter Property="Height" Value="450" />
-                        <Setter Property="Width" Value="600" />
+                        <Setter Property="Height" Value="250" />
+                        <Setter Property="Width" Value="300" />
                     </Style>
                 </actions:MetroPopupWindowAction.WindowStyle>
             </actions:MetroPopupWindowAction>

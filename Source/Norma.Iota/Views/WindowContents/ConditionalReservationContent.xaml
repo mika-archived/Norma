@@ -1,7 +1,10 @@
 ﻿<UserControl x:Class="Norma.Iota.Views.WindowContents.ConditionalReservationContent"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:actions="clr-namespace:Norma.Eta.Actions;assembly=Norma.Eta"
+             xmlns:contents="clr-namespace:Norma.Iota.Views.Contents"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
              xmlns:prism="http://prismlibrary.com/"
@@ -10,6 +13,11 @@
              d:DataContext="{d:DesignInstance vm:ConditionalReservationContentViewModel}"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <prism:InteractionRequestTrigger SourceObject="{Binding WindowCloseRequest, Mode=OneWay}">
+            <actions:WindowCloseAction />
+        </prism:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -26,7 +34,7 @@
                            Margin="10,0,0,0"
                            VerticalAlignment="Center"
                            FontFamily="Segoe UI Light"
-                           FontSize="18"
+                           FontSize="16"
                            Foreground="{DynamicResource ForegroundBrushKey}"
                            Text="{Binding WindowTitle}"
                            TextTrimming="CharacterEllipsis" />
@@ -48,6 +56,7 @@
                 <TabItem.Header>
                     <TextBlock Text="{x:Static properties:Resources.Keyword}" />
                 </TabItem.Header>
+                <contents:KeywordReservationContent DataContext="{Binding KeywordReservationContentViewModel}" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>

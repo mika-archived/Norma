@@ -8,8 +8,11 @@ namespace Norma.Eta.Validations
     {
         #region Implementation of IValidator<string>
 
+        // 正直重いし、なんとかしたい
         public string Validate(string value)
         {
+            if (string.IsNullOrWhiteSpace(value))
+                return Resources.KeywordCannotBeBlank;
             try
             {
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
