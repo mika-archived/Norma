@@ -55,15 +55,14 @@ namespace Norma.Models
             var slot = _abemaState.CurrentSlot;
             var episode = _abemaState.CurrentEpisode;
 
-            Casts.Clear();
-            Crews.Clear();
-
             if (slot == null)
             {
                 Title = "";
-                Description = "";
                 return;
             }
+
+            Casts.Clear();
+            Crews.Clear();
 
             Title = slot.Episodes.Count == 1 ? slot.Title : $"{slot.Title} - #{episode.Sequence}";
             Description = slot.Description;
