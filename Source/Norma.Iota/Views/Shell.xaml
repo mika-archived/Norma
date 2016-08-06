@@ -118,7 +118,8 @@
         </Border>
 
         <!-- Date Selector / Reservation Manager -->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1"
+              Margin="10,0">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="0,0,10,0"
                            VerticalAlignment="Center"
@@ -268,6 +269,7 @@
 
         <!-- Search Result -->
         <Grid Grid.Row="2"
+              Margin="5,0,0,0"
               Background="{DynamicResource ThemeBrushKey}"
               Visibility="{Binding IsSearchMode,
                                    Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -276,7 +278,6 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <ItemsControl Grid.Row="1"
-                          Margin="10"
                           ItemsSource="{Binding SearchSlots}"
                           VirtualizingPanel.IsVirtualizing="True"
                           VirtualizingPanel.ScrollUnit="Pixel"

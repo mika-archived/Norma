@@ -25,8 +25,8 @@ namespace Norma.Iota.Models
             using (var connection = _databaseService.Connect())
             {
                 connection.TurnOffLazyLoading();
-                var slots = connection.Slots.Where(w => w.Title.StartsWith(query))
-                                      .Include(w => w.Channel).ToList();
+                // 文字列比較系が死んでるかもしれない。
+                var slots = connection.Slots.Include(w => w.Channel).ToList().Where(w => w.Title.Contains(query));
                 foreach (var slot in slots)
                     ResultSlots.Add(slot);
             }
