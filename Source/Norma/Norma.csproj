@@ -247,6 +247,7 @@
     <Compile Include="Models\Libraries\SqLiteCodeFirst.cs" />
     <Compile Include="Models\Libraries\SQLiteProvider.cs" />
     <Compile Include="Models\Libraries\Unity.cs" />
+    <Compile Include="Models\Libraries\VannatechCoreAudio.cs" />
     <Compile Include="Models\Library.cs" />
     <Compile Include="Models\NetworkEventArgs.cs" />
     <Compile Include="Models\NetworkHandler.cs" />

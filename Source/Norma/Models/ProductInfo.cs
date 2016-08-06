@@ -42,7 +42,8 @@ namespace Norma.Models
             new RxNET(),
             new SqLiteCodeFirst(),
             new SqLiteProvider(),
-            new Unity()
+            new Unity(),
+            new VannatechCoreAudio()
         });
 
         private static T GetAssemblyInfo<T>() where T : Attribute

@@ -71,7 +71,6 @@ namespace Norma.Models
                             // 多分通らない
                             string displayName;
                             sessionControl.GetDisplayName(out displayName);
-                            Debug.WriteLine(displayName);
                             if (displayName == "Norma")
                             {
                                 volumeControl = sessionControl as ISimpleAudioVolume;
@@ -82,7 +81,6 @@ namespace Norma.Models
                         {
                             uint processId;
                             sessionControl2.GetProcessId(out processId);
-                            Debug.WriteLine(processId == Process.GetCurrentProcess().Id);
                             if (processId == Process.GetCurrentProcess().Id)
                             {
                                 volumeControl = sessionControl2 as ISimpleAudioVolume;
@@ -92,6 +90,7 @@ namespace Norma.Models
                     }
                     finally
                     {
+                        // うーん
                         /*
                         if (sessionControl != null)
                             Marshal.ReleaseComObject(sessionControl);
