@@ -40,6 +40,8 @@ namespace Norma.Iota.Models
             Casts = new List<string>();
             Crews = new List<string>();
             CanSlotReservation = FixedStartAt > DateTime.Now.AddMinutes(5);
+            if (slot.Channel != null)
+                Channel = slot.Channel;
         }
 
         public void RequestDetails()

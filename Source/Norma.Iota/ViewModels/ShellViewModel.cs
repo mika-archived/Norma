@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
@@ -27,7 +26,9 @@ namespace Norma.Iota.ViewModels
     {
         private readonly DayTable _dayTable;
         private readonly List<IDisposable> _disposables;
+        private readonly SearchTable _searchTable;
         public ReadOnlyObservableCollection<ChannelCellViewModel> Channels { get; }
+        public ReadOnlyObservableCollection<EpisodeCellViewModel> SearchSlots { get; }
         public ReadOnlyObservableCollection<string> AvailableDates { get; }
         public ReactiveProperty<string> SelectedDate { get; }
         public ReactiveProperty<string> SearchQuery { get; }
@@ -45,15 +46,29 @@ namespace Norma.Iota.ViewModels
             RunQueryCommand = SearchQuery.Select(w => !string.IsNullOrWhiteSpace(w)).ToReactiveCommand();
             RunQueryCommand.Subscribe(w =>
             {
-                // 重ねて表示する？それともページ入れ替える？
-                Debug.WriteLine("");
+                if (!IsSearchMode)
+                {
+                    Application.Current.Dispatcher.Invoke(() => IsLoading = true);
+                    _searchTable.Query(SearchQuery.Value);
+                    GC.Collect();
+                    Content = "\uE711";
+                    IsLoading = false;
+                }
+                else
+                    Content = "\uE094";
+                IsSearchMode = !IsSearchMode;
             });
             _disposables = new List<IDisposable>();
             _dayTable = new DayTable(databaseService);
+            _searchTable = new SearchTable(databaseService);
             AvailableDates = _dayTable.AvailableDates.ToReadOnlyReactiveCollection(w => w.ToString("d"));
             AvailableDates.ToObservable().Subscribe(w => SelectedDate.Value = AvailableDates.First());
+            Content = "\uE094";
             Channels = _dayTable.ChannelTable
                                 .ToReadOnlyReactiveCollection(w => new ChannelCellViewModel(w.Date, w.Channel, w.Slots).AddTo(_disposables));
+            SearchSlots = _searchTable.ResultSlots
+                                      .ToReadOnlyReactiveCollection(w => new EpisodeCellViewModel(new WrapSlot(w, DateTime.MinValue)))
+                                      .AddTo(this);
         }
 
         private void UpdateChannels()
@@ -69,6 +84,30 @@ namespace Norma.Iota.ViewModels
             GC.Collect(); // まぁ
             IsLoading = false;
         }
+
+        #region Content
+
+        private string _content;
+
+        public string Content
+        {
+            get { return _content; }
+            set { SetProperty(ref _content, value); }
+        }
+
+        #endregion
+
+        #region IsSearchMode
+
+        private bool _isSearchMode;
+
+        public bool IsSearchMode
+        {
+            get { return _isSearchMode; }
+            set { SetProperty(ref _isSearchMode, value); }
+        }
+
+        #endregion
 
         #region IsLoading
 

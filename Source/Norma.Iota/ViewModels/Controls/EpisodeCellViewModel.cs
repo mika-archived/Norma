@@ -13,6 +13,8 @@ namespace Norma.Iota.ViewModels.Controls
         public string Title => Model.Title;
         public string StartAt => Model.FixedStartAt.ToString("HH:mm");
         public string Highlight => Model.Highlight;
+        public string FullStartAt => $"{Model.StartAt.ToString("g")} ~ {Model.EndAt.ToString("g")}";
+        public string Channel => $"at {Model.Channel.Name}";
         public int Height { get; private set; }
         public int Top { get; private set; }
 

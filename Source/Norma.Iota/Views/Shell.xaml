@@ -5,6 +5,7 @@
                    xmlns:behaviors="clr-namespace:Norma.Iota.Behaviors"
                    xmlns:chrome="http://schemes.grabacr.net/winfx/2014/chrome"
                    xmlns:controls="clr-namespace:Norma.Iota.Views.Controls"
+                   xmlns:cvm="clr-namespace:Norma.Iota.ViewModels.Controls"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -66,8 +67,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
+
         <Border Grid.Row="0"
                 metro:MetroWindow.IsCaptionBar="True">
             <Grid>
@@ -104,7 +108,8 @@
                                 Height="25"
                                 Margin="2.5,0,0,0"
                                 Command="{Binding RunQueryCommand}"
-                                Content="&#xE094;"
+                                Content="{Binding Content,
+                                                  Mode=OneWay}"
                                 FontFamily="Segoe MDL2 Assets" />
                     </StackPanel>
                     <metro:SystemButtons VerticalAlignment="Top" />
@@ -112,11 +117,35 @@
             </Grid>
         </Border>
 
-        <!-- 180px * 24 -->
-        <Grid Grid.Row="1"
+        <!-- Date Selector / Reservation Manager -->
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="0,0,10,0"
+                           VerticalAlignment="Center"
+                           Text="{x:Static properties:Resources.Date}" />
+                <metro:PromptComboBox Width="100"
+                                      Height="30"
+                                      Margin="5"
+                                      VerticalAlignment="Center"
+                                      IsEditable="False"
+                                      ItemsSource="{Binding AvailableDates}"
+                                      SelectedItem="{Binding SelectedDate.Value,
+                                                             Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                <Button Width="120"
+                        Height="30"
+                        Margin="5"
+                        Command="{Binding OpenRsvListCommand}"
+                        Content="{x:Static properties:Resources.RsvList}" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Timetable -->
+        <Grid Grid.Row="2"
               Margin="5,0,0,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="45" />
                 <RowDefinition Height="60" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="20" />
@@ -127,35 +156,9 @@
                 <ColumnDefinition Width="20" />
             </Grid.ColumnDefinitions>
             <!-- Date Selector -->
-            <Grid Grid.Row="0"
-                  Grid.Column="0"
-                  Grid.ColumnSpan="3">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="0,0,10,0"
-                               VerticalAlignment="Center"
-                               Text="{x:Static properties:Resources.Date}" />
-                    <metro:PromptComboBox Width="100"
-                                          Height="30"
-                                          Margin="5"
-                                          VerticalAlignment="Center"
-                                          IsEditable="False"
-                                          ItemsSource="{Binding AvailableDates}"
-                                          SelectedItem="{Binding SelectedDate.Value,
-                                                                 Mode=TwoWay}" />
-                </StackPanel>
-                <StackPanel HorizontalAlignment="Right"
-                            Orientation="Horizontal">
-                    <Button Width="120"
-                            Height="30"
-                            Margin="5"
-                            Command="{Binding OpenRsvListCommand}"
-                            Content="{x:Static properties:Resources.RsvList}" />
-                </StackPanel>
-
-            </Grid>
             <!-- Header -->
             <ScrollViewer x:Name="ChannelScrollViewer"
-                          Grid.Row="1"
+                          Grid.Row="0"
                           Grid.Column="1"
                           HorizontalScrollBarVisibility="Hidden"
                           VerticalScrollBarVisibility="Disabled">
@@ -179,7 +182,7 @@
             </ScrollViewer>
             <!-- Side -->
             <ScrollViewer x:Name="DateTimeScrollViewer"
-                          Grid.Row="2"
+                          Grid.Row="1"
                           Grid.Column="0"
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Hidden">
@@ -211,7 +214,7 @@
                     <controls:BorderedTextBlock Text="23" />
                 </StackPanel>
             </ScrollViewer>
-            <ScrollViewer Grid.Row="2"
+            <ScrollViewer Grid.Row="1"
                           Grid.RowSpan="2"
                           Grid.Column="1"
                           Grid.ColumnSpan="2"
@@ -238,7 +241,9 @@
             </ScrollViewer>
         </Grid>
 
+        <!-- Loading Dialog -->
         <Border Grid.Row="1"
+                Grid.RowSpan="2"
                 Background="Black"
                 Opacity="0.8"
                 Visibility="{Binding IsLoading,
@@ -260,5 +265,75 @@
                            Text="{x:Static properties:Resources.PleaseWait}" />
             </StackPanel>
         </Border>
+
+        <!-- Search Result -->
+        <Grid Grid.Row="2"
+              Background="{DynamicResource ThemeBrushKey}"
+              Visibility="{Binding IsSearchMode,
+                                   Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ItemsControl Grid.Row="1"
+                          Margin="10"
+                          ItemsSource="{Binding SearchSlots}"
+                          VirtualizingPanel.IsVirtualizing="True"
+                          VirtualizingPanel.ScrollUnit="Pixel"
+                          VirtualizingPanel.VirtualizationMode="Recycling">
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <ScrollViewer CanContentScroll="True"
+                                      HorizontalScrollBarVisibility="Disabled"
+                                      PanningMode="Both"
+                                      VerticalScrollBarVisibility="Auto">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel CanVerticallyScroll="True"
+                                                Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type cvm:EpisodeCellViewModel}">
+                        <Border BorderBrush="{DynamicResource BorderBrushKey}"
+                                BorderThickness="1">
+                            <Grid Margin="5,5,10,5">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <prism:InvokeCommandAction Command="{Binding DataContext.OnMouseDownCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0"
+                                           FontSize="16"
+                                           Text="{Binding Title}" />
+                                <StackPanel Grid.Row="1"
+                                            Orientation="Horizontal">
+                                    <TextBlock FontSize="12"
+                                               Foreground="{DynamicResource SemiActiveForegroundBrushKey}"
+                                               Text="{Binding FullStartAt}" />
+                                    <TextBlock Margin="5,0,0,0"
+                                               FontSize="12"
+                                               Foreground="{DynamicResource SemiActiveForegroundBrushKey}"
+                                               Text="{Binding Channel}" />
+                                </StackPanel>
+                                <TextBlock Grid.Row="2"
+                                           Text="{Binding Highlight}"
+                                           TextTrimming="CharacterEllipsis"
+                                           TextWrapping="Wrap" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
     </Grid>
 </metro:MetroWindow>

@@ -201,6 +201,7 @@
     <Compile Include="Models\DayTable.cs" />
     <Compile Include="Models\Enums\Orientation.cs" />
     <Compile Include="Models\ReservationItem.cs" />
+    <Compile Include="Models\SearchTable.cs" />
     <Compile Include="Models\WrapSeries.cs" />
     <Compile Include="Models\WrapSlot.cs" />
     <Compile Include="ViewModels\Contents\KeywordReservationContentViewModel.cs" />
