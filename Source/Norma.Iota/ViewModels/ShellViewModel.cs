@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
@@ -29,6 +30,8 @@ namespace Norma.Iota.ViewModels
         public ReadOnlyObservableCollection<ChannelCellViewModel> Channels { get; }
         public ReadOnlyObservableCollection<string> AvailableDates { get; }
         public ReactiveProperty<string> SelectedDate { get; }
+        public ReactiveProperty<string> SearchQuery { get; }
+        public ReactiveCommand RunQueryCommand { get; }
         public InteractionRequest<INotification> ProgramDetailsRequest { get; }
         public InteractionRequest<INotification> ReservationListRequest { get; }
 
@@ -38,6 +41,13 @@ namespace Norma.Iota.ViewModels
             ReservationListRequest = new InteractionRequest<INotification>();
             SelectedDate = new ReactiveProperty<string>();
             SelectedDate.Where(w => !string.IsNullOrWhiteSpace(w)).ObserveOn(TaskPoolScheduler.Default).Subscribe(w => UpdateChannels());
+            SearchQuery = new ReactiveProperty<string>();
+            RunQueryCommand = SearchQuery.Select(w => !string.IsNullOrWhiteSpace(w)).ToReactiveCommand();
+            RunQueryCommand.Subscribe(w =>
+            {
+                // 重ねて表示する？それともページ入れ替える？
+                Debug.WriteLine("");
+            });
             _disposables = new List<IDisposable>();
             _dayTable = new DayTable(databaseService);
             AvailableDates = _dayTable.AvailableDates.ToReadOnlyReactiveCollection(w => w.ToString("d"));

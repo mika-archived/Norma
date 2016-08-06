@@ -68,7 +68,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
         <Border Grid.Row="0"
                 metro:MetroWindow.IsCaptionBar="True">
             <Grid>
@@ -90,8 +89,26 @@
                            Foreground="{DynamicResource ForegroundBrushKey}"
                            Text="Timetable - Norma"
                            TextTrimming="CharacterEllipsis" />
-                <metro:SystemButtons Grid.Column="2"
-                                     VerticalAlignment="Top" />
+                <StackPanel Grid.Column="2"
+                            Orientation="Horizontal"
+                            WindowChrome.IsHitTestVisibleInChrome="True">
+                    <StackPanel Margin="10,0"
+                                Orientation="Horizontal">
+                        <metro:PromptTextBox Width="120"
+                                             Height="25"
+                                             IsEnabled="True"
+                                             Prompt="検索..."
+                                             Text="{Binding SearchQuery.Value,
+                                                            UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Width="30"
+                                Height="25"
+                                Margin="2.5,0,0,0"
+                                Command="{Binding RunQueryCommand}"
+                                Content="&#xE094;"
+                                FontFamily="Segoe MDL2 Assets" />
+                    </StackPanel>
+                    <metro:SystemButtons VerticalAlignment="Top" />
+                </StackPanel>
             </Grid>
         </Border>
 
