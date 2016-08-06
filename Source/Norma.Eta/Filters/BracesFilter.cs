@@ -4,7 +4,7 @@ namespace Norma.Eta.Filters
 {
     public class BracesFilter : IFilter
     {
-        private readonly Regex _regex = new Regex(@"[\(〈《【「『\[\{].*?[\)〉》】」』\]\}]", RegexOptions.Compiled);
+        private readonly Regex _regex = new Regex(@"[\(〈《【「『\[\{].*[\)〉》】」』\]\}]", RegexOptions.Compiled);
 
         #region Implementation of IFilter
 
