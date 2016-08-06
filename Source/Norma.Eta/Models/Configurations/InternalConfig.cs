@@ -10,9 +10,12 @@ namespace Norma.Eta.Models.Configurations
     {
         public bool IsTopMost { get; set; }
 
+        public int Volume { get; set; }
+
         public InternalConfig()
         {
             IsTopMost = false;
+            Volume = 100;
             Lang = "ja"; // 手動で変えれば、 en にもなる。
         }
 
@@ -28,8 +31,8 @@ namespace Norma.Eta.Models.Configurations
                 if (SetProperty(ref _lang, value))
                     Resources.Culture = CultureInfo.GetCultureInfo(value);
             }
-
-            #endregion
         }
+
+        #endregion
     }
 }

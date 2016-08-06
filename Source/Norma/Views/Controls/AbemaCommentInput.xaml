@@ -13,33 +13,30 @@
              d:DesignWidth="300"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
-    <Border BorderBrush="{DynamicResource BorderBrushKey}"
-            BorderThickness="0,1,0,0">
-        <Grid Margin="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="80" />
-            </Grid.ColumnDefinitions>
-            <metro:PromptTextBox Grid.Column="0"
-                                 AcceptsReturn="True"
-                                 HorizontalScrollBarVisibility="Disabled"
-                                 MaxLines="2"
-                                 Prompt="{x:Static properties:Resources.InputComment}"
-                                 Text="{Binding Comment.Value,
-                                                Mode=TwoWay,
-                                                UpdateSourceTrigger=PropertyChanged}"
-                                 VerticalScrollBarVisibility="Auto">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="PreviewKeyDown">
-                        <prism:InvokeCommandAction Command="{Binding OnKeyInputCommand}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="80" />
+        </Grid.ColumnDefinitions>
+        <metro:PromptTextBox Grid.Column="0"
+                             AcceptsReturn="True"
+                             HorizontalScrollBarVisibility="Disabled"
+                             MaxLines="2"
+                             Prompt="{x:Static properties:Resources.InputComment}"
+                             Text="{Binding Comment.Value,
+                                            Mode=TwoWay,
+                                            UpdateSourceTrigger=PropertyChanged}"
+                             VerticalScrollBarVisibility="Auto">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewKeyDown">
+                    <prism:InvokeCommandAction Command="{Binding OnKeyInputCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
-            </metro:PromptTextBox>
-            <Button Grid.Column="2"
-                    Command="{Binding SendCommentCommand}"
-                    Content="{x:Static properties:Resources.Comment}" />
-        </Grid>
-    </Border>
+        </metro:PromptTextBox>
+        <Button Grid.Column="2"
+                Command="{Binding SendCommentCommand}"
+                Content="{x:Static properties:Resources.Comment}" />
+    </Grid>
 </UserControl>

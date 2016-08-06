@@ -253,7 +253,9 @@
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ProgramHost.cs" />
     <Compile Include="Models\ReleaseType.cs" />
+    <Compile Include="Models\VolumeManager.cs" />
     <Compile Include="ViewModels\Controls\AbemaCommentInputViewModel.cs" />
+    <Compile Include="ViewModels\Controls\AbemaVolumeViewModel.cs" />
     <Compile Include="ViewModels\LibraryViewModel.cs" />
     <Compile Include="ViewModels\StartupScreenViewModel.cs" />
     <Compile Include="ViewModels\Tabs\AboutTabViewModel.cs" />
@@ -289,6 +291,9 @@
     </Compile>
     <Compile Include="Views\Controls\AbemaTVGuide.xaml.cs">
       <DependentUpon>AbemaTVGuide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Controls\AbemaVolume.xaml.cs">
+      <DependentUpon>AbemaVolume.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\TVChannel.xaml.cs">
       <DependentUpon>TVChannel.xaml</DependentUpon>
@@ -368,6 +373,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Controls\AbemaTVGuide.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\AbemaVolume.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
