@@ -7,7 +7,8 @@ using Norma.Delta.Services;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Validations;
 using Norma.Iota.Models;
-using Norma.Iota.ViewModels.WindowContents;
+
+using Prism.Interactivity.InteractionRequest;
 
 using Reactive.Bindings;
 
@@ -22,11 +23,11 @@ namespace Norma.Iota.ViewModels.Contents
         public ReactiveProperty<bool> IsRegexMode { get; }
         public ReactiveCommand RegisterCommand { get; }
 
-        public KeywordReservationContentViewModel(ConditionalReservationContentViewModel viewModel, ReservationItem item)
+        public KeywordReservationContentViewModel(IInteractionRequestAware viewModel, ReservationItem item)
         {
             _reservationService = ServiceLocator.Current.GetInstance<ReservationService>();
-            Keyword = new ReactiveProperty<string>(item?.KeywordReservation.Keyword ?? "").AddTo(this);
-            IsRegexMode = new ReactiveProperty<bool>(item?.KeywordReservation.IsRegex ?? false).AddTo(this);
+            Keyword = new ReactiveProperty<string>(item?.KeywordReservation?.Keyword ?? "").AddTo(this);
+            IsRegexMode = new ReactiveProperty<bool>(item?.KeywordReservation?.IsRegex ?? false).AddTo(this);
             Keyword.SetValidateNotifyError(w => IsRegexMode.Value ? _rgxValidator.Validate(w) : _srValidator.Validate(w)).AddTo(this);
             RegisterCommand = Keyword.ObserveHasErrors.Select(w => !w).ToReactiveCommand().AddTo(this);
             RegisterCommand.Subscribe(w =>

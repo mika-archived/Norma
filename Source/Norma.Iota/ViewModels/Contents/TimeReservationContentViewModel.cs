@@ -11,7 +11,8 @@ using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Validations;
 using Norma.Iota.Models;
-using Norma.Iota.ViewModels.WindowContents;
+
+using Prism.Interactivity.InteractionRequest;
 
 using Reactive.Bindings;
 
@@ -29,10 +30,10 @@ namespace Norma.Iota.ViewModels.Contents
         public ReactiveProperty<EnumWrap<Repetition>> RepetitionType { get; }
         public ReactiveCommand RegisterCommand { get; }
 
-        public TimeReservationContentViewModel(ConditionalReservationContentViewModel viewModel, ReservationItem item)
+        public TimeReservationContentViewModel(IInteractionRequestAware viewModel, ReservationItem item)
         {
             _reservationService = ServiceLocator.Current.GetInstance<ReservationService>();
-            StartAt = new ReactiveProperty<string>(item?.StartAt.ToString() ?? "").AddTo(this);
+            StartAt = new ReactiveProperty<string>(item?.StartAt?.ToString() ?? "").AddTo(this);
             RepetitionType = new ReactiveProperty<EnumWrap<Repetition>>(new EnumWrap<Repetition>(Repetition.None)).AddTo(this);
             StartAt.SetValidateNotifyError(w => _dtValidator.Validate(w)).AddTo(this);
             RegisterCommand = StartAt.ObserveHasErrors.Select(w => !w).ToReactiveCommand().AddTo(this);
