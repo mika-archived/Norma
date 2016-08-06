@@ -13,12 +13,15 @@ namespace Norma.Iota.Models
     internal class ReservationItem
     {
         private readonly DatabaseService _databaseService;
-        private readonly KeywordReservation _keywordReservation;
-        private readonly ReservationService _reservationService;
-        private readonly SeriesReservation _seriesReservation;
-        private readonly SlotReservation _slotReservation;
-        private readonly SlotReservation2 _slotReservation2;
-        private readonly TimeReservation _timeReservation;
+
+        // どうしようかなぁ
+
+        public KeywordReservation KeywordReservation { get; }
+        public ReservationService ReservationService { get; }
+        public SeriesReservation SeriesReservation { get; }
+        public SlotReservation SlotReservation { get; }
+        public SlotReservation2 SlotReservation2 { get; }
+        public TimeReservation TimeReservation { get; }
 
         public string Type { get; private set; }
         public string Title { get; private set; }
@@ -28,13 +31,13 @@ namespace Norma.Iota.Models
 
         private ReservationItem()
         {
-            _keywordReservation = null;
-            _seriesReservation = null;
-            _slotReservation = null;
-            _slotReservation2 = null;
-            _timeReservation = null;
+            KeywordReservation = null;
+            SeriesReservation = null;
+            SlotReservation = null;
+            SlotReservation2 = null;
+            TimeReservation = null;
             _databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
-            _reservationService = ServiceLocator.Current.GetInstance<ReservationService>();
+            ReservationService = ServiceLocator.Current.GetInstance<ReservationService>();
             Type = "";
             Title = null;
             StartAt = null;
@@ -46,27 +49,27 @@ namespace Norma.Iota.Models
         {
             if (reservation.KeywordReservation != null)
             {
-                _keywordReservation = reservation.KeywordReservation;
+                KeywordReservation = reservation.KeywordReservation;
                 AttachKeywordReservation();
             }
             else if (reservation.SeriesReservation != null)
             {
-                _seriesReservation = reservation.SeriesReservation;
+                SeriesReservation = reservation.SeriesReservation;
                 AttachSeriesReservation();
             }
             else if (reservation.SlotReservation != null)
             {
-                _slotReservation = reservation.SlotReservation;
+                SlotReservation = reservation.SlotReservation;
                 AttachSlotReservation();
             }
             else if (reservation.SlotReservation2 != null)
             {
-                _slotReservation2 = reservation.SlotReservation2;
+                SlotReservation2 = reservation.SlotReservation2;
                 AttachSlotReservation2();
             }
             else if (reservation.TimeReservation != null)
             {
-                _timeReservation = reservation.TimeReservation;
+                TimeReservation = reservation.TimeReservation;
                 AttachTimeReservation();
             }
             else
@@ -76,14 +79,14 @@ namespace Norma.Iota.Models
         private void AttachKeywordReservation()
         {
             Type = Resources.Keyword;
-            Title = $"{_keywordReservation.Keyword} {(_keywordReservation.IsRegex ? $"({Resources.RegexMode})" : "")}".Trim();
+            Title = $"{KeywordReservation.Keyword} {(KeywordReservation.IsRegex ? $"({Resources.RegexMode})" : "")}".Trim();
             Condition = Resources.PartialMatching;
             IsEditable = true;
         }
 
         private void AttachSeriesReservation()
         {
-            var wrapSeries = new WrapSeries(_seriesReservation.Series);
+            var wrapSeries = new WrapSeries(SeriesReservation.Series);
             Type = Resources.Series;
             Title = wrapSeries.SeriesName;
             Condition = Resources.PerfectMatching;
@@ -92,8 +95,8 @@ namespace Norma.Iota.Models
         private void AttachSlotReservation()
         {
             Type = Resources.Slot;
-            StartAt = _slotReservation.Slot.StartAt;
-            Title = _slotReservation.Slot.Title;
+            StartAt = SlotReservation.Slot.StartAt;
+            Title = SlotReservation.Slot.Title;
             Condition = Resources.PerfectMatching;
         }
 
@@ -102,7 +105,7 @@ namespace Norma.Iota.Models
             Type = Resources.Slot;
             using (var connection = _databaseService.Connect())
             {
-                var slot = connection.Slots.SingleOrDefault(w => w.SlotId == _slotReservation2.SlotId);
+                var slot = connection.Slots.SingleOrDefault(w => w.SlotId == SlotReservation2.SlotId);
                 StartAt = slot?.StartAt;
                 Title = slot?.Title ?? Resources.BlankSlot;
             }
@@ -112,23 +115,39 @@ namespace Norma.Iota.Models
         private void AttachTimeReservation()
         {
             Type = Resources.Time;
-            StartAt = _timeReservation.StartAt;
-            Condition = _timeReservation.Repetition.ToLocaleString();
+            StartAt = TimeReservation.StartAt;
+            Condition = TimeReservation.Repetition.ToLocaleString();
             IsEditable = true;
         }
 
         public void Delete()
         {
-            if (_keywordReservation != null)
-                _reservationService.DeleteKeywordReservation(_keywordReservation);
-            else if (_seriesReservation != null)
-                _reservationService.DeleteSeriesReservation(_seriesReservation);
-            else if (_slotReservation != null)
-                _reservationService.DeleteSlotReservation(_slotReservation);
-            else if (_slotReservation2 != null)
-                _reservationService.DeleteSlotReservation2(_slotReservation2);
-            else if (_timeReservation != null)
-                _reservationService.DeleteTimeReservation(_timeReservation);
+            if (KeywordReservation != null)
+                ReservationService.DeleteKeywordReservation(KeywordReservation);
+            else if (SeriesReservation != null)
+                ReservationService.DeleteSeriesReservation(SeriesReservation);
+            else if (SlotReservation != null)
+                ReservationService.DeleteSlotReservation(SlotReservation);
+            else if (SlotReservation2 != null)
+                ReservationService.DeleteSlotReservation2(SlotReservation2);
+            else if (TimeReservation != null)
+                ReservationService.DeleteTimeReservation(TimeReservation);
+            else
+                throw new NotSupportedException();
+        }
+
+        public void Update()
+        {
+            if (KeywordReservation != null)
+                ReservationService.UpdateKeywordReservation(KeywordReservation);
+            else if (SeriesReservation != null)
+                ReservationService.UpdateSeriesReservation(SeriesReservation);
+            else if (SlotReservation != null)
+                ReservationService.UpdateSlotReservation(SlotReservation);
+            else if (SlotReservation2 != null)
+                ReservationService.UpdateSlotReservation2(SlotReservation2);
+            else if (TimeReservation != null)
+                ReservationService.UpdateTimeReservation(TimeReservation);
             else
                 throw new NotSupportedException();
         }

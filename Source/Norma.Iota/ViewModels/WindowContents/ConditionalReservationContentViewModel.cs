@@ -1,21 +1,18 @@
 ﻿using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
 using Norma.Eta.Properties;
+using Norma.Iota.Models;
 using Norma.Iota.ViewModels.Contents;
-
-using Prism.Interactivity.InteractionRequest;
 
 namespace Norma.Iota.ViewModels.WindowContents
 {
     internal class ConditionalReservationContentViewModel : InteractionViewModel<DataPassingNotification>
     {
-        public InteractionRequest<Notification> WindowCloseRequest { get; }
         public string WindowTitle => Resources.ConditionalReservation;
 
         public ConditionalReservationContentViewModel()
         {
-            WindowCloseRequest = new InteractionRequest<Notification>();
-            WindowCloseRequest.Raised += (sender, e) =>
+            FinishInteraction += () =>
             {
                 KeywordReservationContentViewModel.Dispose();
                 TimeReservationContentViewModel.Dispose();
@@ -26,9 +23,31 @@ namespace Norma.Iota.ViewModels.WindowContents
         private void Reset()
         {
             // (ヽ´ω`)...
-            KeywordReservationContentViewModel = new KeywordReservationContentViewModel(this);
-            TimeReservationContentViewModel = new TimeReservationContentViewModel(this);
+            var item = (ReservationItem) RawNotification.Model;
+            KeywordReservationContentViewModel = new KeywordReservationContentViewModel(this, item);
+            TimeReservationContentViewModel = new TimeReservationContentViewModel(this, item);
+
+            // なんかなー
+            SelectedIndex = 0;
+            if (item.Type == Resources.Keyword)
+                SelectedIndex = 0;
+            else if (item.Type == Resources.Time)
+                SelectedIndex = 1;
+            else if (item.Type == Resources.Query)
+                SelectedIndex = 2;
         }
+
+        #region SelectedIndex
+
+        private int _selectedIndex;
+
+        public int SelectedIndex
+        {
+            get { return _selectedIndex; }
+            set { SetProperty(ref _selectedIndex, value); }
+        }
+
+        #endregion
 
         #region KeywordReservationContentViewModel
 

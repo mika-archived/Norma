@@ -4,19 +4,17 @@ namespace Norma.Iota.ViewModels
 {
     internal class ReservationItemViewModel
     {
-        private readonly ReservationItem _reservationItem;
+        public ReservationItem ReservationItem { get; }
 
-        public string Type => _reservationItem.Type;
-        public string Title => _reservationItem.Title ?? "-";
-        public string StartAt => _reservationItem.StartAt?.ToString("g") ?? "-";
-        public string Condition => _reservationItem.Condition;
-        public bool IsEditable => _reservationItem.IsEditable;
+        public string Type => ReservationItem.Type;
+        public string Title => ReservationItem.Title ?? "-";
+        public string StartAt => ReservationItem.StartAt?.ToString("g") ?? "-";
+        public string Condition => ReservationItem.Condition;
+        public bool IsEditable => ReservationItem.IsEditable;
 
         public ReservationItemViewModel(ReservationItem reservationItem)
         {
-            _reservationItem = reservationItem;
+            ReservationItem = reservationItem;
         }
-
-        public void Delete() => _reservationItem.Delete();
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.Practices.ServiceLocation;
 using Norma.Delta.Services;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Validations;
+using Norma.Iota.Models;
 using Norma.Iota.ViewModels.WindowContents;
 
 using Reactive.Bindings;
@@ -21,17 +22,24 @@ namespace Norma.Iota.ViewModels.Contents
         public ReactiveProperty<bool> IsRegexMode { get; }
         public ReactiveCommand RegisterCommand { get; }
 
-        public KeywordReservationContentViewModel(ConditionalReservationContentViewModel viewModel)
+        public KeywordReservationContentViewModel(ConditionalReservationContentViewModel viewModel, ReservationItem item)
         {
             _reservationService = ServiceLocator.Current.GetInstance<ReservationService>();
-            Keyword = new ReactiveProperty<string>().AddTo(this);
-            IsRegexMode = new ReactiveProperty<bool>().AddTo(this);
+            Keyword = new ReactiveProperty<string>(item?.KeywordReservation.Keyword ?? "").AddTo(this);
+            IsRegexMode = new ReactiveProperty<bool>(item?.KeywordReservation.IsRegex ?? false).AddTo(this);
             Keyword.SetValidateNotifyError(w => IsRegexMode.Value ? _rgxValidator.Validate(w) : _srValidator.Validate(w)).AddTo(this);
             RegisterCommand = Keyword.ObserveHasErrors.Select(w => !w).ToReactiveCommand().AddTo(this);
             RegisterCommand.Subscribe(w =>
             {
-                _reservationService.InsertKeywordReservation(Keyword.Value, IsRegexMode.Value);
-                viewModel.WindowCloseRequest.Raise(null);
+                if (item == null)
+                    _reservationService.InsertKeywordReservation(Keyword.Value, IsRegexMode.Value);
+                else
+                {
+                    item.KeywordReservation.Keyword = Keyword.Value;
+                    item.KeywordReservation.IsRegex = IsRegexMode.Value;
+                    item.Update();
+                }
+                viewModel.FinishInteraction.Invoke();
             }).AddTo(this);
         }
     }

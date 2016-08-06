@@ -23,19 +23,6 @@
         </Style>
     </UserControl.Resources>
     <i:Interaction.Triggers>
-        <prism:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest, Mode=OneWay}">
-            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True"
-                                            IsModal="True">
-                <actions:MetroPopupWindowAction.WindowStyle>
-                    <Style TargetType="{x:Type dialog:DefaultConfirmationMetroWindow}">
-                        <Setter Property="ResizeMode" Value="NoResize" />
-                        <Setter Property="ShowInTaskbar" Value="False" />
-                        <Setter Property="MaxHeight" Value="120" />
-                        <Setter Property="Width" Value="300" />
-                    </Style>
-                </actions:MetroPopupWindowAction.WindowStyle>
-            </actions:MetroPopupWindowAction>
-        </prism:InteractionRequestTrigger>
         <prism:InteractionRequestTrigger SourceObject="{Binding ConditionalReservationRequest, Mode=OneWay}">
             <actions:MetroPopupWindowAction CenterOverAssociatedObject="True"
                                             IsModal="True">

@@ -28,7 +28,6 @@ namespace Norma.Iota.ViewModels.WindowContents
         public ReactiveProperty<ReservationItemViewModel> SelectedItem { get; }
         public InteractionRequest<Confirmation> ConfirmationRequest { get; }
 
-        public InteractionRequest<DataPassingNotification> EditRequest { get; }
         public InteractionRequest<DataPassingNotification> ConditionalReservationRequest { get; }
 
         public ReservationListContentViewModel(DatabaseService databaseService)
@@ -38,7 +37,6 @@ namespace Norma.Iota.ViewModels.WindowContents
             SelectedItem = new ReactiveProperty<ReservationItemViewModel>();
             ConfirmationRequest = new InteractionRequest<Confirmation>();
             ConditionalReservationRequest = new InteractionRequest<DataPassingNotification>();
-            EditRequest = new InteractionRequest<DataPassingNotification>();
             SelectedItem.Subscribe(w => ((DelegateCommand) EditReservationCommand).RaiseCanExecuteChanged()).AddTo(this);
             ViewModelHelper.Subscribe(this, w => w.Notification, w => UpdateRsvList());
         }
@@ -83,8 +81,12 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         private void EditReservation()
         {
-            //await EditRequest.RaiseAsync(new DataPassingNotification {Model = SelectedItem.Value.Model});
-            //UpdateRsvList();
+            ConditionalReservationRequest.Raise(new DataPassingNotification
+            {
+                Title = Resources.Register,
+                Model = SelectedItem.Value.ReservationItem
+            });
+            UpdateRsvList();
         }
 
         private bool CanEditReservation() => SelectedItem.Value?.IsEditable ?? false;
@@ -100,7 +102,7 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         private void DeleteReservation()
         {
-            SelectedItem.Value.Delete();
+            SelectedItem.Value.ReservationItem.Delete();
             UpdateRsvList();
         }
 
