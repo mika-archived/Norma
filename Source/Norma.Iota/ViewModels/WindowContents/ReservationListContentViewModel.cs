@@ -39,11 +39,7 @@ namespace Norma.Iota.ViewModels.WindowContents
             ConfirmationRequest = new InteractionRequest<Confirmation>();
             ConditionalReservationRequest = new InteractionRequest<DataPassingNotification>();
             EditRequest = new InteractionRequest<DataPassingNotification>();
-            SelectedItem.Subscribe(w =>
-            {
-                ((DelegateCommand) EditReservationCommand).RaiseCanExecuteChanged();
-                ((DelegateCommand) DeleteReservationCommand).RaiseCanExecuteChanged();
-            }).AddTo(this);
+            SelectedItem.Subscribe(w => ((DelegateCommand) EditReservationCommand).RaiseCanExecuteChanged()).AddTo(this);
             ViewModelHelper.Subscribe(this, w => w.Notification, w => UpdateRsvList());
         }
 
@@ -52,7 +48,8 @@ namespace Norma.Iota.ViewModels.WindowContents
             Reservations.Clear();
             List<Reservation> reservations;
             using (var connection = _databaseService.Connect())
-                reservations = connection.Reservations.Include(w => w.KeywordReservation)
+                reservations = connection.Reservations.Where(w => w.IsEnabled)
+                                         .Include(w => w.KeywordReservation)
                                          .Include(w => w.SeriesReservation.Series.Episodes)
                                          .Include(w => w.SlotReservation.Slot)
                                          .Include(w => w.SlotReservation2)
@@ -84,15 +81,13 @@ namespace Norma.Iota.ViewModels.WindowContents
         public ICommand EditReservationCommand
             => _editRsvCommand ?? (_editRsvCommand = new DelegateCommand(EditReservation, CanEditReservation));
 
-        private async void EditReservation()
+        private void EditReservation()
         {
             //await EditRequest.RaiseAsync(new DataPassingNotification {Model = SelectedItem.Value.Model});
             //UpdateRsvList();
         }
 
-        private bool CanEditReservation() => false; //SelectedItem.Value != null && SelectedItem.Value.Type != nameof(RsvProgram)
-
-        //&& SelectedItem.Value.Type != nameof(RsvProgram2);
+        private bool CanEditReservation() => SelectedItem.Value?.IsEditable ?? false;
 
         #endregion
 
@@ -101,23 +96,13 @@ namespace Norma.Iota.ViewModels.WindowContents
         private ICommand _deleteRsvCommand;
 
         public ICommand DeleteReservationCommand
-            => _deleteRsvCommand ?? (_deleteRsvCommand = new DelegateCommand(DeleteReservation, CanDeleteReservation));
+            => _deleteRsvCommand ?? (_deleteRsvCommand = new DelegateCommand(DeleteReservation));
 
-        private async void DeleteReservation()
+        private void DeleteReservation()
         {
-            // ここで確認ダイアログを出したい。
-            var result = await ConfirmationRequest.RaiseAsync(new Confirmation
-            {
-                Title = Resources.Confirmation,
-                Content = Resources.ConfirmDelete
-            });
-            if (!result.Confirmed)
-                return;
-            //_reservation.DeleteReservation(SelectedItem.Value.Model);
+            SelectedItem.Value.Delete();
             UpdateRsvList();
         }
-
-        private bool CanDeleteReservation() => false; //SelectedItem.Value != null;
 
         #endregion
     }

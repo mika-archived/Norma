@@ -95,8 +95,8 @@ namespace Norma.Delta.Services
                 var rsv = connection.Reservations.SingleOrDefault(w => w.ReservationId == keywordReservation.Reservation.ReservationId);
                 if (rsv == null)
                     throw new InvalidOperationException();
-                connection.DetectChanges();
                 rsv.KeywordReservation.Merge(keywordReservation);
+                connection.DetectChanges();
                 connection.SaveChanges();
             }
         }

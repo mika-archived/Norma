@@ -14,6 +14,7 @@ namespace Norma.Iota.Models
     {
         private readonly DatabaseService _databaseService;
         private readonly KeywordReservation _keywordReservation;
+        private readonly ReservationService _reservationService;
         private readonly SeriesReservation _seriesReservation;
         private readonly SlotReservation _slotReservation;
         private readonly SlotReservation2 _slotReservation2;
@@ -33,6 +34,7 @@ namespace Norma.Iota.Models
             _slotReservation2 = null;
             _timeReservation = null;
             _databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
+            _reservationService = ServiceLocator.Current.GetInstance<ReservationService>();
             Type = "";
             Title = null;
             StartAt = null;
@@ -113,6 +115,22 @@ namespace Norma.Iota.Models
             StartAt = _timeReservation.StartAt;
             Condition = _timeReservation.Repetition.ToLocaleString();
             IsEditable = true;
+        }
+
+        public void Delete()
+        {
+            if (_keywordReservation != null)
+                _reservationService.DeleteKeywordReservation(_keywordReservation);
+            else if (_seriesReservation != null)
+                _reservationService.DeleteSeriesReservation(_seriesReservation);
+            else if (_slotReservation != null)
+                _reservationService.DeleteSlotReservation(_slotReservation);
+            else if (_slotReservation2 != null)
+                _reservationService.DeleteSlotReservation2(_slotReservation2);
+            else if (_timeReservation != null)
+                _reservationService.DeleteTimeReservation(_timeReservation);
+            else
+                throw new NotSupportedException();
         }
     }
 }

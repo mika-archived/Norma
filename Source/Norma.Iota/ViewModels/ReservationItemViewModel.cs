@@ -16,5 +16,7 @@ namespace Norma.Iota.ViewModels
         {
             _reservationItem = reservationItem;
         }
+
+        public void Delete() => _reservationItem.Delete();
     }
 }
