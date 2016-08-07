@@ -6,6 +6,7 @@ using Microsoft.Practices.ServiceLocation;
 using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Gamma.Models;
+using Norma.Models;
 
 using Prism.Commands;
 
@@ -18,12 +19,16 @@ namespace Norma.ViewModels
 
         public string Message => _comment.Message.Trim();
 
-        public string CreatedAt => _comment.CreatedAtMs.ToString("HH:mm:ss");
+        public string CreatedAt { get; }
 
         public CommentViewModel(Comment comment)
         {
             _comment = comment;
+            var abemaState = ServiceLocator.Current.GetInstance<AbemaState>();
             _configuration = ServiceLocator.Current.GetInstance<Configuration>();
+            CreatedAt = _configuration.Root.Operation.IsAbsoluteTime
+                ? _comment.CreatedAtMs.ToString("HH:mm:ss")
+                : (_comment.CreatedAtMs - abemaState.CurrentSlot.StartAt).ToString(@"hh\:mm\:ss");
         }
 
         #region AddToNgComment
