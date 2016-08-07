@@ -29,6 +29,7 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="150" />
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
@@ -174,13 +175,21 @@
                               SelectedValue="{Binding Branch.Value,
                                                       Mode=TwoWay}" />
         <!--#endregion-->
+        <!--#region IsAbsoluteTime-->
+        <CheckBox Grid.Row="7"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  VerticalAlignment="Center"
+                  Content="{x:Static properties:Resources.IsAbsoluteTime}"
+                  IsChecked="{Binding IsAbsoluteTime.Value}" />
+        <!--#endregion-->
         <!--#region MuteKeywords-->
-        <TextBlock Grid.Row="7"
+        <TextBlock Grid.Row="8"
                    Grid.Column="0"
                    Margin="0,5,0,0"
                    VerticalAlignment="Top"
                    Text="{x:Static properties:Resources.MuteKeywords}" />
-        <Grid Grid.Row="7"
+        <Grid Grid.Row="8"
               Grid.Column="1"
               Margin="5"
               HorizontalAlignment="Left">

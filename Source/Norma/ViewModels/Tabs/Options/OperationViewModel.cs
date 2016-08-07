@@ -35,6 +35,7 @@ namespace Norma.ViewModels.Tabs.Options
         public ReactiveProperty<EnumWrap<PostKey>> PostKey { get; private set; }
         public ReactiveProperty<uint> ToastNotificationBeforeMinutes { get; private set; }
         public ReactiveProperty<EnumWrap<Branch>> Branch { get; private set; }
+        public ReactiveProperty<bool> IsAbsoluteTime { get; private set; }
         public ObservableCollection<MuteKeyword> MuteKeywords { get; }
         public ReactiveProperty<string> Keyword { get; }
         public ReactiveProperty<bool> IsRegex { get; }
@@ -52,6 +53,7 @@ namespace Norma.ViewModels.Tabs.Options
                                                   w => w.EnumValue);
             ToastNotificationBeforeMinutes = ReactiveProperty.FromObject(oc, w => w.ToastNotificationBeforeMinutes);
             Branch = ReactiveProperty.FromObject(oc, w => w.Branch, x => new EnumWrap<Branch>(x), w => w.EnumValue);
+            IsAbsoluteTime = ReactiveProperty.FromObject(oc, w => w.IsAbsoluteTime);
             MuteKeywords = oc.MuteKeywords;
             IsRegex = new ReactiveProperty<bool>(false);
             Keyword = new ReactiveProperty<string>("")

@@ -35,6 +35,9 @@ namespace Norma.Eta.Models.Configurations
         [JsonProperty]
         public Branch Branch { get; set; }
 
+        [JsonProperty]
+        public bool IsAbsoluteTime { get; set; }
+
         public OperationConfig()
         {
             UpdateIntervalOfThumbnails = 30;
@@ -46,6 +49,7 @@ namespace Norma.Eta.Models.Configurations
             MuteKeywords = new ObservableCollection<MuteKeyword>();
             VideoQuality = VideoQuality.Auto;
             Branch = Branch.Master;
+            IsAbsoluteTime = true;
         }
     }
 }

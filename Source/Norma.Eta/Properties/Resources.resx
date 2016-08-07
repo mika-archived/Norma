@@ -567,4 +567,7 @@
   <data name="AutoUpdateBranch" xml:space="preserve">
     <value>自動更新ブランチ</value>
   </data>
+  <data name="IsAbsoluteTime" xml:space="preserve">
+    <value>絶対時間で表示する</value>
+  </data>
 </root>

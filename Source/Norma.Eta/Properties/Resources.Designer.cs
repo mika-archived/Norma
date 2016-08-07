@@ -583,6 +583,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   絶対時間で表示する に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string IsAbsoluteTime {
+            get {
+                return ResourceManager.GetString("IsAbsoluteTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   正規表現 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string IsRegex {
