@@ -10,6 +10,7 @@ using Norma.Delta.Services;
 using Norma.Eta;
 using Norma.Eta.Models;
 using Norma.Eta.Services;
+using Norma.Models;
 using Norma.Models.Browser;
 using Norma.Views;
 
@@ -42,6 +43,10 @@ namespace Norma
         {
             _startupScreen = new StartupScreen();
             _startupScreen.Show();
+
+            var updater = new Updater(ServiceLocator.Current.GetInstance<Configuration>());
+            if (updater.IsPublishedUpdate())
+                updater.Update();
 
             var databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
             using (var connection = databaseService.Connect())
