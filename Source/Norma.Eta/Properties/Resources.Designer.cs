@@ -124,6 +124,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   自動更新ブランチ に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string AutoUpdateBranch {
+            get {
+                return ResourceManager.GetString("AutoUpdateBranch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   番組情報を取得できませんでした。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string BlankInformation {
@@ -300,6 +309,15 @@ namespace Norma.Eta.Properties {
         public static string DeleteBrowserCookies {
             get {
                 return ResourceManager.GetString("DeleteBrowserCookies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   開発版 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Develop {
+            get {
+                return ResourceManager.GetString("Develop", resourceCulture);
             }
         }
         
@@ -628,6 +646,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   安定版 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Master {
+            get {
+                return ResourceManager.GetString("Master", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   深夜アニメ に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string midnight_anime {
@@ -903,6 +930,15 @@ namespace Norma.Eta.Properties {
         public static string PostKey {
             get {
                 return ResourceManager.GetString("PostKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   プレリリース に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Pre {
+            get {
+                return ResourceManager.GetString("Pre", resourceCulture);
             }
         }
         

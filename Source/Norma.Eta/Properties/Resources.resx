@@ -555,4 +555,16 @@
   <data name="Query" xml:space="preserve">
     <value>クエリ</value>
   </data>
+  <data name="Develop" xml:space="preserve">
+    <value>開発版</value>
+  </data>
+  <data name="Master" xml:space="preserve">
+    <value>安定版</value>
+  </data>
+  <data name="Pre" xml:space="preserve">
+    <value>プレリリース</value>
+  </data>
+  <data name="AutoUpdateBranch" xml:space="preserve">
+    <value>自動更新ブランチ</value>
+  </data>
 </root>

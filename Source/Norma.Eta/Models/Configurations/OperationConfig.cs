@@ -32,6 +32,9 @@ namespace Norma.Eta.Models.Configurations
         [JsonProperty]
         public VideoQuality VideoQuality { get; set; }
 
+        [JsonProperty]
+        public Branch Branch { get; set; }
+
         public OperationConfig()
         {
             UpdateIntervalOfThumbnails = 30;
@@ -42,6 +45,7 @@ namespace Norma.Eta.Models.Configurations
             ToastNotificationBeforeMinutes = 5;
             MuteKeywords = new ObservableCollection<MuteKeyword>();
             VideoQuality = VideoQuality.Auto;
+            Branch = Branch.Master;
         }
     }
 }

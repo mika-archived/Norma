@@ -25,12 +25,16 @@ namespace Norma.ViewModels.Tabs.Options
         public List<EnumWrap<PostKey>> KeyTypes
             => ((PostKey[]) Enum.GetValues(typeof(PostKey))).Select(w => new EnumWrap<PostKey>(w)).ToList();
 
+        public List<EnumWrap<Branch>> Branches
+            => ((Branch[]) Enum.GetValues(typeof(Branch))).Select(w => new EnumWrap<Branch>(w)).ToList();
+
         public ReactiveProperty<uint> UpdateIntervalOfThumbnails { get; private set; }
         public ReactiveProperty<uint> ReceptionIntervalOfComments { get; private set; }
         public ReactiveProperty<uint> SamplingIntervalOfProgramState { get; private set; }
         public ReactiveProperty<uint> NumberOfHoldingComments { get; private set; }
         public ReactiveProperty<EnumWrap<PostKey>> PostKey { get; private set; }
         public ReactiveProperty<uint> ToastNotificationBeforeMinutes { get; private set; }
+        public ReactiveProperty<EnumWrap<Branch>> Branch { get; private set; }
         public ObservableCollection<MuteKeyword> MuteKeywords { get; }
         public ReactiveProperty<string> Keyword { get; }
         public ReactiveProperty<bool> IsRegex { get; }
@@ -47,6 +51,7 @@ namespace Norma.ViewModels.Tabs.Options
             PostKey = ReactiveProperty.FromObject(oc, w => w.PostKeyType, x => new EnumWrap<PostKey>(x),
                                                   w => w.EnumValue);
             ToastNotificationBeforeMinutes = ReactiveProperty.FromObject(oc, w => w.ToastNotificationBeforeMinutes);
+            Branch = ReactiveProperty.FromObject(oc, w => w.Branch, x => new EnumWrap<Branch>(x), w => w.EnumValue);
             MuteKeywords = oc.MuteKeywords;
             IsRegex = new ReactiveProperty<bool>(false);
             Keyword = new ReactiveProperty<string>("")
