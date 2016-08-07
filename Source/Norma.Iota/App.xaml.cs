@@ -58,7 +58,6 @@ namespace Norma.Iota
             _isHandled = true;
             var version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-            // TODO: ApplicationInsights とかで。
             var path = Path.Combine(NormaConstants.CrashReportsDir,
                                     $"{DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss")}.log");
             var sb = new StringBuilder();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Disposables;
@@ -11,7 +12,9 @@ using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.ServiceLocation;
 
 using Norma.Delta.Models;
+using Norma.Delta.Models.Enums;
 using Norma.Delta.Services;
+using Norma.Eta.Extensions;
 using Norma.Eta.Models;
 
 namespace Norma.Ipsilon.Models
@@ -43,6 +46,9 @@ namespace Norma.Ipsilon.Models
             // 10 秒に 1 回チェック
             _compositeDisposable.Add(Observable.Timer(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(10))
                                                .Subscribe(async w => await Check()));
+            // 1 分に 1 回保存
+            _compositeDisposable.Add(Observable.Timer(TimeSpan.FromSeconds(5), TimeSpan.FromMinutes(1))
+                                               .Subscribe(w => Clear()));
         }
 
         private async Task Check()
@@ -54,6 +60,8 @@ namespace Norma.Ipsilon.Models
 #endif
             using (var connection = _databaseService.Connect())
             {
+                connection.TurnOffLazyLoading();
+
                 // 予約リスト
                 // SELECT 句の実行自体は、数千件単位のものでも (SELECT + INSERT) で ~ 1s だし、いいかな
                 var reservations = connection.Reservations.Where(w => w.IsEnabled); // Base query
@@ -67,28 +75,68 @@ namespace Norma.Ipsilon.Models
                 // 予定
                 var now = DateTime.Now;
                 var perTime = DateTime.Now.AddMinutes(_pretime);
-                var slots = connection.Slots.Where(w => now <= w.StartAt && w.StartAt <= perTime).ToList();
+                var slots = connection.Slots.AsNoTracking().Where(w => now <= w.StartAt && w.StartAt <= perTime)
+                                      .Include(w => w.Channel).ToList();
                 foreach (var keyword in keywords)
                 {
                     if (keyword.IsRegex)
-                        slots.Where(w => new Regex(keyword.Keyword).IsMatch(w.Title)).ForEach(w => list.Add(w));
+                        slots.Where(w => new Regex(keyword.Keyword).IsMatch(w.Title)).ForEach(w => _slot.AddIfNotExists(list, w));
                     else
-                        slots.Where(w => w.Title.Contains(keyword.Keyword)).ForEach(w => list.Add(w));
+                        slots.Where(w => w.Title.Contains(keyword.Keyword)).ForEach(w => _slot.AddIfNotExists(list, w));
                 }
                 foreach (var tr in time)
-                    slots.Where(w => w.StartAt == tr.StartAt).ForEach(w => list.Add(w));
+                    slots.Where(w => w.StartAt == tr.StartAt)
+                         .Where(w => tr.Repetition.IsMatch(w.StartAt))
+                         .ForEach(w => _slot.AddIfNotExists(list, w));
                 foreach (var st in series)
-                    slots.Where(w => w.Episodes.First().Series.SeriesId == st.Series.SeriesId).ForEach(w => list.Add(w));
+                    slots.Where(w => w.Episodes.First().Series.SeriesId == st.Series.SeriesId).ForEach(w => _slot.AddIfNotExists(list, w));
                 foreach (var sr in slot1)
-                    slots.Where(w => w.SlotId == sr.Slot.SlotId).ForEach(w => list.Add(w));
+                    slots.Where(w => w.SlotId == sr.Slot.SlotId).ForEach(w => _slot.AddIfNotExists(list, w));
                 foreach (var sr in slot2)
-                    slots.Where(w => w.SlotId == sr.SlotId).ForEach(w => list.Add(w));
+                    slots.Where(w => w.SlotId == sr.SlotId).ForEach(w => _slot.AddIfNotExists(list, w));
             }
 #if DEBUG
             stopwatch.Stop();
             Debug.WriteLine(stopwatch.Elapsed.ToString());
 #endif
-            // TODO: Notification
+            var uniqueList = list.Distinct().ToList();
+            foreach (var slot in uniqueList)
+            {
+                _slot.Add(slot);
+                await NotificationManager.ShowNotification(slot);
+            }
+        }
+
+        private void Clear()
+        {
+            using (var connection = _databaseService.Connect())
+            {
+                var now = DateTime.Now;
+                var reservations = connection.Reservations.Where(w => w.IsEnabled); // Base query
+                var slots = connection.Slots.AsNoTracking().Where(w => w.StartAt <= now).ToList();
+
+                var time = reservations.Select(w => w.TimeReservation).ToList();
+                var slot1 = reservations.Select(w => w.SlotReservation).ToList();
+                var slot2 = reservations.Select(w => w.SlotReservation2).ToList();
+                foreach (var tr in time)
+                {
+                    if (tr.Repetition == Repetition.None && tr.StartAt <= DateTime.Now)
+                        tr.Reservation.IsEnabled = false;
+                }
+                foreach (var sr in slot1)
+                {
+                    if (sr.Slot.StartAt <= DateTime.Now)
+                        sr.Reservation.IsEnabled = false;
+                }
+                foreach (var sr in slot2)
+                {
+                    if (slots.Single(w => w.SlotId == sr.SlotId).StartAt <= DateTime.Now)
+                        sr.Reservation.IsEnabled = false;
+                }
+
+                connection.DetectChanges();
+                connection.SaveChanges();
+            }
         }
     }
 }

@@ -13,6 +13,15 @@ namespace Norma.Eta.Extensions
                 obj.Add(item);
         }
 
+        public static void AddIfNotExists<T>(this IList<T> obj, IList<T> target, T item)
+        {
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
+            if (obj.Contains(item))
+                return;
+            target.Add(item);
+        }
+
         public static void AddIfNotExists<T>(this IEnumerable<T> obj, DbSet<T> db, T item, Func<T, bool> condition)
             where T : class
         {
