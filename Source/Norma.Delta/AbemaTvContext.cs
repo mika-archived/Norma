@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using System.Diagnostics;
 
 using Norma.Delta.Models;
 
@@ -43,7 +42,7 @@ namespace Norma.Delta
 
         public AbemaTvContext() : base(DatabaseConnectionProvider.GetConnection(), true)
         {
-            Database.Log = log => Debug.WriteLine(log);
+            // Database.Log = log => Debug.WriteLine(log);
             Configuration.AutoDetectChangesEnabled = false;
         }
 

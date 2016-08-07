@@ -20,6 +20,7 @@ namespace Norma.Models
     {
         private readonly AbemaState _abemaState;
         private readonly CompositeDisposable _compositeDisposable;
+        private readonly object _lockObj = new object();
         private readonly StatusService _statusService;
 
         public ObservableCollection<string> Casts { get; }
@@ -51,27 +52,30 @@ namespace Norma.Models
 
         private void FetchProgramInfo()
         {
-            _statusService.UpdateStatus(Resources.FetchingProgramInformation);
-            var slot = _abemaState.CurrentSlot;
-            var episode = _abemaState.CurrentEpisode;
-
-            if (slot == null)
+            lock (_lockObj)
             {
-                Title = "";
-                return;
+                _statusService.UpdateStatus(Resources.FetchingProgramInformation);
+                var slot = _abemaState.CurrentSlot;
+                var episode = _abemaState.CurrentEpisode;
+
+                if (slot == null)
+                {
+                    Title = "";
+                    return;
+                }
+
+                Casts.Clear();
+                Crews.Clear();
+
+                Title = slot.Episodes.Count == 1 ? slot.Title : $"{slot.Title} - #{episode.Sequence}";
+                Description = slot.Description;
+                episode.Casts.ForEach(w => Casts.Add(w.Name));
+                episode.Crews.ForEach(w => Crews.Add(w.Name));
+
+                ProvideThumbnails(episode);
+
+                _statusService.UpdateStatus(Resources.FetchedProgramInformation);
             }
-
-            Casts.Clear();
-            Crews.Clear();
-
-            Title = slot.Episodes.Count == 1 ? slot.Title : $"{slot.Title} - #{episode.Sequence}";
-            Description = slot.Description;
-            episode.Casts.ForEach(w => Casts.Add(w.Name));
-            episode.Crews.ForEach(w => Crews.Add(w.Name));
-
-            ProvideThumbnails(episode);
-
-            _statusService.UpdateStatus(Resources.FetchedProgramInformation);
         }
 
         private void ProvideThumbnails(Episode episode)
