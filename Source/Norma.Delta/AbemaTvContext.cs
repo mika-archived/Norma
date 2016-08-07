@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Diagnostics;
 
 using Norma.Delta.Models;
 
@@ -51,10 +52,15 @@ namespace Norma.Delta
             ChangeTracker.DetectChanges();
         }
 
-        public void TurnOffLazyLoading()
-        {
-            Configuration.ProxyCreationEnabled = false;
-        }
+        public void TurnOffLazyLoading() => Configuration.ProxyCreationEnabled = false;
+
+        public void TurnOnLazyLoading() => Configuration.ProxyCreationEnabled = true;
+
+        public void EnableLog() => Database.Log += WriteLog;
+
+        public void DisableLog() => Database.Log -= WriteLog;
+
+        private void WriteLog(string log) => Debug.WriteLine(log);
 
         #region Overrides of DbContext
 

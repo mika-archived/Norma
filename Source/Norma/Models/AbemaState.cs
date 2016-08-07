@@ -150,20 +150,25 @@ namespace Norma.Models
                 var seriesList = connection.Series.ToList();
                 foreach (var rawEpisode in programs.Skip(1))
                 {
-                    var episode = rawEpisode.ConvertToEpisode();
-                    if (rawEpisode.Credit.Cast != null)
-                        foreach (var cast in rawEpisode.Credit.Cast.Select(Filter))
-                            episode.Casts.Add(castList.Single(w => w.Name == cast));
-                    if (rawEpisode.Credit.Copyrights != null)
-                        foreach (var copyright in rawEpisode.Credit.Copyrights.Select(Filter))
-                            episode.Copyrights.Add(copyRightList.Single(w => w.Name == copyright));
-                    if (rawEpisode.Credit.Crews != null)
-                        foreach (var crew in rawEpisode.Credit.Crews.Select(Filter))
-                            episode.Crews.Add(crewList.Single(w => w.Name == crew));
-                    foreach (var thumbnail in rawEpisode.ProvidedInfo.ConvertToThumbnail())
-                        episode.Thumbnails.Add(thumbnail);
-                    episode.Series = seriesList.SingleOrDefault(w => w.SeriesId == rawEpisode.Series.Id);
-                    episodes.Add(episode);
+                    if (episodeList.Any(w => w.EpisodeId == rawEpisode.Id))
+                        episodes.Add(episodeList.Single(w => w.EpisodeId == rawEpisode.Id));
+                    else
+                    {
+                        var episode = rawEpisode.ConvertToEpisode();
+                        if (rawEpisode.Credit.Cast != null)
+                            foreach (var cast in rawEpisode.Credit.Cast.Select(Filter))
+                                episode.Casts.Add(castList.Single(w => w.Name == cast));
+                        if (rawEpisode.Credit.Copyrights != null)
+                            foreach (var copyright in rawEpisode.Credit.Copyrights.Select(Filter))
+                                episode.Copyrights.Add(copyRightList.Single(w => w.Name == copyright));
+                        if (rawEpisode.Credit.Crews != null)
+                            foreach (var crew in rawEpisode.Credit.Crews.Select(Filter))
+                                episode.Crews.Add(crewList.Single(w => w.Name == crew));
+                        foreach (var thumbnail in rawEpisode.ProvidedInfo.ConvertToThumbnail())
+                            episode.Thumbnails.Add(thumbnail);
+                        episode.Series = seriesList.SingleOrDefault(w => w.SeriesId == rawEpisode.Series.Id);
+                        episodes.Add(episode);
+                    }
                 }
                 episodes.ForEach(w => episodeList.AddIfNotExists(connection.Episodes, w, v => v.EpisodeId == w.EpisodeId));
                 episodes.ForEach(w => connection.Slots.Single(v => v.SlotId == slot.SlotId).Episodes.Add(w));
