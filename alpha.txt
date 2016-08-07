@@ -9,3 +9,7 @@ Norma.Iota ...... EXE - 番組表
 Norma.Ipsilon ... EXE - 常駐型通知用
 
 Norma.Delta ..... DLL - データベース関連ライブラリ
+
+Norma.Mu ........ EXE - 移行用アプリ
+
+Norma.Kappa ..... EXE - アップデータ
