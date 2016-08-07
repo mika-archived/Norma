@@ -254,6 +254,7 @@
     <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Models\ProgramHost.cs" />
     <Compile Include="Models\ReleaseType.cs" />
+    <Compile Include="Models\Updater.cs" />
     <Compile Include="Models\VolumeManager.cs" />
     <Compile Include="ViewModels\Controls\AbemaCommentInputViewModel.cs" />
     <Compile Include="ViewModels\Controls\AbemaVolumeViewModel.cs" />

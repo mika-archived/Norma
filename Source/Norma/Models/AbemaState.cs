@@ -188,7 +188,11 @@ namespace Norma.Models
         public Channel CurrentChannel
         {
             get { return _currentChannel; }
-            set { SetProperty(ref _currentChannel, value); }
+            set
+            {
+                if (SetProperty(ref _currentChannel, value))
+                    _configuration.Root.LastViewedChannelStr = CurrentChannel.ChannelId;
+            }
         }
 
         #endregion

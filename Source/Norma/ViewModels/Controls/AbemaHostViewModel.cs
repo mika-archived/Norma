@@ -37,7 +37,6 @@ namespace Norma.ViewModels.Controls
                        .Where(w => w != null)
                        .SubscribeOnUIDispatcher()
                        .Subscribe(w => Address = $"https://abema.tv/now-on-air/{w.ChannelId}");
-
             connector.RegisterInsance<ChangeChannelOp>(this);
             networkHandler.RegisterInstance(this, e => e.Url.EndsWith("/slotReservations"));
             Address = $"https://abema.tv/now-on-air/{abemaState.CurrentChannel.ChannelId}";
