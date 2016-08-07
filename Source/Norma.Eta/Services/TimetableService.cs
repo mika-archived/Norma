@@ -51,6 +51,10 @@ namespace Norma.Eta.Services
             using (var connection = _databaseService.Connect())
             {
                 var lastSyncTimeStr = connection.Metadata.Single(w => w.Key == Metadata.LastSyncTimeKey);
+                lastSyncTimeStr.Value = DateTime.Now.ToString("G");
+                connection.DetectChanges();
+                connection.SaveChanges();
+
                 if (!EqualsWithDates(DateTime.Today, DateTime.Parse(lastSyncTimeStr.Value)))
                 {
                     var timetable = _abemaApiClient.MediaOfDays(6);
@@ -69,10 +73,6 @@ namespace Norma.Eta.Services
 
                     // 放送単位 ~ 1000ms
                     UpdateSlots(connection, timetable.ChannelSchedules);
-
-                    lastSyncTimeStr.Value = DateTime.Now.ToString("G");
-                    connection.DetectChanges();
-                    connection.SaveChanges();
                 }
             }
             Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(async w => await UpdateAsync());
