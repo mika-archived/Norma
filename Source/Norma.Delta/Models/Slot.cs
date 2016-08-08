@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Norma.Delta.Models
 {
-    public class Slot : IEqualityComparer<Slot>
+    public class Slot : IEquatable<Slot>
     {
         public string SlotId { get; set; }
 
@@ -34,11 +34,9 @@ namespace Norma.Delta.Models
             Episodes = new List<Episode>();
         }
 
-        #region Implementation of IEqualityComparer<in Slot>
+        #region Implementation of IEquatable<Slot>
 
-        public bool Equals(Slot x, Slot y) => x.SlotId == y.SlotId;
-
-        public int GetHashCode(Slot obj) => obj.SlotId.GetHashCode();
+        public bool Equals(Slot other) => SlotId == other.SlotId;
 
         #endregion
     }

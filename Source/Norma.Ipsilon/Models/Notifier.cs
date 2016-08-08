@@ -60,17 +60,15 @@ namespace Norma.Ipsilon.Models
 #endif
             using (var connection = _databaseService.Connect())
             {
-                connection.TurnOffLazyLoading();
-
                 // 予約リスト
                 // SELECT 句の実行自体は、数千件単位のものでも (SELECT + INSERT) で ~ 1s だし、いいかな
                 var reservations = connection.Reservations.Where(w => w.IsEnabled); // Base query
 
-                var keywords = reservations.Select(w => w.KeywordReservation).ToList();
-                var time = reservations.Select(w => w.TimeReservation).ToList();
-                var series = reservations.Select(w => w.SeriesReservation).ToList();
-                var slot1 = reservations.Select(w => w.SlotReservation).ToList();
-                var slot2 = reservations.Select(w => w.SlotReservation2).ToList();
+                var keywords = reservations.Select(w => w.KeywordReservation).Where(w => w != null).ToList();
+                var time = reservations.Select(w => w.TimeReservation).Where(w => w != null).ToList();
+                var series = reservations.Select(w => w.SeriesReservation).Where(w => w != null).ToList();
+                var slot1 = reservations.Select(w => w.SlotReservation).Where(w => w != null).ToList();
+                var slot2 = reservations.Select(w => w.SlotReservation2).Where(w => w != null).ToList();
 
                 // 予定
                 var now = DateTime.Now;
@@ -115,9 +113,9 @@ namespace Norma.Ipsilon.Models
                 var reservations = connection.Reservations.Where(w => w.IsEnabled); // Base query
                 var slots = connection.Slots.AsNoTracking().Where(w => w.StartAt <= now).ToList();
 
-                var time = reservations.Select(w => w.TimeReservation).ToList();
-                var slot1 = reservations.Select(w => w.SlotReservation).ToList();
-                var slot2 = reservations.Select(w => w.SlotReservation2).ToList();
+                var time = reservations.Select(w => w.TimeReservation).Where(w => w != null).ToList();
+                var slot1 = reservations.Select(w => w.SlotReservation).Where(w => w != null).ToList();
+                var slot2 = reservations.Select(w => w.SlotReservation2).Where(w => w != null).ToList();
                 foreach (var tr in time)
                 {
                     if (tr.Repetition == Repetition.None && tr.StartAt <= DateTime.Now)
