@@ -10,8 +10,8 @@ This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).
 Readme 日本語版は[こちら](README.md).
 
 ## Screenshots
-![alt](https://cloud.githubusercontent.com/assets/10832834/15974547/f8aa96f8-2f83-11e6-8db1-5025b9f70b60.PNG)  
-![alt](https://cloud.githubusercontent.com/assets/10832834/15974591/37990d5e-2f84-11e6-9a3d-c84a43093e0c.PNG)
+![alt](https://cloud.githubusercontent.com/assets/10832834/17477982/93b2d1a4-5da3-11e6-9d65-8af8b8d650b3.PNG)  
+![alt](https://cloud.githubusercontent.com/assets/10832834/17478065/40cf7298-5da4-11e6-9203-69df4e8948a2.PNG)
 
 
 ## Requirements
