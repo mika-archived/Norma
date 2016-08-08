@@ -135,7 +135,7 @@ namespace Norma.Models
             --count;
             if (count < 0 || count >= episodes)
                 return;
-            CurrentEpisode = CurrentSlot.Episodes.Skip(count).First();
+            CurrentEpisode = CurrentSlot.Episodes.OrderBy(w => w.Sequence).Skip(count).First();
         }
 
         private void UpdateEpisode(Slot slot, Program[] programs)
