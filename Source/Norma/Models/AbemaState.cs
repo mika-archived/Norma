@@ -50,7 +50,7 @@ namespace Norma.Models
             _configuration = configuration;
             _databaseService = databaseService;
             using (var connector = databaseService.Connect())
-                CurrentChannel = connector.Channels.Single(w => w.ChannelId == _configuration.Root.LastViewedChannelStr);
+                CurrentChannel = connector.Channels.SingleOrDefault(w => w.ChannelId == _configuration.Root.LastViewedChannelStr);
             _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(w => SyncEpisode());
             networkHandler.RegisterInstance(this, w => w.Url.StartsWith("https://api.abema.io/v1/slotAudience?"));
         }

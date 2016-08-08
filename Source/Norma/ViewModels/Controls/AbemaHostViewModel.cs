@@ -39,7 +39,7 @@ namespace Norma.ViewModels.Controls
                        .Subscribe(w => Address = $"https://abema.tv/now-on-air/{w.ChannelId}");
             connector.RegisterInsance<ChangeChannelOp>(this);
             networkHandler.RegisterInstance(this, e => e.Url.EndsWith("/slotReservations"));
-            Address = $"https://abema.tv/now-on-air/{abemaState.CurrentChannel.ChannelId}";
+            Address = $"https://abema.tv/now-on-air/abema-news";
         }
 
         #region Implementation of INetworkCaptureRequestAware

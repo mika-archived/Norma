@@ -51,11 +51,12 @@ namespace Norma.Eta.Services
             using (var connection = _databaseService.Connect())
             {
                 var lastSyncTimeStr = connection.Metadata.Single(w => w.Key == Metadata.LastSyncTimeKey);
+                var value = lastSyncTimeStr.Value;
                 lastSyncTimeStr.Value = DateTime.Now.ToString("G");
                 connection.DetectChanges();
                 connection.SaveChanges();
 
-                if (!EqualsWithDates(DateTime.Today, DateTime.Parse(lastSyncTimeStr.Value)))
+                if (!EqualsWithDates(DateTime.Today, DateTime.Parse(value)))
                 {
                     var timetable = _abemaApiClient.MediaOfDays(6);
 
