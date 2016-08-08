@@ -8,7 +8,7 @@ namespace Norma.Gamma.Models
 {
 #pragma warning disable CS0659 // 型は Object.Equals(object o) をオーバーライドしますが、Object.GetHashCode() をオーバーライドしません
 
-    [AppVersion("1.0.41")]
+    [AppVersion("1.0.42")]
     public class Slot
 #pragma warning restore CS0659 // 型は Object.Equals(object o) をオーバーライドしますが、Object.GetHashCode() をオーバーライドしません
     {

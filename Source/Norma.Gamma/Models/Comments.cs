@@ -2,7 +2,7 @@
 
 namespace Norma.Gamma.Models
 {
-    [AppVersion("1.0.41")]
+    [AppVersion("1.0.42")]
     public class Comments
     {
         [JsonProperty("comments")]
