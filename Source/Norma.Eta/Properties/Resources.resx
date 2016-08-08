@@ -570,4 +570,7 @@
   <data name="IsAbsoluteTime" xml:space="preserve">
     <value>絶対時間で表示する</value>
   </data>
+  <data name="Windows" xml:space="preserve">
+    <value>Windows</value>
+  </data>
 </root>

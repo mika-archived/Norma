@@ -1384,6 +1384,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   Windows に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Windows {
+            get {
+                return ResourceManager.GetString("Windows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   WORLD SPORTS に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string world_sports {

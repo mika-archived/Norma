@@ -152,6 +152,7 @@
     <Compile Include="Models\DateRange.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Models\Enums\Branch.cs" />
+    <Compile Include="Models\Enums\UITheme.cs" />
     <Compile Include="Models\EnumWrap.cs" />
     <Compile Include="Models\MuteKeyword.cs" />
     <Compile Include="Models\Operations\ChangeChannelOp.cs" />

@@ -1,9 +1,8 @@
 ﻿using System.Windows.Input;
 
-using MetroRadiance.UI;
-
 using Norma.Eta.Models;
 using Norma.Eta.Models.Configurations;
+using Norma.Eta.Models.Enums;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Properties;
 
@@ -16,7 +15,7 @@ namespace Norma.ViewModels.Tabs.Options
 {
     internal class OthersViewModel : ViewModel
     {
-        public ReactiveProperty<Theme.SpecifiedColor> SelectedTheme { get; private set; }
+        public ReactiveProperty<UITheme> SelectedTheme { get; private set; }
 
         public OthersViewModel(OthersConfig oc)
         {
