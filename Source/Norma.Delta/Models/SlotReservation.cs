@@ -15,8 +15,6 @@ namespace Norma.Delta.Models
 
         public void Merge(SlotReservation slotReservation)
         {
-            Slot = slotReservation.Slot;
-            ReservationId = slotReservation.ReservationId;
             Reservation.Merge(slotReservation.Reservation);
         }
     }

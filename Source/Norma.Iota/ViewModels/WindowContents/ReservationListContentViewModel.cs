@@ -37,7 +37,11 @@ namespace Norma.Iota.ViewModels.WindowContents
             SelectedItem = new ReactiveProperty<ReservationItemViewModel>();
             ConfirmationRequest = new InteractionRequest<Confirmation>();
             ConditionalReservationRequest = new InteractionRequest<DataPassingNotification>();
-            SelectedItem.Subscribe(w => ((DelegateCommand) EditReservationCommand).RaiseCanExecuteChanged()).AddTo(this);
+            SelectedItem.Subscribe(w =>
+            {
+                EditReservationCommand.RaiseCanExecuteChanged();
+                DeleteReservationCommand.RaiseCanExecuteChanged();
+            }).AddTo(this);
             ViewModelHelper.Subscribe(this, w => w.Notification, w => UpdateRsvList());
         }
 
@@ -74,9 +78,9 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         #region EditReservationCommand
 
-        private ICommand _editRsvCommand;
+        private DelegateCommand _editRsvCommand;
 
-        public ICommand EditReservationCommand
+        public DelegateCommand EditReservationCommand
             => _editRsvCommand ?? (_editRsvCommand = new DelegateCommand(EditReservation, CanEditReservation));
 
         private void EditReservation()
@@ -95,9 +99,9 @@ namespace Norma.Iota.ViewModels.WindowContents
 
         #region DeleteReservationCommand
 
-        private ICommand _deleteRsvCommand;
+        private DelegateCommand _deleteRsvCommand;
 
-        public ICommand DeleteReservationCommand
+        public DelegateCommand DeleteReservationCommand
             => _deleteRsvCommand ?? (_deleteRsvCommand = new DelegateCommand(DeleteReservation, CanDeleteReservation));
 
         private void DeleteReservation()

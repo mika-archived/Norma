@@ -19,7 +19,6 @@ namespace Norma.Delta.Models
         {
             Keyword = keywordReservation.Keyword;
             IsRegex = keywordReservation.IsRegex;
-            ReservationId = keywordReservation.ReservationId;
             Reservation.Merge(keywordReservation.Reservation);
         }
     }

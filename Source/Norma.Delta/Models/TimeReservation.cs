@@ -22,7 +22,6 @@ namespace Norma.Delta.Models
         {
             StartAt = timeReservation.StartAt;
             Repetition = timeReservation.Repetition;
-            ReservationId = timeReservation.ReservationId;
             Reservation.Merge(timeReservation.Reservation);
         }
     }
