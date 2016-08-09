@@ -43,7 +43,7 @@ namespace Norma.Iota.ViewModels
             SelectedDate = new ReactiveProperty<string>();
             SelectedDate.Where(w => !string.IsNullOrWhiteSpace(w)).ObserveOn(TaskPoolScheduler.Default).Subscribe(w => UpdateChannels());
             SearchQuery = new ReactiveProperty<string>();
-            RunQueryCommand = SearchQuery.Select(w => !string.IsNullOrWhiteSpace(w)).ToReactiveCommand();
+            RunQueryCommand = SearchQuery.Select(w => IsSearchMode || !string.IsNullOrWhiteSpace(w)).ToReactiveCommand();
             RunQueryCommand.Subscribe(w =>
             {
                 if (!IsSearchMode)
