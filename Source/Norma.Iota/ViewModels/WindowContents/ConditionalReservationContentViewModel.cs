@@ -29,6 +29,8 @@ namespace Norma.Iota.ViewModels.WindowContents
 
             // なんかなー
             SelectedIndex = 0;
+            if (item == null)
+                return;
             if (item.Type == Resources.Keyword)
                 SelectedIndex = 0;
             else if (item.Type == Resources.Time)
