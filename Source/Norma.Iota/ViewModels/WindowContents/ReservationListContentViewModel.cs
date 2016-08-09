@@ -98,13 +98,15 @@ namespace Norma.Iota.ViewModels.WindowContents
         private ICommand _deleteRsvCommand;
 
         public ICommand DeleteReservationCommand
-            => _deleteRsvCommand ?? (_deleteRsvCommand = new DelegateCommand(DeleteReservation));
+            => _deleteRsvCommand ?? (_deleteRsvCommand = new DelegateCommand(DeleteReservation, CanDeleteReservation));
 
         private void DeleteReservation()
         {
             SelectedItem.Value.ReservationItem.Delete();
             UpdateRsvList();
         }
+
+        private bool CanDeleteReservation() => SelectedItem.Value != null;
 
         #endregion
     }
