@@ -16,6 +16,11 @@
         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Visible">
             <Grid Margin="5">
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontFamily" Value="Yu Gothic UI" />
+                    </Style>
+                </Grid.Resources>
                 <StackPanel Visibility="{Binding HasInfo.Value, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <TextBlock FontSize="20"
                                Text="{Binding Title.Value}"

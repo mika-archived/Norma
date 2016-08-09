@@ -51,9 +51,9 @@
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate DataType="{x:Type vmroot:CommentViewModel}">
-                                <TextBlock Text="{Binding Message,
+                                <TextBlock FontFamily="Yu Gothic UI"
+                                           Text="{Binding Message,
                                                           Mode=OneWay}"
-                                           FontFamily="Meiryo UI"
                                            TextWrapping="Wrap" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
