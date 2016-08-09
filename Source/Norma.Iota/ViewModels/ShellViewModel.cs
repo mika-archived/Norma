@@ -32,7 +32,9 @@ namespace Norma.Iota.ViewModels
         public ReadOnlyObservableCollection<string> AvailableDates { get; }
         public ReactiveProperty<string> SelectedDate { get; }
         public ReactiveProperty<string> SearchQuery { get; }
+        public ReactiveProperty<bool> IsSearchMode { get; }
         public ReactiveCommand RunQueryCommand { get; }
+        public ReactiveCommand ClearQueryCommand { get; }
         public InteractionRequest<INotification> ProgramDetailsRequest { get; }
         public InteractionRequest<INotification> ReservationListRequest { get; }
 
@@ -43,27 +45,27 @@ namespace Norma.Iota.ViewModels
             SelectedDate = new ReactiveProperty<string>();
             SelectedDate.Where(w => !string.IsNullOrWhiteSpace(w)).ObserveOn(TaskPoolScheduler.Default).Subscribe(w => UpdateChannels());
             SearchQuery = new ReactiveProperty<string>();
-            RunQueryCommand = SearchQuery.Select(w => IsSearchMode || !string.IsNullOrWhiteSpace(w)).ToReactiveCommand();
+            IsSearchMode = new ReactiveProperty<bool>();
+            RunQueryCommand = SearchQuery.Select(w => IsSearchMode.Value || !string.IsNullOrWhiteSpace(w)).ToReactiveCommand();
             RunQueryCommand.Subscribe(w =>
             {
-                if (!IsSearchMode)
-                {
-                    Application.Current.Dispatcher.Invoke(() => IsLoading = true);
-                    _searchTable.Query(SearchQuery.Value);
-                    GC.Collect();
-                    Content = "\uE711";
-                    IsLoading = false;
-                }
-                else
-                    Content = "\uE094";
-                IsSearchMode = !IsSearchMode;
+                Application.Current.Dispatcher.Invoke(() => IsLoading = true);
+                _searchTable.Query(SearchQuery.Value);
+                GC.Collect();
+                IsLoading = false;
+                IsSearchMode.Value = true;
+            });
+            ClearQueryCommand = IsSearchMode.ToReactiveCommand();
+            ClearQueryCommand.Subscribe(w =>
+            {
+                SearchQuery.Value = "";
+                IsSearchMode.Value = false;
             });
             _disposables = new List<IDisposable>();
             _dayTable = new DayTable(databaseService);
             _searchTable = new SearchTable(databaseService);
             AvailableDates = _dayTable.AvailableDates.ToReadOnlyReactiveCollection(w => w.ToString("d"));
             AvailableDates.ToObservable().Subscribe(w => SelectedDate.Value = AvailableDates.First());
-            Content = "\uE094";
             Channels = _dayTable.ChannelTable
                                 .ToReadOnlyReactiveCollection(w => new ChannelCellViewModel(w.Date, w.Channel, w.Slots).AddTo(_disposables));
             SearchSlots = _searchTable.ResultSlots
@@ -84,30 +86,6 @@ namespace Norma.Iota.ViewModels
             GC.Collect(); // まぁ
             IsLoading = false;
         }
-
-        #region Content
-
-        private string _content;
-
-        public string Content
-        {
-            get { return _content; }
-            set { SetProperty(ref _content, value); }
-        }
-
-        #endregion
-
-        #region IsSearchMode
-
-        private bool _isSearchMode;
-
-        public bool IsSearchMode
-        {
-            get { return _isSearchMode; }
-            set { SetProperty(ref _isSearchMode, value); }
-        }
-
-        #endregion
 
         #region IsLoading
 
