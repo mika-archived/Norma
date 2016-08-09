@@ -38,6 +38,9 @@ namespace Norma.Eta.Models.Configurations
         [JsonProperty]
         public bool IsAbsoluteTime { get; set; }
 
+        [JsonProperty]
+        public bool IsShowFavoriteOnly { get; set; }
+
         public OperationConfig()
         {
             UpdateIntervalOfThumbnails = 30;
@@ -50,6 +53,7 @@ namespace Norma.Eta.Models.Configurations
             VideoQuality = VideoQuality.Auto;
             Branch = Branch.Master;
             IsAbsoluteTime = true;
+            IsShowFavoriteOnly = false;
         }
     }
 }

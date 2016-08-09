@@ -601,6 +601,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   お気に入りチャンネルのみ表示 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string IsShowFavoriteOnly {
+            get {
+                return ResourceManager.GetString("IsShowFavoriteOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   キーワード に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Keyword {

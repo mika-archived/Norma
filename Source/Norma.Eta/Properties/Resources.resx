@@ -573,4 +573,7 @@
   <data name="Windows" xml:space="preserve">
     <value>Windows</value>
   </data>
+  <data name="IsShowFavoriteOnly" xml:space="preserve">
+    <value>お気に入りチャンネルのみ表示</value>
+  </data>
 </root>
