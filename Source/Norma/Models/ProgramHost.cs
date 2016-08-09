@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Disposables;
-using System.Reactive.Linq;
 
 using Microsoft.Practices.ObjectBuilder2;
 
@@ -36,7 +35,6 @@ namespace Norma.Models
             _abemaState = abemaState;
             _statusService = statusService;
             _compositeDisposable.Add(abemaState.ObserveProperty(w => w.CurrentEpisode)
-                                               .Where(w => w != null)
                                                .Subscribe(w => FetchProgramInfo()));
             FetchProgramInfo(); // Init
         }
@@ -54,6 +52,11 @@ namespace Norma.Models
         {
             lock (_lockObj)
             {
+                if (_abemaState.CurrentEpisode == null)
+                {
+                    Title = "";
+                    return;
+                }
                 try
                 {
                     _statusService.UpdateStatus(Resources.FetchingProgramInformation);

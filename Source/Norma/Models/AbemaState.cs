@@ -73,6 +73,14 @@ namespace Norma.Models
             _disposable.Dispose();
         }
 
+        private void OnChangedChannel()
+        {
+            _configuration.Root.LastViewedChannelStr = CurrentChannel.ChannelId;
+            CurrentSlot = null;
+            CurrentEpisode = null;
+            _slotId = null;
+        }
+
         private async Task SyncProgram()
         {
             try
@@ -191,7 +199,7 @@ namespace Norma.Models
             set
             {
                 if (SetProperty(ref _currentChannel, value))
-                    _configuration.Root.LastViewedChannelStr = CurrentChannel.ChannelId;
+                    OnChangedChannel();
             }
         }
 
