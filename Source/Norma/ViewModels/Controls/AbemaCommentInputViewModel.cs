@@ -42,7 +42,7 @@ namespace Norma.ViewModels.Controls
             Comment.Value = "";
         }
 
-        private bool CanSend() => !string.IsNullOrWhiteSpace(Comment.Value);
+        private bool CanSend() => !string.IsNullOrWhiteSpace(Comment.Value) && _abemaState.CurrentEpisode != null;
 
         #endregion
 
