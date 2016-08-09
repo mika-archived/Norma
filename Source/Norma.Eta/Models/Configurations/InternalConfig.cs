@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 
 using Norma.Eta.Properties;
 
@@ -12,11 +13,14 @@ namespace Norma.Eta.Models.Configurations
 
         public int Volume { get; set; }
 
+        public List<string> FavoriteChannels { get; set; }
+
         public InternalConfig()
         {
             IsTopMost = false;
             Volume = 100;
             Lang = "ja"; // 手動で変えれば、 en にもなる。
+            FavoriteChannels = new List<string>();
         }
 
         #region Lang

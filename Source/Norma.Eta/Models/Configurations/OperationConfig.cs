@@ -1,45 +1,32 @@
 ﻿using System.Collections.ObjectModel;
 
-using Newtonsoft.Json;
-
 using Norma.Eta.Models.Enums;
+
+using Prism.Mvvm;
 
 namespace Norma.Eta.Models.Configurations
 {
-    public class OperationConfig
+    public class OperationConfig : BindableBase
     {
-        [JsonProperty]
         public uint UpdateIntervalOfThumbnails { get; set; }
 
-        [JsonProperty]
         public uint ReceptionIntervalOfComments { get; set; }
 
-        [JsonProperty]
         public uint SamplingIntervalOfProgramState { get; set; }
 
-        [JsonProperty]
         public uint NumberOfHoldingComments { get; set; }
 
-        [JsonProperty]
         public PostKey PostKeyType { get; set; }
 
-        [JsonProperty]
         public uint ToastNotificationBeforeMinutes { get; set; }
 
-        [JsonProperty]
         public ObservableCollection<MuteKeyword> MuteKeywords { get; set; }
 
-        [JsonProperty]
         public VideoQuality VideoQuality { get; set; }
 
-        [JsonProperty]
         public Branch Branch { get; set; }
 
-        [JsonProperty]
         public bool IsAbsoluteTime { get; set; }
-
-        [JsonProperty]
-        public bool IsShowFavoriteOnly { get; set; }
 
         public OperationConfig()
         {
@@ -55,5 +42,17 @@ namespace Norma.Eta.Models.Configurations
             IsAbsoluteTime = true;
             IsShowFavoriteOnly = false;
         }
+
+        #region IsShowFavoriteOnly
+
+        private bool _isShowFavoriteOnly;
+
+        public bool IsShowFavoriteOnly
+        {
+            get { return _isShowFavoriteOnly; }
+            set { SetProperty(ref _isShowFavoriteOnly, value); }
+        }
+
+        #endregion
     }
 }

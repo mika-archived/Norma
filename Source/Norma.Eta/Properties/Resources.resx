@@ -574,6 +574,12 @@
     <value>Windows</value>
   </data>
   <data name="IsShowFavoriteOnly" xml:space="preserve">
-    <value>お気に入りチャンネルのみ表示</value>
+    <value>お気に入りチャンネルのみ表示 *</value>
+  </data>
+  <data name="AddToFavorite" xml:space="preserve">
+    <value>お気に入りに追加</value>
+  </data>
+  <data name="DeleteFromFavorite" xml:space="preserve">
+    <value>お気に入りから削除</value>
   </data>
 </root>

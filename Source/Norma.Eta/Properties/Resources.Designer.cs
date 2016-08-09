@@ -97,6 +97,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   お気に入りに追加 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string AddToFavorite {
+            get {
+                return ResourceManager.GetString("AddToFavorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   NG リストへ追加 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string AddToNG {
@@ -309,6 +318,15 @@ namespace Norma.Eta.Properties {
         public static string DeleteBrowserCookies {
             get {
                 return ResourceManager.GetString("DeleteBrowserCookies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   お気に入りから削除 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string DeleteFromFavorite {
+            get {
+                return ResourceManager.GetString("DeleteFromFavorite", resourceCulture);
             }
         }
         
@@ -601,7 +619,7 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
-        ///   お気に入りチャンネルのみ表示 に類似しているローカライズされた文字列を検索します。
+        ///   お気に入りチャンネルのみ表示 * に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string IsShowFavoriteOnly {
             get {
