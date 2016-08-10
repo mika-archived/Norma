@@ -25,6 +25,7 @@ namespace Norma.Eta.Services
     public class TimetableService
     {
         private readonly AbemaApiClient _abemaApiClient;
+        private readonly Configuration _configuration;
         private readonly DatabaseService _databaseService;
 
         private readonly List<IFilter> _filters = new List<IFilter>
@@ -39,9 +40,10 @@ namespace Norma.Eta.Services
             new SeparatorFilter()
         };
 
-        public TimetableService(AbemaApiClient abemaApiClient, DatabaseService databaseService)
+        public TimetableService(AbemaApiClient abemaApiClient, Configuration configuration, DatabaseService databaseService)
         {
             _abemaApiClient = abemaApiClient;
+            _configuration = configuration;
             _databaseService = databaseService;
             _currentSlotInternal = new ObservableCollection<Slot>();
         }
@@ -121,6 +123,20 @@ namespace Norma.Eta.Services
 
         public ReadOnlyObservableCollection<Slot> CurrentSlots
             => _currentSlots ?? (_currentSlots = new ReadOnlyObservableCollection<Slot>(_currentSlotInternal));
+
+        #endregion
+
+        #region CurrentSlots
+
+        private ReadOnlyObservableCollection<Slot> _currentFavSlots;
+
+        public ReadOnlyObservableCollection<Slot> CurrentFavSlots
+            =>
+                _currentFavSlots ??
+                (_currentFavSlots =
+                    new ReadOnlyObservableCollection<Slot>(
+                        new ObservableCollection<Slot>(
+                            _currentSlotInternal.Where(w => _configuration.Root.Internal.FavoriteChannels.Contains(w.Channel.ChannelId)))));
 
         #endregion
 

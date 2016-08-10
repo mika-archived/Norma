@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 using Norma.Delta.Models;
 using Norma.Eta.Models;
@@ -31,10 +30,8 @@ namespace Norma.ViewModels.Controls
                                             .ToReadOnlyReactiveCollection(w => Func(w.Channel))
                                             .AddTo(this);
             else
-                Channnels = timetableService.CurrentSlots
-                                            .Where(w => _configuration.Root.Internal.FavoriteChannels.Contains(w.Channel.ChannelId))
-                                            .ToReadOnlyReactiveCollection(timetableService.CurrentSlots.ToCollectionChanged(),
-                                                                          w => Func(w.Channel))
+                Channnels = timetableService.CurrentFavSlots
+                                            .ToReadOnlyReactiveCollection(w => Func(w.Channel))
                                             .AddTo(this);
         }
     }
