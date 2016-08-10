@@ -11,14 +11,12 @@ using Norma.Delta.Services;
 using Norma.Eta.Extensions;
 using Norma.Eta.Filters;
 using Norma.Eta.Models;
-using Norma.Gamma.Models;
 
 using static Norma.Eta.Helpers.DateTimeHelper;
 using static Norma.Eta.Helpers.ApiModelToFlatModelHelper;
 
-using Episode = Norma.Delta.Models.Episode;
-using Series = Norma.Delta.Models.Series;
-using Slot = Norma.Delta.Models.Slot;
+using ChannelSchedule = Norma.Gamma.Models.ChannelSchedule;
+using Media = Norma.Gamma.Models.Media;
 
 namespace Norma.Eta.Services
 {
@@ -27,6 +25,7 @@ namespace Norma.Eta.Services
         private readonly AbemaApiClient _abemaApiClient;
         private readonly Configuration _configuration;
         private readonly DatabaseService _databaseService;
+        private readonly List<string> _favorites;
 
         private readonly List<IFilter> _filters = new List<IFilter>
         {
@@ -46,6 +45,8 @@ namespace Norma.Eta.Services
             _configuration = configuration;
             _databaseService = databaseService;
             _currentSlotInternal = new ObservableCollection<Slot>();
+            _currentFavSlotInternal = new ObservableCollection<Slot>();
+            _favorites = configuration.Root.Internal.FavoriteChannels;
         }
 
         public void Initialize()
@@ -105,6 +106,7 @@ namespace Norma.Eta.Services
                 if (slots.Any(w => w.SlotId == slot.SlotId))
                     continue;
                 _currentSlotInternal.Remove(slot);
+                _currentFavSlotInternal.RemoveIfExists(slot);
             }
             // 追加
             foreach (var items in slots.Select((w, i) => new {Slot = w, Index = i}))
@@ -112,6 +114,15 @@ namespace Norma.Eta.Services
                 if (_currentSlotInternal.Any(w => w.SlotId == items.Slot.SlotId))
                     continue;
                 _currentSlotInternal.Insert(items.Index, items.Slot);
+            }
+            if (!_configuration.Root.Operation.IsShowFavoriteOnly)
+                return;
+            foreach (var items in _currentSlotInternal.Where(w => _favorites.Contains(w.Channel.ChannelId))
+                                                      .Select((w, i) => new {Slot = w, Index = i}))
+            {
+                if (_currentFavSlotInternal.Any(w => w.SlotId == items.Slot.SlotId))
+                    continue;
+                _currentFavSlotInternal.Insert(items.Index, items.Slot);
             }
         }
 
@@ -128,15 +139,12 @@ namespace Norma.Eta.Services
 
         #region CurrentSlots
 
+        private readonly ObservableCollection<Slot> _currentFavSlotInternal;
+
         private ReadOnlyObservableCollection<Slot> _currentFavSlots;
 
         public ReadOnlyObservableCollection<Slot> CurrentFavSlots
-            =>
-                _currentFavSlots ??
-                (_currentFavSlots =
-                    new ReadOnlyObservableCollection<Slot>(
-                        new ObservableCollection<Slot>(
-                            _currentSlotInternal.Where(w => _configuration.Root.Internal.FavoriteChannels.Contains(w.Channel.ChannelId)))));
+            => _currentFavSlots ?? (_currentFavSlots = new ReadOnlyObservableCollection<Slot>(_currentFavSlotInternal));
 
         #endregion
 
