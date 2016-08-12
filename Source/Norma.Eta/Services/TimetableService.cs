@@ -82,15 +82,50 @@ namespace Norma.Eta.Services
             Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(async w => await UpdateAsync());
         }
 
+        private async Task UpdateTimetableAsync()
+        {
+            using (var connection = _databaseService.Connect())
+            {
+                var lastSyncTimeStr = connection.Metadata.Single(w => w.Key == Metadata.LastSyncTimeKey);
+                var value = lastSyncTimeStr.Value;
+                lastSyncTimeStr.Value = DateTime.Now.ToString("G");
+                connection.DetectChanges();
+                connection.SaveChanges();
+
+                if (!EqualsWithDates(DateTime.Today, DateTime.Parse(value)))
+                {
+                    var timetable = await _abemaApiClient.MediaOfDaysAsync(6);
+
+                    // チャンネル ~ 200ms
+                    UpdateChannels(connection, timetable);
+
+                    // クレジット ~ 900ms
+                    UpdateCredits(connection, timetable.ChannelSchedules);
+
+                    // シリーズ ~ 200ms
+                    UpdateSeries(connection, timetable.ChannelSchedules);
+
+                    // 番組単位 ~ 3000ms (ﾂﾗｲ)
+                    UpdateEpisodes(connection, timetable.ChannelSchedules);
+
+                    // 放送単位 ~ 1000ms
+                    UpdateSlots(connection, timetable.ChannelSchedules);
+                }
+            }
+        }
+
         private async Task UpdateAsync()
         {
             List<Slot> slots;
             using (var connection = _databaseService.Connect())
             {
                 var lastSyncTime = connection.Metadata.AsNoTracking().Single(w => w.Key == Metadata.LastSyncTimeKey);
-                if (!EqualsWithDates(DateTime.Today, DateTime.Parse(lastSyncTime.Value)))
-                    // TODO: 更新処理
+                // 日付が変わる5分前に同期しておく。
+                if (!EqualsWithDates(DateTime.Now.AddMinutes(5), DateTime.Parse(lastSyncTime.Value)))
+                {
+                    await UpdateTimetableAsync();
                     return;
+                }
                 var datetime = DateTime.Now;
                 slots = connection.Slots.AsNoTracking()
                                   .Where(w => w.StartAt <= datetime)
