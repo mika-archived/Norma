@@ -225,6 +225,7 @@
     <Compile Include="AppInitializer.cs" />
     <Compile Include="Models\Browser\CefSetting.cs" />
     <Compile Include="Models\Browser\ApiResourceHandler.cs" />
+    <Compile Include="Models\Browser\CookieMonster.cs" />
     <Compile Include="Models\Browser\HttpResourceHandlerFactory.cs" />
     <Compile Include="Models\Browser\VideoResourceHandler.cs" />
     <Compile Include="Models\AbemaChannel.cs" />

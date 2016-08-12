@@ -64,7 +64,7 @@ namespace Norma.ViewModels.Tabs.Options
 
         private void DeleteBrowserCookie()
         {
-            // TODO: Delete Beowser Cookies
+            // TODO: Browser Cookie
         }
 
         #endregion
