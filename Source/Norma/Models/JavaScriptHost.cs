@@ -104,7 +104,7 @@ if (shouldExecute) {
 
         private void InjectCustomCss()
         {
-            var css = _configuration.Root.Browser.CustomCss.Replace(Environment.NewLine, "").Replace("'", "\\'");
+            var css = _configuration.Root.Browser.CustomCss.Replace("\n", "").Replace("'", "\\'");
             string jsCode =
                 $@"
 if (shouldExecute) {{
