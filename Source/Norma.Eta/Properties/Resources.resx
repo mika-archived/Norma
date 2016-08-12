@@ -582,4 +582,7 @@
   <data name="DeleteFromFavorite" xml:space="preserve">
     <value>お気に入りから削除</value>
   </data>
+  <data name="Delay" xml:space="preserve">
+    <value>JavaScript 実行遅延 (ms) :</value>
+  </data>
 </root>

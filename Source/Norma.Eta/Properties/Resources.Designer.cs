@@ -295,6 +295,15 @@ namespace Norma.Eta.Properties {
         }
         
         /// <summary>
+        ///   JavaScript 実行遅延 (ms) : に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Delay {
+            get {
+                return ResourceManager.GetString("Delay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   削除 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Delete {

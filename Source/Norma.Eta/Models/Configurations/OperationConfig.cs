@@ -28,6 +28,8 @@ namespace Norma.Eta.Models.Configurations
 
         public bool IsAbsoluteTime { get; set; }
 
+        public uint Delay { get; set; }
+
         public OperationConfig()
         {
             UpdateIntervalOfThumbnails = 30;
@@ -41,6 +43,7 @@ namespace Norma.Eta.Models.Configurations
             Branch = Branch.Master;
             IsAbsoluteTime = true;
             IsShowFavoriteOnly = false;
+            Delay = 100;
         }
 
         #region IsShowFavoriteOnly

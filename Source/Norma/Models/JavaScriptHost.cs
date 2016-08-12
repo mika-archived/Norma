@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reactive.Linq;
 
 using CefSharp;
 using CefSharp.Wpf;
@@ -34,7 +35,8 @@ namespace Norma.Models
             {
                 if (!e.Url.StartsWith("https://abema.tv/now-on-air/"))
                     return;
-                Run();
+                var delay = (double) _configuration.Root.Operation.Delay;
+                Observable.Return(0).Delay(TimeSpan.FromMilliseconds(delay)).Subscribe(w => Run());
             };
         }
 

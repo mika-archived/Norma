@@ -37,6 +37,7 @@ namespace Norma.ViewModels.Tabs.Options
         public ReactiveProperty<EnumWrap<Branch>> Branch { get; private set; }
         public ReactiveProperty<bool> IsAbsoluteTime { get; private set; }
         public ReactiveProperty<bool> IsShowFavoriteOnly { get; private set; }
+        public ReactiveProperty<uint> Delay { get; private set; }
         public ObservableCollection<MuteKeyword> MuteKeywords { get; }
         public ReactiveProperty<string> Keyword { get; }
         public ReactiveProperty<bool> IsRegex { get; }
@@ -56,6 +57,7 @@ namespace Norma.ViewModels.Tabs.Options
             Branch = ReactiveProperty.FromObject(oc, w => w.Branch, x => new EnumWrap<Branch>(x), w => w.EnumValue);
             IsAbsoluteTime = ReactiveProperty.FromObject(oc, w => w.IsAbsoluteTime);
             IsShowFavoriteOnly = ReactiveProperty.FromObject(oc, w => w.IsShowFavoriteOnly);
+            Delay = ReactiveProperty.FromObject(oc, w => w.Delay);
             MuteKeywords = oc.MuteKeywords;
             IsRegex = new ReactiveProperty<bool>(false);
             Keyword = new ReactiveProperty<string>("")

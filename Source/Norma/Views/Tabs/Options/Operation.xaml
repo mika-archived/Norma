@@ -31,6 +31,7 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="150" />
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
@@ -193,13 +194,35 @@
                   Content="{x:Static properties:Resources.IsShowFavoriteOnly}"
                   IsChecked="{Binding IsShowFavoriteOnly.Value}" />
         <!--#endregion-->
-        <!--#region MuteKeywords-->
+        <!--#region Delay-->
         <TextBlock Grid.Row="9"
+                   Grid.Column="0"
+                   Text="{x:Static properties:Resources.Delay}" />
+        <StackPanel Grid.Row="9"
+                    Grid.Column="1"
+                    Orientation="Horizontal">
+            <metro:PromptTextBox Width="120"
+                                 Height="30"
+                                 Margin="5"
+                                 VerticalAlignment="Center">
+                <metro:PromptTextBox.Text>
+                    <Binding Path="Delay.Value"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <metro:Int32Rule Min="1" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </metro:PromptTextBox.Text>
+            </metro:PromptTextBox>
+        </StackPanel>
+        <!--#endregion-->
+        <!--#region MuteKeywords-->
+        <TextBlock Grid.Row="10"
                    Grid.Column="0"
                    Margin="0,5,0,0"
                    VerticalAlignment="Top"
                    Text="{x:Static properties:Resources.MuteKeywords}" />
-        <Grid Grid.Row="9"
+        <Grid Grid.Row="10"
               Grid.Column="1"
               Margin="5"
               HorizontalAlignment="Left">
@@ -291,7 +314,7 @@
             </Grid>
         </Grid>
         <!--#endregion-->
-        <TextBlock Grid.Row="10"
+        <TextBlock Grid.Row="11"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    VerticalAlignment="Bottom"
