@@ -1,5 +1,8 @@
-﻿using System.Windows.Input;
+﻿using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
+using Norma.Eta;
 using Norma.Eta.Models.Configurations;
 using Norma.Eta.Mvvm;
 
@@ -33,7 +36,21 @@ namespace Norma.ViewModels.Tabs.Options
 
         private void DeleteBrowserCache()
         {
-            // TODO: Delete Browser Caches
+            Task.Run(() =>
+            {
+                // Model なり Service なりでやったほうがいい
+                foreach (var file in Directory.GetFiles(NormaConstants.CefCacheDir, "*", SearchOption.AllDirectories))
+                {
+                    try
+                    {
+                        File.Delete(file);
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                }
+            });
         }
 
         #endregion
