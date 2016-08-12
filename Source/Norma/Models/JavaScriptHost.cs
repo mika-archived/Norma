@@ -47,7 +47,6 @@ namespace Norma.Models
                 DisableChangeChannelByMouseScroll();
             DisableContextMenu();
             InjectCustomCss();
-            ExecutedScripts();
         }
 
         private void CheckShouldExecuteJavaScript()
@@ -64,14 +63,6 @@ if('isLoadedByCef' in this) {
   isLoadedByCef = 1;
   console.log('JavaScript injection enabled.');
 }
-";
-            WrapExecuteScriptAsync(jsCode);
-        }
-
-        private void ExecutedScripts()
-        {
-            const string jsCode = @"
-shouldExecute = false
 ";
             WrapExecuteScriptAsync(jsCode);
         }
@@ -122,6 +113,7 @@ if (shouldExecute) {{
     var head = document.getElementsByTagName('head')[0];
     head.appendChild(style);
     console.log('Injected custom css');
+    shouldExecute = false;
   }};
   setTimeout(injectNormaCustomCss, 500);
 }}";
