@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Norma.Gamma.Models
 {
-    [AppVersion("1.0.42")]
+    [AppVersion("1.0.46")]
     public class Program : IEquatable<Program>
     {
         [JsonProperty("id")]

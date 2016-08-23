@@ -71,7 +71,7 @@ if('isLoadedByCef' in this) {
         private void ExecutedScripts()
         {
             const string jsCode = @"
-shouldExecute = false
+shouldExecute = false;
 ";
             WrapExecuteScriptAsync(jsCode);
         }
@@ -104,7 +104,7 @@ if (shouldExecute) {
 
         private void InjectCustomCss()
         {
-            var css = _configuration.Root.Browser.CustomCss.Replace("\n", "").Replace("'", "\\'");
+            var css = _configuration.Root.Browser.CustomCss.Replace("\n", "").Replace("\r", "").Replace("'", "\\'");
             string jsCode =
                 $@"
 if (shouldExecute) {{
@@ -112,7 +112,6 @@ if (shouldExecute) {{
     var style = document.createElement('style');
     style.media = 'screen';
     style.type = 'text/css';
-
     var rule = document.createTextNode('{css}');
     if (style.styleSheet) {{
       style.styleSheet = rule.nodeValue;
