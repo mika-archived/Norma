@@ -2,6 +2,7 @@
 
 namespace Norma.Gamma.Models
 {
+    [AppVersion("1.0.46")]
     public class SlotAudience
     {
         [JsonProperty("slotId")]

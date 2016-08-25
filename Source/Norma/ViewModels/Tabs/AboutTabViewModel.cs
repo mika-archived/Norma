@@ -1,5 +1,7 @@
 ﻿using System;
 
+using CefSharp;
+
 using Norma.Eta;
 using Norma.Eta.Mvvm;
 using Norma.Models;
@@ -19,5 +21,7 @@ namespace Norma.ViewModels.Tabs
         public string IsSupportToast => $"IsSupportToast = {NormaConstants.IsSupportedToast}";
 
         public string OsVersion => $"OsVersion = {Environment.OSVersion}";
+
+        public string ChromiumVersion => $"ChromiumVersion = {Cef.ChromiumVersion}";
     }
 }

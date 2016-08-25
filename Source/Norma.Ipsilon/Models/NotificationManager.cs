@@ -8,9 +8,9 @@ using DesktopToast;
 
 using Hardcodet.Wpf.TaskbarNotification;
 
+using Norma.Delta.Models;
 using Norma.Eta;
 using Norma.Eta.Properties;
-using Norma.Gamma.Models;
 using Norma.Ipsilon.Notifications;
 using Norma.Ipsilon.Views;
 
@@ -21,12 +21,13 @@ namespace Norma.Ipsilon.Models
 {
     internal static class NotificationManager
     {
-        public static async Task<string> ShowNotification(string title, string body, Slot slot)
+        public static async Task<string> ShowNotification(Slot slot)
         {
+            var body = string.Format(Resources.NoticeSlotRsvBody, slot.Title);
             var result = "";
             if (NormaConstants.IsSupportedToast)
             {
-                var toastXml = ComposeInteractiveToast(title, body, slot);
+                var toastXml = ComposeInteractiveToast(Resources.NoticeSlotRsvTitle, body, slot);
                 var toastRequest = new ToastRequest
                 {
                     ToastXml = toastXml,
@@ -48,7 +49,7 @@ namespace Norma.Ipsilon.Models
                 Dispatcher.CurrentDispatcher.Invoke(() =>
                 {
                     //
-                    Shell.TaskbarIcon.ShowBalloonTip(title, body, BalloonIcon.Info);
+                    Shell.TaskbarIcon.ShowBalloonTip(Resources.NoticeSlotRsvTitle, body, BalloonIcon.Info);
                 });
 
             return result;
@@ -72,7 +73,7 @@ namespace Norma.Ipsilon.Models
             {
                 Buttons =
                 {
-                    new ToastButton(Resources.View, $"action=View&channelId={slot?.ChannelId}")
+                    new ToastButton(Resources.View, $"action=View&channelId={slot?.Channel.ChannelId}")
                     {
                         ActivationType = ToastActivationType.Background
                     },

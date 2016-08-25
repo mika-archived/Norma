@@ -1,42 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+using Microsoft.Practices.ObjectBuilder2;
+using Microsoft.Practices.ServiceLocation;
+
+using Norma.Delta.Models;
+using Norma.Delta.Models.Enums;
+using Norma.Delta.Services;
 using Norma.Eta.Extensions;
 using Norma.Eta.Models;
-using Norma.Eta.Models.Reservations;
-using Norma.Eta.Properties;
-using Norma.Gamma.Models;
-
-using static Norma.Eta.Models.DateTimeHelper;
 
 namespace Norma.Ipsilon.Models
 {
     internal class Notifier : IDisposable
     {
         private readonly CompositeDisposable _compositeDisposable;
-        private readonly Configuration _configuration;
-        private readonly List<Slot> _notifiedSlots;
-        private readonly List<RsvTime> _notifiedTimes;
-        private readonly Reservation _reservation;
-        private readonly Timetable _timetable;
+        private readonly DatabaseService _databaseService;
+        private readonly int _pretime;
+        private readonly List<Slot> _slot;
 
-        private DateTime _lastSyncTime;
-        private List<ChannelSchedule> _todaySchedules;
-
-        public Notifier(Configuration configuration, Timetable timetable, Reservation reservation)
+        public Notifier()
         {
-            _configuration = configuration;
-            _timetable = timetable;
-            _reservation = reservation;
+            var configuration = ServiceLocator.Current.GetInstance<Configuration>();
+            _databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
             _compositeDisposable = new CompositeDisposable();
-            _notifiedSlots = new List<Slot>();
-            _notifiedTimes = new List<RsvTime>();
-            SyncSchedule();
+            _slot = new List<Slot>();
+            _pretime = (int) configuration.Root.Operation.ToastNotificationBeforeMinutes;
         }
 
         #region Implementation of IDisposable
@@ -47,130 +43,98 @@ namespace Norma.Ipsilon.Models
 
         internal void Start()
         {
-            _compositeDisposable.Add(Observable.Timer(TimeSpan.FromSeconds(5), TimeSpanExt.OneSecond)
+            // 10 秒に 1 回チェック
+            _compositeDisposable.Add(Observable.Timer(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(10))
                                                .Subscribe(async w => await Check()));
-            _compositeDisposable.Add(Observable.Timer(TimeSpan.Zero, TimeSpan.FromHours(1))
-                                               .Subscribe(w =>
-                                               {
-                                                   _notifiedSlots.Clear();
-                                                   _notifiedTimes.Clear();
-                                               }));
+            // 1 分に 1 回保存
+            _compositeDisposable.Add(Observable.Timer(TimeSpan.FromSeconds(5), TimeSpan.FromMinutes(1))
+                                               .Subscribe(w => Clear()));
         }
 
         private async Task Check()
         {
-            if (!EqualsWithDates(_lastSyncTime, DateTime.Now))
-                SyncSchedule();
-            var list = new List<Reserve>(); // 複数重なる場合もまぁ
-            foreach (var program in _reservation.RsvsByProgram.Where(w => w.IsEnable))
+            var list = new List<Slot>();
+#if DEBUG
+            var stopwatch = new Stopwatch();
+            stopwatch.Start(); // SQL start
+#endif
+            using (var connection = _databaseService.Connect())
             {
-                if (IsNoticeable(program.StartDate))
-                    list.Add(program);
-            }
-            foreach (var time in _reservation.RsvsByTime.Where(w => w.IsEnable))
-            {
-                if (time.DayOfWeek.IsMatch(DateTime.Now) && IsNoticeable(time.StartTime) &&
-                    IsNoticeableRange(time.Range) && !_notifiedTimes.Contains(time))
-                {
-                    list.Add(time);
-                    _notifiedTimes.Add(time);
-                }
-            }
+                // 予約リスト
+                // SELECT 句の実行自体は、数千件単位のものでも (SELECT + INSERT) で ~ 1s だし、いいかな
+                var reservations = connection.Reservations.Where(w => w.IsEnabled); // Base query
 
-            // Design Guide 的には、まとめたほうがよさ気。
-            foreach (var reserve in list)
-                await Notify(reserve);
-            await KeywordNotify();
-            await Program2Notify();
+                var keywords = reservations.Select(w => w.KeywordReservation).Where(w => w != null).ToList();
+                var time = reservations.Select(w => w.TimeReservation).Where(w => w != null).ToList();
+                var series = reservations.Select(w => w.SeriesReservation).Where(w => w != null).ToList();
+                var slot1 = reservations.Select(w => w.SlotReservation).Where(w => w != null).ToList();
+                var slot2 = reservations.Select(w => w.SlotReservation2).Where(w => w != null).ToList();
+
+                // 予定
+                var now = DateTime.Now;
+                var perTime = DateTime.Now.AddMinutes(_pretime);
+                var slots = connection.Slots.AsNoTracking().Where(w => now <= w.StartAt && w.StartAt <= perTime)
+                                      .Include(w => w.Channel).ToList();
+                foreach (var keyword in keywords)
+                {
+                    if (keyword.IsRegex)
+                        slots.Where(w => new Regex(keyword.Keyword).IsMatch(w.Title)).ForEach(w => _slot.AddIfNotExists(list, w));
+                    else
+                        slots.Where(w => w.Title.Contains(keyword.Keyword)).ForEach(w => _slot.AddIfNotExists(list, w));
+                }
+                foreach (var tr in time)
+                    slots.Where(w => w.StartAt == tr.StartAt)
+                         .Where(w => tr.Repetition.IsMatch(w.StartAt))
+                         .ForEach(w => _slot.AddIfNotExists(list, w));
+                foreach (var st in series)
+                    slots.Where(w => w.Episodes.First().Series.SeriesId == st.Series.SeriesId).ForEach(w => _slot.AddIfNotExists(list, w));
+                foreach (var sr in slot1)
+                    slots.Where(w => w.SlotId == sr.Slot.SlotId).ForEach(w => _slot.AddIfNotExists(list, w));
+                foreach (var sr in slot2)
+                    slots.Where(w => w.SlotId == sr.SlotId).ForEach(w => _slot.AddIfNotExists(list, w));
+            }
+#if DEBUG
+            stopwatch.Stop();
+            Debug.WriteLine(stopwatch.Elapsed.ToString());
+#endif
+            var uniqueList = list.Distinct().ToList();
+            foreach (var slot in uniqueList)
+            {
+                _slot.Add(slot);
+                await NotificationManager.ShowNotification(slot);
+            }
         }
 
-        private async Task Notify(Reserve reserve)
+        private void Clear()
         {
-            string title;
-            string body;
-            Slot slot = null;
-            if (reserve is RsvProgram)
+            using (var connection = _databaseService.Connect())
             {
-                try
-                {
-                    var program = (RsvProgram) reserve;
-                    _reservation.DeleteReservation(program);
-                    foreach (var schedule in _todaySchedules)
-                    {
-                        if (schedule.Slots.Any(w => w.Id == program.ProgramId))
-                            slot = schedule.Slots.Single(w => w.Id == program.ProgramId);
-                    }
-                    title = Resources.NoticeSlotRsvTitle;
-                    body = string.Format(Resources.NoticeSlotRsvBody, slot?.Title);
-                }
-                catch
-                {
-                    // IEnumerable.Single throw
-                    return;
-                }
-            }
-            else
-            {
-                title = Resources.NoticeTimeRsvTitle;
-                body = string.Format(Resources.NoticeTimeRsvBody, ((RsvTime) reserve).StartTime.ToString("t"));
-            }
-            await NotificationManager.ShowNotification(title, body, slot);
-        }
+                var now = DateTime.Now;
+                var reservations = connection.Reservations.Where(w => w.IsEnabled); // Base query
+                var slots = connection.Slots.AsNoTracking().Where(w => w.StartAt <= now).ToList();
 
-        private async Task KeywordNotify()
-        {
-            foreach (var keyword in _reservation.RsvsByKeyword.Where(w => w.IsEnable))
-            {
-                foreach (var schedule in _todaySchedules)
+                var time = reservations.Select(w => w.TimeReservation).Where(w => w != null).ToList();
+                var slot1 = reservations.Select(w => w.SlotReservation).Where(w => w != null).ToList();
+                var slot2 = reservations.Select(w => w.SlotReservation2).Where(w => w != null).ToList();
+                foreach (var tr in time)
                 {
-                    var slots = schedule.Slots.Where(w => keyword.IsRegexMode
-                        ? new Regex(keyword.Keyword).IsMatch(w.Title)
-                        : w.Title.Contains(keyword.Keyword));
-                    foreach (var slot in slots)
-                    {
-                        if (!IsNoticeable(slot.StartAt) || _notifiedSlots.Contains(slot))
-                            continue;
-                        _notifiedSlots.Add(slot);
-                        var title = Resources.NoticeKeywordRsvTitle;
-                        var body = string.Format(Resources.NoticeKeywordRsvBody, keyword.Keyword);
-                        await NotificationManager.ShowNotification(title, body, slot);
-                        return;
-                    }
+                    if (tr.Repetition == Repetition.None && tr.StartAt <= DateTime.Now)
+                        tr.Reservation.IsEnabled = false;
                 }
+                foreach (var sr in slot1)
+                {
+                    if (sr.Slot.StartAt <= DateTime.Now)
+                        sr.Reservation.IsEnabled = false;
+                }
+                foreach (var sr in slot2)
+                {
+                    if (slots.Single(w => w.SlotId == sr.SlotId).StartAt <= DateTime.Now)
+                        sr.Reservation.IsEnabled = false;
+                }
+
+                connection.DetectChanges();
+                connection.SaveChanges();
             }
         }
-
-        private async Task Program2Notify()
-        {
-            foreach (var program in _reservation.RsvByProgram2.Where(w => w.IsEnable))
-            {
-                foreach (var schedule in _todaySchedules)
-                {
-                    var slot = schedule.Slots.SingleOrDefault(w => w.Id == program.ProgramId);
-                    if (slot == null)
-                        continue;
-                    if (!IsNoticeable(slot.StartAt) || _notifiedSlots.Contains(slot))
-                        continue;
-                    _notifiedSlots.Add(slot);
-                    var title = Resources.NoticeKeywordRsvTitle;
-                    var body = string.Format(Resources.NoticeSlotRsvBody, slot.Title);
-                    await NotificationManager.ShowNotification(title, body, slot);
-                    return;
-                }
-            }
-        }
-
-        private void SyncSchedule()
-        {
-            _todaySchedules = _timetable.ChannelSchedules.Where(w => EqualsWithDates(w.Date, DateTime.Today))
-                                        .ToList();
-            _lastSyncTime = DateTime.Now;
-        }
-
-        private bool IsNoticeable(DateTime dateTime)
-            => dateTime >= DateTime.Now &&
-               DateTime.Now >= dateTime.AddMinutes(-_configuration.Root.Operation.ToastNotificationBeforeMinutes);
-
-        private bool IsNoticeableRange(DateRange range) => range.Start <= DateTime.Now && DateTime.Now <= range.Finish;
     }
 }

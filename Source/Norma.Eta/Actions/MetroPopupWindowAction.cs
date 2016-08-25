@@ -15,12 +15,6 @@ namespace Norma.Eta.Actions
     {
         #region Overrides of PopupWindowAction
 
-        protected override void Invoke(object parameter)
-        {
-            base.Invoke(parameter);
-            CenterOverAssociatedObject = true;
-        }
-
         protected override Window GetWindow(INotification notification)
         {
             Window wrapperWindow;
@@ -33,8 +27,8 @@ namespace Norma.Eta.Actions
             }
             else
                 wrapperWindow = CreateDefaultMetroWindow(notification);
-            if (AssociatedObject != null)
-                wrapperWindow.Owner = Window.GetWindow(AssociatedObject);
+            // if (AssociatedObject != null)
+            //     wrapperWindow.Owner = Window.GetWindow(AssociatedObject);
             if (WindowStyle != null)
                 wrapperWindow.Style = WindowStyle;
             if (CenterOverAssociatedObject && AssociatedObject != null)

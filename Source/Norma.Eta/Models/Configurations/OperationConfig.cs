@@ -1,41 +1,37 @@
 ﻿using System.Collections.ObjectModel;
 
-using Newtonsoft.Json;
+using Norma.Eta.Models.Enums;
+
+using Prism.Mvvm;
 
 namespace Norma.Eta.Models.Configurations
 {
-    public class OperationConfig
+    public class OperationConfig : BindableBase
     {
-        [JsonProperty]
-        public uint UpdateIntervalOfProgram { get; set; }
-
-        [JsonProperty]
         public uint UpdateIntervalOfThumbnails { get; set; }
 
-        [JsonProperty]
         public uint ReceptionIntervalOfComments { get; set; }
 
-        [JsonProperty]
         public uint SamplingIntervalOfProgramState { get; set; }
 
-        [JsonProperty]
         public uint NumberOfHoldingComments { get; set; }
 
-        [JsonProperty]
         public PostKey PostKeyType { get; set; }
 
-        [JsonProperty]
         public uint ToastNotificationBeforeMinutes { get; set; }
 
-        [JsonProperty]
         public ObservableCollection<MuteKeyword> MuteKeywords { get; set; }
 
-        [JsonProperty]
         public VideoQuality VideoQuality { get; set; }
+
+        public Branch Branch { get; set; }
+
+        public bool IsAbsoluteTime { get; set; }
+
+        public uint Delay { get; set; }
 
         public OperationConfig()
         {
-            UpdateIntervalOfProgram = 1;
             UpdateIntervalOfThumbnails = 30;
             ReceptionIntervalOfComments = 10;
             SamplingIntervalOfProgramState = 1;
@@ -44,6 +40,22 @@ namespace Norma.Eta.Models.Configurations
             ToastNotificationBeforeMinutes = 5;
             MuteKeywords = new ObservableCollection<MuteKeyword>();
             VideoQuality = VideoQuality.Auto;
+            Branch = Branch.Master;
+            IsAbsoluteTime = true;
+            IsShowFavoriteOnly = false;
+            Delay = 100;
         }
+
+        #region IsShowFavoriteOnly
+
+        private bool _isShowFavoriteOnly;
+
+        public bool IsShowFavoriteOnly
+        {
+            get { return _isShowFavoriteOnly; }
+            set { SetProperty(ref _isShowFavoriteOnly, value); }
+        }
+
+        #endregion
     }
 }

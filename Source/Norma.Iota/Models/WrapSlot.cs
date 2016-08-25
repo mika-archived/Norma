@@ -2,52 +2,64 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Norma.Gamma.Models;
+using Microsoft.Practices.ServiceLocation;
+
+using Norma.Delta.Models;
+using Norma.Delta.Services;
 
 namespace Norma.Iota.Models
 {
     internal class WrapSlot
     {
-        public Slot Model { get; }
+        private readonly Slot _model;
 
-        // 調節
-        public DateTime StartAt { get; }
+        public string Title => _model.Title;
+        public DateTime StartAt => _model.StartAt;
+        public DateTime EndAt => _model.EndAt;
+        public DateTime FixedStartAt { get; }
+        public DateTime FixedEndAt { get; }
+        public string Highlight => string.IsNullOrWhiteSpace(_model.Highlight) ? _model.HighlightDetail : _model.Highlight;
+        public string Description => _model.Description;
 
-        public DateTime EndAt { get; }
-
-        public bool CanRsv { get; }
-
-        public string DetailHighlight { get; }
-
-        public List<string> Cast { get; }
-        public List<string> Staff { get; }
+        public bool CanSlotReservation { get; private set; }
+        public bool CanSeriesReservation { get; private set; }
+        public Channel Channel { get; private set; }
+        public List<string> Casts { get; }
+        public List<string> Crews { get; }
+        public Slot Slot { get; private set; }
+        public Series Series { get; private set; }
+        public string ProgramId { get; private set; }
 
         public WrapSlot(Slot slot, DateTime date)
         {
-            Model = slot;
-            StartAt = Model.StartAt < date ? new DateTime(date.Year, date.Month, date.Day, 0, 0, 0) : Model.StartAt;
-            EndAt = Model.EndAt >= date.AddDays(1)
+            _model = slot;
+            FixedStartAt = _model.StartAt < date ? new DateTime(date.Year, date.Month, date.Day) : _model.StartAt;
+            FixedEndAt = _model.EndAt >= date.AddDays(1)
                 ? new DateTime(date.Year, date.Month, date.Day, 23, 59, 59)
-                : Model.EndAt;
+                : _model.EndAt;
+            Casts = new List<string>();
+            Crews = new List<string>();
+            CanSlotReservation = FixedStartAt > DateTime.Now.AddMinutes(5);
+            if (slot.Channel != null)
+                Channel = slot.Channel;
+        }
 
-            if (Model.Programs.Length > 0)
+        public void RequestDetails()
+        {
+            var databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
+            using (var connection = databaseService.Connect())
             {
-                DetailHighlight = Model.Programs[0].Episode.Overview;
-                Cast = Model.Programs[0].Credit.Cast?.ToList();
-                Staff = Model.Programs[0].Credit.Crews?.ToList();
+                Slot = connection.Slots.Single(w => w.SlotId == _model.SlotId);
+                var firstEpisode = Slot.Episodes.First();
+                firstEpisode.Casts.ToList().ForEach(w => Casts.Add(w.Name));
+                firstEpisode.Crews.ToList().ForEach(w => Crews.Add(w.Name));
+                ProgramId = firstEpisode.EpisodeId;
+                Channel = Slot.Channel;
+                Series = firstEpisode.Series;
+                if (CanSlotReservation)
+                    CanSlotReservation = !connection.SlotReservations.Any(w => w.Slot.SlotId == _model.SlotId);
+                CanSeriesReservation = !connection.SeriesReservations.Any(w => w.Series.SeriesId == Series.SeriesId);
             }
-            else
-            {
-                Cast = new List<string>();
-                Staff = new List<string>();
-                if (!string.IsNullOrWhiteSpace(Model.DetailHighlight))
-                    DetailHighlight = Model.DetailHighlight;
-                else if (!string.IsNullOrWhiteSpace(Model.Highlight))
-                    DetailHighlight = Model.Highlight;
-                else
-                    DetailHighlight = Model.TableHighlight;
-            }
-            CanRsv = StartAt > DateTime.Now.AddMinutes(5);
         }
     }
 }

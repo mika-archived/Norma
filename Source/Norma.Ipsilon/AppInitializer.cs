@@ -6,9 +6,13 @@ using System.Web;
 
 using DesktopToast;
 
+using Microsoft.Practices.ServiceLocation;
+
+using Norma.Delta.Services;
 using Norma.Eta;
 using Norma.Eta.Models;
 using Norma.Eta.Models.Operations;
+using Norma.Eta.Services;
 using Norma.Ipsilon.Models;
 using Norma.Ipsilon.Notifications;
 
@@ -16,23 +20,25 @@ namespace Norma.Ipsilon
 {
     internal static class AppInitializer
     {
-        public static AbemaApiHost AbemaApiHost { get; private set; }
-        public static Configuration Configuration { get; private set; }
-        public static Timetable Timetable { get; private set; }
-        public static ConnectOps ConnectOps { get; private set; }
-
         public static void PreInitialize()
         {
-            Configuration = new Configuration();
-            AbemaApiHost = new AbemaApiHost(Configuration);
-            Timetable = new Timetable(AbemaApiHost);
-            ConnectOps = new ConnectOps();
+            //
         }
 
         public static void Initialize()
         {
-            AbemaApiHost.Initialize();
-            Timetable.Sync();
+            var databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
+            using (var connection = databaseService.Connect())
+            {
+                connection.Initialize();
+                connection.Migration();
+            }
+
+            var abemaApiClient = ServiceLocator.Current.GetInstance<AbemaApiClient>();
+            abemaApiClient.Initialize();
+
+            var timetableService = ServiceLocator.Current.GetInstance<TimetableService>();
+            timetableService.Initialize();
         }
 
         public static void PostInitialize()
@@ -92,7 +98,8 @@ namespace Norma.Ipsilon
                 return;
             var channel = parameters["channelId"];
 
-            ConnectOps.Save(new ChangeChannelOp(channel));
+            var connector = ServiceLocator.Current.GetInstance<ConnectOps>();
+            connector.Save(new ChangeChannelOp(channel));
         }
     }
 }

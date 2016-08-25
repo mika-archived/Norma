@@ -6,18 +6,19 @@ Norma
 [![license](https://img.shields.io/github/license/fuyuno/norma.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/blob/develop/LICENSE)
 
 "Norma" は [AbemaTV](https://abema.tv) の非公式デスクトップアプリケーションです。.  
-[AbemaTV FRESH!](https://abemafresh.tv) は **サポートしていません。**
+[AbemaTV FRESH!](https://abemafresh.tv) は **サポートしていません。**  
+Readme english version is [here](README.en.md).
 
 ## スクリーンショット
-![alt](https://cloud.githubusercontent.com/assets/10832834/15974547/f8aa96f8-2f83-11e6-8db1-5025b9f70b60.PNG)  
-![alt](https://cloud.githubusercontent.com/assets/10832834/15974591/37990d5e-2f84-11e6-9a3d-c84a43093e0c.PNG)
+![alt](https://cloud.githubusercontent.com/assets/10832834/17477982/93b2d1a4-5da3-11e6-9d65-8af8b8d650b3.PNG)  
+![alt](https://cloud.githubusercontent.com/assets/10832834/17478065/40cf7298-5da4-11e6-9203-69df4e8948a2.PNG)
 
 
 ## 必須コンポーネント
 
-* Microsoft .NET Framework 4.6.1
+* Microsoft .NET Framework 4.6+
 * Visual C++ Redistributable Packages for Visual Studio 2013
-* Adobe Flash Player FP 21 for Opera and Chromium - PPAPI
+* Adobe Flash Player FP 21+ for Opera and Chromium - PPAPI
 
 
 ## インストール
@@ -44,7 +45,30 @@ Norma のインストール方法: [Wiki](https://github.com/fuyuno/Norma/wiki/H
 
 
 ## サポート
-Twitter ハッシュタグ [#Norma](https://twitter.com/search?f=tweets&vertical=default&q=%23Norma%20lang%3Aja&src=typd) でつぶやくか、メンションで反応します。
+Twitter ハッシュタグ [#Norma](https://twitter.com/search?f=tweets&vertical=default&q=%23Norma%20lang%3Aja&src=typd) でつぶやくか、メンションで反応します。  
+
+### サポート対象
+#### Norma
+
+| Version | Status      |
+| ------- | ----------- |
+| 2.0     | Support     |
+| 1.4     | Support     |
+| 1.3     | Unsupported |
+| 1.2     | Unsupported |
+| 1.1     | Unsupported |
+| 1.0     | Unsupported |
+
+
+#### Windows
+
+| OS          | Version      | Status      |
+| ----------- | ------------ | ----------- |
+| Windows 10  | 1607         | Support     |
+| Windows 10  | 1511         | Unsupported |
+| Windows 10  |              | Unsupported |
+| Windows 8.1 | --           | Support     |
+| Windows 7   | --           | Unsupported | 
 
 
 ## References
@@ -62,8 +86,3 @@ Very thanks!
 3. Commit your changes (`git commit -am "Add new feature"`)
 4. Push to the branch (`git push origin HEAD`)
 5. Open a [Pull Request](https://github.com/fuyuno/Norma/pulls)
-
-
-## Warning
-**何かしら問題があれば、私(@fuyuno)まで連絡をお願いします。**  
-**すべての成果物、ソースコード、リポジトリを削除いたします。**

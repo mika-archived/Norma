@@ -1,33 +1,42 @@
 ﻿using MetroRadiance.UI;
 
+using Newtonsoft.Json;
+
+using Norma.Eta.Models.Enums;
+
 using Prism.Mvvm;
 
 using ColorTheme = MetroRadiance.UI.Theme;
-using ThemeColor = MetroRadiance.UI.Theme.SpecifiedColor;
 
 namespace Norma.Eta.Models.Configurations
 {
     public class OthersConfig : BindableBase
     {
+        [JsonProperty]
+        public bool IsEnabledExperimentalFeatures { get; set; }
+
         public OthersConfig()
         {
-            Theme = ThemeColor.Dark;
+            Theme = UITheme.Dark;
+            IsEnabledExperimentalFeatures = false;
         }
 
-        private ColorTheme GetThemeFromSpecifiedColor(ThemeColor color)
-            => color == ThemeColor.Dark ? ColorTheme.Dark : ColorTheme.Light;
+        private ColorTheme GetThemeFromSpecifiedColor(UITheme color)
+            => color == UITheme.Dark ? ColorTheme.Dark : (color == UITheme.Light ? ColorTheme.Light : ColorTheme.Windows);
 
         #region Theme
 
-        private ThemeColor _theme;
+        private UITheme _theme;
 
-        public ThemeColor Theme
+        public UITheme Theme
         {
             get { return _theme; }
             set
             {
-                if (SetProperty(ref _theme, value))
-                    ThemeService.Current.ChangeTheme(GetThemeFromSpecifiedColor(value));
+                if (!SetProperty(ref _theme, value))
+                    return;
+                ThemeService.Current.ChangeTheme(GetThemeFromSpecifiedColor(value));
+                ThemeService.Current.ChangeAccent(Theme == UITheme.Windows ? Accent.Windows : Accent.Blue);
             }
         }
 

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reactive.Linq;
 
 using CefSharp;
 using CefSharp.Wpf;
 
+using Microsoft.Practices.ServiceLocation;
+
 using Norma.Eta.Models;
 using Norma.Eta.Properties;
+using Norma.Eta.Services;
 
 using Prism.Mvvm;
 
@@ -15,117 +19,112 @@ namespace Norma.Models
     // Not support features are:
     //  * CM related features.
     //  * Comment related features.
-    internal class JavaScriptHost : BindableBase, IDisposable
+    internal class JavaScriptHost : BindableBase
     {
         private readonly Configuration _configuration;
+        private readonly StatusService _statusService;
         private readonly IWpfWebBrowser _wpfWebBrowser;
-        // private IDisposable _disposable;
 
-        public string Address { get; set; }
-
-        public JavaScriptHost(IWpfWebBrowser wpfWebBrowser, Configuration configuration)
+        public JavaScriptHost(IWpfWebBrowser wpfWebBrowser)
         {
             _wpfWebBrowser = wpfWebBrowser;
-            _configuration = configuration;
-            Address = "";
+            _configuration = ServiceLocator.Current.GetInstance<Configuration>();
+            _statusService = ServiceLocator.Current.GetInstance<StatusService>();
             _wpfWebBrowser.ConsoleMessage += (sender, e) => Debug.WriteLine("[Chromium]" + e.Message);
             _wpfWebBrowser.FrameLoadEnd += (sender, e) =>
             {
-                if (!Address.StartsWith("https://abema.tv/now-on-air/"))
+                if (!e.Url.StartsWith("https://abema.tv/now-on-air/"))
                     return;
-                Run();
+                var delay = (double) _configuration.Root.Operation.Delay;
+                Observable.Return(0).Delay(TimeSpan.FromMilliseconds(delay)).Subscribe(w => Run());
             };
         }
 
-        #region Implementation of IDisposable
-
-        public void Dispose()
-        {
-            // _disposable?.Dispose();
-        }
-
-        #endregion
-
         private void Run()
         {
+            CheckShouldExecuteJavaScript();
             if (_configuration.Root.Browser.DisableChangeChannelByMouseWheel)
                 DisableChangeChannelByMouseScroll();
             DisableContextMenu();
-            if (_configuration.Root.Browser.HiddenHeaderControls)
-                HideTvContainerHeader();
-            if (_configuration.Root.Browser.HiddenFooterControls)
-                HideTvContainerFooter();
-            if (_configuration.Root.Browser.HiddenSideControls)
-                HideTvContainerSide();
+            InjectCustomCss();
+            ExecutedScripts();
+        }
+
+        private void CheckShouldExecuteJavaScript()
+        {
+            const string jsCode = @"
+if (!('shouldExecute' in this)) {
+  console.log('Initialize');
+  var shouldExecute = false;
+}
+if('isLoadedByCef' in this) {
+  console.log('JavaScript already is injected.');
+} else {
+  shouldExecute = true;
+  isLoadedByCef = 1;
+  console.log('JavaScript injection enabled.');
+}
+";
+            WrapExecuteScriptAsync(jsCode);
+        }
+
+        private void ExecutedScripts()
+        {
+            const string jsCode = @"
+shouldExecute = false;
+";
+            WrapExecuteScriptAsync(jsCode);
         }
 
         private void DisableChangeChannelByMouseScroll()
         {
             const string jsCode = @"
-window.addEventListener('mousewheel', function(e) {
-  e.stopImmediatePropagation();
-}, true);
+if (shouldExecute) {
+  window.addEventListener('mousewheel', function(e) {
+    e.stopImmediatePropagation();
+  }, true);
+}
 ";
-            StatusInfo.Instance.Text = Resources.DisableChangeChannelByMouseWheel;
+            _statusService.UpdateStatus(Resources.DisableChangeChannelByMouseWheel);
             WrapExecuteScriptAsync(jsCode);
         }
 
         private void DisableContextMenu()
         {
             const string jsCode = @"
-window.addEventListener('contextmenu', function(e) {
-  e.preventDefault();
-}, true);
+if (shouldExecute) {
+  window.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  }, true);
+}
 ";
-            StatusInfo.Instance.Text = Resources.DisableContextMenu;
+            _statusService.UpdateStatus(Resources.DisableContextMenu);
             WrapExecuteScriptAsync(jsCode);
         }
 
-        private void HideTvContainerHeader()
+        private void InjectCustomCss()
         {
-            const string jsCode = @"
-function cs_HideTvContainerHeader() {
-  var appContainerHeader = window.document.querySelector('[class^=""AppContainer__header-container___""]');
-  if (appContainerHeader == null) {
-    return;
-  }
-  appContainerHeader.style.display = 'none';
-};
-setTimeout(cs_HideTvContainerHeader, 500);
-";
-            StatusInfo.Instance.Text = Resources.HiddenHeaderControls;
-            WrapExecuteScriptAsync(jsCode);
-        }
-
-        private void HideTvContainerFooter()
-        {
-            const string jsCode = @"
-function cs_HideTvContainerFooter() {
-  var appContainerFooter = window.document.querySelector('[class^=""TVContainer__footer-container___""]');
-  if (appContainerFooter == null) {
-    return;
-  }
-  appContainerFooter.style.display = 'none';
-};
-setTimeout(cs_HideTvContainerFooter, 500);
-";
-            StatusInfo.Instance.Text = Resources.HiddenFooterControls;
-            WrapExecuteScriptAsync(jsCode);
-        }
-
-        private void HideTvContainerSide()
-        {
-            const string jsCode = @"
-function cs_HideTvContainerSide() {
-  var appContainerSide = window.document.querySelector('[class^=""TVContainer__side___""]');
-  if (appContainerSide == null) {
-    return;
-  }
-  appContainerSide.style.display = 'none';
-};
-setTimeout(cs_HideTvContainerSide, 500);
-";
-            StatusInfo.Instance.Text = Resources.HiddenSideControls;
+            var css = _configuration.Root.Browser.CustomCss.Replace("\n", "").Replace("\r", "").Replace("'", "\\'");
+            string jsCode =
+                $@"
+if (shouldExecute) {{
+  function injectNormaCustomCss() {{
+    var style = document.createElement('style');
+    style.media = 'screen';
+    style.type = 'text/css';
+    var rule = document.createTextNode('{css}');
+    if (style.styleSheet) {{
+      style.styleSheet = rule.nodeValue;
+    }} else {{
+      style.appendChild(rule);
+    }}
+    var head = document.getElementsByTagName('head')[0];
+    head.appendChild(style);
+    console.log('Injected custom css');
+  }};
+  setTimeout(injectNormaCustomCss, 500);
+}}";
+            _statusService.UpdateStatus(Resources.InjectCss);
             WrapExecuteScriptAsync(jsCode);
         }
 

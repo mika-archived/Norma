@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 
-using Orientation = Norma.Iota.Models.Orientation;
+using Orientation = Norma.Iota.Models.Enums.Orientation;
 
 namespace Norma.Iota.Behaviors
 {

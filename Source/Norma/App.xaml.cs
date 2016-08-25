@@ -58,7 +58,6 @@ namespace Norma
         {
             _isHandled = true;
 
-            // TODO: ApplicationInsights とかで。
             var path = Path.Combine(NormaConstants.CrashReportsDir,
                                     $"{DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss")}.log");
             var sb = new StringBuilder();

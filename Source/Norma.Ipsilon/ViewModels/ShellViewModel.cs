@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Input;
 
 using Norma.Eta;
-using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
 using Norma.Ipsilon.Models;
 
@@ -18,9 +17,9 @@ namespace Norma.Ipsilon.ViewModels
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly Notifier _notifier;
 
-        public ShellViewModel(Configuration configuration, Timetable timetable, Reservation reservation)
+        public ShellViewModel()
         {
-            _notifier = new Notifier(configuration, timetable, reservation).AddTo(this);
+            _notifier = new Notifier().AddTo(this);
             _notifier.Start();
         }
 

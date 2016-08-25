@@ -17,7 +17,7 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
-                <Style d:DataContext="{d:DesignInstance vm:ProgramCellViewModel}"
+                <Style d:DataContext="{d:DesignInstance vm:EpisodeCellViewModel}"
                        TargetType="{x:Type ContentPresenter}">
                     <Setter Property="Canvas.Top" Value="{Binding Top, Mode=OneTime}" />
                     <Setter Property="Height" Value="{Binding Height, Mode=OneTime}" />

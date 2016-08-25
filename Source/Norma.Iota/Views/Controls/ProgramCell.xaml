@@ -6,7 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:vm="clr-namespace:Norma.Iota.ViewModels.Controls"
-             d:DataContext="{d:DesignInstance vm:ProgramCellViewModel}"
+             d:DataContext="{d:DesignInstance vm:EpisodeCellViewModel}"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -32,7 +32,7 @@
                 <TextBlock FontWeight="Bold"
                            Text="{Binding Title}"
                            TextWrapping="Wrap" />
-                <TextBlock Text="{Binding Description}"
+                <TextBlock Text="{Binding Highlight}"
                            TextTrimming="CharacterEllipsis"
                            TextWrapping="Wrap" />
             </StackPanel>

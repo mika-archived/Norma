@@ -2,6 +2,7 @@
 using System.Windows.Input;
 
 using Norma.Eta.Models;
+using Norma.Eta.Models.Enums;
 using Norma.Eta.Mvvm;
 using Norma.Models;
 
@@ -13,12 +14,13 @@ namespace Norma.ViewModels.Controls
 {
     internal class AbemaCommentInputViewModel : ViewModel
     {
-        private readonly AbemaApiHost _abemaApiHost;
+        private readonly AbemaApiClient _abemaApiHost;
         private readonly AbemaState _abemaState;
         private readonly Configuration _configuration;
         public ReactiveProperty<string> Comment { get; }
 
-        public AbemaCommentInputViewModel(AbemaApiHost abemaApiHost, AbemaState abemaState, Configuration configuration)
+        public AbemaCommentInputViewModel(AbemaApiClient abemaApiHost, AbemaState abemaState,
+                                          Configuration configuration)
         {
             _abemaApiHost = abemaApiHost;
             _abemaState = abemaState;
@@ -36,11 +38,11 @@ namespace Norma.ViewModels.Controls
 
         private async void Send()
         {
-            await _abemaApiHost.Comment(_abemaState.CurrentSlot.Id, Comment.Value);
+            await _abemaApiHost.Comment(_abemaState.CurrentSlot.SlotId, Comment.Value);
             Comment.Value = "";
         }
 
-        private bool CanSend() => !string.IsNullOrWhiteSpace(Comment.Value);
+        private bool CanSend() => !string.IsNullOrWhiteSpace(Comment.Value) && _abemaState.CurrentEpisode != null;
 
         #endregion
 

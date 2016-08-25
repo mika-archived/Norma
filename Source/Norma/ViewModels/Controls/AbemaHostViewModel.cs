@@ -1,13 +1,20 @@
-﻿using CefSharp;
+﻿using System;
+using System.Linq;
+using System.Reactive.Linq;
+using System.Threading;
+
+using CefSharp;
 using CefSharp.Wpf;
 
 using Newtonsoft.Json.Linq;
 
-using Norma.Eta.Models;
+using Norma.Delta.Services;
+using Norma.Eta.Models.Enums;
 using Norma.Eta.Models.Operations;
 using Norma.Eta.Mvvm;
-using Norma.Gamma.Models;
 using Norma.Models;
+
+using Reactive.Bindings.Extensions;
 
 namespace Norma.ViewModels.Controls
 {
@@ -15,19 +22,24 @@ namespace Norma.ViewModels.Controls
     internal class AbemaHostViewModel : ViewModel, IOperationRequestAware, INetworkCaptureRequestAware
     {
         private readonly AbemaState _abemaState;
-        private readonly Configuration _configuration;
-        private readonly Reservation _reservation;
+        private readonly DatabaseService _databaseService;
+        private readonly ReservationService _reservationService;
         private JavaScriptHost _javaScritHost;
 
-        public AbemaHostViewModel(AbemaState abemaState, Configuration configuration, Connector connector,
-                                  Reservation reservation, NetworkHandler networkHandler)
+        public AbemaHostViewModel(AbemaState abemaState, Connector connector, DatabaseService databaseService,
+                                  NetworkHandler networkHandler, ReservationService reservationService)
         {
             _abemaState = abemaState;
-            _configuration = configuration;
-            _reservation = reservation;
+            _databaseService = databaseService;
+            _reservationService = reservationService;
+
+            _abemaState.ObserveProperty(w => w.CurrentChannel)
+                       .Where(w => w != null)
+                       .SubscribeOnUIDispatcher()
+                       .Subscribe(w => Address = $"https://abema.tv/now-on-air/{w.ChannelId}");
             connector.RegisterInsance<ChangeChannelOp>(this);
             networkHandler.RegisterInstance(this, e => e.Url.EndsWith("/slotReservations"));
-            Address = $"https://abema.tv/now-on-air/{configuration.Root.LastViewedChannel.ToUrlString()}";
+            Address = $"https://abema.tv/now-on-air/abema-news";
         }
 
         #region Implementation of INetworkCaptureRequestAware
@@ -36,7 +48,7 @@ namespace Norma.ViewModels.Controls
         {
             dynamic json = JObject.Parse(e.Contents);
             var id = (string) json.slotReservations[0].slotId;
-            _reservation.AddReservation(new Slot {Id = id});
+            _reservationService.InsertSlotReservation2(id);
         }
 
         #endregion
@@ -46,8 +58,14 @@ namespace Norma.ViewModels.Controls
         public void Invoke(IOperation operation)
         {
             var args = operation as ChangeChannelOp;
-            var channel = AbemaChannelExt.FromUrlString(args?.Context.ToString()).ToUrlString();
-            Address = $"https://abema.tv/now-on-air/{channel}";
+            var channel = AbemaChannelExt.ToIdentifier(args?.Context.ToString());
+            do
+            {
+                Thread.Sleep(TimeSpan.FromMilliseconds(100));
+            }
+            while (_javaScritHost == null);
+            using (var connection = _databaseService.Connect())
+                _abemaState.CurrentChannel = connection.Channels.AsNoTracking().Single(w => w.ChannelId == channel);
         }
 
         #endregion
@@ -56,8 +74,7 @@ namespace Norma.ViewModels.Controls
         {
             if (WebBrowser == null)
                 return;
-            _javaScritHost = new JavaScriptHost(WebBrowser, _configuration).AddTo(this);
-            _javaScritHost.Address = Address; // Initialize
+            _javaScritHost = new JavaScriptHost(WebBrowser);
         }
 
         #region Overrides of ViewModel
@@ -95,13 +112,7 @@ namespace Norma.ViewModels.Controls
         public string Address
         {
             get { return _address; }
-            set
-            {
-                if (!SetProperty(ref _address, value) || _javaScritHost == null)
-                    return;
-                _javaScritHost.Address = value;
-                _abemaState.OnChannelChanged(value);
-            }
+            set { SetProperty(ref _address, value); }
         }
 
         #endregion

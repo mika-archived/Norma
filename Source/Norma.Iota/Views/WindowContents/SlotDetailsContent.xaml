@@ -11,8 +11,6 @@
              xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
              xmlns:vm="clr-namespace:Norma.Iota.ViewModels.WindowContents"
              d:DataContext="{d:DesignInstance vm:SlotDetailsContentViewModel}"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
     <i:Interaction.Triggers>
@@ -28,28 +26,11 @@
                     </Style>
                 </actions:MetroPopupWindowAction.WindowStyle>
                 <actions:MetroPopupWindowAction.WindowContent>
-                    <local:RsvDetailsContent />
-                </actions:MetroPopupWindowAction.WindowContent>
-            </actions:MetroPopupWindowAction>
-        </prism:InteractionRequestTrigger>
-        <prism:InteractionRequestTrigger SourceObject="{Binding DetailsRsvRequest, Mode=OneWay}">
-            <actions:MetroPopupWindowAction CenterOverAssociatedObject="True"
-                                            IsModal="True">
-                <actions:MetroPopupWindowAction.WindowStyle>
-                    <Style TargetType="{x:Type metro:MetroWindow}">
-                        <Setter Property="ResizeMode" Value="NoResize" />
-                        <Setter Property="ShowInTaskbar" Value="False" />
-                        <Setter Property="Height" Value="225" />
-                        <Setter Property="Width" Value="300" />
-                    </Style>
-                </actions:MetroPopupWindowAction.WindowStyle>
-                <actions:MetroPopupWindowAction.WindowContent>
-                    <local:DetailsRsvContent />
+                    <local:ReservationResultContent />
                 </actions:MetroPopupWindowAction.WindowContent>
             </actions:MetroPopupWindowAction>
         </prism:InteractionRequestTrigger>
     </i:Interaction.Triggers>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -169,14 +150,14 @@
         <Grid Grid.Row="2">
             <StackPanel HorizontalAlignment="Right"
                         Orientation="Horizontal">
-                <Button Width="90"
+                <Button Width="120"
                         Margin="5"
-                        Command="{Binding AddReservationCommand}"
-                        Content="{x:Static properties:Resources.ViewingRsv}" />
-                <Button Width="90"
+                        Command="{Binding RegisterSlotReservationCommand}"
+                        Content="{x:Static properties:Resources.SlotReservation}" />
+                <Button Width="120"
                         Margin="5"
-                        Command="{Binding AddDetailsRsvCommand}"
-                        Content="{x:Static properties:Resources.ViewingDRsv}" />
+                        Command="{Binding RegisterSeriesReservationCommand}"
+                        Content="{x:Static properties:Resources.SeriesReservation}" />
             </StackPanel>
         </Grid>
     </Grid>

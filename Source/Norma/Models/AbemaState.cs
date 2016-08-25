@@ -1,74 +1,128 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
+using Norma.Delta.Services;
+using Norma.Eta.Extensions;
+using Norma.Eta.Filters;
+using Norma.Eta.Helpers;
 using Norma.Eta.Models;
 using Norma.Gamma.Models;
 
 using Prism.Mvvm;
 
+using Channel = Norma.Delta.Models.Channel;
+using Episode = Norma.Delta.Models.Episode;
+using Slot = Norma.Delta.Models.Slot;
+
 namespace Norma.Models
 {
-    internal class AbemaState : BindableBase
+    // ReSharper disable once ClassNeverInstantiated.Global
+    internal class AbemaState : BindableBase, INetworkCaptureRequestAware
     {
-        private readonly AbemaApiHost _abemaApiHost;
+        private readonly AbemaApiClient _abemaApiHost;
         private readonly Configuration _configuration;
-        private readonly Timetable _timetable;
-        private IDisposable _disposable;
+        private readonly DatabaseService _databaseService;
+        private readonly IDisposable _disposable;
 
-        public AbemaState(AbemaApiHost abemaApiHost, Configuration configuration, Timetable timetable)
+        private readonly List<IFilter> _filters = new List<IFilter>
+        {
+            new MBToSBFilter(),
+            new CopyrightFilter(),
+            new RoleFilter(),
+            new InvalidBracesFilter(),
+            new BracesFilter(),
+            new SpaceFilter(),
+            new EmptyFilter(),
+            new SeparatorFilter()
+        };
+
+        private string _slotId = "";
+
+        public AbemaState(AbemaApiClient abemaApiHost, Configuration configuration, DatabaseService databaseService,
+                          NetworkHandler networkHandler)
         {
             _abemaApiHost = abemaApiHost;
             _configuration = configuration;
-            _timetable = timetable;
-            CurrentChannel = configuration.Root.LastViewedChannel;
+            _databaseService = databaseService;
+            using (var connector = databaseService.Connect())
+                CurrentChannel = connector.Channels.SingleOrDefault(w => w.ChannelId == _configuration.Root.LastViewedChannelStr);
+            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(1)).Subscribe(w => SyncEpisode());
+            networkHandler.RegisterInstance(this, w => w.Url.StartsWith("https://api.abema.io/v1/slotAudience?"));
         }
 
-        public void Start()
+        #region Implementation of INetworkCaptureRequestAware
+
+        public void OnRequestHandling(NetworkEventArgs e)
         {
-            var val = _configuration.Root.Operation.UpdateIntervalOfProgram;
-            _disposable =
-                Observable.Timer(TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
+            var slotId = UrlHelper.ParseQuery(e.Url)["slotId"];
+            if (_slotId == slotId)
+                return;
+            _slotId = slotId;
+            Observable.Return(0).Subscribe(async w => await SyncProgram());
         }
+
+        #endregion
 
         ~AbemaState()
         {
             _disposable.Dispose();
         }
 
-        public void OnChannelChanged(string url)
+        private void OnChangedChannel()
         {
-            _disposable.Dispose();
-            _configuration.Root.LastViewedChannel = CurrentChannel = AbemaChannelExt.FromUrlString(url);
-            var val = _configuration.Root.Operation.UpdateIntervalOfProgram;
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpan.FromSeconds(val)).Subscribe(async w => await Sync());
+            _configuration.Root.LastViewedChannelStr = CurrentChannel.ChannelId;
+            CurrentSlot = null;
+            CurrentEpisode = null;
+            _slotId = null;
         }
 
-        private async Task Sync()
+        private async Task SyncProgram()
         {
             try
             {
-                var schedule = _timetable.ChannelSchedules.First(w => w.ChannelId == CurrentChannel.ToUrlString());
-                var currentSlot =
-                    schedule.Slots.SingleOrDefault(w => w.StartAt <= DateTime.Now && DateTime.Now <= w.EndAt);
+                Slot currentSlot;
+                using (var connection = _databaseService.Connect())
+                {
+                    // このクエリだけ Lazy Loading を Off にしておく(SQLite だと Include 連結できない)
+                    connection.TurnOffLazyLoading();
+                    // ReSharper disable once ReplaceWithSingleCallToFirstOrDefault
+                    currentSlot = connection.Slots.AsNoTracking()
+                                            .Where(w => w.SlotId == _slotId)
+                                            .Include(w => w.Episodes)
+                                            .FirstOrDefault();
+                }
                 if (currentSlot == null)
                 {
-                    CurrentProgram = null;
+                    CurrentSlot = null;
+                    CurrentEpisode = null;
                     return;
                 }
-                var currentDetail = await _abemaApiHost.CurrentSlot(currentSlot.Id);
-                CurrentSlot = currentDetail?.Id == null ? currentSlot : currentDetail;
-                var perTime = (CurrentSlot.EndAt - CurrentSlot.StartAt).TotalSeconds / CurrentSlot.Programs.Length;
-                var count = 0;
-                while (!(CurrentSlot.StartAt.AddSeconds(perTime * count) <= DateTime.Now &&
-                         DateTime.Now <= CurrentSlot.StartAt.AddSeconds(perTime * ++count))) {}
 
-                --count;
-                if (count < 0 || count >= CurrentSlot.Programs.Length)
-                    return;
-                CurrentProgram = CurrentSlot.Programs[count];
+                var currentDetail = await _abemaApiHost.CurrentSlot(currentSlot.SlotId);
+                if (currentSlot.Episodes.Count != currentDetail.Programs.Length)
+                {
+                    // Ep.2 ~ を更新
+                    UpdateEpisode(currentSlot, currentDetail.Programs);
+                }
+                // キャスト情報などを更新
+                using (var connection = _databaseService.Connect())
+                {
+                    foreach (var episode in currentSlot.Episodes)
+                    {
+                        var dbEpisode = connection.Episodes.Single(w => w.EpisodeId == episode.EpisodeId);
+                        episode.Casts = dbEpisode.Casts.ToList();
+                        episode.Crews = dbEpisode.Crews.ToList();
+                        episode.Thumbnails = dbEpisode.Thumbnails.ToList();
+                    }
+                }
+                CurrentSlot = currentSlot;
+
+                SyncEpisode();
             }
             catch (Exception e)
             {
@@ -76,14 +130,77 @@ namespace Norma.Models
             }
         }
 
+        private void SyncEpisode()
+        {
+            if (CurrentSlot == null)
+                return;
+            var episodes = CurrentSlot.Episodes.Count;
+            var perTime = (CurrentSlot.EndAt - CurrentSlot.StartAt).TotalSeconds / episodes;
+            var count = 0;
+            while (!(CurrentSlot.StartAt.AddSeconds(perTime * count) <= DateTime.Now &&
+                     DateTime.Now <= CurrentSlot.StartAt.AddSeconds(perTime * ++count))) {}
+
+            --count;
+            if (count < 0 || count >= episodes)
+                return;
+            CurrentEpisode = CurrentSlot.Episodes.OrderBy(w => w.Sequence).Skip(count).First();
+        }
+
+        private void UpdateEpisode(Slot slot, Program[] programs)
+        {
+            using (var connection = _databaseService.Connect())
+            {
+                var episodes = new List<Episode>();
+                var episodeList = connection.Episodes.ToList();
+                var castList = connection.Casts.ToList();
+                var copyRightList = connection.Copyrights.ToList();
+                var crewList = connection.Crews.ToList();
+                var seriesList = connection.Series.ToList();
+                foreach (var rawEpisode in programs.Skip(1))
+                {
+                    if (episodeList.Any(w => w.EpisodeId == rawEpisode.Id))
+                        episodes.Add(episodeList.Single(w => w.EpisodeId == rawEpisode.Id));
+                    else
+                    {
+                        var episode = rawEpisode.ConvertToEpisode();
+                        if (rawEpisode.Credit.Cast != null)
+                            foreach (var cast in rawEpisode.Credit.Cast.Select(Filter))
+                                episode.Casts.Add(castList.Single(w => w.Name == cast));
+                        if (rawEpisode.Credit.Copyrights != null)
+                            foreach (var copyright in rawEpisode.Credit.Copyrights.Select(Filter))
+                                episode.Copyrights.Add(copyRightList.Single(w => w.Name == copyright));
+                        if (rawEpisode.Credit.Crews != null)
+                            foreach (var crew in rawEpisode.Credit.Crews.Select(Filter))
+                                episode.Crews.Add(crewList.Single(w => w.Name == crew));
+                        foreach (var thumbnail in rawEpisode.ProvidedInfo.ConvertToThumbnail())
+                            episode.Thumbnails.Add(thumbnail);
+                        episode.Series = seriesList.SingleOrDefault(w => w.SeriesId == rawEpisode.Series.Id);
+                        episodes.Add(episode);
+                    }
+                }
+                episodes.ForEach(w => episodeList.AddIfNotExists(connection.Episodes, w, v => v.EpisodeId == w.EpisodeId));
+                episodes.ForEach(w => connection.Slots.Single(v => v.SlotId == slot.SlotId).Episodes.Add(w));
+                connection.DetectChanges();
+                connection.SaveChanges();
+
+                episodes.ForEach(w => slot.Episodes.Add(w));
+            }
+        }
+
+        private string Filter(string str) => _filters.Aggregate(str, (current, filter) => filter.Call(current));
+
         #region CurrentChannel
 
-        private AbemaChannel _currentChannel;
+        private Channel _currentChannel;
 
-        public AbemaChannel CurrentChannel
+        public Channel CurrentChannel
         {
             get { return _currentChannel; }
-            private set { SetProperty(ref _currentChannel, value); }
+            set
+            {
+                if (SetProperty(ref _currentChannel, value))
+                    OnChangedChannel();
+            }
         }
 
         #endregion
@@ -100,14 +217,14 @@ namespace Norma.Models
 
         #endregion
 
-        #region CurrentProgram
+        #region CurrentEpisode
 
-        private Program _currentProgram;
+        private Episode _currentEpisode;
 
-        public Program CurrentProgram
+        public Episode CurrentEpisode
         {
-            get { return _currentProgram; }
-            private set { SetProperty(ref _currentProgram, value); }
+            get { return _currentEpisode; }
+            private set { SetProperty(ref _currentEpisode, value); }
         }
 
         #endregion

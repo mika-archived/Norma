@@ -8,7 +8,6 @@ namespace Norma.Eta.Models
 {
     // ops.json を介して通信
     // セキュリティ的にどうなんじゃろ
-    // TODO: Server(Norma.exe), Client(Norma.Ipsilon.exe) みたいな感じで実装したい。
     public class ConnectOps
     {
         public IOperation Operation { get; private set; }

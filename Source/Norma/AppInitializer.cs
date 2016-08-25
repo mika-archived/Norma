@@ -4,8 +4,12 @@ using System.Windows;
 
 using MetroRadiance.UI;
 
+using Microsoft.Practices.ServiceLocation;
+
+using Norma.Delta.Services;
 using Norma.Eta;
 using Norma.Eta.Models;
+using Norma.Eta.Services;
 using Norma.Models;
 using Norma.Models.Browser;
 using Norma.Views;
@@ -18,14 +22,6 @@ namespace Norma
     internal static class AppInitializer
     {
         private static StartupScreen _startupScreen;
-        public static AbemaApiHost AbemaApiHost { get; private set; }
-        public static AbemaState AbemaState { get; private set; }
-        public static Configuration Configuration { get; private set; }
-        public static Timetable Timetable { get; private set; }
-        public static ConnectOps ConnectOps { get; private set; }
-        public static Connector Connector { get; private set; }
-        public static Reservation Reservation { get; private set; }
-        public static NetworkHandler NetworkHandler { get; private set; }
 
         /// <summary>
         ///     PreInitialize is called by Application host.
@@ -33,23 +29,11 @@ namespace Norma
         /// <param name="application"></param>
         public static void PreInitialize(Application application)
         {
-            _startupScreen = new StartupScreen();
-            _startupScreen.Show();
-
             if (!Directory.Exists(NormaConstants.CrashReportsDir))
                 Directory.CreateDirectory(NormaConstants.CrashReportsDir);
 
             CefSetting.Init();
             ThemeService.Current.Register(application, Theme.Dark, Accent.Blue);
-
-            Configuration = new Configuration();
-            AbemaApiHost = new AbemaApiHost(Configuration);
-            Timetable = new Timetable(AbemaApiHost);
-            AbemaState = new AbemaState(AbemaApiHost, Configuration, Timetable);
-            ConnectOps = new ConnectOps();
-            Connector = new Connector(ConnectOps);
-            Reservation = new Reservation(Timetable);
-            NetworkHandler = new NetworkHandler();
         }
 
         /// <summary>
@@ -57,11 +41,25 @@ namespace Norma
         /// </summary>
         public static void Initialize()
         {
-            AbemaApiHost.Initialize();
-            Timetable.Sync();
-            Timetable.Start();
-            Reservation.Cleanup();
-            AbemaState.Start();
+            _startupScreen = new StartupScreen();
+            _startupScreen.Show();
+
+            var updater = new Updater(ServiceLocator.Current.GetInstance<Configuration>());
+            if (updater.IsPublishedUpdate())
+                updater.Update();
+
+            var databaseService = ServiceLocator.Current.GetInstance<DatabaseService>();
+            using (var connection = databaseService.Connect())
+            {
+                connection.Initialize();
+                connection.Migration();
+            }
+
+            var abemaApiClient = ServiceLocator.Current.GetInstance<AbemaApiClient>();
+            abemaApiClient.Initialize();
+
+            var timetableService = ServiceLocator.Current.GetInstance<TimetableService>();
+            timetableService.Initialize();
         }
 
         /// <summary>

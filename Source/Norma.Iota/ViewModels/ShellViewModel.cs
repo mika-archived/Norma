@@ -2,94 +2,90 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Input;
 
-using Norma.Eta.Extensions;
-using Norma.Eta.Models;
+using Norma.Delta.Services;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Notifications;
+using Norma.Iota.Models;
 using Norma.Iota.ViewModels.Controls;
 
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
+
+using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 
 namespace Norma.Iota.ViewModels
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     internal class ShellViewModel : ViewModel
     {
-        private readonly Timetable _timetable;
-        private int _index; // 日付管理用(0 = 今日, 6 = 一週間後みたいな)
-        public ObservableCollection<ChannelCellViewModel> Channels { get; }
-        public List<string> AvailableDates { get; }
+        private readonly DayTable _dayTable;
+        private readonly List<IDisposable> _disposables;
+        private readonly SearchTable _searchTable;
+        public ReadOnlyObservableCollection<ChannelCellViewModel> Channels { get; }
+        public ReadOnlyObservableCollection<EpisodeCellViewModel> SearchSlots { get; }
+        public ReadOnlyObservableCollection<string> AvailableDates { get; }
+        public ReactiveProperty<string> SelectedDate { get; }
+        public ReactiveProperty<string> SearchQuery { get; }
+        public ReactiveProperty<bool> IsSearchMode { get; }
+        public ReactiveCommand RunQueryCommand { get; }
+        public ReactiveCommand ClearQueryCommand { get; }
         public InteractionRequest<INotification> ProgramDetailsRequest { get; }
         public InteractionRequest<INotification> ReservationListRequest { get; }
-        public InteractionRequest<DataPassingNotification> DetailReserveRequest { get; }
 
-        public ShellViewModel(Timetable timetable)
+        public ShellViewModel(DatabaseService databaseService)
         {
-            _timetable = timetable;
             ProgramDetailsRequest = new InteractionRequest<INotification>();
             ReservationListRequest = new InteractionRequest<INotification>();
-            DetailReserveRequest = new InteractionRequest<DataPassingNotification>();
-            _index = (DateTime.Now - timetable.LastSyncTime).Days;
-            AvailableDates = new List<string>();
-            Channels = new ObservableCollection<ChannelCellViewModel>();
-            for (var i = 0; i < 6; i++)
-                AvailableDates.Add(timetable.LastSyncTime.AddDays(i).ToString("MM/dd"));
-
-            SelectedDate = AvailableDates[0];
+            SelectedDate = new ReactiveProperty<string>();
+            SelectedDate.Where(w => !string.IsNullOrWhiteSpace(w)).ObserveOn(TaskPoolScheduler.Default).Subscribe(w => UpdateChannels());
+            SearchQuery = new ReactiveProperty<string>();
+            IsSearchMode = new ReactiveProperty<bool>();
+            RunQueryCommand = SearchQuery.Select(w => IsSearchMode.Value || !string.IsNullOrWhiteSpace(w)).ToReactiveCommand();
+            RunQueryCommand.Subscribe(w =>
+            {
+                Application.Current.Dispatcher.Invoke(() => IsLoading = true);
+                _searchTable.Query(SearchQuery.Value);
+                GC.Collect();
+                IsLoading = false;
+                IsSearchMode.Value = true;
+            });
+            ClearQueryCommand = IsSearchMode.ToReactiveCommand();
+            ClearQueryCommand.Subscribe(w =>
+            {
+                SearchQuery.Value = "";
+                IsSearchMode.Value = false;
+            });
+            _disposables = new List<IDisposable>();
+            _dayTable = new DayTable(databaseService);
+            _searchTable = new SearchTable(databaseService);
+            AvailableDates = _dayTable.AvailableDates.ToReadOnlyReactiveCollection(w => w.ToString("d"));
+            AvailableDates.ToObservable().Subscribe(w => SelectedDate.Value = AvailableDates.First());
+            Channels = _dayTable.ChannelTable
+                                .ToReadOnlyReactiveCollection(w => new ChannelCellViewModel(w.Date, w.Channel, w.Slots).AddTo(_disposables));
+            SearchSlots = _searchTable.ResultSlots
+                                      .ToReadOnlyReactiveCollection(w => new EpisodeCellViewModel(new WrapSlot(w, DateTime.MinValue)))
+                                      .AddTo(this);
         }
 
         private void UpdateChannels()
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                Channels.Clear();
-                CompositeDisposable.Dispose();
+                foreach (var disposable in _disposables)
+                    disposable.Dispose();
+                _disposables.Clear();
+                IsLoading = true;
             });
-            var list = new List<ChannelCellViewModel>();
-            foreach (var channel in _timetable.Channels)
-            {
-                var slots = _timetable.ChannelSchedules.Where(w => w.ChannelId == channel.Id).ElementAt(_index);
-                var vm = new ChannelCellViewModel(channel, slots.Slots, slots.Date).AddTo(this);
-                list.Add(vm);
-            }
-            foreach (var vm in list)
-                Application.Current.Dispatcher.Invoke(() => Channels.Add(vm));
+            _dayTable.Query(DateTime.Parse(SelectedDate.Value));
+            GC.Collect(); // まぁ
             IsLoading = false;
         }
-
-        #region Overrides of ViewModel
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            _timetable.Save();
-        }
-
-        #endregion
-
-        #region SelectedDate
-
-        private string _selectedDate;
-
-        public string SelectedDate
-        {
-            get { return _selectedDate; }
-            set
-            {
-                if (!SetProperty(ref _selectedDate, value))
-                    return;
-                _index = AvailableDates.IndexOf(_selectedDate);
-                IsLoading = true;
-                Observable.Return(0).Delay(TimeSpanExt.OneSecond).Subscribe(w => UpdateChannels());
-            }
-        }
-
-        #endregion
 
         #region IsLoading
 
@@ -100,17 +96,6 @@ namespace Norma.Iota.ViewModels
             get { return _isLoading; }
             set { SetProperty(ref _isLoading, value); }
         }
-
-        #endregion
-
-        #region ReserveUsingKeywordOrTimeCommand
-
-        private ICommand _rsvUsingKwdOrTimeCommand;
-
-        public ICommand ReserveUsingKeywordOrTimeCommand
-            => _rsvUsingKwdOrTimeCommand ?? (_rsvUsingKwdOrTimeCommand = new DelegateCommand(ReserveUsingKwdOrTime));
-
-        private void ReserveUsingKwdOrTime() => DetailReserveRequest.Raise(new DataPassingNotification());
 
         #endregion
 
@@ -136,7 +121,7 @@ namespace Norma.Iota.ViewModels
         {
             if (e.ClickCount < 2)
                 return;
-            var vm = ((FrameworkElement) e.Source).DataContext as ProgramCellViewModel;
+            var vm = ((FrameworkElement) e.Source).DataContext as EpisodeCellViewModel;
             ProgramDetailsRequest.Raise(new DataPassingNotification {Model = vm?.Model});
         }
 

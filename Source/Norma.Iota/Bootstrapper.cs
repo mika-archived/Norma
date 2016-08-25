@@ -1,8 +1,11 @@
 ﻿using System.Windows;
 
+using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 
+using Norma.Delta.Services;
 using Norma.Eta.Models;
+using Norma.Eta.Services;
 using Norma.Iota.Views;
 
 using Prism.Unity;
@@ -11,32 +14,25 @@ namespace Norma.Iota
 {
     internal class Bootstrapper : UnityBootstrapper
     {
-        private readonly AbemaApiHost _abemaApiHost;
-        private readonly Configuration _configuration;
-        private readonly Timetable _timetable;
-
-        public Bootstrapper()
-        {
-            _configuration = new Configuration();
-            _abemaApiHost = new AbemaApiHost(_configuration);
-            _timetable = new Timetable(_abemaApiHost);
-        }
-
         #region Overrides of UnityBootstrapper
 
         protected override void ConfigureContainer()
         {
             base.ConfigureContainer();
-            _abemaApiHost.Initialize();
-            _timetable.Sync();
 
-            Container.RegisterInstance(_configuration, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance(_abemaApiHost, new ContainerControlledLifetimeManager());
-            Container.RegisterInstance(_timetable, new ContainerControlledLifetimeManager());
-            Container.RegisterType(typeof(Reservation), new ContainerControlledLifetimeManager());
+            Container.RegisterType<DatabaseService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<ReservationService>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<Configuration>(new ContainerControlledLifetimeManager());
+            Container.RegisterType<AbemaApiClient>(new ContainerControlledLifetimeManager());
         }
 
-        protected override DependencyObject CreateShell() => Container.Resolve<Shell>();
+        protected override DependencyObject CreateShell()
+        {
+            var timetableService = ServiceLocator.Current.GetInstance<TimetableService>();
+            timetableService.Initialize();
+
+            return Container.Resolve<Shell>();
+        }
 
         protected override void InitializeShell()
         {

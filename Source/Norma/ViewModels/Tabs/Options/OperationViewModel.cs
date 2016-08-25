@@ -5,6 +5,7 @@ using System.Linq;
 
 using Norma.Eta.Models;
 using Norma.Eta.Models.Configurations;
+using Norma.Eta.Models.Enums;
 using Norma.Eta.Mvvm;
 using Norma.Eta.Validations;
 
@@ -24,19 +25,20 @@ namespace Norma.ViewModels.Tabs.Options
         public List<EnumWrap<PostKey>> KeyTypes
             => ((PostKey[]) Enum.GetValues(typeof(PostKey))).Select(w => new EnumWrap<PostKey>(w)).ToList();
 
-        public List<EnumWrap<VideoQuality>> VideoQualities
-            => ((VideoQuality[]) Enum.GetValues(typeof(VideoQuality))).Select(w => new EnumWrap<VideoQuality>(w))
-                                                                      .ToList();
+        public List<EnumWrap<Branch>> Branches
+            => ((Branch[]) Enum.GetValues(typeof(Branch))).Select(w => new EnumWrap<Branch>(w)).ToList();
 
-        public ReactiveProperty<uint> UpdateIntervalOfProgram { get; private set; }
         public ReactiveProperty<uint> UpdateIntervalOfThumbnails { get; private set; }
         public ReactiveProperty<uint> ReceptionIntervalOfComments { get; private set; }
         public ReactiveProperty<uint> SamplingIntervalOfProgramState { get; private set; }
         public ReactiveProperty<uint> NumberOfHoldingComments { get; private set; }
         public ReactiveProperty<EnumWrap<PostKey>> PostKey { get; private set; }
         public ReactiveProperty<uint> ToastNotificationBeforeMinutes { get; private set; }
+        public ReactiveProperty<EnumWrap<Branch>> Branch { get; private set; }
+        public ReactiveProperty<bool> IsAbsoluteTime { get; private set; }
+        public ReactiveProperty<bool> IsShowFavoriteOnly { get; private set; }
+        public ReactiveProperty<uint> Delay { get; private set; }
         public ObservableCollection<MuteKeyword> MuteKeywords { get; }
-        public ReactiveProperty<EnumWrap<VideoQuality>> VideoQuality { get; private set; }
         public ReactiveProperty<string> Keyword { get; }
         public ReactiveProperty<bool> IsRegex { get; }
         public ReactiveProperty<MuteKeyword> SelectedKeyword { get; }
@@ -45,7 +47,6 @@ namespace Norma.ViewModels.Tabs.Options
         public OperationViewModel(OperationConfig oc)
         {
             _operationConfig = oc;
-            UpdateIntervalOfProgram = ReactiveProperty.FromObject(oc, w => w.UpdateIntervalOfProgram);
             UpdateIntervalOfThumbnails = ReactiveProperty.FromObject(oc, w => w.UpdateIntervalOfThumbnails);
             ReceptionIntervalOfComments = ReactiveProperty.FromObject(oc, w => w.ReceptionIntervalOfComments);
             SamplingIntervalOfProgramState = ReactiveProperty.FromObject(oc, w => w.SamplingIntervalOfProgramState);
@@ -53,9 +54,11 @@ namespace Norma.ViewModels.Tabs.Options
             PostKey = ReactiveProperty.FromObject(oc, w => w.PostKeyType, x => new EnumWrap<PostKey>(x),
                                                   w => w.EnumValue);
             ToastNotificationBeforeMinutes = ReactiveProperty.FromObject(oc, w => w.ToastNotificationBeforeMinutes);
+            Branch = ReactiveProperty.FromObject(oc, w => w.Branch, x => new EnumWrap<Branch>(x), w => w.EnumValue);
+            IsAbsoluteTime = ReactiveProperty.FromObject(oc, w => w.IsAbsoluteTime);
+            IsShowFavoriteOnly = ReactiveProperty.FromObject(oc, w => w.IsShowFavoriteOnly);
+            Delay = ReactiveProperty.FromObject(oc, w => w.Delay);
             MuteKeywords = oc.MuteKeywords;
-            VideoQuality = ReactiveProperty.FromObject(oc, w => w.VideoQuality, x => new EnumWrap<VideoQuality>(x),
-                                                       w => w.EnumValue);
             IsRegex = new ReactiveProperty<bool>(false);
             Keyword = new ReactiveProperty<string>("")
                 .SetValidateNotifyError(x => IsRegex.Value ? _rgxValidator.Validate(Keyword.Value) : null);
@@ -87,7 +90,8 @@ namespace Norma.ViewModels.Tabs.Options
             if (_isEditMode)
             {
                 _operationConfig.MuteKeywords.RemoveAt(_editIndex);
-                _operationConfig.MuteKeywords.Insert(_editIndex, new MuteKeyword(Keyword.Value, IsRegex.Value));
+                _operationConfig.MuteKeywords.Insert(_editIndex,
+                                                     new MuteKeyword(Keyword.Value.Replace("\\n", "\n"), IsRegex.Value));
                 _isEditMode = false;
             }
             else
@@ -110,7 +114,7 @@ namespace Norma.ViewModels.Tabs.Options
 
         private void EditMuteKeyword()
         {
-            Keyword.Value = SelectedKeyword.Value.Keyword;
+            Keyword.Value = SelectedKeyword.Value.DisplayKeyword;
             IsRegex.Value = SelectedKeyword.Value.IsRegex;
             _isEditMode = true;
             _editIndex = SelectedIndex.Value;

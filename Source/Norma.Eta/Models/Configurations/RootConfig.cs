@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace Norma.Eta.Models.Configurations
 {
@@ -9,8 +8,7 @@ namespace Norma.Eta.Models.Configurations
         public string AccessToken { get; set; }
 
         [JsonProperty]
-        [JsonConverter(typeof(StringEnumConverter))]
-        public AbemaChannel LastViewedChannel { get; set; }
+        public string LastViewedChannelStr { get; set; }
 
         [JsonProperty]
         public BrowserConfig Browser { get; set; }
@@ -23,12 +21,5 @@ namespace Norma.Eta.Models.Configurations
 
         [JsonProperty]
         public InternalConfig Internal { get; set; }
-
-        public RootConfig()
-        {
-            // Default channel.
-            // If saved lastViewdChannel, set new value by Json.NET.
-            LastViewedChannel = AbemaChannel.AbemaNews;
-        }
     }
 }

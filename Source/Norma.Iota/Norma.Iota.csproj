@@ -197,52 +197,49 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behaviors\ScrollSyncronizingBehavior.cs" />
-    <Compile Include="Models\Orientation.cs" />
+    <Compile Include="Models\ChannelTable.cs" />
+    <Compile Include="Models\DayTable.cs" />
+    <Compile Include="Models\Enums\Orientation.cs" />
+    <Compile Include="Models\ReservationItem.cs" />
+    <Compile Include="Models\SearchTable.cs" />
+    <Compile Include="Models\WrapSeries.cs" />
     <Compile Include="Models\WrapSlot.cs" />
+    <Compile Include="ViewModels\Contents\KeywordReservationContentViewModel.cs" />
+    <Compile Include="ViewModels\Contents\TimeReservationContentViewModel.cs" />
     <Compile Include="ViewModels\Controls\ChannelCellViewModel.cs" />
-    <Compile Include="ViewModels\Controls\KeywordRsvControlViewModel.cs" />
-    <Compile Include="ViewModels\Controls\ProgramCellViewModel.cs" />
-    <Compile Include="ViewModels\Controls\TimeRsvControlViewModel.cs" />
-    <Compile Include="ViewModels\Reservations\ReservationViewModel.cs" />
-    <Compile Include="ViewModels\Reservations\RsvAllViewModel.cs" />
-    <Compile Include="ViewModels\Reservations\RsvKeywordViewModel.cs" />
-    <Compile Include="ViewModels\Reservations\RsvProgramViewModel.cs" />
-    <Compile Include="ViewModels\Reservations\RsvTimeViewModel.cs" />
+    <Compile Include="ViewModels\Controls\EpisodeCellViewModel.cs" />
+    <Compile Include="ViewModels\ReservationItemViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="ViewModels\WindowContents\DetailsRsvContentViewModel.cs" />
-    <Compile Include="ViewModels\WindowContents\EditRsvContentViewModel.cs" />
-    <Compile Include="ViewModels\WindowContents\RsvDetailsContentViewModel.cs" />
-    <Compile Include="ViewModels\WindowContents\RsvListContentViewModel.cs" />
+    <Compile Include="ViewModels\WindowContents\ConditionalReservationContentViewModel.cs" />
+    <Compile Include="ViewModels\WindowContents\ReservationResultContentViewModel.cs" />
+    <Compile Include="ViewModels\WindowContents\ReservationListContentViewModel.cs" />
     <Compile Include="ViewModels\WindowContents\SlotDetailsContentViewModel.cs" />
+    <Compile Include="Views\Contents\KeywordReservationContent.xaml.cs">
+      <DependentUpon>KeywordReservationContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Contents\TimeReservationContent.xaml.cs">
+      <DependentUpon>TimeReservationContent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Controls\BorderedTextBlock.xaml.cs">
       <DependentUpon>BorderedTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Controls\ChannelCell.xaml.cs">
       <DependentUpon>ChannelCell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\KeywordRsvControl.xaml.cs">
-      <DependentUpon>KeywordRsvControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Controls\ProgramCell.xaml.cs">
       <DependentUpon>ProgramCell.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Controls\TimeRsvControl.xaml.cs">
-      <DependentUpon>TimeRsvControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowContents\DetailsRsvContent.xaml.cs">
-      <DependentUpon>DetailsRsvContent.xaml</DependentUpon>
+    <Compile Include="Views\WindowContents\ConditionalReservationContent.xaml.cs">
+      <DependentUpon>ConditionalReservationContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowContents\EditRsvContent.xaml.cs">
-      <DependentUpon>EditRsvContent.xaml</DependentUpon>
+    <Compile Include="Views\WindowContents\ReservationResultContent.xaml.cs">
+      <DependentUpon>ReservationResultContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowContents\RsvDetailsContent.xaml.cs">
-      <DependentUpon>RsvDetailsContent.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WindowContents\RsvListContent.xaml.cs">
-      <DependentUpon>RsvListContent.xaml</DependentUpon>
+    <Compile Include="Views\WindowContents\ReservationListContent.xaml.cs">
+      <DependentUpon>ReservationListContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WindowContents\SlotDetailsContent.xaml.cs">
       <DependentUpon>SlotDetailsContent.xaml</DependentUpon>
@@ -252,6 +249,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Page Include="Views\Contents\KeywordReservationContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Contents\TimeReservationContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Controls\BorderedTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -260,15 +265,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\KeywordRsvControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Controls\ProgramCell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Controls\TimeRsvControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -276,19 +273,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WindowContents\DetailsRsvContent.xaml">
+    <Page Include="Views\WindowContents\ConditionalReservationContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WindowContents\EditRsvContent.xaml">
+    <Page Include="Views\WindowContents\ReservationResultContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WindowContents\RsvDetailsContent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\WindowContents\RsvListContent.xaml">
+    <Page Include="Views\WindowContents\ReservationListContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -327,6 +320,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Norma.Delta\Norma.Delta.csproj">
+      <Project>{60dfb1ab-7891-4a93-83ec-1aaacb0c861b}</Project>
+      <Name>Norma.Delta</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Norma.Eta\Norma.Eta.csproj">
       <Project>{ebe2df20-507c-4071-846b-88e7c3a459e8}</Project>
       <Name>Norma.Eta</Name>

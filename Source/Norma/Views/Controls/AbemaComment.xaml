@@ -15,6 +15,24 @@
     <Grid>
         <ListView BorderThickness="0"
                   ItemsSource="{Binding Comments}">
+            <ListView.Resources>
+                <ContextMenu x:Key="ListViewItemContextMenu">
+                    <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                    <MenuItem Command="{Binding SelectedItem.AddToNgCommentCommand,
+                                                RelativeSource={RelativeSource AncestorType=ListView}}"
+                              Header="{x:Static properties:Resources.AddToNG}" />
+                    <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                    <MenuItem Command="{Binding SelectedItem.CopyToClipboardCommand,
+                                                RelativeSource={RelativeSource AncestorType=ListView}}"
+                              Header="{x:Static properties:Resources.CopyComment}" />
+                </ContextMenu>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style BasedOn="{StaticResource SelectHighlightListViewItem}"
+                       TargetType="ListViewItem">
+                    <Setter Property="ContextMenu" Value="{StaticResource ListViewItemContextMenu}" />
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="60">
@@ -33,7 +51,8 @@
                         </GridViewColumn.Header>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate DataType="{x:Type vmroot:CommentViewModel}">
-                                <TextBlock Text="{Binding Message,
+                                <TextBlock FontFamily="Yu Gothic UI"
+                                           Text="{Binding Message,
                                                           Mode=OneWay}"
                                            TextWrapping="Wrap" />
                             </DataTemplate>

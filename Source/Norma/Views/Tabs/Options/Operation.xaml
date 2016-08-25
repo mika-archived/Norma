@@ -7,8 +7,6 @@
              xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
              xmlns:vm="clr-namespace:Norma.ViewModels.Tabs.Options"
              d:DataContext="{d:DesignInstance vm:OperationViewModel}"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
              mc:Ignorable="d">
     <Grid Margin="10">
         <Grid.Resources>
@@ -31,37 +29,18 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="150" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <!--#region UpdateIntervalOfProgram-->
+        <!--#region UpdateIntervalOfThumbnails-->
         <TextBlock Grid.Row="0"
                    Grid.Column="0"
-                   Text="{x:Static properties:Resources.UpdateInervalOfProgramInformation}" />
-        <metro:PromptTextBox Grid.Row="0"
-                             Grid.Column="1"
-                             Width="120"
-                             Height="30"
-                             Margin="5"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Center">
-            <metro:PromptTextBox.Text>
-                <Binding Path="UpdateIntervalOfProgram.Value"
-                         UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <metro:Int32Rule Min="1" />
-                    </Binding.ValidationRules>
-                </Binding>
-            </metro:PromptTextBox.Text>
-        </metro:PromptTextBox>
-        <!--#endregion-->
-
-        <!--#region UpdateIntervalOfThumbnails-->
-        <TextBlock Grid.Row="1"
-                   Grid.Column="0"
                    Text="{x:Static properties:Resources.UpdateInteralOfThumbnail}" />
-        <metro:PromptTextBox Grid.Row="1"
+        <metro:PromptTextBox Grid.Row="0"
                              Grid.Column="1"
                              Width="120"
                              Height="30"
@@ -78,12 +57,11 @@
             </metro:PromptTextBox.Text>
         </metro:PromptTextBox>
         <!--#endregion-->
-
         <!--#region ReceptionIntervalOfComments-->
-        <TextBlock Grid.Row="2"
+        <TextBlock Grid.Row="1"
                    Grid.Column="0"
                    Text="{x:Static properties:Resources.ReceptionIntervalOfComments}" />
-        <metro:PromptTextBox Grid.Row="2"
+        <metro:PromptTextBox Grid.Row="1"
                              Grid.Column="1"
                              Width="120"
                              Height="30"
@@ -100,12 +78,11 @@
             </metro:PromptTextBox.Text>
         </metro:PromptTextBox>
         <!--#endregion-->
-
         <!--#region SamplingIntervalOfProgramState-->
-        <TextBlock Grid.Row="3"
+        <TextBlock Grid.Row="2"
                    Grid.Column="0"
                    Text="{x:Static properties:Resources.SamplingIntervalOfProgramState}" />
-        <metro:PromptTextBox Grid.Row="3"
+        <metro:PromptTextBox Grid.Row="2"
                              Grid.Column="1"
                              Width="120"
                              Height="30"
@@ -123,12 +100,11 @@
             </metro:PromptTextBox.Text>
         </metro:PromptTextBox>
         <!--#endregion-->
-
         <!--#region NumberOfHoldingComments-->
-        <TextBlock Grid.Row="4"
+        <TextBlock Grid.Row="3"
                    Grid.Column="0"
                    Text="{x:Static properties:Resources.NumberOfHoldingComments}" />
-        <metro:PromptTextBox Grid.Row="4"
+        <metro:PromptTextBox Grid.Row="3"
                              Grid.Column="1"
                              Width="120"
                              Height="30"
@@ -145,12 +121,11 @@
             </metro:PromptTextBox.Text>
         </metro:PromptTextBox>
         <!--#endregion-->
-
         <!--#region PostKey-->
-        <TextBlock Grid.Row="5"
+        <TextBlock Grid.Row="4"
                    Grid.Column="0"
                    Text="{x:Static properties:Resources.PostKey}" />
-        <metro:PromptComboBox Grid.Row="5"
+        <metro:PromptComboBox Grid.Row="4"
                               Grid.Column="1"
                               Width="120"
                               Height="30"
@@ -164,10 +139,10 @@
                                                       Mode=TwoWay}" />
         <!--#endregion-->
         <!--#region NotificationOffsetTime-->
-        <TextBlock Grid.Row="6"
+        <TextBlock Grid.Row="5"
                    Grid.Column="0"
                    Text="{x:Static properties:Resources.ToastNotification}" />
-        <StackPanel Grid.Row="6"
+        <StackPanel Grid.Row="5"
                     Grid.Column="1"
                     Orientation="Horizontal">
             <metro:PromptTextBox Width="100"
@@ -186,13 +161,68 @@
             <TextBlock Text="{x:Static properties:Resources.MinutesBefore}" />
         </StackPanel>
         <!--#endregion-->
+        <!--#region Branch-->
+        <TextBlock Grid.Row="6"
+                   Grid.Column="0"
+                   Text="{x:Static properties:Resources.AutoUpdateBranch}" />
+        <metro:PromptComboBox Grid.Row="6"
+                              Grid.Column="1"
+                              Width="120"
+                              Height="30"
+                              Margin="5"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              DisplayMemberPath="Display"
+                              IsEditable="False"
+                              ItemsSource="{Binding Branches}"
+                              SelectedValue="{Binding Branch.Value,
+                                                      Mode=TwoWay}" />
+        <!--#endregion-->
+        <!--#region IsAbsoluteTime-->
+        <CheckBox Grid.Row="7"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  VerticalAlignment="Center"
+                  Content="{x:Static properties:Resources.IsAbsoluteTime}"
+                  IsChecked="{Binding IsAbsoluteTime.Value}" />
+        <!--#endregion-->
+        <!--#region IsShowFavoriteOnly-->
+        <CheckBox Grid.Row="8"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  VerticalAlignment="Center"
+                  Content="{x:Static properties:Resources.IsShowFavoriteOnly}"
+                  IsChecked="{Binding IsShowFavoriteOnly.Value}" />
+        <!--#endregion-->
+        <!--#region Delay-->
+        <TextBlock Grid.Row="9"
+                   Grid.Column="0"
+                   Text="{x:Static properties:Resources.Delay}" />
+        <StackPanel Grid.Row="9"
+                    Grid.Column="1"
+                    Orientation="Horizontal">
+            <metro:PromptTextBox Width="120"
+                                 Height="30"
+                                 Margin="5"
+                                 VerticalAlignment="Center">
+                <metro:PromptTextBox.Text>
+                    <Binding Path="Delay.Value"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <metro:Int32Rule Min="1" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </metro:PromptTextBox.Text>
+            </metro:PromptTextBox>
+        </StackPanel>
+        <!--#endregion-->
         <!--#region MuteKeywords-->
-        <TextBlock Grid.Row="7"
+        <TextBlock Grid.Row="10"
                    Grid.Column="0"
                    Margin="0,5,0,0"
                    VerticalAlignment="Top"
                    Text="{x:Static properties:Resources.MuteKeywords}" />
-        <Grid Grid.Row="7"
+        <Grid Grid.Row="10"
               Grid.Column="1"
               Margin="5"
               HorizontalAlignment="Left">
@@ -220,7 +250,7 @@
                             </GridViewColumn.Header>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Keyword}" />
+                                    <TextBlock Text="{Binding DisplayKeyword}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -243,6 +273,7 @@
                     <metro:PromptTextBox Width="150"
                                          Height="25"
                                          VerticalAlignment="Bottom"
+                                         Prompt=""
                                          Text="{Binding Keyword.Value,
                                                         Mode=TwoWay,
                                                         UpdateSourceTrigger=PropertyChanged}" />
@@ -283,23 +314,10 @@
             </Grid>
         </Grid>
         <!--#endregion-->
-        <!--#region PostKey-->
-        <TextBlock Grid.Row="8"
+        <TextBlock Grid.Row="11"
                    Grid.Column="0"
-                   Text="Video Quality (Experimental) :" />
-        <metro:PromptComboBox Grid.Row="8"
-                              Grid.Column="1"
-                              Width="120"
-                              Height="30"
-                              Margin="5"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Center"
-                              DisplayMemberPath="Display"
-                              IsEditable="False"
-                              ItemsSource="{Binding VideoQualities}"
-                              SelectedValue="{Binding VideoQuality.Value,
-                                                      Mode=TwoWay}" />
-        <!--#endregion-->
-
+                   Grid.ColumnSpan="2"
+                   VerticalAlignment="Bottom"
+                   Text="* Need to restart application." />
     </Grid>
 </UserControl>

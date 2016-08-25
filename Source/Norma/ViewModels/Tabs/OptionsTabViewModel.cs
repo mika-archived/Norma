@@ -9,12 +9,14 @@ namespace Norma.ViewModels.Tabs
         public BrowserViewModel BrowserViewModel { get; }
         public OperationViewModel OperationViewModel { get; }
         public OthersViewModel OthersViewModel { get; }
+        public ExperimentalViewModel ExperimentalViewModel { get; }
 
         public OptionsTabViewModel(Configuration configuration)
         {
             BrowserViewModel = new BrowserViewModel(configuration.Root.Browser).AddTo(this);
             OperationViewModel = new OperationViewModel(configuration.Root.Operation).AddTo(this);
             OthersViewModel = new OthersViewModel(configuration.Root.Others).AddTo(this);
+            ExperimentalViewModel = new ExperimentalViewModel(configuration).AddTo(this);
         }
     }
 }

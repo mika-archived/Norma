@@ -60,7 +60,7 @@ function Copy-To($path1, $path2) {
     }
 }
 
-function Process($path) {
+function Process($path, $dest) {
     $origin = Get-Location
     try {    
         if (-not (Test-Path -Path $path)) {
@@ -68,50 +68,43 @@ function Process($path) {
         }
         Set-Location $path
         Set-Location ".."
-        if (Test-Path -Path "Norma.zip") {
-            Remove-Item "Norma.zip"
-        }
+        # if (Test-Path -Path "Norma.zip") {
+        #     Remove-Item "Norma.zip"
+        # }
         $local = Get-Location
         # Compress-Archive -Path "Release\*" -DestinationPath "Norma.zip"
-        Compress-Archive2 "$local\Release" "$local\Norma.zip"
+        Compress-Archive2 "$local\Release" "$local\$dest"
+        Write-Host "Output to $local\$dest"
     } catch {
-        Write-Host "Error throwed"
+        Write-Host $error[0].exception
     } finally {
         Set-Location $origin
     }
 }
 
-$ips_x64_dir = "Source\Norma.Ipsilon\bin\x64\Release"
-$ips_x86_dir = "Source\Norma.Ipsilon\bin\x86\Release"
-$iota_x64_dir = "Source\Norma.Iota\bin\x64\Release"
-$iota_x86_dir = "Source\Norma.Iota\bin\x86\Release"
-$x64_dir = "Source\Norma\bin\x64\Release"
-$x86_dir = "Source\Norma\bin\x86\Release"
-
-if (Test-Path -Path "$x64_dir\Norma.exe") {
+if (Test-Path -Path "Source\Norma\bin\x64\Release") {
     # x64
-    Cleanup $ips_x64_dir
-    Cleanup $iota_x64_dir
-
-    Copy-To $ips_x64_dir $x64_dir
-    Copy-To $iota_x64_dir $x64_dir
-    Copy-Item -Path "Assemblies\x64\SQLite.Interop.dll" -Destination "$x64_dir\SQLite.Interop.dll"
-
-    Cleanup $x64_dir
-    Process $x64_dir
+    $arch = "x64"
 } else {
     # x86
-    Cleanup $ips_x86_dir
-    Cleanup $iota_x86_dir
-
-    Copy-To $ips_x86_dir $x86_dir
-    Copy-To $iota_x86_dir $x86_dir
-    Copy-Item -Path "Assemblies\x86\SQLite.Interop.dll" -Destination "$x86_dir\SQLite.Interop.dll"
-
-
-    Cleanup $x86_dir
-    Process $x86_dir
+    $arch = "x86"
 }
 
+$artifact = "Norma_$($arch)_$($env:APPVEYOR_BUILD_VERSION).zip"
 
+$ips_dir = "Source\Norma.Ipsilon\bin\$arch\Release"
+$iota_dir = "Source\Norma.Iota\bin\$arch\Release"
+$main_dir = "Source\Norma\bin\$arch\Release"
+$bin_dir = "Source\Norma\bin\$arch"
+$deployment_name = "Norma_$arch.zip"
 
+Cleanup $ips_dir
+Cleanup $iota_dir
+
+Copy-To $ips_dir $main_dir
+Copy-To $iota_dir $main_dir
+Copy-Item -Path "Assemblies\$arch\SQLite.Interop.dll" -Destination "$main_dir\SQLite.Interop.dll"
+
+Cleanup $main_dir
+Process $main_dir $artifact
+Push-AppveyorArtifact "$bin_dir\$artifact" -FileName $artifact -DeploymentName $deployment_name

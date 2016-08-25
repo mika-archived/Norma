@@ -10,9 +10,7 @@ namespace Norma.Eta.Validations
 
         public string Validate(string value)
         {
-            if (string.IsNullOrWhiteSpace(value))
-                return Resources.KeywordCannotBeBlank;
-            return null;
+            return string.IsNullOrWhiteSpace(value) ? Resources.KeywordCannotBeBlank : null;
         }
 
         public string Convert(string value)

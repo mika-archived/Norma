@@ -6,6 +6,7 @@ using Norma.Gamma.Converters;
 
 namespace Norma.Gamma.Models
 {
+    [AppVersion("1.0.46")]
     public class ChannelSchedule
     {
         [JsonProperty("channelId")]

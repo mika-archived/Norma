@@ -6,8 +6,6 @@
              xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
              xmlns:vm="clr-namespace:Norma.ViewModels.Tabs.Options"
              d:DataContext="{d:DesignInstance vm:OthersViewModel}"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
              mc:Ignorable="d">
     <Grid Margin="10">
         <Grid.Resources>
@@ -20,10 +18,11 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60" />
+            <RowDefinition Height="90" />
+            <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
         <!--#region Theme-->
@@ -51,8 +50,22 @@
                                              Mode=TwoWay,
                                              Converter={StaticResource EnumToBooleanConverter},
                                              ConverterParameter=Light}" />
+            <RadioButton Margin="5"
+                         Content="{x:Static properties:Resources.Windows}"
+                         GroupName="ThemeColor"
+                         IsChecked="{Binding SelectedTheme.Value,
+                                             Mode=TwoWay,
+                                             Converter={StaticResource EnumToBooleanConverter},
+                                             ConverterParameter=Windows}" />
         </StackPanel>
         <!--#endregion-->
+        <Button Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Width="250"
+                Command="{Binding RegisterStartupCommand}"
+                Content="{Binding RegStartupButtonContent,
+                                  Mode=OneWay}" />
     </Grid>
 </UserControl>
 

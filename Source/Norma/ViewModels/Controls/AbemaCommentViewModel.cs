@@ -1,5 +1,6 @@
 ﻿using Norma.Eta.Models;
 using Norma.Eta.Mvvm;
+using Norma.Eta.Services;
 using Norma.Models;
 
 using Reactive.Bindings;
@@ -10,9 +11,10 @@ namespace Norma.ViewModels.Controls
     {
         public ReadOnlyReactiveCollection<CommentViewModel> Comments { get; }
 
-        public AbemaCommentViewModel(AbemaApiHost abemaApiHost, AbemaState abemaState, Configuration configuration)
+        public AbemaCommentViewModel(AbemaApiClient abemaApiHost, AbemaState abemaState, Configuration configuration,
+                                     StatusService statusService)
         {
-            var commentHost = new CommentHost(abemaApiHost, abemaState, configuration).AddTo(this);
+            var commentHost = new CommentHost(abemaApiHost, abemaState, configuration, statusService).AddTo(this);
             Comments = commentHost.Comments.ToReadOnlyReactiveCollection(w => new CommentViewModel(w)).AddTo(this);
         }
     }

@@ -2,7 +2,9 @@
 
 using Newtonsoft.Json;
 
+using Norma.Eta.Extensions;
 using Norma.Eta.Models.Configurations;
+using Norma.Eta.Models.Enums;
 
 namespace Norma.Eta.Models
 {
@@ -51,6 +53,28 @@ namespace Norma.Eta.Models
                 Root.Others = new OthersConfig();
             if (Root.Internal == null)
                 Root.Internal = new InternalConfig();
+
+            // Version 1.5
+            if (Root.Operation.VideoQuality != VideoQuality.Auto)
+                Root.Others.IsEnabledExperimentalFeatures = true;
+
+            ApplyDefaultNgWords();
+        }
+
+        // 規定の NG ワード
+        // https://github.com/nakayuki805/AbemaTVChromeExtension のものに、いくつか追加
+        private void ApplyDefaultNgWords()
+        {
+            var words = Root.Operation.MuteKeywords;
+            words.AddIfNotExists(new MuteKeyword("^@.*", true)); // @Mention
+            words.AddIfNotExists(new MuteKeyword("^#.*", true)); // #Hashtag
+            words.AddIfNotExists(new MuteKeyword("^http(s)?://", true)); // http://url.com
+            words.AddIfNotExists(new MuteKeyword("(.+)\\1{2,}", true)); // repeeet words
+            words.AddIfNotExists(new MuteKeyword("^.$", true)); // 1
+            words.AddIfNotExists(new MuteKeyword("\n", true)); // New line
+            // by Norma
+            words.AddIfNotExists(new MuteKeyword("^.*は.*\\s.*は.*$", true));
+            words.AddIfNotExists(new MuteKeyword("k", false));
         }
     }
 }

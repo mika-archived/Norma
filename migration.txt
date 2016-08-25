@@ -1,0 +1,5 @@
+Write migration sql.
+
+1. PM> Add-Migration OperationName
+2. PM> Update-Database -Script
+3. Delete  generated files.

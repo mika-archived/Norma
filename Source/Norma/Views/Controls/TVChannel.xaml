@@ -6,6 +6,7 @@
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
              xmlns:vm="clr-namespace:Norma.ViewModels.TVGuide"
              d:DataContext="{d:DesignInstance vm:ChannelViewModel}"
              d:DesignHeight="300"
@@ -22,6 +23,12 @@
                              Storyboard.TargetProperty="Opacity"
                              To="0" />
         </Storyboard>
+        <ContextMenu x:Key="ChannelViewContextMenu">
+            <MenuItem Command="{Binding AddToFavoriteCommand}"
+                      Header="{x:Static properties:Resources.AddToFavorite}" />
+            <MenuItem Command="{Binding DeleteFromFavoriteCommand}"
+                      Header="{x:Static properties:Resources.DeleteFromFavorite}" />
+        </ContextMenu>
     </UserControl.Resources>
     <Grid>
         <Grid Width="235.5"
@@ -29,7 +36,8 @@
             <Grid Width="235.5"
                   Height="132.5"
                   HorizontalAlignment="Center"
-                  VerticalAlignment="Top">
+                  VerticalAlignment="Top"
+                  ContextMenu="{StaticResource ChannelViewContextMenu}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonUp">
                         <ei:CallMethodAction MethodName="ChannelClick"

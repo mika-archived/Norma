@@ -43,56 +43,26 @@
                     Background="{DynamicResource BackgroundBrushKey}"
                     BorderThickness="0">
             <TabControl.Resources>
-                <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type TabItem}">
-                                <ContentPresenter x:Name="ContentSite"
-                                                  Margin="10,5"
-                                                  ContentSource="Header" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-                <Style x:Key="HeaderTextBlockStyle"
-                       TargetType="{x:Type TextBlock}">
-                    <Setter Property="FontFamily" Value="Segoe UI" />
-                    <Setter Property="FontSize" Value="14" />
-                    <Setter Property="FontWeight" Value="Normal" />
-                    <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsSelected,
-                                                       RelativeSource={RelativeSource AncestorType=TabItem}}"
-                                     Value="True">
-                            <Setter Property="FontWeight" Value="Medium" />
-                            <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding IsMouseOver,
-                                                       RelativeSource={RelativeSource AncestorType=TabItem}}"
-                                     Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
+                <Style BasedOn="{StaticResource FlatStyleTabItem}"
+                       TargetType="{x:Type TabItem}" />
+                <Style BasedOn="{StaticResource HorizontalFlatStyleTabTextBlock}"
+                       TargetType="{x:Type TextBlock}" />
             </TabControl.Resources>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
-                               Text="{x:Static properties:Resources.Option}" />
+                    <TextBlock Text="{x:Static properties:Resources.Option}" />
                 </TabItem.Header>
                 <tabs:OptionsTab DataContext="{Binding OptionsTabViewModel}" />
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
-                               Text="{x:Static properties:Resources.About}" />
+                    <TextBlock Text="{x:Static properties:Resources.About}" />
                 </TabItem.Header>
                 <tabs:AboutTab />
             </TabItem>
             <TabItem>
                 <TabItem.Header>
-                    <TextBlock Style="{StaticResource HeaderTextBlockStyle}"
-                               Text="{x:Static properties:Resources.License}" />
+                    <TextBlock Text="{x:Static properties:Resources.License}" />
                 </TabItem.Header>
                 <tabs:LicensesTab />
             </TabItem>

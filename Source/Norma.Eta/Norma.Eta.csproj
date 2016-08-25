@@ -58,6 +58,7 @@
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -72,8 +73,8 @@
       <HintPath>..\packages\Prism.Wpf.6.1.0\lib\net45\Prism.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SQLite.CodeFirst, Version=1.2.3.15, Culture=neutral, PublicKeyToken=eb96ba0a78d831a7, processorArchitecture=MSIL">
-      <HintPath>..\packages\SQLite.CodeFirst.1.2.3.15\lib\net45\SQLite.CodeFirst.dll</HintPath>
+    <Reference Include="SQLite.CodeFirst, Version=1.2.4.16, Culture=neutral, PublicKeyToken=eb96ba0a78d831a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLite.CodeFirst.1.2.4.16\lib\net45\SQLite.CodeFirst.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -124,11 +125,23 @@
     <Compile Include="Actions\WindowCloseAction.cs" />
     <Compile Include="Controls\WindowSettingsExt.cs" />
     <Compile Include="Converters\YesNoToBooleanConverter.cs" />
-    <Compile Include="Database\DatabaseConnectionProvider.cs" />
-    <Compile Include="Database\ReservationDbContext.cs" />
+    <Compile Include="Extensions\CollectionExt.cs" />
+    <Compile Include="Extensions\EnumExt.cs" />
     <Compile Include="Extensions\TimeSpanExt.cs" />
-    <Compile Include="Models\AbemaApiHost.cs" />
-    <Compile Include="Models\AbemaChannel.cs" />
+    <Compile Include="Filters\BracesFilter.cs" />
+    <Compile Include="Filters\EmptyFilter.cs" />
+    <Compile Include="Filters\InvalidBracesFilter.cs" />
+    <Compile Include="Filters\CopyrightFilter.cs" />
+    <Compile Include="Filters\IFilter.cs" />
+    <Compile Include="Filters\MBToSBFilter.cs" />
+    <Compile Include="Filters\RoleFilter.cs" />
+    <Compile Include="Filters\SeparatorFilter.cs" />
+    <Compile Include="Filters\SpaceFilter.cs" />
+    <Compile Include="Helpers\ApiModelToFlatModelHelper.cs" />
+    <Compile Include="Helpers\UrlHelper.cs" />
+    <Compile Include="Models\AbemaApiClient.cs" />
+    <Compile Include="Models\Enums\AbemaChannel.cs" />
+    <Compile Include="Models\AppStartup.cs" />
     <Compile Include="Models\Configuration.cs" />
     <Compile Include="Models\Configurations\BrowserConfig.cs" />
     <Compile Include="Models\Configurations\InternalConfig.cs" />
@@ -137,24 +150,16 @@
     <Compile Include="Models\Configurations\RootConfig.cs" />
     <Compile Include="Models\ConnectOps.cs" />
     <Compile Include="Models\DateRange.cs" />
-    <Compile Include="Models\DateTimeHelper.cs" />
+    <Compile Include="Helpers\DateTimeHelper.cs" />
+    <Compile Include="Models\Enums\Branch.cs" />
+    <Compile Include="Models\Enums\UITheme.cs" />
     <Compile Include="Models\EnumWrap.cs" />
     <Compile Include="Models\MuteKeyword.cs" />
     <Compile Include="Models\Operations\ChangeChannelOp.cs" />
     <Compile Include="Models\Operations\IOperation.cs" />
     <Compile Include="Models\Operations\IOperationRequestAware.cs" />
-    <Compile Include="Models\PostKey.cs" />
-    <Compile Include="Models\Reservation.cs" />
-    <Compile Include="Models\Reservations\RepetitionType.cs" />
-    <Compile Include="Models\Reservations\Reserve.cs" />
-    <Compile Include="Models\Reservations\RsvAll.cs" />
-    <Compile Include="Models\Reservations\RsvKeyword.cs" />
-    <Compile Include="Models\Reservations\RsvProgram.cs" />
-    <Compile Include="Models\Reservations\RsvProgram2.cs" />
-    <Compile Include="Models\Reservations\RsvTime.cs" />
-    <Compile Include="Models\Timetable.cs" />
-    <Compile Include="Models\TimetableCache.cs" />
-    <Compile Include="Models\VideoQuality.cs" />
+    <Compile Include="Models\Enums\PostKey.cs" />
+    <Compile Include="Models\Enums\VideoQuality.cs" />
     <Compile Include="Mvvm\IDisposableExtension.cs" />
     <Compile Include="Mvvm\InteractionViewModel.cs" />
     <Compile Include="Mvvm\ViewModel.cs" />
@@ -173,11 +178,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Properties\Resources.ja.Designer.cs">
-      <DependentUpon>Resources.ja.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
+    <Compile Include="Services\StatusService.cs" />
+    <Compile Include="Services\TimetableService.cs" />
     <Compile Include="Validations\DateTimeValidator.cs" />
     <Compile Include="Validations\IValidator.cs" />
     <Compile Include="Validations\RegexValidator.cs" />
@@ -188,16 +190,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.ja.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.ja.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Norma.Delta\Norma.Delta.csproj">
+      <Project>{60dfb1ab-7891-4a93-83ec-1aaacb0c861b}</Project>
+      <Name>Norma.Delta</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Norma.Gamma\Norma.Gamma.csproj">
       <Project>{3548e32a-9374-45a5-9d37-8bde1520b055}</Project>
       <Name>Norma.Gamma</Name>
@@ -217,7 +219,17 @@
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>Controls.xaml</DependentUpon>
     </Page>
+    <Page Include="Styles\Controls.Slider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Controls.xaml</DependentUpon>
+    </Page>
     <Page Include="Styles\Controls.SystemButtons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>Controls.xaml</DependentUpon>
+    </Page>
+    <Page Include="Styles\Controls.TabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>Controls.xaml</DependentUpon>
@@ -227,7 +239,9 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.102.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.102.0\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

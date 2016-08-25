@@ -40,7 +40,7 @@ namespace Norma.Models
 
         private void Start()
         {
-            _disposable = Observable.Timer(TimeSpan.Zero, TimeSpanExt.OneSecond).Subscribe(w => Watch());
+            _disposable = Observable.Timer(TimeSpan.FromSeconds(1), TimeSpanExt.OneSecond).Subscribe(w => Watch());
         }
 
         private void Watch()

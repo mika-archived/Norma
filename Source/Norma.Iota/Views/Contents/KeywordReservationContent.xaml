@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="Norma.Iota.Views.Contents.KeywordReservationContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:metro="http://schemes.grabacr.net/winfx/2014/controls"
+             xmlns:properties="clr-namespace:Norma.Eta.Properties;assembly=Norma.Eta"
+             xmlns:vm="clr-namespace:Norma.Iota.ViewModels.Contents"
+             d:DataContext="{d:DesignInstance vm:KeywordReservationContentViewModel}"
+             mc:Ignorable="d">
+    <Grid Margin="10">
+        <Grid.Resources>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--#region Keyword-->
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Text="{x:Static properties:Resources.Keyword}" />
+        <metro:PromptTextBox Grid.Row="0"
+                             Grid.Column="1"
+                             Width="160"
+                             Height="30"
+                             Margin="5"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Center"
+                             Prompt="{x:Static properties:Resources.Keyword}"
+                             Text="{Binding Keyword.Value,
+                                            UpdateSourceTrigger=PropertyChanged}" />
+        <!--#endregion-->
+        <!--#region IsRegexMode-->
+        <CheckBox Grid.Row="1"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  VerticalAlignment="Center"
+                  Content="{x:Static properties:Resources.RegexMode}"
+                  IsChecked="{Binding IsRegexMode.Value}" />
+        <!--#endregion-->
+
+        <!-- Footer -->
+        <Button Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Width="120"
+                Height="25"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Command="{Binding RegisterCommand}"
+                Content="{x:Static properties:Resources.Register}" />
+    </Grid>
+</UserControl>

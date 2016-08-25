@@ -54,7 +54,6 @@
             <RowDefinition Height="150" />
             <RowDefinition Height="23" />
         </Grid.RowDefinitions>
-
         <Border Grid.Row="0"
                 metro:MetroWindow.IsCaptionBar="True">
             <Grid>
@@ -116,10 +115,8 @@
                 </StackPanel>
             </Grid>
         </Border>
-        <controls:AbemaHost Grid.Row="1"
-                            DataContext="{Binding HostViewModel}" />
-        <controls:AbemaTVGuide Grid.Row="2"
-                               DataContext="{Binding TvGuideViewModel}" />
+        <controls:AbemaHost Grid.Row="1" />
+        <controls:AbemaTVGuide Grid.Row="2" />
         <Grid Grid.Row="3"
               Background="{DynamicResource AccentBrushKey}">
             <Grid.ColumnDefinitions>
@@ -128,8 +125,7 @@
             </Grid.ColumnDefinitions>
             <controls:AbemaStatus Grid.Column="0"
                                   Margin="5,0,0,0"
-                                  VerticalAlignment="Center"
-                                  DataContext="{Binding StatusBar}" />
+                                  VerticalAlignment="Center" />
             <metro:ResizeGrip Grid.Column="1" />
         </Grid>
     </Grid>
