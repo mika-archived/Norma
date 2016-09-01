@@ -2,9 +2,7 @@
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading;
-
-using CefSharp;
-using CefSharp.Wpf;
+using System.Windows.Controls;
 
 using Newtonsoft.Json.Linq;
 
@@ -65,7 +63,9 @@ namespace Norma.ViewModels.Controls
             }
             while (_javaScritHost == null);
             using (var connection = _databaseService.Connect())
+            {
                 _abemaState.CurrentChannel = connection.Channels.AsNoTracking().Single(w => w.ChannelId == channel);
+            }
         }
 
         #endregion
@@ -84,16 +84,15 @@ namespace Norma.ViewModels.Controls
             base.Dispose();
 
             WebBrowser.Dispose();
-            Cef.Shutdown();
         }
 
         #endregion
 
         #region WebBrowser
 
-        private IWpfWebBrowser _webBrowser;
+        private WebBrowser _webBrowser;
 
-        public IWpfWebBrowser WebBrowser
+        public WebBrowser WebBrowser
         {
             get { return _webBrowser; }
             set

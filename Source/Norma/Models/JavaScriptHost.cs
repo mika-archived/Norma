@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Reactive.Linq;
-
-using CefSharp;
-using CefSharp.Wpf;
+using System.Windows.Controls;
 
 using Microsoft.Practices.ServiceLocation;
 
@@ -23,17 +20,16 @@ namespace Norma.Models
     {
         private readonly Configuration _configuration;
         private readonly StatusService _statusService;
-        private readonly IWpfWebBrowser _wpfWebBrowser;
+        private readonly WebBrowser _wpfWebBrowser;
 
-        public JavaScriptHost(IWpfWebBrowser wpfWebBrowser)
+        public JavaScriptHost(WebBrowser wpfWebBrowser)
         {
             _wpfWebBrowser = wpfWebBrowser;
             _configuration = ServiceLocator.Current.GetInstance<Configuration>();
             _statusService = ServiceLocator.Current.GetInstance<StatusService>();
-            _wpfWebBrowser.ConsoleMessage += (sender, e) => Debug.WriteLine("[Chromium]" + e.Message);
-            _wpfWebBrowser.FrameLoadEnd += (sender, e) =>
+            _wpfWebBrowser.LoadCompleted += (sender, e) =>
             {
-                if (!e.Url.StartsWith("https://abema.tv/now-on-air/"))
+                if (!e.Uri.ToString().StartsWith("https://abema.tv/now-on-air/"))
                     return;
                 var delay = (double) _configuration.Root.Operation.Delay;
                 Observable.Return(0).Delay(TimeSpan.FromMilliseconds(delay)).Subscribe(w => Run());
@@ -134,7 +130,7 @@ if (shouldExecute) {{
         {
             try
             {
-                _wpfWebBrowser.ExecuteScriptAsync(jsCode);
+                _wpfWebBrowser.Source = new Uri($"javascript:{Uri.EscapeDataString(jsCode)}");
             }
             catch (Exception)
             {
