@@ -221,6 +221,7 @@
     <Compile Include="Converters\ReverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Models\AbemaState.cs" />
     <Compile Include="AppInitializer.cs" />
+    <Compile Include="Models\Browser\BrowserEmuration.cs" />
     <Compile Include="Models\Browser\CefSetting.cs" />
     <Compile Include="Models\Browser\ApiResourceHandler.cs" />
     <Compile Include="Models\Browser\CookieMonster.cs" />

@@ -32,7 +32,7 @@ namespace Norma
             if (!Directory.Exists(NormaConstants.CrashReportsDir))
                 Directory.CreateDirectory(NormaConstants.CrashReportsDir);
 
-            CefSetting.Init();
+            BrowserEmuration.Register();
             ThemeService.Current.Register(application, Theme.Dark, Accent.Blue);
         }
 
