@@ -213,7 +213,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Behaviors\CaptureHttpRequestBehavior.cs" />
+    <Compile Include="Behaviors\BindingSourceBehavior.cs" />
+    <Compile Include="Behaviors\BindingWebBrowserBehavior.cs" />
+    <Compile Include="Behaviors\CaptureBrowserNetworkBehavior.cs" />
     <Compile Include="Behaviors\HorizontalScrollBehavior.cs" />
     <Compile Include="Behaviors\KeepAspectRatioBehavior.cs" />
     <Compile Include="Bootstrapper.cs" />
@@ -222,10 +224,9 @@
     <Compile Include="Models\AbemaState.cs" />
     <Compile Include="AppInitializer.cs" />
     <Compile Include="Models\Browser\BrowserEmuration.cs" />
-    <Compile Include="Models\Browser\CefSetting.cs" />
     <Compile Include="Models\Browser\ApiResourceHandler.cs" />
-    <Compile Include="Models\Browser\CookieMonster.cs" />
-    <Compile Include="Models\Browser\HttpResourceHandlerFactory.cs" />
+    <Compile Include="Models\Browser\HttpResourceDistributor.cs" />
+    <Compile Include="Models\Browser\IHttpResourceHandler.cs" />
     <Compile Include="Models\Browser\VideoResourceHandler.cs" />
     <Compile Include="Models\AbemaChannel.cs" />
     <Compile Include="Models\CommentHost.cs" />
@@ -439,6 +440,10 @@
     <ProjectReference Include="..\Norma.Gamma\Norma.Gamma.csproj">
       <Project>{3548e32a-9374-45a5-9d37-8bde1520b055}</Project>
       <Name>Norma.Gamma</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Norma.Theta\Norma.Theta.vcxproj">
+      <Project>{36408b86-a790-4a98-96dd-8a40bce6ee72}</Project>
+      <Name>Norma.Theta</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

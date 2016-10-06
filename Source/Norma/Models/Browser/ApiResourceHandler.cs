@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
-using CefSharp;
 
 using Microsoft.Practices.ServiceLocation;
 
@@ -14,7 +11,7 @@ using Norma.Gamma;
 
 namespace Norma.Models.Browser
 {
-    internal class ApiResourceHandler : ResourceHandler
+    internal class ApiResourceHandler : IHttpResourceHandler // : ResourceHandler
     {
         private readonly NetworkHandler _networkHandler;
 

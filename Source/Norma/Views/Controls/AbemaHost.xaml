@@ -37,7 +37,12 @@
                     <behaviors:KeepAspectRatioBehavior Target="WebBrowser2" />
                 </i:Interaction.Behaviors>
                 <WebBrowser HorizontalAlignment="Center"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center">
+                    <i:Interaction.Behaviors>
+                        <behaviors:BindingSourceBehavior Source="{Binding Address, Mode=TwoWay}" />
+                        <behaviors:BindingWebBrowserBehavior WebBrowser="{Binding WebBrowser}" />
+                    </i:Interaction.Behaviors>
+                </WebBrowser>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>

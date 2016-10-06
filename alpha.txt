@@ -10,6 +10,8 @@ Norma.Ipsilon ... EXE - 常駐型通知用
 
 Norma.Delta ..... DLL - データベース関連ライブラリ
 
-Norma.Mu ........ EXE - 移行用アプリ
+Norma.Mu ........ EXE - 移行用アプリ (WIP)
 
-Norma.Kappa ..... EXE - アップデータ
+Norma.Kappa ..... EXE - アップデータ (WIP)
+
+Norma.Theta ..... DLL - WebBrowser (IEComponent) COM ライブラリ

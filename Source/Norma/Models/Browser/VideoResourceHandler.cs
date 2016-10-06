@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
-
-using CefSharp;
 
 using Microsoft.Practices.ServiceLocation;
 
@@ -17,7 +14,7 @@ using Norma.Gamma;
 namespace Norma.Models.Browser
 {
     // 強制画質変更
-    internal class VideoResourceHandler : ResourceHandler
+    internal class VideoResourceHandler : IHttpResourceHandler //: ResourceHandler
     {
         private readonly OperationConfig _config;
         private readonly Regex _pattern = new Regex(@"[0-9]{3,4}");
