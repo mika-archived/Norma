@@ -107,4 +107,3 @@ Copy-Item -Path "Assemblies\$arch\SQLite.Interop.dll" -Destination "$main_dir\SQ
 
 Cleanup $main_dir
 Process $main_dir $artifact
-Push-AppveyorArtifact "$bin_dir\$artifact" -FileName $artifact -DeploymentName $deployment_name
