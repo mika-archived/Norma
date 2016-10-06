@@ -2,10 +2,14 @@ Norma
 ----
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/fuyuno/norma/develop.svg?style=flat-square)](https://ci.appveyor.com/project/fuyuno/norma)
 [![GitHub release](https://img.shields.io/github/release/fuyuno/norma.svg?maxAge=1800&style=flat-square)](https://github.com/fuyuno/Norma/releases/latest)
-[![Github All Releases](https://img.shields.io/github/downloads/fuyuno/norma/total.svg?maxAge=1800&style=flat-square)](https://github.com/fuyuno/Norma/releases)
 [![license](https://img.shields.io/github/license/fuyuno/norma.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/blob/develop/LICENSE)
 
-"Norma" は [AbemaTV](https://abema.tv) の非公式デスクトップアプリケーションです。.  
+
+現在バイナリファイルは公開しておりません。  
+ソースコードのみ公開しておりますが、 *AbemaTV inc. から何らかの連絡があった場合は、公開を停止します。*  
+
+
+"Norma" は [AbemaTV](https://abema.tv) の非公式デスクトップアプリケーションです。  
 [AbemaTV FRESH!](https://abemafresh.tv) は **サポートしていません。**  
 Readme english version is [here](README.en.md).
 
@@ -45,19 +49,15 @@ Norma のインストール方法: [Wiki](https://github.com/fuyuno/Norma/wiki/H
 
 
 ## サポート
-Twitter ハッシュタグ [#Norma](https://twitter.com/search?f=tweets&vertical=default&q=%23Norma%20lang%3Aja&src=typd) でつぶやくか、メンションで反応します。  
+*完全に自己責任でご利用ください。*  
+*サポートは行っておりません。*
 
 ### サポート対象
 #### Norma
 
 | Version | Status      |
 | ------- | ----------- |
-| 2.0     | Support     |
-| 1.4     | Support     |
-| 1.3     | Unsupported |
-| 1.2     | Unsupported |
-| 1.1     | Unsupported |
-| 1.0     | Unsupported |
+| n/a     | Unsupported |
 
 
 #### Windows

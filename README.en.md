@@ -2,8 +2,12 @@ Norma
 ----
 [![AppVeyor branch](https://img.shields.io/appveyor/ci/fuyuno/norma/develop.svg?style=flat-square)](https://ci.appveyor.com/project/fuyuno/norma)
 [![GitHub release](https://img.shields.io/github/release/fuyuno/norma.svg?maxAge=1800&style=flat-square)](https://github.com/fuyuno/Norma/releases/latest)
-[![Github All Releases](https://img.shields.io/github/downloads/fuyuno/norma/total.svg?maxAge=1800&style=flat-square)](https://github.com/fuyuno/Norma/releases)
 [![license](https://img.shields.io/github/license/fuyuno/norma.svg?maxAge=2592000&style=flat-square)](https://github.com/fuyuno/Norma/blob/develop/LICENSE)
+
+
+*I'm not published binary packages.*  
+*When contact me from AbemaTV inc, I stop publishing this application.*
+
 
 "Norma" is unoffcial desktop application for [AbemaTV](https://abema.tv).  
 This application **does not** support [AbemaTV FRESH!](https://abemafresh.tv).  
@@ -45,19 +49,15 @@ See [this page](https://github.com/fuyuno/Norma/wiki/How-to-use).
 
 
 # Support
-Tweet with hashtag "[#Norma](https://twitter.com/search?f=tweets&vertical=default&q=%23Norma%20lang%3Aja&src=typd)" or send reply to me.
+*I am not supported this application.*  
+*Please use self-responsibility.*
 
 ### Support target
 #### Norma
 
 | Version | Status      |
 | ------- | ----------- |
-| 2.0     | Support     |
-| 1.4     | Support     |
-| 1.3     | Unsupported |
-| 1.2     | Unsupported |
-| 1.1     | Unsupported |
-| 1.0     | Unsupported |
+| n/a     | Unsupported |
 
 
 #### Windows
