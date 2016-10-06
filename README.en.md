@@ -37,12 +37,6 @@ Crash or could not launch: [Wiki](https://github.com/fuyuno/Norma/wiki/Norma-has
 3. Run `Norma.exe`.
 4. Enjoy AbemaTV!
 
-If you want to use latest build, please download [here](https://ci.appveyor.com/project/fuyuno/norma).  
-
-1. If you use 64-bit architecture, please select `Platform: x64`.
-2. Select `ARTIFACTS` tab.
-3. Click `Norma\bin\x64\Norma.zip`.
-
 
 ## How to use
 See [this page](https://github.com/fuyuno/Norma/wiki/How-to-use).

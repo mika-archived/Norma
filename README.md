@@ -37,12 +37,6 @@ Norma のインストール方法: [Wiki](https://github.com/fuyuno/Norma/wiki/H
 3. `Norma.exe` を起動します。
 4. Enjoy AbemaTV!
 
-最新ビルドを使用したい場合は, [こちら](https://ci.appveyor.com/project/fuyuno/norma)からダウンロードしてください。   
-
-1. 64-bit アーキテクチャを使用しているならば, `Platform: x64` を選択します。
-2. `ARTIFACTS` タブを選択します。
-3. `Norma\bin\x64\Norma.zip` をクリックします。
-
 
 ## 使い方
 [このページ](https://github.com/fuyuno/Norma/wiki/How-to-use) を見てください。
